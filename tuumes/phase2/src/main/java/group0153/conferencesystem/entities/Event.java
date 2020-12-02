@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
-    private String description; // description of the event
-    private Date startTime; // start time of event
-    private Date endTime; // end time of event
-    private int userLimit; // maximum amount of people allowed at this event
-    private int userCount; // number of people currently scheduled to go to this event
-    private final String id;
-    private final ArrayList<String> userIds;
-    private ArrayList<String> speakerIds;
-    private Room room; // room number where the event take place
+    private String description;                   // description of the event.
+    private Date startTime;                       // start time of event.
+    private Date endTime;                         // end time of event.
+    private int userLimit;                        // maximum amount of people allowed at this event.
+    private int userCount;                        // number of people currently scheduled to go to this event.
+    private final String id;                      // id of this event.
+    private final ArrayList<String> userIds;      // list of ids of the users registered to this event.
+    private ArrayList<String> speakerIds;         // list of ids of the speakers of this event.
+    private Room room;                            // room number where the event take place.
+    private boolean isVipOnlyEvent;               // whether this event is VIP-only.
 
     public Event(Date startTime, Date endTime, String id, int userLimit, ArrayList<String> speakerIds, Room room) {
         this.description = "No description available yet.";
@@ -24,6 +25,7 @@ public class Event {
         this.userIds = new ArrayList<>();
         this.speakerIds = speakerIds;
         this.room = room;
+        this.isVipOnlyEvent = false;
     }
 
     /**
@@ -71,6 +73,13 @@ public class Event {
      */
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    /**
+     * set whether the event is VIP-only.
+     */
+    public void setIsVipOnlyEvent(boolean bool) {
+        this.isVipOnlyEvent = bool;
     }
 
     /**
@@ -128,6 +137,13 @@ public class Event {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * get whether this event is a VIP-only event.
+     */
+    public boolean isVipOnlyEvent() {
+        return isVipOnlyEvent;
     }
 
     /**
