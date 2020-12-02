@@ -19,9 +19,10 @@ public class EventBuilder {
     private Date endTime;                         // end time of event.
     private String roomId;                            // room number where the event take place.
     private int userLimit;                        // maximum amount of people allowed at this event.
-    private int userCount;                        // number of people currently scheduled to go to this event.
-    private ArrayList<String> userIds;      // list of ids of the users registered to this event.
     private boolean isVipOnlyEvent;               // whether this event is VIP-only.
+    private ArrayList<String> speakerIds;
+    private String speakerId;
+
 
     void setId(String id) { this.id = id; }
 
@@ -37,11 +38,11 @@ public class EventBuilder {
 
     void setUserLimit(int userLimit) { this.userLimit = userLimit; }
 
-    void setUserCount(int userCount) { this.userCount = userCount; }
-
-    void setUserIds(ArrayList<String> userIds) { this.userIds = userIds; }
-
     void setIsVipOnlyEvent(boolean isVipOnlyEvent) { this.isVipOnlyEvent = isVipOnlyEvent; }
+
+    void setSpeakerIds(ArrayList<String> speakerIds) { this.speakerIds = speakerIds; }
+
+    void setSpeakerId(String speakerId) { this.speakerId = speakerId; }
 
     /**
      *
@@ -57,11 +58,14 @@ public class EventBuilder {
      */
     public Event build(String eventType) {
         if (eventType.equalsIgnoreCase("MultiSpeakerEvent"))
-            return new MultiSpeakerEvent();
+            return new MultiSpeakerEvent(id, eventName, description, startTime, endTime,
+                    roomId, userLimit, isVipOnlyEvent, speakerIds);
         if (eventType.equalsIgnoreCase("NoSpeakerEvent"))
-            return new NoSpeakerEvent();
+            return new NoSpeakerEvent(id, eventName, description, startTime, endTime,
+                    roomId, userLimit, isVipOnlyEvent);
         if (eventType.equalsIgnoreCase("OneSpeakerEvent"))
-            return new OneSpeakerEvent();
+            return new OneSpeakerEvent(id, eventName, description, startTime, endTime,
+                    roomId, userLimit, isVipOnlyEvent, speakerId);
         return null;
     }
 }
