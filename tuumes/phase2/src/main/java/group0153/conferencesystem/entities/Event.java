@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Event {
+    private final String id;                      // id of this event.
+    private String eventName;                     // name of the event
     private String description;                   // description of the event.
     private Date startTime;                       // start time of event.
     private Date endTime;                         // end time of event.
+    private Room room;                            // room number where the event take place.
+    private ArrayList<String> speakerIds;         // list of ids of the speakers of this event.
     private int userLimit;                        // maximum amount of people allowed at this event.
     private int userCount;                        // number of people currently scheduled to go to this event.
-    private final String id;                      // id of this event.
-    private final ArrayList<String> userIds;      // list of ids of the users registered to this event.
-    private ArrayList<String> speakerIds;         // list of ids of the speakers of this event.
-    private Room room;                            // room number where the event take place.
+    private ArrayList<String> userIds;      // list of ids of the users registered to this event.
     private boolean isVipOnlyEvent;               // whether this event is VIP-only.
 
-    public Event(String id, String description, Date startTime, Date endTime, Room room, ArrayList<String> speakerIds, int userLimit) {
+    public Event(String id, String eventName, String description, Date startTime, Date endTime,
+                 Room room, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) {
         this.id = id;
+        this.eventName = eventName;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -25,9 +28,14 @@ public class Event {
         this.userLimit = userLimit;
         this.userCount = 0;
         this.userIds = new ArrayList<>();
+        this.isVipOnlyEvent = isVipOnlyEvent;
+    }
 
-
-        this.isVipOnlyEvent = false;
+    /**
+     * set the name of the event.
+     */
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     /**
@@ -78,10 +86,24 @@ public class Event {
     }
 
     /**
+     * set the id list of users registered to the event.
+     */
+    public void setUserIds(ArrayList<String> userIds) {
+        this.userIds = userIds;
+    }
+
+    /**
      * set whether the event is VIP-only.
      */
     public void setIsVipOnlyEvent(boolean bool) {
         this.isVipOnlyEvent = bool;
+    }
+
+    /**
+     * get the name of the event
+     */
+    public String getEventName() {
+        return eventName;
     }
 
     /**

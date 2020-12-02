@@ -27,10 +27,19 @@ public class EventManager {
      * @param userLimit the user limit of the event
      * @return the id of the created event
      */
-    public String createEvent(String description, Date startTime, Date endTime, Room room, ArrayList<String> speakerIds, int userLimit){
+    public String createEvent(String eventName,
+                              String description,
+                              Date startTime,
+                              Date endTime,
+                              Room room,
+                              ArrayList<String> speakerIds,
+                              int userLimit,
+                              boolean isVipOnlyEvent){
         String id = UUID.randomUUID().toString();
-        Event event = new Event(id, description, startTime, endTime, room, speakerIds, userLimit);
+        Event event = new Event(eventName, id, description, startTime, endTime, room, speakerIds, userLimit, isVipOnlyEvent);
         eventPersistencePort.saveEvent(event);
         return id;
     }
+
+    //TODO: more event manager methods here
 }
