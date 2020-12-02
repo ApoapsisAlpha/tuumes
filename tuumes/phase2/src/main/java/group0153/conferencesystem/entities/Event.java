@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Event {
-    private final String id;                      // id of this event.
+    private String id;                      // id of this event.
     private String eventName;                     // name of the event
     private String description;                   // description of the event.
     private Date startTime;                       // start time of event.
