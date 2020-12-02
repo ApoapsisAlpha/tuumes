@@ -15,16 +15,18 @@ public class Event {
     private Room room;                            // room number where the event take place.
     private boolean isVipOnlyEvent;               // whether this event is VIP-only.
 
-    public Event(Date startTime, Date endTime, String id, int userLimit, ArrayList<String> speakerIds, Room room) {
-        this.description = "No description available yet.";
+    public Event(String id, String description, Date startTime, Date endTime, Room room, ArrayList<String> speakerIds, int userLimit) {
+        this.id = id;
+        this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.id = id;
+        this.room = room;
+        this.speakerIds = speakerIds;
         this.userLimit = userLimit;
         this.userCount = 0;
         this.userIds = new ArrayList<>();
-        this.speakerIds = speakerIds;
-        this.room = room;
+
+
         this.isVipOnlyEvent = false;
     }
 
@@ -158,6 +160,20 @@ public class Event {
      */
     public void removeUserId(String userId){
         this.userIds.remove(new String(userId));
+    }
+
+    /**
+     * add speaker to this event.
+     */
+    public void addSpeakerId(String speakerId){
+        this.speakerIds.add(speakerId);
+    }
+
+    /**
+     * remove speaker from this event.
+     */
+    public void removeSpeakerId(String speaker){
+        this.speakerIds.remove(new String(speaker));
     }
 
     /**
