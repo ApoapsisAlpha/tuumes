@@ -1,7 +1,5 @@
 package group0153.conferencesystem.adapters.gateways;
 
-import group0153.conferencesystem.entities.Room;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +14,6 @@ public class EventModel {
     private String description;
     private Date startTime;
     private Date endTime;
-    private Room room;
     private ArrayList<String> speakerIds;
     private int userLimit;
     private int userCount;
@@ -25,13 +22,12 @@ public class EventModel {
 
     public EventModel(){}
 
-    public EventModel(String resourceId, String eventName, String description, Date startTime, Date endTime, Room room, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent){
+    public EventModel(String resourceId, String eventName, String description, Date startTime, Date endTime, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent){
         this.resourceId = resourceId;
         this.eventName = eventName;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.room = room;
         this.speakerIds = speakerIds;
         this.userLimit = userLimit;
         this.userCount = 0;
@@ -57,10 +53,6 @@ public class EventModel {
 
     public Date getEndTime() {
         return endTime;
-    }
-
-    public Room getRoom() {
-        return room;
     }
 
     public ArrayList<String> getSpeakerIds() {

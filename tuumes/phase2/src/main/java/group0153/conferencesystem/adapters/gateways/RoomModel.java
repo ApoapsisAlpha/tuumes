@@ -25,10 +25,6 @@ public class RoomModel {
         return resourceId;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getCapacity() {
         return capacity;
     }

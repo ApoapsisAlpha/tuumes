@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Component
 public class EventManager {
-
     EventPersistencePort eventPersistencePort;
 
     public EventManager(EventPersistencePort eventPersistencePort) {

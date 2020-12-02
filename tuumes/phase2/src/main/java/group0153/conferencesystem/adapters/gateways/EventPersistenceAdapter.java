@@ -2,7 +2,9 @@ package group0153.conferencesystem.adapters.gateways;
 
 import group0153.conferencesystem.application.EventPersistencePort;
 import group0153.conferencesystem.entities.Event;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EventPersistenceAdapter implements EventPersistencePort {
     private  EventRepository eventRepository;
 
@@ -18,7 +20,6 @@ public class EventPersistenceAdapter implements EventPersistencePort {
                 event.getDescription(),
                 event.getStartTime(),
                 event.getEndTime(),
-                event.getRoom(),
                 event.getSpeakerIds(),
                 event.getUserLimit(),
                 event.isVipOnlyEvent());
