@@ -30,12 +30,12 @@ public class EventManager {
                               String description,
                               Date startTime,
                               Date endTime,
-                              Room room,
+                              String room,
                               ArrayList<String> speakerIds,
                               int userLimit,
                               boolean isVipOnlyEvent){
         String id = UUID.randomUUID().toString();
-        Event event = new Event(eventName, id, description, startTime, endTime, room, speakerIds, userLimit, isVipOnlyEvent);
+        Event event = new Event(eventName, id, description, startTime, endTime, room, userLimit, isVipOnlyEvent);
         eventPersistencePort.saveEvent(event);
         return id;
     }
