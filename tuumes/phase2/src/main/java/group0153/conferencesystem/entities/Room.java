@@ -14,14 +14,39 @@ public class Room {
         this.capacity = capacity;
     }
 
+    /**
+     * set the name of the room
+     * @param name name to set for the room
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * set the capacity of the room
+     * @param capacity capacity to set for the room
+     */
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    /**
+     * @return the id of the room
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @return the name of the room
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the capacity of the room
+     */
     public int getCapacity() {
         return capacity;
     }
