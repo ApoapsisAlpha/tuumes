@@ -27,6 +27,13 @@ public class Event {
     }
 
     /**
+     * set the description of the event.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * set the start time of the event.
      */
     public void setStartTime(Date startTime) {
@@ -37,6 +44,34 @@ public class Event {
      * set the end time of the event.
      */
     public void setEndTime(Date endTime) { this.endTime = endTime; }
+
+    /**
+     * set the user limit of the event.
+     */
+    public void setUserLimit(int userLimit) {
+        this.userLimit = userLimit;
+    }
+
+    /**
+     * set the number of users currently registered to the event.
+     */
+    public void setUserCount(int userCount) {
+        this.userCount = userCount;
+    }
+
+    /**
+     * set the id list of the speakers of the event.
+     */
+    public void setSpeakerIds(ArrayList<String> speakerIds) {
+        this.speakerIds = speakerIds;
+    }
+
+    /**
+     * set the room of the event.
+     */
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     /**
      * get the start time of the event.
@@ -75,6 +110,13 @@ public class Event {
     }
 
     /**
+     * get a id list of the speakers of this event.
+     */
+    public ArrayList<String> getSpeakerIds() {
+        return speakerIds;
+    }
+
+    /**
      * get the room id of this event.
      */
     public Room getRoom() {
@@ -93,6 +135,29 @@ public class Event {
      */
     public void addUserId(String userId){
         this.userIds.add(userId);
+    }
+
+    /**
+     * remove userId from this event.
+     */
+    public void removeUserId(String userId){
+        this.userIds.remove(new String(userId));
+    }
+
+    /**
+     * increase the capacity of the event by amount.
+     * @param amount: the amount to increase.
+     */
+    public void increaseUserCount(int amount) {
+        this.userCount += amount;
+    }
+
+    /**
+     * decrease the capacity of the event by amount.
+     * @param amount: the amount to decrease.
+     */
+    public void decreaseUserCount(int amount) {
+        this.userCount -= amount;
     }
 
     /**
