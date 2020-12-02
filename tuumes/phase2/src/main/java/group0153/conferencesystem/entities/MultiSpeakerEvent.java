@@ -1,11 +1,18 @@
 package group0153.conferencesystem.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MultiSpeakerEvent extends Event {
     private ArrayList<String> speakerIds;
 
     public ArrayList<String> getSpeakerIds;
+
+    public MultiSpeakerEvent(String id, String eventName, String description, Date startTime, Date endTime,
+                             String room, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds) {
+        super(id, eventName, description, startTime, endTime, room, userLimit, isVipOnlyEvent);
+        this.speakerIds = speakerIds;
+    }
 
     /**
      *
