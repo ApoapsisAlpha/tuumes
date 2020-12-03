@@ -24,4 +24,14 @@ public class OneRecipientMessage extends Message{
     public String getRecipientId() {
         return recipientId;
     }
+
+    /**
+     * Getter for recipient id
+     * @return Arraylist of recipient id
+     */
+    public ArrayList<String> getRecipientIds() {
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add(recipientId);
+        return temp;
+    }
 }
