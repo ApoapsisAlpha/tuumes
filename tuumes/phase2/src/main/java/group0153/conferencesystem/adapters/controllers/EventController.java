@@ -14,10 +14,10 @@ import java.util.Date;
 @RestController
 public class EventController {
 
-    private EventManager eventManager;
-    private EventBuilder eventBuilder;
-    private EventRegistry eventRegistry;
-    private EventScheduler eventScheduler;
+    private final EventManager eventManager;
+    private final EventBuilder eventBuilder;
+    private final EventRegistry eventRegistry;
+    private final EventScheduler eventScheduler;
 
     public EventController(EventManager eventManager) {
         ArrayList<Event> events = new ArrayList<Event>();

@@ -67,11 +67,36 @@ public class EventBuilder {
         this.setUserLimit(userLimit);
         this.setIsVipOnlyEvent(isVipOnlyEvent);
     }
+
+    /**
+     *
+     * @param id The id to be set.
+     * @param eventName The eventName to be set.
+     * @param description The event description to be set.
+     * @param startTime The start time of the event to be set.
+     * @param endTime The end time of the event to be set.
+     * @param roomId The roomId associated with this event to be set.
+     * @param userLimit The user limit of this event to be set.
+     * @param isVipOnlyEvent Whether this event is set as vip only or not.
+     * @param speakerIds A list of the speaker ids of this event to be set.
+     */
     public void setEventAttributes(String id, String eventName, String description, Date startTime, Date endTime,
                                     String roomId, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds) {
         setEventAttributes(id, eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
         this.setSpeakerIds(speakerIds);
     }
+    /**
+     *
+     * @param id The id to be set.
+     * @param eventName The eventName to be set.
+     * @param description The event description to be set.
+     * @param startTime The start time of the event to be set.
+     * @param endTime The end time of the event to be set.
+     * @param roomId The roomId associated with this event to be set.
+     * @param userLimit The user limit of this event to be set.
+     * @param isVipOnlyEvent Whether this event is set as vip only or not.
+     * @param speakerId The speaker id of this event to be set.
+     */
     public void setEventAttributes(String id, String eventName, String description, Date startTime, Date endTime,
                                     String roomId, int userLimit, boolean isVipOnlyEvent, String speakerId) {
         setEventAttributes(id, eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);

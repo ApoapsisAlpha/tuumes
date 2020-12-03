@@ -9,6 +9,10 @@ import java.util.ArrayList;
 public class EventRegistry {
     private final ArrayList<Event> events;
 
+    /**
+     *
+     * @param events The list of events that are currently scheduled.
+     */
     public EventRegistry(ArrayList<Event> events) {
         this.events = events;
     }
