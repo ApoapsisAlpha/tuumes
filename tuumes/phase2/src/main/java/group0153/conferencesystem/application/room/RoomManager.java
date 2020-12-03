@@ -7,7 +7,6 @@ import java.util.UUID;
 
 @Component
 public class RoomManager {
-
     RoomPersistencePort roomPersistencePort;
 
     public RoomManager(RoomPersistencePort roomPersistencePort) {

@@ -9,9 +9,7 @@ import java.util.HashSet;
 
 @Entity
 public class UserModel {
-    private @Id
-    @GeneratedValue
-    Long id;
+    private @Id @GeneratedValue Long id;
     private String resourceId;
     private String name;
     private String email;
@@ -20,12 +18,6 @@ public class UserModel {
     private HashSet<String> events;
     private HashSet<String> contacts;
     private HashSet<String> messages;
-
-    /**
-     * Constructs an instance of UserModel
-     */
-    public UserModel() {
-    }
 
     /**
      * Constructs an instance of UserModel using the provided information

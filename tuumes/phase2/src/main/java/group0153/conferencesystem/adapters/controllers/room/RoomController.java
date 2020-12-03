@@ -1,11 +1,14 @@
 package group0153.conferencesystem.adapters.controllers.room;
 
+import group0153.conferencesystem.application.Response;
 import group0153.conferencesystem.application.room.RoomManager;
-import group0153.conferencesystem.entities.room.Room;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 public class RoomController {
@@ -22,7 +25,14 @@ public class RoomController {
     }
 
     @GetMapping("/test")
-    Object test() {
-        return new Room("dsfsdfg", "name", 69);
+    public ResponseEntity<HashMap<String, String>> test(@RequestParam(value = "name") String name) {
+        if (name.equals("makan")) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } else {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("you", name);
+            hashMap.put("me", "makan");
+            return new ResponseEntity<>(hashMap, HttpStatus.OK);
+        }
     }
 }
