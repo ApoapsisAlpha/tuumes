@@ -3,7 +3,7 @@ package group0153.conferencesystem.entities;
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Event {
+public abstract class Event implements Comparable<Event> {
     private String id;                      // id of this event.
     private String eventName;                     // name of the event
     private String description;                   // description of the event.
@@ -194,5 +194,12 @@ public abstract class Event {
     public String toString() {
         return "(" + id + ") " + description + " | " + startTime.toString() + " - " + endTime.toString() + " | Capacity: "  + userCount + "/" +
                 userLimit + " spots.";
+    }
+
+    @Override
+    public int compareTo(Event otherEvent) {
+        if (this.startTime.before(otherEvent.startTime)) return -1;
+        if (this.startTime.equals(otherEvent.startTime)) return 0;
+        return 1;
     }
 }
