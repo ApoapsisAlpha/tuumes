@@ -16,13 +16,13 @@ public abstract class Event {
     private boolean isVipOnlyEvent;               // whether this event is VIP-only.
 
     public Event(String id, String eventName, String description, Date startTime, Date endTime,
-                 String room, int userLimit, boolean isVipOnlyEvent) {
+                 String roomId, int userLimit, boolean isVipOnlyEvent) {
         this.id = id;
         this.eventName = eventName;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.roomId = room;
+        this.roomId = roomId;
         this.userLimit = userLimit;
         this.userCount = 0;
         this.userIds = new ArrayList<>();

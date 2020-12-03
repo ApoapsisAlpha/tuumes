@@ -21,7 +21,7 @@ public class MultiSpeakerEvent extends Event {
      */
     public String addSpeakerId(String speakerId) {
         this.speakerIds.add(speakerId);
-        return "The speaker has been added successfully to this event.";
+        return "The speaker has been added successfully to this multi-speaker event.";
     }
     public void removeSpeakerId(String speakerId) { this.speakerIds.remove(speakerId); }
 }

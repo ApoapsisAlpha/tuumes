@@ -39,6 +39,9 @@ public class EventManager {
 //        eventPersistencePort.saveEvent(event);
 //        return id;
 //    }
+    public String scheduleEvent() {
+
+    }
 
     //TODO: more event manager methods here
 }
