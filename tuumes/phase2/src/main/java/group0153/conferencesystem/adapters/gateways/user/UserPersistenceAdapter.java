@@ -4,6 +4,9 @@ import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class UserPersistenceAdapter implements UserPersistencePort {
     private final UserRepository userRepository;
@@ -27,5 +30,25 @@ public class UserPersistenceAdapter implements UserPersistencePort {
         UserModel userModel = new UserModel(user.getId(), user.getName(), user.getEmail(), user.getPassword(),
                 user.getType(), user.getEvents(), user.getContacts(), user.getMessages());
         userRepository.save(userModel);
+    }
+
+    /**
+     * Finds a user based on their email.
+     * @param email The users email.
+     *
+     * @return List of users that match the email.
+     */
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        // TODO: 12/3/2020 @david plz fix 
+        List<UserModel> usersWithEmail = userRepository.findByEmail(email);
+        if (usersWithEmail.isEmpty())
+            return Optional.empty();
+        else {
+            UserModel userModel = usersWithEmail.get(0);
+            User user = new User.Builder().name(userModel.getName()).email(userModel.getEmail()).
+                    password(userModel.getPassword()).type(userModel.getType()).build();
+            return Optional.of(user);
+        }
     }
 }

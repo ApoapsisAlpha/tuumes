@@ -11,10 +11,6 @@ public class RoomModel {
     private String name;
     private int capacity;
 
-    public RoomModel() {
-
-    }
-
     public RoomModel(String resourceId, String name, int capacity) {
         this.resourceId = resourceId;
         this.name = name;

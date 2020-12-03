@@ -6,13 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 public class RoomController {
-
     private RoomManager roomManager;
 
     public RoomController(RoomManager roomManager) {
@@ -26,6 +23,7 @@ public class RoomController {
 
     @GetMapping("/test")
     public ResponseEntity<HashMap<String, String>> test(@RequestParam(value = "name") String name) {
+        // TODO: 12/3/2020 get rid of this 
         if (name.equals("makan")) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } else {
