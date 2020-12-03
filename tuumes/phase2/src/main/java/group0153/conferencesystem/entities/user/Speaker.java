@@ -1,0 +1,50 @@
+package group0153.conferencesystem.entities.user;
+
+import group0153.conferencesystem.entities.user.User;
+import group0153.conferencesystem.entities.user.UserType;
+
+import java.util.ArrayList;
+
+public class Speaker extends User {
+    private final ArrayList<String> speakingEventIds;
+
+    /**
+     * Constructor that initiates a Speaker instance.
+     *
+     * @param name     name of the speaker.
+     * @param email    email of the speaker.
+     * @param password password of the speaker account.
+     */
+    public Speaker(String name, String email, String password) {
+        super(name, email, password);
+        type = UserType.SPEAKER;
+        this.speakingEventIds = new ArrayList<>();
+    }
+
+    /**
+     * Return the list of ids of Events that this speaker is speaking at.
+     *
+     * @return get list of event ids this speaker is speaking.
+     */
+    public ArrayList<String> getSpeakingEventIds() {
+        return this.speakingEventIds;
+    }
+
+    /**
+     * add an event id to the list of event ids this speaker is speaking.
+     *
+     * @param id the event id to add.
+     */
+    public void addSpeakingEventById(String id) {
+        this.speakingEventIds.add(id);
+    }
+
+    /**
+     * remove an event id from the list of event ids this speaker is speaking.
+     *
+     * @param id the event id to remove.
+     */
+    public void removeSpeakingEventById(String id) {
+        this.speakingEventIds.remove(id);
+    }
+}
