@@ -2,6 +2,8 @@ package group0153.conferencesystem.adapters.controllers;
 
 import group0153.conferencesystem.application.EventBuilder;
 import group0153.conferencesystem.application.EventManager;
+import group0153.conferencesystem.application.EventRegistry;
+import group0153.conferencesystem.application.EventScheduler;
 import group0153.conferencesystem.entities.Event;
 import group0153.conferencesystem.entities.MultiSpeakerEvent;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,24 +16,28 @@ public class EventController {
 
     private EventManager eventManager;
     private EventBuilder eventBuilder;
+    private EventRegistry eventRegistry;
+    private EventScheduler eventScheduler;
 
     public EventController(EventManager eventManager) {
+        ArrayList<Event> events = new ArrayList<Event>();
+        this.eventRegistry = new EventRegistry(events);
+        this.eventScheduler = new EventScheduler(events);
         this.eventManager = eventManager;
         this.eventBuilder = new EventBuilder();
     }
 
-//    @PostMapping("/events")
-//    String createEvent(@RequestBody EventResource event) {
-//        return eventManager.createEvent(
-//                event.getEventName(),
-//                event.getDescription(),
-//                event.getStartTime(),
-//                event.getEndTime(),
-//                event.getRoom(),
-//                event.getSpeakerIds(),
-//                event.getUserLimit(),
-//                event.isVipOnlyEvent());
-//    }
+    /**
+     *
+     * @param eventManager
+     * @param events A list of the
+     */
+    public EventController(EventManager eventManager, ArrayList<Event> events) {
+        this.eventRegistry = new EventRegistry(events);
+        this.eventScheduler = new EventScheduler(events);
+        this.eventManager = eventManager;
+        this.eventBuilder = new EventBuilder();
+    }
 
     /**
      *
