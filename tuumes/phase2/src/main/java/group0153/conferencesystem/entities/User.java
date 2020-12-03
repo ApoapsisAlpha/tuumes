@@ -168,6 +168,25 @@ public class User {
     }
 
     /**
+     * Get password of this user
+     *
+     * @return string value of password
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Get HashSet containing message ids
+     *
+     * @return HashSet of ids of messages sent to this user
+     */
+    public HashSet<String> getMessages() {
+        return this.messages;
+    }
+
+
+    /**
      * Removes the id of the User from the HashMap representing this User's contact list.
      *
      * @param userId the id of the User to remove from the list
