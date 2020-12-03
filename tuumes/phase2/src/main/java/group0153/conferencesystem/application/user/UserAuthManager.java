@@ -25,15 +25,14 @@ public class UserAuthManager {
      * @throws IncorrectLoginException Upon incorrect email or password
      */
     public User login(String email, String password) throws IncorrectLoginException {
-
-        Optional<User> userOptional = userPresistencePort.fion;
+        Optional<User> userOptional = userPresistencePort.findUserByEmail(email);
         if (!userOptional.isPresent())
-            throw new IncorrectLoginException("Incorrect email");
+            throw new IncorrectLoginException("email");
         User user = userOptional.get();
         if (user.isPasswordValid(password))
             return user;
         else
-            throw new IncorrectLoginException("Incorrect password");
+            throw new IncorrectLoginException("password");
     }
 
     /**
