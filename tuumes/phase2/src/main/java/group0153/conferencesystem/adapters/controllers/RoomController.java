@@ -1,6 +1,8 @@
 package group0153.conferencesystem.adapters.controllers;
 
 import group0153.conferencesystem.application.RoomManager;
+import group0153.conferencesystem.entities.Room;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,5 +19,10 @@ public class RoomController {
     @PostMapping("/rooms")
     String createRoom(@RequestBody RoomResource room) {
         return roomManager.createRoom(room.getName(), room.getCapacity());
+    }
+
+    @GetMapping("/test")
+    Object test() {
+        return new Room("dsfsdfg", "name", 69);
     }
 }

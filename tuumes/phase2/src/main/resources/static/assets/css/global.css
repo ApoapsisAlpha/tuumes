@@ -1,3 +1,12 @@
-h1 {
-    font-weight: bold;
+body, button, a, p {
+    font-family: "Roboto", sans-serif;
+}
+
+h1, h5 {
+    font-weight: bold !important;
+    font-family: "Manrope", sans-serif;
+}
+
+label {
+    font-family: "Manrope", sans-serif;
 }
