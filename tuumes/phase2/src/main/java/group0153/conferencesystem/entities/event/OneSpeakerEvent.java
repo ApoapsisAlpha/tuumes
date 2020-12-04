@@ -1,6 +1,6 @@
 package group0153.conferencesystem.entities.event;
 
-import group0153.conferencesystem.entities.event.Event;
+import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,10 +20,8 @@ public class OneSpeakerEvent extends Event {
         return res;
     }
 
-    public String addSpeakerId(String speakerId) {
-        if (this.speakerId.equals("")) return "This event already has a speaker. " +
-                "Please remove the current speaker from this one-speaker event before adding a new speaker.";
+    public void addSpeakerId(String speakerId) throws CommandException {
+        if (!this.speakerId.equals("")) throw new CommandException("This one-speaker event already has a speaker.");
         this.speakerId = speakerId;
-        return "The speaker has been added successfully to this one-speaker event.";
     }
 }

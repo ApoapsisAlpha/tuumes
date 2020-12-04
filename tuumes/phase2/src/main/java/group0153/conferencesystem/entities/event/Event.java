@@ -1,5 +1,7 @@
 package group0153.conferencesystem.entities.event;
 
+import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -29,60 +31,7 @@ public abstract class Event implements Comparable<Event> {
         this.isVipOnlyEvent = isVipOnlyEvent;
     }
 
-    public Event() {}
-
-    /**
-     * set the name of the event.
-     */
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    /**
-     * set the description of the event.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * set the start time of the event.
-     */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    /**
-     * set the end time of the event.
-     */
-    public void setEndTime(Date endTime) { this.endTime = endTime; }
-
-    /**
-     * set the user limit of the event.
-     */
-    public void setUserLimit(int userLimit) {
-        this.userLimit = userLimit;
-    }
-
-    /**
-     * set the number of users currently registered to the event.
-     */
-    public void setUserCount(int userCount) {
-        this.userCount = userCount;
-    }
-
-    /**
-     * set the room of the event.
-     */
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    /**
-     * set the id list of users registered to the event.
-     */
-    public void setUserIds(ArrayList<String> userIds) {
-        this.userIds = userIds;
+    public Event() {
     }
 
     /**
@@ -100,10 +49,24 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
+     * set the name of the event.
+     */
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    /**
      * get the start time of the event.
      */
     public Date getStartTime() {
         return this.startTime;
+    }
+
+    /**
+     * set the start time of the event.
+     */
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     /**
@@ -114,25 +77,59 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
+     * set the end time of the event.
+     */
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    /**
      * get the event id.
      */
-    public String getId() { return this.id; }
+    public String getId() {
+        return this.id;
+    }
 
     /**
      * get the maximum number of attendees allowed of this event.
      */
-    public int getUserLimit() { return this.userLimit; }
+    public int getUserLimit() {
+        return this.userLimit;
+    }
+
+    /**
+     * set the user limit of the event.
+     */
+    public void setUserLimit(int userLimit) {
+        this.userLimit = userLimit;
+    }
 
     /**
      * get the current number of attendees.
      */
-    public int getUserCount() { return this.userCount; }
+    public int getUserCount() {
+        return this.userCount;
+    }
+
+    /**
+     * set the number of users currently registered to the event.
+     */
+    public void setUserCount(int userCount) {
+        this.userCount = userCount;
+    }
 
     /**
      * get a list of the userIds of this event.
      */
     public ArrayList<String> getUserIds() {
         return userIds;
+    }
+
+    /**
+     * set the id list of users registered to the event.
+     */
+    public void setUserIds(ArrayList<String> userIds) {
+        this.userIds = userIds;
     }
 
     /**
@@ -143,10 +140,24 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
+     * set the room of the event.
+     */
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    /**
      * get the description of this event.
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * set the description of the event.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -159,19 +170,20 @@ public abstract class Event implements Comparable<Event> {
     /**
      * add userId to this event.
      */
-    public void addUserId(String userId){
+    public void addUserId(String userId) {
         this.userIds.add(userId);
     }
 
     /**
      * remove userId from this event.
      */
-    public void removeUserId(String userId){
-        this.userIds.remove(new String(userId));
+    public void removeUserId(String userId) {
+        this.userIds.remove(userId);
     }
 
     /**
      * increase the capacity of the event by amount.
+     *
      * @param amount: the amount to increase.
      */
     public void increaseUserCount(int amount) {
@@ -180,19 +192,22 @@ public abstract class Event implements Comparable<Event> {
 
     /**
      * decrease the capacity of the event by amount.
+     *
      * @param amount: the amount to decrease.
      */
     public void decreaseUserCount(int amount) {
         this.userCount -= amount;
     }
 
-    public String addSpeakerId(String speakerId) { return "Sorry, this is not an event with speakers."; }
+    public void addSpeakerId(String speakerId) throws CommandException {
+        throw(new CommandException("This is a no-speaker event."));
+    }
 
     /**
      * @return return a string representation of the event.
      */
     public String toString() {
-        return "(" + id + ") " + description + " | " + startTime.toString() + " - " + endTime.toString() + " | Capacity: "  + userCount + "/" +
+        return "(" + id + ") " + description + " | " + startTime.toString() + " - " + endTime.toString() + " | Capacity: " + userCount + "/" +
                 userLimit + " spots.";
     }
 
