@@ -7,24 +7,25 @@ import java.util.ArrayList;
  * sender id, list of recipients, and read status of the message.
  */
 
-public abstract class Message {
+public class Message {
     private final String id; // id of the message
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
     private boolean isRead;
+    private final ArrayList<String> recipientIds;
 
     /**
-     * Constructor that instantiates a Message instance.
-     *
-     * @param id: id of the message
-     * @param messageContent: String with the message's content
-     * @param senderId: id of sender
+     * Constructor that instantiates a MultiRecipientMessage instance.
+     * @param id             : id of the message
+     * @param messageContent : String with the message's content
+     * @param senderId       : id of sender
+     * @param recipientIds   : an ArrayList of the recipient(s)'s id(s)
      */
-    public Message(String id, String messageContent, String senderId) {
+    public Message(String id, String messageContent, String senderId, ArrayList<String> recipientIds) {
         this.id = id;
         this.messageContent = messageContent;
         this.senderId = senderId;
-        this.isRead = false;
+        this.recipientIds = recipientIds;
     }
 
     /**
@@ -65,6 +66,14 @@ public abstract class Message {
      */
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    /**
+     * Getter for recipient ids
+     * @return Arraylist of recipient(s) id(s)
+     */
+    public ArrayList<String> getRecipientIds() {
+        return recipientIds;
     }
 
 }
