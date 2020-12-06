@@ -117,11 +117,11 @@ public class EventManager {
 //        return requestedEvent.map(Event::getUserLimit).orElse(-1);
 //    }
 //
-//    /**
-//     * Return an event's user count based on its id.
-//     * @param eventId The id of the event.
-//     * @return The user count of the event if the event exists, otherwise returns -1.
-//     */
+    /**
+     * Return an event's user count based on its id.
+     * @param eventId The id of the event.
+     * @return The user count of the event if the event exists, otherwise returns -1.
+     */
     private int getUserCountById(String eventId){
         Optional<Event> requestedEvent = getEventById(eventId);
         return requestedEvent.map(Event::getUserCount).orElse(-1);
@@ -169,7 +169,7 @@ public class EventManager {
      * @param eventId2 event id of the second event.
      * @return True if the first event collides with the second event.
      */
-    public boolean collidesWith(String eventId1, String eventId2){
+    private boolean collidesWith(String eventId1, String eventId2){
         Optional<Event> event1 = getEventById(eventId1);
         Optional<Event> event2 = getEventById(eventId2);
         if (event1.isPresent() && event2.isPresent()){
