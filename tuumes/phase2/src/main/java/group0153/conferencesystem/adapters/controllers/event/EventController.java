@@ -120,7 +120,7 @@ public class EventController {
         throw new CommandException(eventType + " is not a valid event type matching the given parameters");
     }
 
-    public void registerUserForEvent(String userId, String eventId) throws EventNotFoundException {
+    public void registerUserForEvent(String userId, String eventId) throws CommandException {
         this.eventRegistry.addUserIdToEventUserIdList(userId, eventId);
     }
 
