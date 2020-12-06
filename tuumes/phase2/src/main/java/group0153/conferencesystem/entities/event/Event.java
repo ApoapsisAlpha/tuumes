@@ -1,13 +1,13 @@
 package group0153.conferencesystem.entities.event;
 
-import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Event implements Comparable<Event> {
-    private String id;                      // id of this event.
-    private String eventName;                     // name of the event
+    private final String id;                      // id of this event.
+    private String eventName;                     // name of the event.
     private String description;                   // description of the event.
     private Date startTime;                       // start time of event.
     private Date endTime;                         // end time of event.
@@ -29,9 +29,6 @@ public abstract class Event implements Comparable<Event> {
         this.userCount = 0;
         this.userIds = new ArrayList<>();
         this.isVipOnlyEvent = isVipOnlyEvent;
-    }
-
-    public Event() {
     }
 
     /**
@@ -69,6 +66,13 @@ public abstract class Event implements Comparable<Event> {
         this.startTime = startTime;
     }
 
+    /**
+     * @return A string representing the event type.
+     * "OneSpeakerEvent"
+     * "MultiSpeakerEvent"
+     * "NoSpeakerEvent"
+     */
+    public abstract String getEventType();
     /**
      * get the end time of the event.
      */
@@ -170,14 +174,30 @@ public abstract class Event implements Comparable<Event> {
     /**
      * add userId to this event.
      */
-    public void addUserId(String userId) {
+    public void addUserId(String userId) throws UnsuccessfulCommandException {
+        for (String otherUserId : this.getUserIds()) {
+            if (userId.equals(otherUserId))
+                throw new UnsuccessfulCommandException("User is already registered for this event.");
+        }
+        if (!this.hasSpotsLeft())
+            throw new UnsuccessfulCommandException("This event's user limit has already been reached.");
         this.userIds.add(userId);
     }
 
     /**
-     * remove userId from this event.
+     *
+     * @return True if userCount < userLimit.
      */
-    public void removeUserId(String userId) {
+    public boolean hasSpotsLeft() {
+        return this.getUserCount() < this.getUserLimit();
+    }
+
+    /**
+     * @param userId Remove userId from this event. Nothing happens if the user was not
+     *               in this event to begin with.
+     * @return Returns true if userId was removed. Returns false if the userId was not found.
+     */
+    public boolean removeUserId(String userId) {
         this.userIds.remove(userId);
     }
 
@@ -199,9 +219,21 @@ public abstract class Event implements Comparable<Event> {
         this.userCount -= amount;
     }
 
-    public void addSpeakerId(String speakerId) throws CommandException {
-        throw(new CommandException("This is a no-speaker event."));
-    }
+    /**
+     * @param speakerId The id of the speaker to be added.
+     * @throws UnsuccessfulCommandException The speaker could not be successfully added.
+     */
+    public abstract void addSpeakerId(String speakerId) throws UnsuccessfulCommandException;
+
+    /**
+     * @param speakerId The id of the speaker to be removed.
+     * @throws UnsuccessfulCommandException The speaker could not be removed.
+     */
+    public abstract void removeSpeakerId(String speakerId) throws UnsuccessfulCommandException;
+
+    public abstract ArrayList<String> getSpeakerIds() throws UnsuccessfulCommandException;
+
+
 
     /**
      * @return return a string representation of the event.

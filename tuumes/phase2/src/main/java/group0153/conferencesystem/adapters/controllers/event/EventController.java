@@ -5,7 +5,7 @@ import group0153.conferencesystem.application.event.EventManager;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -54,14 +54,14 @@ public class EventController {
      * @param isVipOnlyEvent Whether this is a vip only event or not.
      */
     public void addEvent(String eventType, String id, String eventName, String description, Date startTime, Date endTime,
-                           String roomId, int userLimit, boolean isVipOnlyEvent) throws CommandException {
+                           String roomId, int userLimit, boolean isVipOnlyEvent) throws UnsuccessfulCommandException {
         Event event;
         setRequiredEventAttributes(id, eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
         if (eventType.equalsIgnoreCase("NoSpeakerEvent")) {
             event = this.eventBuilder.build("NoSpeakerEvent");
             this.eventScheduler.scheduleEvent(event);
         }
-        throw new CommandException(eventType + " is not a valid event type matching the given parameters.");
+        throw new UnsuccessfulCommandException(eventType + " is not a valid event type matching the given parameters.");
     }
 
     /**
@@ -80,7 +80,7 @@ public class EventController {
      * @param speakerIds A list of the speakerIds associated with this event.
      */
     public void addEvent(String eventType, String id, String eventName, String description, Date startTime, Date endTime,
-                           String roomId, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds) throws CommandException {
+                           String roomId, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds) throws UnsuccessfulCommandException {
         Event event;
         setRequiredEventAttributes(id, eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
         if (eventType.equalsIgnoreCase("MultiSpeakerEvent")) {
@@ -89,7 +89,7 @@ public class EventController {
             this.eventScheduler.scheduleEvent(event);
         }
 
-        throw new CommandException(eventType + " is not a valid event type matching the given parameters");
+        throw new UnsuccessfulCommandException(eventType + " is not a valid event type matching the given parameters");
     }
 
     /**
@@ -108,7 +108,7 @@ public class EventController {
      * @param speakerId The speaker of this event.
      */
     public void addEvent(String eventType, String id, String eventName, String description, Date startTime, Date endTime,
-                           String roomId, int userLimit, boolean isVipOnlyEvent, String speakerId) throws CommandException {
+                           String roomId, int userLimit, boolean isVipOnlyEvent, String speakerId) throws UnsuccessfulCommandException {
         Event event;
         setRequiredEventAttributes(id, eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
         if (eventType.equalsIgnoreCase("OneSpeakerEvent")) {
@@ -116,14 +116,14 @@ public class EventController {
             event = this.eventBuilder.build("OneSpeakerEvent");
             this.eventScheduler.scheduleEvent(event);
         }
-        throw new CommandException(eventType + " is not a valid event type matching the given parameters");
+        throw new UnsuccessfulCommandException(eventType + " is not a valid event type matching the given parameters");
     }
 
-    public void registerUserForEvent(String userId, String eventId) throws CommandException {
+    public void registerUserForEvent(String userId, String eventId) throws UnsuccessfulCommandException {
         this.eventRegistry.registerUserForEvent(userId, eventId);
     }
 
-    public void registerSpeakerForEvent(String speakerId, String eventId) throws CommandException {
+    public void registerSpeakerForEvent(String speakerId, String eventId) throws UnsuccessfulCommandException {
         this.eventRegistry.registerSpeakerForEvent(speakerId, eventId);
     }
 

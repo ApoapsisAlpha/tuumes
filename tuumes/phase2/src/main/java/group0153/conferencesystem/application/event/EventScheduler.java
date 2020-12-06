@@ -1,7 +1,7 @@
 package group0153.conferencesystem.application.event;
 
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import java.util.ArrayList;
 
@@ -23,12 +23,12 @@ public class EventScheduler {
     /**
      *
      * @param event The event to be scheduled.
-     * @throws CommandException The event could not be added successfully.
+     * @throws UnsuccessfulCommandException The event could not be added successfully.
      */
-    public void scheduleEvent(Event event) throws CommandException {
+    public void scheduleEvent(Event event) throws UnsuccessfulCommandException {
         for (Event otherEvent : this.events) {
             if (timeConflict(event, otherEvent)) {
-                throw new CommandException("The event to be scheduled has a time conflict.");
+                throw new UnsuccessfulCommandException("The event to be scheduled has a time conflict.");
             }
         }
         this.events.add(event);

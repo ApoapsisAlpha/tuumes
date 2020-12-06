@@ -10,7 +10,6 @@ import java.util.Date;
 
 /**
  * A class for building and returning an event.
- * Use the setEventAttributes method to quickly set the details of the events.
  * Use the build method to return an instance of the event being built.
  */
 public class EventBuilder {
