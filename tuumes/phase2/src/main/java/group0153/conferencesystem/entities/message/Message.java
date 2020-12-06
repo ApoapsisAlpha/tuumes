@@ -1,6 +1,7 @@
 package group0153.conferencesystem.entities.message;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Message class for an object that contains the message id, content,
@@ -15,14 +16,13 @@ public class Message {
     private final ArrayList<String> recipientIds;
 
     /**
-     * Constructor that instantiates a MultiRecipientMessage instance.
-     * @param id             : id of the message
+     * Constructor that instantiates a Message instance.
      * @param messageContent : String with the message's content
      * @param senderId       : id of sender
      * @param recipientIds   : an ArrayList of the recipient(s)'s id(s)
      */
-    public Message(String id, String messageContent, String senderId, ArrayList<String> recipientIds) {
-        this.id = id;
+    public Message(String messageContent, String senderId, ArrayList<String> recipientIds) {
+        this.id = UUID.randomUUID().toString();
         this.messageContent = messageContent;
         this.senderId = senderId;
         this.recipientIds = recipientIds;
