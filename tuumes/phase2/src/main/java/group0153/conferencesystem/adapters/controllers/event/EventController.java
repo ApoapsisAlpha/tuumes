@@ -4,6 +4,7 @@ import group0153.conferencesystem.application.event.EventBuilder;
 import group0153.conferencesystem.application.event.EventManager;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
+import group0153.conferencesystem.application.event.EventUpdater;
 import group0153.conferencesystem.application.event.exception.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
@@ -19,11 +20,13 @@ public class EventController {
     private final EventBuilder eventBuilder;
     private final EventRegistry eventRegistry;
     private final EventScheduler eventScheduler;
+    private final EventUpdater eventUpdater
 
     public EventController(EventManager eventManager) {
         ArrayList<Event> events = new ArrayList<Event>();
         this.eventRegistry = new EventRegistry(events);
         this.eventScheduler = new EventScheduler(events);
+        this.eventUpdater = new EventUpdater(events);
         this.eventManager = eventManager;
         this.eventBuilder = new EventBuilder();
     }
@@ -36,6 +39,7 @@ public class EventController {
     public EventController(EventManager eventManager, ArrayList<Event> events) {
         this.eventRegistry = new EventRegistry(events);
         this.eventScheduler = new EventScheduler(events);
+        this.eventUpdater = new EventUpdater(events);
         this.eventManager = eventManager;
         this.eventBuilder = new EventBuilder();
     }
@@ -152,5 +156,7 @@ public class EventController {
         this.eventBuilder.setIsVipOnlyEvent(isVipOnlyEvent);
     }
     //TODO: more event controller methods here
-
+    public void updateEventCapacity(String eventId, int newCapacity){
+        eventUpdater.updateCapacity(eventId, newCapacity);
+    }
 }
