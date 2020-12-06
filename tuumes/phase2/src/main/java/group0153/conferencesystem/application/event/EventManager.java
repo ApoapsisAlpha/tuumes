@@ -48,106 +48,104 @@ public class EventManager {
     // for schedule display
     // instead of returning entity Event from getEventById(String eventId)
 
-    /**
-     * Private method. Return an event based on its id.
-     * @param eventId The id of the event.
-     * @return A reference to the event if the event exists, otherwise returns null
-     */
-    private Optional<Event> getEventById(String eventId){
-        return eventPersistencePort.findById(eventId);
-    }
-
-    /**
-     * Return an event name based on its id.
-     * @param eventId The id of the event.
-     * @return The name of the event if the event exists, otherwise returns null.
-     */
-    public String getEventNameById(String eventId) {
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getEventName).orElse(null);
-    }
-
-    /**
-     * Return an event description based on its id.
-     * @param eventId The id of the event.
-     * @return The description of the event if the event exists, otherwise returns null.
-     */
-    public String getDescriptionById(String eventId) {
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getDescription).orElse(null);
-    }
-
-    /**
-     * Return an event's start time based on its id.
-     * @param eventId The id of the event.
-     * @return The start time of the event if the event exists, otherwise returns null.
-     */
-    public Date getStartTimeById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getStartTime).orElse(null);
-    }
-
-    /**
-     * Return an event's end time based on its id.
-     * @param eventId The id of the event.
-     * @return The end time of the event if the event exists, otherwise returns null.
-     */
-    public Date getEndTimeById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getEndTime).orElse(null);
-    }
-
-    /**
-     * Return an event's room id based on its id.
-     * @param eventId The id of the event.
-     * @return The room id of the event if the event exists, otherwise returns null.
-     */
-    public String getRoomIdByEventId(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getRoomId).orElse(null);
-    }
-
-    /**
-     * Return an event's user limit based on its id.
-     * @param eventId The id of the event.
-     * @return The user limit of the event if the event exists, otherwise returns -1.
-     */
-    public int getUserLimitById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getUserLimit).orElse(-1);
-    }
-
-    /**
-     * Return an event's user count based on its id.
-     * @param eventId The id of the event.
-     * @return The user count of the event if the event exists, otherwise returns -1.
-     */
-    public int getUserCountById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getUserCount).orElse(-1);
-    }
-
-    /**
-     * Return a list of user ids of the event based on given event id.
-     * @param eventId The id of the event.
-     * @return The the list of user ids of the event if the event exists, otherwise returns null.
-     */
-    public ArrayList<String> getUserIdsByEventId(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getUserIds).orElse(null);
-    }
-
-    /**
-     * Return whether the event based on given event id.
-     * @param eventId The id of the event.
-     * @return True if the event exists and is a VIP-only event, otherwise returns false.
-     */
-    public boolean getIsVipOnlyEventById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::isVipOnlyEvent).orElse(false);
-    }
-
-    // below are methods other than the getters.
+//    /**
+//     * Private method. Return an event based on its id.
+//     * @param eventId The id of the event.
+//     * @return A reference to the event if the event exists, otherwise returns null
+//     */
+//    private Optional<Event> getEventById(String eventId){
+//        return eventPersistencePort.findById(eventId);
+//    }
+//
+//    /**
+//     * Return an event name based on its id.
+//     * @param eventId The id of the event.
+//     * @return The name of the event if the event exists, otherwise returns null.
+//     */
+//    public String getEventNameById(String eventId) {
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getEventName).orElse(null);
+//    }
+//
+//    /**
+//     * Return an event description based on its id.
+//     * @param eventId The id of the event.
+//     * @return The description of the event if the event exists, otherwise returns null.
+//     */
+//    public String getDescriptionById(String eventId) {
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getDescription).orElse(null);
+//    }
+//
+//    /**
+//     * Return an event's start time based on its id.
+//     * @param eventId The id of the event.
+//     * @return The start time of the event if the event exists, otherwise returns null.
+//     */
+//    public Date getStartTimeById(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getStartTime).orElse(null);
+//    }
+//
+//    /**
+//     * Return an event's end time based on its id.
+//     * @param eventId The id of the event.
+//     * @return The end time of the event if the event exists, otherwise returns null.
+//     */
+//    public Date getEndTimeById(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getEndTime).orElse(null);
+//    }
+//
+//    /**
+//     * Return an event's room id based on its id.
+//     * @param eventId The id of the event.
+//     * @return The room id of the event if the event exists, otherwise returns null.
+//     */
+//    public String getRoomIdByEventId(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getRoomId).orElse(null);
+//    }
+//
+//    /**
+//     * Return an event's user limit based on its id.
+//     * @param eventId The id of the event.
+//     * @return The user limit of the event if the event exists, otherwise returns -1.
+//     */
+//    public int getUserLimitById(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getUserLimit).orElse(-1);
+//    }
+//
+//    /**
+//     * Return an event's user count based on its id.
+//     * @param eventId The id of the event.
+//     * @return The user count of the event if the event exists, otherwise returns -1.
+//     */
+//    public int getUserCountById(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getUserCount).orElse(-1);
+//    }
+//
+//    /**
+//     * Return a list of user ids of the event based on given event id.
+//     * @param eventId The id of the event.
+//     * @return The the list of user ids of the event if the event exists, otherwise returns null.
+//     */
+//    public ArrayList<String> getUserIdsByEventId(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::getUserIds).orElse(null);
+//    }
+//
+//    /**
+//     * Return whether the event based on given event id.
+//     * @param eventId The id of the event.
+//     * @return True if the event exists and is a VIP-only event, otherwise returns false.
+//     */
+//    public boolean getIsVipOnlyEventById(String eventId){
+//        Optional<Event> requestedEvent = getEventById(eventId);
+//        return requestedEvent.map(Event::isVipOnlyEvent).orElse(false);
+//    }
 
     /**
      * Returns all active events. (Ignores events that have already passed)
