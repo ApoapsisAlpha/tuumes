@@ -4,6 +4,7 @@ import group0153.conferencesystem.application.event.EventBuilder;
 import group0153.conferencesystem.application.event.EventManager;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
+import group0153.conferencesystem.application.event.exception.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
 import org.springframework.web.bind.annotation.RestController;
@@ -119,8 +120,8 @@ public class EventController {
         throw new CommandException(eventType + " is not a valid event type matching the given parameters");
     }
 
-    public void registerUserForEvent(String userId, String eventId) throws CommandException {
-        this.eventRegistry.registerUserForEvent(userId, eventId);
+    public void registerUserForEvent(String userId, String eventId) throws EventNotFoundException {
+        this.eventRegistry.addUserIdToEventUserIdList(userId, eventId);
     }
 
     public void registerSpeakerForEvent(String speakerId, String eventId) throws CommandException {
