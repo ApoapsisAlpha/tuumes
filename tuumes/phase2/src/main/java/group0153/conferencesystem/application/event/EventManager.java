@@ -48,14 +48,14 @@ public class EventManager {
     // for schedule display
     // instead of returning entity Event from getEventById(String eventId)
 
-//    /**
-//     * Private method. Return an event based on its id.
-//     * @param eventId The id of the event.
-//     * @return A reference to the event if the event exists, otherwise returns null
-//     */
-//    private Optional<Event> getEventById(String eventId){
-//        return eventPersistencePort.findById(eventId);
-//    }
+    /**
+     * Private method. Return an event based on its id.
+     * @param eventId The id of the event.
+     * @return A reference to the event if the event exists, otherwise returns null
+     */
+    private Optional<Event> getEventById(String eventId){
+        return eventPersistencePort.findById(eventId);
+    }
 //
 //    /**
 //     * Return an event name based on its id.
@@ -122,10 +122,10 @@ public class EventManager {
 //     * @param eventId The id of the event.
 //     * @return The user count of the event if the event exists, otherwise returns -1.
 //     */
-//    public int getUserCountById(String eventId){
-//        Optional<Event> requestedEvent = getEventById(eventId);
-//        return requestedEvent.map(Event::getUserCount).orElse(-1);
-//    }
+    private int getUserCountById(String eventId){
+        Optional<Event> requestedEvent = getEventById(eventId);
+        return requestedEvent.map(Event::getUserCount).orElse(-1);
+    }
 //
 //    /**
 //     * Return a list of user ids of the event based on given event id.
