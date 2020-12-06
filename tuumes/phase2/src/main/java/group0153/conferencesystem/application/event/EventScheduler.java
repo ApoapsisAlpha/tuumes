@@ -30,7 +30,7 @@ public class EventScheduler {
      * Returns all active events. (Ignores events that have already passed)
      * @return Arraylist of events.
      */
-    public ArrayList<String> getActiveEventIds() {
+    private ArrayList<String> getActiveEventIds() {
         Date current = new Date();
         ArrayList<String> result = new ArrayList<String>();
         for (Event event : eventPersistencePort.getAllEvents()){
