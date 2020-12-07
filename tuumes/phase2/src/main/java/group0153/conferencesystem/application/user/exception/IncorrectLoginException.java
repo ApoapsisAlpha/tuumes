@@ -1,6 +1,6 @@
 package group0153.conferencesystem.application.user.exception;
 
-public class IncorrectLoginException extends Exception {
+public class IncorrectLoginException extends RuntimeException {
     private String field;
 
     public IncorrectLoginException(String field) {
