@@ -1,12 +1,16 @@
 <html lang="en">
 <head>
-    <title>{{page}} - TUUMES</title>
+    <title>Dashboard - TUUMES</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/Manrope/index.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/MDB/css/mdb.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet">
     <link href="assets/css/global.css" rel="stylesheet">
     <style>
+        .bigicon {
+            font-size: 90px;
+            padding: 18px;
+        }
     </style>
 </head>
 
@@ -20,10 +24,19 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
+                    <a class="nav-link" href="events/view_all.html">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="register.html">Register</a>
+                    <a class="nav-link" href="messages/view_all.html">Messages</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="speaker">Speaker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="organizer">Organizer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="settings.html">Settings</a>
                 </li>
             </ul>
             <span class="navbar-text white-text">
@@ -32,8 +45,59 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-2">
+                <div class="card">
+                    <a href="events/view_all.html">
+                        <div class="card-content text-center">
+                            <h1 class="bigicon"><i class="fas fa-calendar-alt"></i></h1>
+                            <h4 class="mb-3">Events</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <a href="messages/view_all.html">
+                        <div class="card-content text-center">
+                            <h1 class="bigicon"><i class="fas fa-inbox"></i></h1>
+                            <h4 class="mb-3">Messages</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <a href="speaker">
+                        <div class="card-content text-center">
+                            <h1 class="bigicon"><i class="fas fa-volume-up"></i></h1>
+                            <h4 class="mb-3">Speaker</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <a href="organizer">
+                        <div class="card-content text-center">
+                            <h1 class="bigicon"><i class="fas fa-users"></i></h1>
+                            <h4 class="mb-3">Organizer</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card">
+                    <a href="settings.html">
+                        <div class="card-content text-center">
+                            <h1 class="bigicon"><i class="fas fa-cog"></i></h1>
+                            <h4 class="mb-3">Settings</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
