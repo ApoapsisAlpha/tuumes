@@ -1,6 +1,5 @@
 package group0153.conferencesystem.adapters.controllers.room;
 
-import group0153.conferencesystem.application.Response;
 import group0153.conferencesystem.application.room.RoomManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

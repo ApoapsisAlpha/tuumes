@@ -6,10 +6,22 @@ import java.util.UUID;
 public class User {
 
     public static class Builder {
+        private String id;
         private String name;
         private String email;
         private String password;
         private UserType type;
+
+        /**
+         * set the user id.
+         *
+         * @param id id of user.
+         * @return builder with desired id.
+         */
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
 
         /**
          * set the user name.
@@ -64,16 +76,16 @@ public class User {
             User user;
             switch (type) {
                 case SPEAKER:
-                    user = new Speaker(name, email, password);
+                    user = new Speaker(id, name, email, password);
                     break;
                 case ORGANIZER:
-                    user = new Organizer(name, email, password);
+                    user = new Organizer(id, name, email, password);
                     break;
                 case VIP:
-                    user = new Vip(name, email, password);
+                    user = new Vip(id, name, email, password);
                     break;
                 default:
-                    user = new User(name, email, password);
+                    user = new User(id, name, email, password);
             }
 
             return user;
@@ -96,8 +108,8 @@ public class User {
      * @param email    email of user.
      * @param password password of user account.
      */
-    public User(String name, String email, String password) {
-        this.id = UUID.randomUUID().toString();
+    public User(String id, String name, String email, String password) {
+        this.id = id;
         this.type = UserType.ATTENDEE;
         this.name = name;
         this.email = email;

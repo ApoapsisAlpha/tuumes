@@ -8,8 +8,8 @@ public class Vip extends User {
      * @param email    email of the vip.
      * @param password password of the vip account.
      */
-    public Vip(String name, String email, String password) {
-        super(name, email, password);
+    public Vip(String id, String name, String email, String password) {
+        super(id, name, email, password);
         type = UserType.VIP;
     }
 }

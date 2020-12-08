@@ -9,8 +9,8 @@ public class Organizer extends User {
      * @param email    email of organizer
      * @param password password of organizer account
      */
-    public Organizer(String name, String email, String password) {
-        super(name, email, password);
+    public Organizer(String id, String name, String email, String password) {
+        super(id, name, email, password);
         type = UserType.ORGANIZER;
     }
 }

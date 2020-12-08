@@ -1,19 +1,22 @@
 package group0153.conferencesystem.application.user;
 
+import group0153.conferencesystem.application.user.data.UserLoginData;
+import group0153.conferencesystem.application.user.data.UserRegisterData;
 import group0153.conferencesystem.application.user.exception.IncorrectLoginException;
-import group0153.conferencesystem.application.user.exception.InvalidInputException;
+import group0153.conferencesystem.application.user.exception.UserExistsException;
 import group0153.conferencesystem.entities.user.User;
 import group0153.conferencesystem.entities.user.UserType;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class UserAuthManager {
-    UserPersistencePort userPresistencePort;
+    UserPersistencePort userPersistencePort;
 
-    public UserAuthManager(UserPersistencePort userPresistencePort) {
-        this.userPresistencePort = userPresistencePort;
+    public UserAuthManager(UserPersistencePort userPersistencePort) {
+        this.userPersistencePort = userPersistencePort;
     }
 
     /**
@@ -24,13 +27,13 @@ public class UserAuthManager {
      * @return The logged in user
      * @throws IncorrectLoginException Upon incorrect email or password
      */
-    public User login(String email, String password) throws IncorrectLoginException {
-        Optional<User> userOptional = userPresistencePort.findUserByEmail(email);
+    public UserLoginData login(String email, String password) throws IncorrectLoginException {
+        Optional<User> userOptional = userPersistencePort.findUserByEmail(email);
         if (!userOptional.isPresent())
             throw new IncorrectLoginException("email");
         User user = userOptional.get();
         if (user.isPasswordValid(password))
-            return user;
+            return new UserLoginData(user.getId(), user.getType());
         else
             throw new IncorrectLoginException("password");
     }
@@ -45,9 +48,14 @@ public class UserAuthManager {
      * @param userType the type of user
      * @return The id of the new constructed user
      */
-    public String create(String name, String email, String password, UserType userType) {
-        User user = new User.Builder().name(name).email(email).password(password).type(userType).build();
-        userRepository.add(user);
-        return user.getId();
+    public UserRegisterData create(String name, String email, String password, UserType userType) throws
+            UserExistsException {
+        Optional<User> userExists = userPersistencePort.findUserByEmail(email);
+        if (userExists.isPresent())
+            throw new UserExistsException();
+        String id = UUID.randomUUID().toString();
+        User user = new User.Builder().id(id).name(name).email(email).password(password).type(userType).build();
+        userPersistencePort.saveUser(user);
+        return new UserRegisterData(user.getId(), userType);
     }
 }
