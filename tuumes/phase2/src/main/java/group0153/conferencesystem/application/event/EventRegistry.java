@@ -1,7 +1,7 @@
 package group0153.conferencesystem.application.event;
 import group0153.conferencesystem.application.event.exception.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -56,15 +56,6 @@ public class EventRegistry {
 //            }
 //        }
 //    }
-    /**
-     * Return an event's user count based on its id.
-     * @param eventId The id of the event.
-     * @return The user count of the event if the event exists, otherwise returns -1.
-     */
-    private int getUserCountById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getUserCount).orElse(-1);
-    }
 
     /**
      * Check if the given user has already registered to the given event.
@@ -76,7 +67,7 @@ public class EventRegistry {
     private boolean alreadyRegistered(String eventId, String userId) throws EventNotFoundException {
         Optional<Event> event = getEventById(eventId);
         if (!event.isPresent())
-            throw new EventNotFoundException("Incorrect event id");
+            throw new EventNotFoundException();
         for (String registeredId : event.get().getUserIds()) {
             if (registeredId.equals(userId)) return true;
         }
@@ -91,12 +82,12 @@ public class EventRegistry {
      * registered to this event or user limit is reached).
      * @throws EventNotFoundException No event found.
      */
-    public boolean addUserIdToEventUserIdList(String eventId, String userId) throws EventNotFoundException {
+    public void addUserIdToEventUserIdList(String eventId, String userId) throws EventNotFoundException {
         Optional<Event> optionalEvent = getEventById(eventId);
         if (!optionalEvent.isPresent())
             throw new EventNotFoundException("Incorrect event id");
         Event event = optionalEvent.get();
-        if (alreadyRegistered(event.getId(), userId) || getUserCountById(event.getId()) >= event.getUserLimit()) return false;
+        if (alreadyRegistered(event.getId(), userId) || !event.hasSpotsLeft()) return false;
         event.addUserId(userId);
         event.increaseUserCount(1);
         return true;
@@ -127,10 +118,13 @@ public class EventRegistry {
      * @param eventId The id of the event that the speaker is supposed to be registered to.
      * @throws UnsuccessfulCommandException The speaker could not be registered.
      */
-    public void registerSpeakerForEvent(String speakerId, String eventId) throws CommandException {
+    public void registerSpeakerForEvent(String speakerId, String eventId) throws UnsuccessfulCommandException {
         for (Event event : eventPersistencePort.getAllEvents()){
             if (event.getId().equals(eventId)) {
-                event.addSpeakerId(speakerId);
+                if (event.hasSpotsLeft()) {
+                    event.addSpeakerId(speakerId);
+                    event.increaseUserCount(1);
+                }
             }
         }
     }
@@ -142,13 +136,14 @@ public class EventRegistry {
      * @throws UnsuccessfulCommandException The event could not be found.
      */
     public void unregisterUserForEvent(String userId, String eventId) throws UnsuccessfulCommandException {
-        for (Event event : this.events) {
+        Optional<Event> event = getEventById(userId);
+        if (!event.isPresent()) throw new UnsuccessfulCommandException("The event could not be found.");
+        for (Event event : this.eventPersistencePort) {
             if (event.getId().equals(eventId)) {
                 boolean res = event.removeUserId(userId);
                 if (res) event.decreaseUserCount(1);
                 return;
             }
         }
-        throw new UnsuccessfulCommandException("The event could not be found.");
     }
 }

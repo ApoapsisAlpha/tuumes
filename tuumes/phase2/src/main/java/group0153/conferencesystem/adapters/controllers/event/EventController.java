@@ -1,10 +1,8 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
-import group0153.conferencesystem.application.event.EventBuilder;
 import group0153.conferencesystem.application.event.EventManager;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
-import group0153.conferencesystem.application.event.exception.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.CommandException;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +14,7 @@ import java.util.Date;
 public class EventController {
 
     private final EventManager eventManager;
-    private final EventBuilder eventBuilder;
+    private final Event.Builder eventBuilder;
     private final EventRegistry eventRegistry;
     private final EventScheduler eventScheduler;
     private final EventUpdater eventUpdater
@@ -27,7 +25,7 @@ public class EventController {
         this.eventScheduler = new EventScheduler(events);
         this.eventUpdater = new EventUpdater(events);
         this.eventManager = eventManager;
-        this.eventBuilder = new EventBuilder();
+        this.eventBuilder = new Event.Builder();
     }
 
     /**
@@ -40,7 +38,7 @@ public class EventController {
         this.eventScheduler = new EventScheduler(events);
         this.eventUpdater = new EventUpdater(events);
         this.eventManager = eventManager;
-        this.eventBuilder = new EventBuilder();
+        this.eventBuilder = new Event.Builder();
     }
 
     /**

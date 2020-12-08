@@ -1,6 +1,7 @@
 package group0153.conferencesystem.application.event;
 
 import group0153.conferencesystem.entities.event.Event;
+import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class EventUpdater(){
     private void updateCapacity(String eventId, int newCapacity){
         Optional<Event> event = getEventById(eventId);
         if (!event.isPresent()){
-            throw new EventNotFoundException("Event Id does not exist")
+            throw new EventNotFoundException()
         }
         Event event = optionalEvent.get();
         event.setUserLimit(newCapacity);
