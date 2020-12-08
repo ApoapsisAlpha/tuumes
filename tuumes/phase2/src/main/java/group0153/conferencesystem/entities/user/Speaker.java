@@ -15,8 +15,8 @@ public class Speaker extends User {
      * @param email    email of the speaker.
      * @param password password of the speaker account.
      */
-    public Speaker(String name, String email, String password) {
-        super(name, email, password);
+    public Speaker(String id, String name, String email, String password) {
+        super(id, name, email, password);
         type = UserType.SPEAKER;
         this.speakingEventIds = new ArrayList<>();
     }

@@ -34,8 +34,8 @@ public class UserPersistenceAdapter implements UserPersistencePort {
 
     /**
      * Finds a user based on their email.
-     * @param email The users email.
      *
+     * @param email The users email.
      * @return List of users that match the email.
      */
     @Override
