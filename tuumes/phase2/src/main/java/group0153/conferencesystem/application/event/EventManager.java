@@ -1,14 +1,12 @@
 package group0153.conferencesystem.application.event;
 
 import group0153.conferencesystem.application.event.exception.EventNotFoundException;
-import group0153.conferencesystem.application.user.exception.IncorrectLoginException;
 import group0153.conferencesystem.entities.event.Event;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class EventManager {
@@ -54,7 +52,7 @@ public class EventManager {
      * @return A reference to the event if the event exists, otherwise returns null
      */
     private Optional<Event> getEventById(String eventId){
-        return eventPersistencePort.findById(eventId);
+        return eventPersistencePort.getEvent(eventId);
     }
 //
 //    /**

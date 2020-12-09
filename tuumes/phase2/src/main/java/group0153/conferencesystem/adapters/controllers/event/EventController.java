@@ -1,6 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.application.event.EventManager;
+import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
 import group0153.conferencesystem.entities.event.Event;
@@ -33,10 +34,10 @@ public class EventController {
      * @param eventManager
      * @param events A list of the
      */
-    public EventController(EventManager eventManager, ArrayList<Event> events) {
-        this.eventRegistry = new EventRegistry(events);
-        this.eventScheduler = new EventScheduler(events);
-        this.eventUpdater = new EventUpdater(events);
+    public EventController(EventManager eventManager, EventPersistencePort eventPersistencePort) {
+        this.eventRegistry = new EventRegistry(eventPersistencePort);
+        this.eventScheduler = new EventScheduler(eventPersistencePort);
+        this.eventUpdater = new EventUpdater(eventPersistencePort);
         this.eventManager = eventManager;
         this.eventBuilder = new Event.Builder();
     }
@@ -122,7 +123,7 @@ public class EventController {
     }
 
     public void registerUserForEvent(String userId, String eventId) throws CommandException {
-        this.eventRegistry.addUserIdToEventUserIdList(userId, eventId);
+        this.eventRegistry.registerUserForEvent(userId, eventId);
     }
 
     public void registerSpeakerForEvent(String speakerId, String eventId) throws CommandException {
