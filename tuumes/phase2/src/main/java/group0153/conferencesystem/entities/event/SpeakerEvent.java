@@ -5,14 +5,15 @@ import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommand
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MultiSpeakerEvent extends Event {
+public class SpeakerEvent extends Event {
     private final ArrayList<String> speakerIds;
+    private int speakerLimit;
     private final String eventType = "MultiSpeakerEvent";
 
-    public MultiSpeakerEvent(String id, String eventName, String description, Date startTime, Date endTime,
-                             String room, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds) {
+    public SpeakerEvent(String id, String eventName, String description, Date startTime, Date endTime,
+                        String room, int userLimit, boolean isVipOnlyEvent, ArrayList<String> speakerIds, int speakerLimit) {
         super(id, eventName, description, startTime, endTime, room, userLimit, isVipOnlyEvent);
-
+        this.speakerLimit = speakerLimit;
         this.speakerIds = speakerIds;
     }
 

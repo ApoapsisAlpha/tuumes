@@ -5,7 +5,7 @@ import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommand
 import java.util.ArrayList;
 import java.util.Date;
 
-public abstract class Event implements Comparable<Event> {
+public abstract class Event {
     private final String id;                      // id of this event.
     private String eventName;                     // name of the event.
     private String description;                   // description of the event.
@@ -257,7 +257,7 @@ public abstract class Event implements Comparable<Event> {
         private int userLimit;                        // maximum amount of people allowed at this event.
         private boolean isVipOnlyEvent;               // whether this event is VIP-only.
         private ArrayList<String> speakerIds;
-        private String speakerId;
+        private int speakerLimit;
 
         public void setId(String id) {
             this.id = id;
@@ -299,16 +299,15 @@ public abstract class Event implements Comparable<Event> {
             this.speakerId = speakerId;
         }
 
+        public void setSpeakerLimit(int speakerLimit) { this.speakerLimit = speakerLimit; }
+
         public Event build(String eventType) {
-            if (eventType.equalsIgnoreCase("MultiSpeakerEvent"))
-                return new MultiSpeakerEvent(id, eventName, description, startTime, endTime,
-                        roomId, userLimit, isVipOnlyEvent, speakerIds);
+            if (eventType.equalsIgnoreCase("SpeakerEvent"))
+                return new SpeakerEvent(id, eventName, description, startTime, endTime,
+                        roomId, userLimit, isVipOnlyEvent, speakerIds, speakerLimit);
             if (eventType.equalsIgnoreCase("NoSpeakerEvent"))
                 return new NoSpeakerEvent(id, eventName, description, startTime, endTime,
                         roomId, userLimit, isVipOnlyEvent);
-            if (eventType.equalsIgnoreCase("OneSpeakerEvent"))
-                return new OneSpeakerEvent(id, eventName, description, startTime, endTime,
-                        roomId, userLimit, isVipOnlyEvent, speakerId);
             return null;
         }
     }

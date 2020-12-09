@@ -24,13 +24,12 @@ public class NoSpeakerEvent extends Event {
 
     @Override
     public void removeSpeakerId(String speakerId) throws UnsuccessfulCommandException {
-        throw new UnsuccessfulCommandException("The");
+        throw new UnsuccessfulCommandException("This is a no-speaker event.");
     }
 
     @Override
     public ArrayList<String> getSpeakerIds() throws UnsuccessfulCommandException {
-        return null;
+        return new ArrayList<String>();
     }
 
-    public
 }
