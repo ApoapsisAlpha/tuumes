@@ -1,4 +1,4 @@
-package group0153.conferencesystem.application.user.exception;
+package group0153.conferencesystem.exceptions;
 
 public class InvalidInputException extends Exception {
     private String field;

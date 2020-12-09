@@ -48,7 +48,7 @@
                                 <input type="password" id="password" class="form-control" name="password" required>
                             </div>
                         </div>
-                        <button class="btn btn-primary float-right no-wave" type="submit" id="login_submit">Login</button>
+                        <button class="btn btn-primary float-right no-wave" type="submit">Login</button>
                     </form>
                 </div>
             </div>
@@ -60,4 +60,42 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdn.mkn.cx/MDB/js/mdb.min.js"></script>
 <script type="text/javascript" src="assets/js/global.js"></script>
+
+<script>
+    $("#login_form").submit(function(e) {
+        if (!validate(this))
+            return false;
+
+        e.preventDefault();
+
+        // Parse data
+        let data = {};
+        $(":input", this).each(function(i, e) {
+            if (e.type !== "submit")
+                data[e.name] = e.value;
+        });
+
+        $.postJSON("/user/login", data, function(result) {
+            console.log(result);
+
+            if (result.valid) {
+                localStorage.setItem("TU-userId", data.id);
+                localStorage.setItem("TU-userType", data.userType);
+                location.href = "account/dashboard.html";
+            } else {
+                switch (result.message) {
+                    case "WRONG_EMAIL_PASS":
+                        toastr.error("Incorrect email or password submitted");
+                        break;
+                    default:
+                        toastr.error("Unexpected error: " + result.message);
+                        break;
+                }
+            }
+        });
+
+        return false;
+    });
+</script>
+
 </html>

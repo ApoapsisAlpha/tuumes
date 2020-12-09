@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.user;
 
+import group0153.conferencesystem.exceptions.InvalidInputException;
+
 public class UserRegisterResource {
     private String name;
     private String email;
@@ -10,8 +12,10 @@ public class UserRegisterResource {
      *
      * @return Value of email.
      */
-    public String getEmail() {
-        return email;
+    public String getEmail() throws InvalidInputException {
+        if (email.isEmpty())
+            throw new InvalidInputException("email");
+        return email.toLowerCase();
     }
 
     /**
@@ -19,8 +23,10 @@ public class UserRegisterResource {
      *
      * @return Value of name.
      */
-    public String getName() {
-        return name;
+    public String getName() throws InvalidInputException {
+        if (name.isEmpty())
+            throw new InvalidInputException("name");
+        return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
     /**
@@ -28,7 +34,9 @@ public class UserRegisterResource {
      *
      * @return Value of password.
      */
-    public String getPassword() {
+    public String getPassword() throws InvalidInputException {
+        if (password.isEmpty())
+            throw new InvalidInputException("password");
         return password;
     }
 }

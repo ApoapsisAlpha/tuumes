@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.user;
 
+import group0153.conferencesystem.exceptions.InvalidInputException;
+
 public class UserLoginResource {
     private String email;
     private String password;
@@ -9,7 +11,9 @@ public class UserLoginResource {
      *
      * @return Value of email.
      */
-    public String getEmail() {
+    public String getEmail() throws InvalidInputException {
+        if (email.isEmpty())
+            throw new InvalidInputException("email");
         return email;
     }
 
@@ -18,7 +22,9 @@ public class UserLoginResource {
      *
      * @return Value of password.
      */
-    public String getPassword() {
+    public String getPassword() throws InvalidInputException {
+        if (password.isEmpty())
+            throw new InvalidInputException("password");
         return password;
     }
 }
