@@ -1,10 +1,13 @@
 package group0153.conferencesystem.application.user;
 
-import group0153.conferencesystem.application.user.exception.UserNotFoundException;
+import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.user.data.UserContactData;
+import group0153.conferencesystem.exceptions.UserNotFoundException;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,68 +20,55 @@ public class UserContactManager {
     }
 
     /**
-     * Adds the idOfContact of the User to the contact list of the User corresponding to userId.
+     * Return the list of all the contacts a user has based on id.
      *
-     * @param userId      the id of the User whose contact list is to be added to
-     * @param idOfContact the id of the User to add to the list
-     * @return a boolean whether the idOfContact has been successfully added
+     * @param userId The id of the user to get the contacts of.
+     * @return An ArrayList of the contacts.
+     * @throws UserNotFoundException Thrown if the userId is not found.
      */
-    public boolean addUserToContactsById(String userId, String idOfContact) {
-        Optional<User> requestedUser = userPersistencePort.findById(userId);
-        return requestedUser.map(user -> user.addContact(idOfContact)).orElse(false);
-    }
+    public List<Data> getUserContactsById(String userId) throws UserNotFoundException {
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
 
-    /**
-     * Removes the idOfContact of the User from the contact list of the User corresponding to userId.
-     *
-     * @param userId      the id of the User whose contact list is to be removed from
-     * @param idOfContact the id of the User to remove from the list
-     * @return a boolean whether the userId has been successfully removed
-     */
-    public boolean removeUserFromContactsById(String userId, String idOfContact) {
-        Optional<User> requestedUser = userPersistencePort.findById(userId);
-        return requestedUser.map(user -> user.removeContact(idOfContact)).orElse(false);
-    }
-
-    /**
-     * Retrieves the contacts of the given User
-     *
-     * @param userId id of user
-     * @return Returns list of the contacts of the user
-     * @throws UserNotFoundException exception if given id doesn't exist
-     */
-    public List<User> getUserContacts(String userId) throws UserNotFoundException {
-        Optional<User> user = userPersistencePort.findById(userId);
-        if (!user.isPresent())
-            throw new UserNotFoundException(String.format("A user with id %s was not found.", userId));
-
-        List<User> contacts = new ArrayList<>();
-        for (String contactId : user.get().getContacts()) {
-            Optional<User> contact = userPersistencePort.findById(contactId);
-            contact.ifPresent(contacts::add);
+        HashSet<String> contactsSet = userPresent.get().getContacts();
+        List<Data> contacts = new ArrayList<>();
+        for (String contactId : contactsSet) {
+            Optional<User> curContactOpt = userPersistencePort.findById(userId);
+            if (!curContactOpt.isPresent())
+                throw new UserNotFoundException(contactId);
+            User curContact = curContactOpt.get();
+            contacts.add(new UserContactData(curContact.getId(), curContact.getName(), curContact.getEmail()));
         }
 
         return contacts;
     }
 
     /**
-     * Retrieves the contacts of the given User
+     * Remove a contact from a user based on the id of both of the user and the contact.
      *
-     * @param userId The id of the given user
-     * @return The list of ids of user's contacts
-     * @throws UserNotFoundException exception if given user doesn't exist
+     * @param contactId The contacts id.
+     * @param userId The user id to remove the contact from.
+     * @throws UserNotFoundException Thrown if userId or contactId are not found.
      */
-    public List<String> getUserContactIds(String userId) throws UserNotFoundException {
-        Optional<User> user = userPersistencePort.findById(userId);
-        if (!user.isPresent())
-            throw new UserNotFoundException(String.format("A user with id %s was not found.", userId));
+    public void removeContactById(String contactId, String userId) throws UserNotFoundException {
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
+        userPersistencePort.removeContactById(contactId, userId);
+    }
 
-        List<String> contacts = new ArrayList<>();
-        for (String contactId : user.get().getContacts()) {
-            Optional<User> contact = userPersistencePort.findById(contactId);
-            contact.ifPresent(contactUser -> contacts.add(contactUser.getId()));
-        }
-
-        return contacts;
+    /**
+     * Add a contact to a user based on the id of both the user and the contact.
+     *
+     * @param contactId The contacts id.
+     * @param userId The user id to add the contact to.
+     * @throws UserNotFoundException Thrown if userId or contactId are not found.
+     */
+    public void addContactById(String contactId, String userId) throws UserNotFoundException {
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
+        userPersistencePort.addContactById(contactId, userId);
     }
 }

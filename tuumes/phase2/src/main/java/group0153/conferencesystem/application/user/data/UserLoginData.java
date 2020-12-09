@@ -11,4 +11,22 @@ public class UserLoginData implements Data {
         this.id = id;
         this.userType = userType;
     }
+
+    /**
+     * Gets id.
+     *
+     * @return Value of id.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Gets userType.
+     *
+     * @return Value of userType.
+     */
+    public UserType getUserType() {
+        return userType;
+    }
 }
