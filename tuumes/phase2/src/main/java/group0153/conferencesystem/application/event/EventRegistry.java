@@ -1,5 +1,5 @@
 package group0153.conferencesystem.application.event;
-import group0153.conferencesystem.application.event.exception.EventNotFoundException;
+
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
@@ -19,17 +19,19 @@ public class EventRegistry {
 
     /**
      * Private method. Return an event based on its id.
+     *
      * @param eventId The id of the event.
      * @return A reference to the event if the event exists, otherwise returns null
      */
-    private Optional<Event> getEventById(String eventId){
+    private Optional<Event> getEventById(String eventId) {
         return eventPersistencePort.getEvent(eventId);
     }
 
     /**
      * Check if the given user has already registered to the given event.
+     *
      * @param eventId The event id of the event.
-     * @param userId The user id of the user.
+     * @param userId  The user id of the user.
      * @return True if the user id has been remove from the userId list of the event, false if the user Id is not in the list.
      * @throws EventNotFoundException No event found.
      */
@@ -45,8 +47,9 @@ public class EventRegistry {
 
     /**
      * Add a user id to the userId list of a event. (when register a user to an event.)
+     *
      * @param eventId The id of the event.
-     * @param userId The id of the user.
+     * @param userId  The id of the user.
      * @return True if the user id is added to the userId list of the event. Return false otherwise (user already
      * registered to this event or user limit is reached).
      * @throws EventNotFoundException No event found.
@@ -56,18 +59,21 @@ public class EventRegistry {
         if (!optionalEvent.isPresent())
             throw new EventNotFoundException();
         Event event = optionalEvent.get();
-        if (alreadyRegistered(event.getId(), userId)) throw new UnsuccessfulCommandException("User already registered.");
-        if (!event.hasSpotsLeft()) throw new UnsuccessfulCommandException("Event's user limit has already been reached.");
+        if (alreadyRegistered(event.getId(), userId))
+            throw new UnsuccessfulCommandException("User already registered.");
+        if (!event.hasSpotsLeft())
+            throw new UnsuccessfulCommandException("Event's user limit has already been reached.");
         event.addUserId(userId);
         event.increaseUserCount(1);
     }
 
     /**
      * Remove a user id from the userId list of a event. (when unregister a user to an event.)
+     *
      * @param eventId The id of the event.
-     * @param userId The id of the user.
+     * @param userId  The id of the user.
      * @throws UnsuccessfulCommandException The command was unsuccessful. Either user is already registered
-     * or the event could not be found.
+     *                                      or the event could not be found.
      */
     public void unregisterUserFromEvent(String eventId, String userId) throws UnsuccessfulCommandException {
         Optional<Event> optionalEvent = getEventById(eventId);
@@ -80,9 +86,8 @@ public class EventRegistry {
     }
 
     /**
-     *
      * @param speakerId The id of the speaker to be registered.
-     * @param eventId The id of the event that the speaker is supposed to be registered to.
+     * @param eventId   The id of the event that the speaker is supposed to be registered to.
      * @throws UnsuccessfulCommandException The speaker could not be registered.
      */
     public void registerSpeakerForEvent(String speakerId, String eventId) throws UnsuccessfulCommandException {
@@ -96,9 +101,8 @@ public class EventRegistry {
     }
 
     /**
-     *
      * @param speakerId The id of the speaker to be removed.
-     * @param eventId The event for the speaker to be removed from.
+     * @param eventId   The event for the speaker to be removed from.
      * @throws UnsuccessfulCommandException The removal was unsuccessful.
      */
     public void unregisterSpeakerFromEvent(String speakerId, String eventId) throws UnsuccessfulCommandException {

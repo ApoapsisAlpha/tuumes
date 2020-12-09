@@ -1,6 +1,5 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
-import group0153.conferencesystem.application.event.EventManager;
 import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -14,7 +13,6 @@ import java.util.Date;
 @RestController
 public class EventController {
 
-    private final EventManager eventManager;
     private final Event.Builder eventBuilder;
     private final EventRegistry eventRegistry;
     private final EventScheduler eventScheduler;
@@ -25,7 +23,6 @@ public class EventController {
         this.eventRegistry = new EventRegistry(events);
         this.eventScheduler = new EventScheduler(events);
         this.eventUpdater = new EventUpdater(events);
-        this.eventManager = eventManager;
         this.eventBuilder = new Event.Builder();
     }
 
@@ -34,11 +31,11 @@ public class EventController {
      * @param eventManager
      * @param events A list of the
      */
-    public EventController(EventManager eventManager, EventPersistencePort eventPersistencePort) {
+    public EventController( EventPersistencePort eventPersistencePort) {
         this.eventRegistry = new EventRegistry(eventPersistencePort);
         this.eventScheduler = new EventScheduler(eventPersistencePort);
         this.eventUpdater = new EventUpdater(eventPersistencePort);
-        this.eventManager = eventManager;
+
         this.eventBuilder = new Event.Builder();
     }
 
