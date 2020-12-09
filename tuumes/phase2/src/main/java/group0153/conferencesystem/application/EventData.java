@@ -1,55 +1,41 @@
-package group0153.conferencesystem.adapters.gateways.event;
+package group0153.conferencesystem.application;
 
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
-import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Class for passing the event entity's information to the frontend.
- */
-@Entity
-public class EventModel {
-    private @Id @GeneratedValue Long id;
-    private String resourceId;
-    private String eventName;
-    private String eventType;
-    private String description;
-    private Date startTime;
-    private Date endTime;
-    @ElementCollection
-    private List<String> speakerIds;
-    private int userLimit;
-    private int userCount;
-    @ElementCollection
-    private List<String> userIds;
-    private boolean isVipOnlyEvent;
+public class EventData {
+    final private String eventName;
+    final private String eventType;
+    final private String description;
+    final private Date startTime;
+    final private Date endTime;
+    final private ArrayList<String> speakerIds;
+    final private int userLimit;
+    final private int userCount;
+    final private ArrayList<String> userIds;
+    final private boolean isVipOnlyEvent;
 
-    public EventModel(){}
-
-    public EventModel(Event event, String resourceId) {
-        this.resourceId = resourceId;
+    public EventData(Event event) {
+        ArrayList<String> speakerIds1;
         this.eventName = event.getEventName();
         this.description = event.getDescription();
         this.startTime = event.getStartTime();
         this.endTime = event.getEndTime();
         try {
-            this.speakerIds = event.getSpeakerIds();
+            speakerIds1 = event.getSpeakerIds();
         } catch (UnsuccessfulCommandException ex) {
-            this.speakerIds = new ArrayList<String>();
+            speakerIds1 = new ArrayList<String>();
         }
+        this.speakerIds = speakerIds1;
         this.userLimit = event.getUserLimit();
         this.userCount = event.getUserCount();
         this.userIds = event.getUserIds();
         this.isVipOnlyEvent = event.isVipOnlyEvent();
         this.eventType = event.getEventType();
-    }
-
-    public String getResourceId(){
-        return resourceId;
     }
 
     public String getEventName() {
@@ -68,7 +54,7 @@ public class EventModel {
         return endTime;
     }
 
-    public List<String> getSpeakerIds() {
+    public ArrayList<String> getSpeakerIds() {
         return speakerIds;
     }
 
@@ -80,7 +66,7 @@ public class EventModel {
         return userCount;
     }
 
-    public List<String> getUserIds() {
+    public ArrayList<String> getUserIds() {
         return userIds;
     }
 

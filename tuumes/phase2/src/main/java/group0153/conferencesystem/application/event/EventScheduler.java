@@ -2,7 +2,6 @@ package group0153.conferencesystem.application.event;
 
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,13 +20,14 @@ public class EventScheduler {
 
     /**
      * Returns all active events. (Ignores events that have already passed)
+     *
      * @return Arraylist of events.
      */
     private ArrayList<String> getScheduledEventIds() {
         Date current = new Date();
         ArrayList<String> result = new ArrayList<String>();
-        for (Event event : eventPersistencePort.getAllEvents()){
-            if (!event.getStartTime().before(current)){
+        for (Event event : eventPersistencePort.getAllEvents()) {
+            if (!event.getStartTime().before(current)) {
                 result.add(event.getId());
             }
         }
@@ -36,13 +36,14 @@ public class EventScheduler {
 
     /**
      * Tries to schedule the event.
+     *
      * @param event: The event to be scheduled.
      * @throws UnsuccessfulCommandException The event could not be added successfully.
-    */
+     */
     public void scheduleEvent(Event event) throws UnsuccessfulCommandException {
         ArrayList<String> eventIds = getScheduledEventIds();
         for (String otherEventId : eventIds) {
-            if (hasTimeConflict(event.getId(), otherEventId)){
+            if (hasTimeConflict(event.getId(), otherEventId)) {
                 throw new UnsuccessfulCommandException("The event to be scheduled has a time conflict.");
             }
         }
@@ -51,6 +52,7 @@ public class EventScheduler {
 
     /**
      * Chech if two events have time conflict.
+     *
      * @param eventId1 event id of the first event.
      * @param eventId2 event id of the second event.
      * @return True if the first event and the second event have time conflict.
@@ -74,6 +76,7 @@ public class EventScheduler {
 
     /**
      * Tries to remove the event by its id (if an event with this id exists).
+     *
      * @param eventId The id of the event to be removed.
      * @return Returns true if the event has been removed. Returns false if their was no event with the given id.
      */
