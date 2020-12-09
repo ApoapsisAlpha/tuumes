@@ -1,7 +1,6 @@
 package group0153.conferencesystem.application.user;
 
 import group0153.conferencesystem.application.user.data.UserLoginData;
-import group0153.conferencesystem.application.user.data.UserRegisterData;
 import group0153.conferencesystem.application.user.exception.IncorrectLoginException;
 import group0153.conferencesystem.application.user.exception.UserExistsException;
 import group0153.conferencesystem.entities.user.User;
@@ -46,9 +45,8 @@ public class UserAuthManager {
      * @param email the email of the user
      * @param password the password of the user
      * @param userType the type of user
-     * @return The id of the new constructed user
      */
-    public UserRegisterData create(String name, String email, String password, UserType userType) throws
+    public void create(String name, String email, String password, UserType userType) throws
             UserExistsException {
         Optional<User> userExists = userPersistencePort.findUserByEmail(email);
         if (userExists.isPresent())
@@ -56,6 +54,5 @@ public class UserAuthManager {
         String id = UUID.randomUUID().toString();
         User user = new User.Builder().id(id).name(name).email(email).password(password).type(userType).build();
         userPersistencePort.saveUser(user);
-        return new UserRegisterData(user.getId(), userType);
     }
 }

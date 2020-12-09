@@ -60,17 +60,14 @@ public class UserPersistenceAdapter implements UserPersistencePort {
      */
     @Override
     public Optional<User> findById(String userId) {
+        // TODO: 12/3/2020 @david plz fix
         Optional<UserModel> possibleUserModel = userRepository.findById(userId);
-
         if (possibleUserModel.isPresent()) {
             UserModel userModel = possibleUserModel.get();
-
             User user = new User.Builder().name(userModel.getName()).email(userModel.getEmail()).
                     password(userModel.getPassword()).type(userModel.getType()).build();
-
             return Optional.of(user);
         }
-
         return Optional.empty();
     }
 }

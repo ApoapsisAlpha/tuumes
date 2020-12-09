@@ -1,4 +1,4 @@
-package group0153.conferencesystem.adapters.controllers.user;
+package group0153.conferencesystem.adapters.controllers.user.resources;
 
 import group0153.conferencesystem.exceptions.InvalidInputException;
 
