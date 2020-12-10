@@ -3,10 +3,14 @@ package group0153.conferencesystem.adapters.controllers.event;
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.EventData;
+import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
+import group0153.conferencesystem.application.event.EventScheduler;
+import group0153.conferencesystem.application.event.EventUpdater;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.application.user.UserEventsManager;
+import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,10 +27,20 @@ import java.util.List;
 public class EventController {
     private final UserEventsManager userEventsManager;
     private final RoomManager roomManager;
+    private final Event.Builder eventBuilder;
+    private final EventRegistry eventRegistry;
+    private final EventScheduler eventScheduler;
+    private final EventUpdater eventUpdater;
+    private final EventScheduleDataPreparer eventScheduleDataPreparer;
 
-    public EventController(UserEventsManager userEventsManager, RoomManager roomManager) {
+    public EventController(UserEventsManager userEventsManager, RoomManager roomManager, EventRegistry eventRegistry, EventScheduler eventScheduler, EventUpdater eventUpdater, EventScheduleDataPreparer eventScheduleDataPreparer) {
         this.userEventsManager = userEventsManager;
         this.roomManager = roomManager;
+        this.eventBuilder = new Event.Builder();
+        this.eventRegistry = eventRegistry;
+        this.eventScheduler = eventScheduler;
+        this.eventUpdater = eventUpdater;
+        this.eventScheduleDataPreparer = eventScheduleDataPreparer;
     }
 
     /**
@@ -40,19 +55,15 @@ public class EventController {
             List<String> userEvents = userEventsManager.getUserEvents(userId);
             // TODO: 12/9/2020 @weihao This event should return every event a user is not a part of. (only future events too)
             // This should return List<EventData>
-            List<Data> events = WhichEvent.getEventsForUser(userEvents);
-            for (Data event : events) {
-                RoomData room = roomManager.getRoomById(event.)
+            ArrayList<EventData> events = this.eventScheduleDataPreparer.getUpcomingEventsExcluding(userEvents);
+            for (EventData event : events) {
+                RoomData room = roomManager.getRoomById(event.getRoomId());
             }
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
-//    private final Event.Builder eventBuilder;
-//    private final EventRegistry eventRegistry;
-//    private final EventScheduler eventScheduler;
-//    private final EventUpdater eventUpdater
 //
 //    public EventController(EventManager eventManager) {
 //        ArrayList<Event> events = new ArrayList<Event>();

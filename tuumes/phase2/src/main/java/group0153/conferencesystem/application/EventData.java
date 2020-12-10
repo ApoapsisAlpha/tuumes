@@ -18,6 +18,7 @@ public class EventData implements Data {
     final private int userCount;
     final private ArrayList<String> userIds;
     final private boolean isVipOnlyEvent;
+    final private String roomId;
 
     public EventData(Event event) {
         ArrayList<String> speakerIds1;
@@ -36,6 +37,7 @@ public class EventData implements Data {
         this.userIds = event.getUserIds();
         this.isVipOnlyEvent = event.isVipOnlyEvent();
         this.eventType = event.getEventType();
+        this.roomId = event.getRoomId();
     }
 
     public String getEventName() {
@@ -77,4 +79,6 @@ public class EventData implements Data {
     public String getEventtype() {
         return eventType;
     }
+
+    public String getRoomId() { return roomId; }
 }
