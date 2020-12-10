@@ -1,4 +1,4 @@
-package group0153.conferencesystem.adapters.controllers.event.resource;
+package group0153.conferencesystem.adapters.controllers.event.resources;
 
 public class EventResource {
     private String userId;

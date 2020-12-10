@@ -51,6 +51,7 @@ public class UserAuthManager {
         Optional<User> userExists = userPersistencePort.findUserByEmail(email);
         if (userExists.isPresent())
             throw new UserExistsException();
+
         String id = UUID.randomUUID().toString();
         User user = new User.Builder().id(id).name(name).email(email).password(password).type(userType).build();
         userPersistencePort.saveUser(user);

@@ -1,34 +1,42 @@
 package group0153.conferencesystem.adapters.gateways.message;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.ArrayList;
+import group0153.conferencesystem.adapters.gateways.user.UserModel;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class MessageModel {
     private @Id @GeneratedValue Long id;
     private String resourceId;
-    private String messageContent;
-    private String senderId;
-    private ArrayList<String> recipientIds;
+    private String content;
     private boolean isRead;
 
-    public MessageModel(String resourceId, String messageContent, String senderId, ArrayList<String> recipientIds, boolean isRead){
+    @OneToOne
+    private UserModel sender;
+
+    @ManyToMany
+    private Set<UserModel> recipients;
+
+    public MessageModel() {
+
+    }
+
+    public MessageModel(String resourceId, String messageContent, UserModel sender, Set<UserModel> recipients, boolean isRead){
         this.resourceId = resourceId;
-        this.messageContent = messageContent;
-        this.senderId = senderId;
-        this.recipientIds = recipientIds;
+        this.content = messageContent;
+        this.sender = sender;
+        this.recipients = recipients;
         this.isRead = isRead;
     }
 
     public String getResourceId() { return resourceId; }
 
-    public String getMessageContent() { return messageContent; }
+    public String getMessageContent() { return content; }
 
-    public String getSenderId() { return senderId; }
+    public UserModel getSenderId() { return sender; }
 
-    public ArrayList<String> getRecipientIds() { return recipientIds; }
+    public Set<UserModel> getRecipientIds() { return recipients; }
 
     public boolean isRead() { return isRead; }
 }
