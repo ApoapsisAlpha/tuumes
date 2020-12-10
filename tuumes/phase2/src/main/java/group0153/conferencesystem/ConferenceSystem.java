@@ -6,7 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ConferenceSystem {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ConferenceSystem.class, args);
-	}
+    /**
+     * Run Spring with specified arguments
+     *
+     * @param args arguments specified when program is launched
+     */
+    public static void main(String[] args) {
+        SpringApplication.run(ConferenceSystem.class, args);
+    }
 }

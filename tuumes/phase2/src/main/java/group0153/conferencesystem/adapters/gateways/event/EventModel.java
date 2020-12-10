@@ -88,7 +88,7 @@ public class EventModel {
         return isVipOnlyEvent;
     }
 
-    public String getEventtype() {
+    public String getEventType() {
         return eventType;
     }
 }

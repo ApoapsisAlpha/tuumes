@@ -51,7 +51,7 @@ public class EventScheduler {
     }
 
     /**
-     * Chech if two events have time conflict.
+     * Check if two events have time conflict.
      *
      * @param eventId1 event id of the first event.
      * @param eventId2 event id of the second event.
@@ -78,7 +78,6 @@ public class EventScheduler {
      * Tries to remove the event by its id (if an event with this id exists).
      *
      * @param eventId The id of the event to be removed.
-     * @return Returns true if the event has been removed. Returns false if their was no event with the given id.
      */
     public void unscheduleEvent(String eventId) throws UnsuccessfulCommandException {
         Optional<Event> event = this.eventPersistencePort.getEvent(eventId);

@@ -8,16 +8,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EventData implements Data {
-    final private String eventName;
-    final private String eventType;
-    final private String description;
-    final private long startTime;
-    final private long endTime;
-    final private ArrayList<String> speakerIds;
-    final private int userLimit;
-    final private int userCount;
-    final private ArrayList<String> userIds;
-    final private boolean isVipOnlyEvent;
+    private final String eventName;
+    private final String eventType;
+    private final String description;
+    private final long startTime;
+    private final long endTime;
+    private final ArrayList<String> speakerIds;
+    private final int userLimit;
+    private final int userCount;
+    private final ArrayList<String> userIds;
+    private final boolean isVipOnlyEvent;
 
     public EventData(Event event) {
         ArrayList<String> speakerIds1;
@@ -74,7 +74,7 @@ public class EventData implements Data {
         return isVipOnlyEvent;
     }
 
-    public String getEventtype() {
+    public String getEventType() {
         return eventType;
     }
 }
