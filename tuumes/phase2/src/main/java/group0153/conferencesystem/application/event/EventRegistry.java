@@ -50,8 +50,6 @@ public class EventRegistry {
      *
      * @param eventId The id of the event.
      * @param userId  The id of the user.
-     * @return True if the user id is added to the userId list of the event. Return false otherwise (user already
-     * registered to this event or user limit is reached).
      * @throws EventNotFoundException No event found.
      */
     public void registerUserForEvent(String eventId, String userId) throws UnsuccessfulCommandException {
