@@ -6,7 +6,6 @@ import group0153.conferencesystem.adapters.controllers.user.resources.UserContac
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.user.UserContactManager;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/user/contacts")
+@RequestMapping(value = "/api/user/contacts")
 public class UserContactController {
     private final UserContactManager userContactManager;
 
+    /**
+     * Construct a new instance of UserContactController with the specified userContactManager
+     *
+     * @param userContactManager an instance of UserContactManager to be used to manage contacts
+     */
     public UserContactController(UserContactManager userContactManager) {
         this.userContactManager = userContactManager;
     }

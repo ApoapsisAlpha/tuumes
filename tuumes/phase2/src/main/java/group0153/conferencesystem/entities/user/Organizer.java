@@ -5,6 +5,7 @@ public class Organizer extends User {
     /**
      * Constructor that instantiates an Organizer instance.
      *
+     * @param id       id of organizer
      * @param name     name of organizer
      * @param email    email of organizer
      * @param password password of organizer account

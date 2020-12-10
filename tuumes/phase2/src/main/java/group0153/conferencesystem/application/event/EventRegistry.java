@@ -13,6 +13,11 @@ public class EventRegistry {
 
     EventPersistencePort eventPersistencePort;
 
+    /**
+     * Construct an instance of EventRegistery using the provided EventPersistencePort instance.
+     *
+     * @param eventPersistencePort an instance of EventPersistencePort to be used to save data
+     */
     public EventRegistry(EventPersistencePort eventPersistencePort) {
         this.eventPersistencePort = eventPersistencePort;
     }

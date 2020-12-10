@@ -15,6 +15,11 @@ import java.util.Optional;
 public class UserContactManager {
     final UserPersistencePort userPersistencePort;
 
+    /**
+     * Constructs an instance of UserContactManager using the provided userPersistencePort.
+     *
+     * @param userPersistencePort the UserPersistencePort through which data can be saved
+     */
     public UserContactManager(UserPersistencePort userPersistencePort) {
         this.userPersistencePort = userPersistencePort;
     }

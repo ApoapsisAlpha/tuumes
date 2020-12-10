@@ -7,6 +7,13 @@ public class UserContactData implements Data {
     private String name;
     private String email;
 
+    /**
+     * Constructs a instance of UserContactData with the provided information.
+     *
+     * @param id    the String id of the contact
+     * @param name  the String name of the contact
+     * @param email the String email of the contact
+     */
     public UserContactData(String id, String name, String email) {
         this.id = id;
         this.name = name;

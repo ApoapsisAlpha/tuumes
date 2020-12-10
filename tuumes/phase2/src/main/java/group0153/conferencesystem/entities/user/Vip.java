@@ -4,6 +4,7 @@ public class Vip extends User {
     /**
      * Constructor that initiates a Vip instance.
      *
+     * @param id       id of the vip
      * @param name     name of the vip.
      * @param email    email of the vip.
      * @param password password of the vip account.

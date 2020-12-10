@@ -11,6 +11,7 @@ public class UserRegisterResource {
      * Gets email.
      *
      * @return Value of email.
+     * @throws InvalidInputException No email inputted.
      */
     public String getEmail() throws InvalidInputException {
         if (email.isEmpty())
@@ -22,6 +23,7 @@ public class UserRegisterResource {
      * Gets name.
      *
      * @return Value of name.
+     * @throws InvalidInputException No name inputted.
      */
     public String getName() throws InvalidInputException {
         if (name.isEmpty())
@@ -33,6 +35,7 @@ public class UserRegisterResource {
      * Gets password.
      *
      * @return Value of password.
+     * @throws InvalidInputException No password inputted.
      */
     public String getPassword() throws InvalidInputException {
         if (password.isEmpty())

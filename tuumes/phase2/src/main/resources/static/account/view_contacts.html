@@ -18,7 +18,7 @@
             width: 9%;
         }
 
-        .friend-list, .custom-select {
+        .friend-list, .form-control {
             width: 55%;
             margin: auto;
         }
@@ -110,12 +110,10 @@
         </div>
         <br>
 
-        <select class="browser-default custom-select z-depth-1">
-            <option disabled selected>Add Contact</option>
-            <option value="1">User Name One</option>
-            <option value="2">User Name Two</option>
-            <option value="3">User Name Three</option>
-        </select>
+        <div class="form-group">
+            <label for="newContactEmail">Add Contact:</label>
+            <input autocomplete="on" class="form-control z-depth-1" id="newContactEmail" name="newContactEmail" placeholder="User Email" type="text">
+        </div>
         <button class="btn btn-default btn-sm"><i class="fa fa-user-check fa-lg"></i> Add</button>
 
         <br><br>

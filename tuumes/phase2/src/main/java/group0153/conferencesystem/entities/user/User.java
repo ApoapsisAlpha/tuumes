@@ -102,6 +102,7 @@ public class User {
     /**
      * Constructor that instantiates a User instance.
      *
+     * @param id       id of user.
      * @param name     name of user.
      * @param email    email of user.
      * @param password password of user account.
