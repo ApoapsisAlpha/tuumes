@@ -343,8 +343,34 @@ public abstract class Event {
          *
          * @param startTime the Date start time of the Event.
          */
-        public void setStartTime(Date startTime) {
-            this.startTime = startTime;
+        public void setStartTime(String startTime) throws UnsuccessfulCommandException {
+            this.startTime = convertToDate(startTime);
+        }
+
+        /**
+         *
+         * @param time The time given in the form year\month\monthDay\hour\minute. Seconds is set to 0.
+         * @return The representative date object.
+         */
+        private Date convertToDate(String time) throws UnsuccessfulCommandException {
+            ArrayList<String> parameters = new ArrayList<>();
+            ArrayList<Integer> convertedParameters = new ArrayList<>();
+            int l = 0;
+            int r = 1;
+            while (r < time.length()) {
+                if (time.charAt(r) == '/') {
+                    int value = Integer.parseInt(time.substring(l, r));
+                    convertedParameters.add(value);
+                    l = r + 1;
+                    ++r;
+                }
+                ++r;
+            }
+            int value = Integer.parseInt(time.substring(l, r));
+            convertedParameters.add(value);
+            if (convertedParameters.size() != 5) throw new UnsuccessfulCommandException("The input does not match the required format.");
+            return new Date(convertedParameters.get(0), convertedParameters.get(1), convertedParameters.get(2), convertedParameters.get(3),
+                    convertedParameters.get(4));
         }
 
         /**
@@ -352,8 +378,8 @@ public abstract class Event {
          *
          * @param endTime the Date end time of the Event.
          */
-        public void setEndTime(Date endTime) {
-            this.endTime = endTime;
+        public void setEndTime(String endTime) throws UnsuccessfulCommandException {
+            this.endTime = convertToDate(endTime);
         }
 
         /**
