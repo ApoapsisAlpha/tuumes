@@ -25,8 +25,7 @@ public class MessageCreationManager {
      */
     public String create(String messageContent, String senderId, ArrayList<String> recipientIds) {
         Message message = new Message(messageContent, senderId, recipientIds);
-        // @todo Store somewhere
-//        messageRepository.add(message);
+        messagePersistencePort.saveMessage(message);
         return message.getId();
     }
 }
