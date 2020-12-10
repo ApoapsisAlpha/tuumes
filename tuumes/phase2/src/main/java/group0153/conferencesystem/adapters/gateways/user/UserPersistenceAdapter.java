@@ -28,7 +28,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     @Override
     public void saveUser(User user) {
         UserModel userModel = new UserModel(user.getId(), user.getName(), user.getEmail(), user.getPassword(),
-                user.getType(), user.getEvents(), user.getContacts());
+                user.getType());
         userRepository.save(userModel);
     }
 
@@ -40,34 +40,28 @@ public class UserPersistenceAdapter implements UserPersistencePort {
      */
     @Override
     public Optional<User> findUserByEmail(String email) {
-        // TODO: 12/3/2020 @david plz fix 
-        List<UserModel> usersWithEmail = userRepository.findByEmail(email);
-        if (usersWithEmail.isEmpty())
-            return Optional.empty();
-        else {
-            UserModel userModel = usersWithEmail.get(0);
-            User user = new User.Builder().name(userModel.getName()).email(userModel.getEmail()).
-                    password(userModel.getPassword()).type(userModel.getType()).build();
+        Optional<UserModel> userModel = userRepository.findByEmail(email);
+        Optional<User> mappedUser = userModel.flatMap(u -> {
+            User user = new User.Builder()
+                    .id(u.getResourceId())
+                    .name(u.getName())
+                    .email(u.getEmail())
+                    .password(u.getPassword())
+                    .type(u.getType()).build();
             return Optional.of(user);
-        }
+        });
+
+        return mappedUser;
     }
 
     /**
-     * Find a user by its id
+     * Find a user based on their id.
      *
-     * @param userId the id of the user
-     * @return the user as an Optional object
+     * @param userId The users id.
+     * @return The user with the id. (Empty if they don't exist)
      */
     @Override
     public Optional<User> findById(String userId) {
-        // TODO: 12/3/2020 @david plz fix
-        Optional<UserModel> possibleUserModel = userRepository.findById(userId);
-        if (possibleUserModel.isPresent()) {
-            UserModel userModel = possibleUserModel.get();
-            User user = new User.Builder().name(userModel.getName()).email(userModel.getEmail()).
-                    password(userModel.getPassword()).type(userModel.getType()).build();
-            return Optional.of(user);
-        }
         return Optional.empty();
     }
 

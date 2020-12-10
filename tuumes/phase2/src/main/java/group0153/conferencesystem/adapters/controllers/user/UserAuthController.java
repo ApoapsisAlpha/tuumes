@@ -17,11 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="/api/user")
+@RequestMapping(value="/user")
 public class UserAuthController {
     private final UserAuthManager userAuthManager;
 
-    public UserAuthController(UserAuthManager userAuthManager, UserContactManager userContactManager) {
+    public UserAuthController(UserAuthManager userAuthManager) {
         this.userAuthManager = userAuthManager;
     }
 
