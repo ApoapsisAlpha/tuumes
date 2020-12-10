@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title>Create New Event - TUUMES</title>
+    <title>Modify Event - TUUMES</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/Manrope/index.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/MDB/css/mdb.min.css" rel="stylesheet">
@@ -21,7 +21,6 @@
             overflow: auto;
             height: 100%;
         }
-
     </style>
 </head>
 
@@ -51,25 +50,33 @@
     <div class="container white text-center mt-5 pt-4">
         <h3 class="pb-3">Modify an existing event:</h3>
 
-        <div class="form-group">
-            <select class="browser-default custom-select" name="event">
-                <option disabled selected>Choose Event</option>
-                <option value="1">Event Name One</option>
-                <option value="2">Event Name Two</option>
-                <option value="3">Event Name Three</option>
-            </select>
-        </div>
+        <form class="container needs-validation" id="event_mod_form">
+            <div class="form-group">
+                <select class="browser-default custom-select" name="event" required>
+                    <option disabled selected>Choose Event</option>
+                    <option value="1">Event Name One</option>
+                    <option value="2">Event Name Two</option>
+                    <option value="3">Event Name Three</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <p>Start Time: </p>
-            <input autocomplete="off" class="form-control" name="startTime" placeholder="Start Time" type="datetime-local">
-        </div>
+            <div class="form-group">
+                <label for="startTime">Start Time: </label>
+                <input autocomplete="off" class="form-control" id="startTime" name="startTime" placeholder="Start Time"
+                       type="datetime-local">
+            </div>
 
-        <div class="form-group">
-            <p>End Time: </p>
-            <input autocomplete="off" class="form-control" name="endTime" placeholder="End Time" type="datetime-local">
-        </div>
+            <div class="form-group">
+                <label for="endTime">End Time: </label>
+                <input autocomplete="off" class="form-control" id="endTime" name="endTime" placeholder="End Time"
+                       type="datetime-local">
+            </div>
 
+            <div class="form-group">
+                <label for="capacity">Capacity:</label>
+                <input class="form-control" id="capacity" min="1" name="capacity" placeholder="Capacity" type="number">
+            </div>
+        </form>
         <br>
 
         <a class="btn btn-secondary" href=""><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Modify</a>
