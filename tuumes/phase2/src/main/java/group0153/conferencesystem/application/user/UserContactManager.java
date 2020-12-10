@@ -72,7 +72,8 @@ public class UserContactManager {
      */
     public void addContactById(String contactId, String userId) throws UserNotFoundException {
         Optional<User> userPresent = userPersistencePort.findById(userId);
-        if (!userPresent.isPresent())
+        Optional<User> contactPresent = userPersistencePort.findById(contactId);
+        if (!userPresent.isPresent() || !contactPresent.isPresent())
             throw new UserNotFoundException(userId);
         userPersistencePort.addContactById(contactId, userId);
     }

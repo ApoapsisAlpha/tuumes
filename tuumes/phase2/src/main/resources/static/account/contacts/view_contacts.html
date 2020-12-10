@@ -35,15 +35,9 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="../dashboard.html">Go back</a>
             </li>
         </ul>
-        <span class="navbar-text white-text">
-                    Guest
-                </span>
     </div>
 </nav>
 
@@ -51,62 +45,22 @@
     <div class="container white text-center pt-4">
         <h3 class="pb-4">Contacts: </h3>
 
-        <div class="white z-depth-1 px-3 pt-3 pb-0 friend-list">
-            <ul class="list-unstyled">
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <img alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1"
-                             src="../assets/img/avatar.png">
-                        <div class="text-small">
-                            <strong>Person Name Zero</strong>
-                            <p class="text-muted">Person Email</p>
-                        </div>
-                        <div class="float-right">
-                            <button class="btn btn-danger float-right" type="button">Remove From Contacts</button>
-                        </div>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <img alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1"
-                             src="../assets/img/avatar.png">
-                        <div class="text-small">
-                            <strong>Person Name One</strong>
-                            <p class="text-muted">Person Email</p>
-                        </div>
-                        <div class="float-right">
-                            <button class="btn btn-danger float-right" type="button">Remove From Contacts</button>
-                        </div>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <img alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1"
-                             src="../assets/img/avatar.png">
-                        <div class="text-small">
-                            <strong>Person Name Two</strong>
-                            <p class="text-muted">Person Email</p>
-                        </div>
-                        <div class="float-right">
-                            <button class="btn btn-danger float-right" type="button">Remove From Contacts</button>
-                        </div>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <img alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1"
-                             src="../assets/img/avatar.png">
-                        <div class="text-small">
-                            <strong>Person Name Three</strong>
-                            <p class="text-muted">Person Email</p>
-                        </div>
-                        <div class="float-right">
-                            <button class="btn btn-danger float-right" type="button">Remove From Contacts</button>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-
+        <div id="contacts">
+            <div class="white z-depth-1 px-3 pt-3 pb-0 friend-list">
+                <ul class="list-unstyled">
+                    <li class="p-2">
+                        <a class="d-flex justify-content-between" href="#">
+                            <div class="text-small">
+                                <strong> ... </strong>
+                                <p class="text-muted"> ... </p>
+                            </div>
+                            <div class="float-right">
+                                <button class="btn btn-danger float-right" type="button"> ... </button>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         <br>
 
@@ -114,7 +68,7 @@
             <label for="newContactEmail">Add Contact:</label>
             <input autocomplete="on" class="form-control z-depth-1" id="newContactEmail" name="newContactEmail" placeholder="User Email" type="text">
         </div>
-        <button class="btn btn-default btn-sm"><i class="fa fa-user-check fa-lg"></i> Add</button>
+        <button class="btn btn-default btn-sm" onclick="addContact();"><i class="fa fa-user-check fa-lg"></i> Add</button>
 
         <br><br>
     </div>
@@ -125,5 +79,70 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
         type="text/javascript"></script>
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
-<script src="assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/account.js" type="text/javascript"></script>
+
+<script>
+    function getContacts() {
+        $.postJSON("/user/contacts/view", {
+            userId: USER_ID,
+        }, function(result) {
+            let to_print = ``;
+            result.data.forEach(contact => {
+                to_print += `
+                <div class="white z-depth-1 px-3 pt-3 pb-0 friend-list">
+                    <ul class="list-unstyled">
+                        <li class="p-2">
+                            <a class="d-flex justify-content-between" href="#">
+                                <div class="text-small">
+                                    <strong>${contact.name}</strong>
+                                    <p class="text-muted">${contact.email}</p>
+                                </div>
+                                <div class="float-right">
+                                    <button class="btn btn-danger float-right" type="button" onclick="removeContact(${contact.id})">
+                                        Remove
+                                    </button>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>`
+            });
+            $("#contacts").html(to_print);
+        });
+    }
+
+    function removeContact(contactId) {
+        $.postJSON("/user/contacts/remove", {
+            userId: USER_ID,
+            contactId: contactId
+        }, function(result) {
+            getContacts();
+        });
+
+        return false;
+    }
+
+    function addContact() {
+        $.postJSON("/user/contacts/add", {
+            userId: USER_ID,
+            contactEmail: $("#newContactEmail").val()
+        }, function(result) {
+            if (result.valid)
+                getContacts();
+            else {
+                switch (result.message) {
+                    case "USER_NOT_FOUND":
+                        toastr.error("User with that email not found");
+                        break;
+                }
+            }
+        });
+
+        return false;
+    }
+
+    getContacts();
+</script>
+
 </html>

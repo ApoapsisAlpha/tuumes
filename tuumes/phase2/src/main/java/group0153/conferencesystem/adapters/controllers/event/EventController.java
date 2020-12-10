@@ -14,11 +14,7 @@ import group0153.conferencesystem.exceptions.UserNotFoundException;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import group0153.conferencesystem.adapters.controllers.resource.EventUpdateCapacityResource;
 
 import java.util.List;
@@ -112,7 +108,7 @@ public class EventController {
     @PostMapping("/update-capacity")
     public ResponseEntity<Response> updateCapacity(@RequestBody EventUpdateCapacityResource capacityResource){
         try {
-            eventUpdater.updateCapacity(capacityResource.getEventId, capacityResource.getUserLimit);
+            eventUpdater.updateCapacity(capacityResource.getEventId(), capacityResource.getUserLimit());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Respone(false, "BAD_EVENT"), HttpStatus.OK);

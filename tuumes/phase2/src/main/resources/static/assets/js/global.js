@@ -1,4 +1,10 @@
 const PRIVATE_API = "http://localhost:8080/api";
+const userType = {
+    ATTENDEE: 'ATTENDEE',
+    VIP: 'VIP',
+    SPEAKER: 'SPEAKER',
+    ORGANIZER: 'ORGANIZER',
+}
 
 function validate(form) {
     return document.getElementById($(form).attr('id')).checkValidity();

@@ -53,7 +53,10 @@ public class UserContactController {
             userContactManager.addContactById(contactResource.getContactId(), contactResource.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
+            if (e.getUserId().equals(contactResource.getContactId()))
+                return new ResponseEntity<>(new Response(false, "USER_NOT_FOUND"), HttpStatus.OK);
+            else
+                return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 }

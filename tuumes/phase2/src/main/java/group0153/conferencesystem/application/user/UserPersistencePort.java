@@ -38,6 +38,7 @@ public interface UserPersistencePort {
 
     /**
      * Find a user based on an id, and add a user id to their contacts.
+     *
      * @param contactId The id of the contact to add.
      * @param userId The id of the user to add the contact to.
      */
