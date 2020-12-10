@@ -4,10 +4,7 @@ import group0153.conferencesystem.adapters.gateways.event.EventModel;
 import group0153.conferencesystem.application.EventData;
 import group0153.conferencesystem.entities.event.Event;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Creates array lists of EventData representing the schedule (in sorted order by preference).
@@ -46,12 +43,28 @@ public class EventScheduleDataPreparer {
 
     /**
      *
+     * @return A sorted array list of all of the upcoming events.
+     */
+    private ArrayList<Event> getUpcomingEventsHelper() {
+        ArrayList<Event> events = eventPersistencePort.getAllEvents();
+        Date now = new Date();
+        ArrayList<Event> upcomingEvents = new ArrayList<>();
+        for (Event event : events) {
+            if (event.getStartTime().after(now))
+                upcomingEvents.add(event);
+        }
+        upcomingEvents.sort(new SortEventsByDate());
+        return upcomingEvents;
+    }
+
+    /**
+     *
      * @param lDate The earliest date in the time interval.
      * @param rDate The latest date in the time interval.
      * @return Returns an array list of EventData sorted by the start time of the event. The events
      * all occur and end within lDate and rDate (inclusive).
      */
-    ArrayList<EventData> getScheduleModelByInInterval(Date lDate, Date rDate) {
+    public ArrayList<EventData> getScheduleModelByInInterval(Date lDate, Date rDate) {
         ArrayList<Event> events = eventPersistencePort.getAllEvents();
         ArrayList<Event> eventsInInterval = new ArrayList<>();
         for (Event event : events) {
@@ -63,19 +76,36 @@ public class EventScheduleDataPreparer {
         return this.createEventDataArray(eventsInInterval);
     }
 
+
+
     /**
      *
      * @return Returns all of the upcoming events that are scheduled to happen.
      */
-    ArrayList<EventData> getAllUpcomingEvents() {
-        ArrayList<Event> events = eventPersistencePort.getAllEvents();
-        Date now = new Date();
-        ArrayList<Event> upcomingEvents = new ArrayList<>();
+    public ArrayList<EventData> getUpcomingEvents() {
+        ArrayList<Event> events = this.getUpcomingEventsHelper();
+        return this.createEventDataArray(events);
+    }
+
+    /**
+     *
+     * @param eventIds The list of ids of events to be excluded from the schedule.
+     * @return A sorted list of event data representing the schedule of upcoming events.
+     */
+    public ArrayList<EventData> getUpcomingEventsExcluding(List<String> eventIds) {
+        ArrayList<Event> events = getUpcomingEventsHelper();
+        ArrayList<Event> res = new ArrayList<>();
         for (Event event : events) {
-            if (event.getStartTime().after(now))
-                upcomingEvents.add(event);
+            boolean add = true;
+            for (String id : eventIds) {
+                if (event.getId().equals(id)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add)
+                res.add(event);
         }
-        upcomingEvents.sort(new SortEventsByDate());
-        return this.createEventDataArray(upcomingEvents);
+        return this.createEventDataArray(res);
     }
 }

@@ -248,14 +248,13 @@ public abstract class Event {
     }
 
     /**
-     * Unregister the specified user from this Event, returning a boolean indicating whether this was a success.
+     * Unregister the specified user from this Event.
      *
      * @param userId Remove userId from this event. Nothing happens if the user was not
      *               in this event to begin with.
-     * @return Returns true if userId was removed. Returns false if the userId was not found.
      */
-    public boolean removeUserId(String userId) {
-        return this.userIds.remove(userId);
+    public void removeUserId(String userId) {
+        this.userIds.remove(userId);
     }
 
     /**
@@ -311,7 +310,6 @@ public abstract class Event {
         private boolean isVipOnlyEvent;               // whether this event is VIP-only.
         private ArrayList<String> speakerIds;         // ids of speakers to speak at this event.
         private int speakerLimit;                     // maximum number of speakers allowed at this event.
-        private String speakerId;                     // id of single speaker at this event.
 
         /**
          * Set the id of the Event.
@@ -394,14 +392,8 @@ public abstract class Event {
             this.speakerIds = speakerIds;
         }
 
-        /**
-         * Set the id of the single speaker of this Event
-         *
-         * @param speakerId the id of a speaker to speak at this Event.
-         */
-        public void setSpeakerId(String speakerId) {
-            this.speakerId = speakerId;
-        }
+//        public void setSpeakerId(String speakerId) {
+//        }
 
         /**
          * Set the number of speakers at this Event

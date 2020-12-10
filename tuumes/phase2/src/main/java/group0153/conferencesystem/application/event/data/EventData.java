@@ -9,17 +9,20 @@ public class EventData implements Data {
     private int startTime;
     private int endTime;
     private boolean VIPOnly;
+    private int limit;
 
     private String roomName;
     private int roomCapacity;
 
-    public EventData(String id, String name, String description, int startTime, int endTime, boolean VIPOnly) {
+    public EventData(String id, String name, String description, int startTime, int endTime, boolean VIPOnly,
+                     int limit) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.VIPOnly = VIPOnly;
+        this.limit = limit;
     }
 
     /**
