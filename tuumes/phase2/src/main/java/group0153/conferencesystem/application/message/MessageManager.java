@@ -1,6 +1,8 @@
 package group0153.conferencesystem.application.message;
 
 import group0153.conferencesystem.application.message.exception.MessageIdNotFoundException;
+import group0153.conferencesystem.application.message.exception.NoMessagesReceivedException;
+import group0153.conferencesystem.application.message.exception.NoMessagesSentException;
 import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
@@ -105,9 +107,28 @@ public class MessageManager {
      *
      * @param sender Sender of the message(s)
      * @return A list of message ids
+     * @throws NoMessagesSentException No messages have been sent by sender
      */
     public ArrayList<String> findMsgIdsBySender(String sender){
-        
+        Optional<ArrayList<String>> msgIds = messagePersistencePort.findMsgsBySender(sender);
+        if(!msgIds.isPresent())
+            throw new NoMessagesSentException();
+        return msgIds.get();
     }
+
+    /**
+     * Given a recipient's id, find the id(s)'s of all the messages sent to that user.
+     *
+     * @param recipient recipient of the message(s)
+     * @return A list of message ids
+     * @throws NoMessagesReceivedException No messages have been received by recipient
+     */
+    public ArrayList<String> findMsgIdsByRecipient(String recipient){
+        Optional<ArrayList<String>> msgIds = messagePersistencePort.findMsgsToRecipient(recipient);
+        if(!msgIds.isPresent())
+            throw new NoMessagesReceivedException();
+        return msgIds.get();
+    }
+
 
 }
