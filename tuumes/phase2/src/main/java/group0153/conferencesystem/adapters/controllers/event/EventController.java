@@ -59,11 +59,22 @@ public class EventController {
             for (EventData event : events) {
                 RoomData room = roomManager.getRoomById(event.getRoomId());
             }
+
+            return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Response> addEvent() {
+
+    }
+
+//    private final Event.Builder eventBuilder;
+//    private final EventRegistry eventRegistry;
+//    private final EventScheduler eventScheduler;
+//    private final EventUpdater eventUpdater
 //
 //    public EventController(EventManager eventManager) {
 //        ArrayList<Event> events = new ArrayList<Event>();
