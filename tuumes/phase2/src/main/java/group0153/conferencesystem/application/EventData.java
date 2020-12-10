@@ -7,12 +7,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class EventData {
+public class EventData implements Data {
     final private String eventName;
     final private String eventType;
     final private String description;
-    final private Date startTime;
-    final private Date endTime;
+    final private long startTime;
+    final private long endTime;
     final private ArrayList<String> speakerIds;
     final private int userLimit;
     final private int userCount;
@@ -23,8 +23,8 @@ public class EventData {
         ArrayList<String> speakerIds1;
         this.eventName = event.getEventName();
         this.description = event.getDescription();
-        this.startTime = event.getStartTime();
-        this.endTime = event.getEndTime();
+        this.startTime = event.getStartTime().getTime() / 1000;
+        this.endTime = event.getEndTime().getTime() / 1000;
         try {
             speakerIds1 = event.getSpeakerIds();
         } catch (UnsuccessfulCommandException ex) {
@@ -46,11 +46,11 @@ public class EventData {
         return description;
     }
 
-    public Date getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 

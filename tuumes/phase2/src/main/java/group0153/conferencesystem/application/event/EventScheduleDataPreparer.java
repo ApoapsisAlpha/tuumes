@@ -32,6 +32,20 @@ public class EventScheduleDataPreparer {
 
     /**
      *
+     * @param events An array list of the events to be turned into event data.
+     * @return An arraylist in the same order as events with the event entities
+     * transformed into event data.
+     */
+    private ArrayList<EventData> createEventDataArray(ArrayList<Event> events) {
+        ArrayList<EventData> res = new ArrayList<>();
+        for (Event event : events) {
+            res.add(new EventData(event));
+        }
+        return res;
+    }
+
+    /**
+     *
      * @param lDate The earliest date in the time interval.
      * @param rDate The latest date in the time interval.
      * @return Returns an array list of EventData sorted by the start time of the event. The events
@@ -46,12 +60,22 @@ public class EventScheduleDataPreparer {
             }
         }
         eventsInInterval.sort(new SortEventsByDate());
-        ArrayList<EventData> res = new ArrayList<>();
-        for (Event event : events) {
-            res.add(new EventData(event));
-        }
-        return res;
+        return this.createEventDataArray(eventsInInterval);
     }
 
-    ArrayList<EventData>
+    /**
+     *
+     * @return Returns all of the upcoming events that are scheduled to happen.
+     */
+    ArrayList<EventData> getAllUpcomingEvents() {
+        ArrayList<Event> events = eventPersistencePort.getAllEvents();
+        Date now = new Date();
+        ArrayList<Event> upcomingEvents = new ArrayList<>();
+        for (Event event : events) {
+            if (event.getStartTime().after(now))
+                upcomingEvents.add(event);
+        }
+        upcomingEvents.sort(new SortEventsByDate());
+        return this.createEventDataArray(upcomingEvents);
+    }
 }
