@@ -2,7 +2,6 @@ package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import group0153.conferencesystem.adapters.controllers.resource.EventUpdateCapacityResource;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -73,7 +71,7 @@ public class EventController {
      * @param roomId The id of the room that this event takes place in.
      * @param userLimit The user limit of this event.
      * @param isVipOnlyEvent If this event is for vip's only.
-     * @return ResponseEntitty.
+     * @return ResponseEntity.
      */
     @PostMapping("/add")
     public ResponseEntity<Response> addEvent(@RequestParam(value = "eventType") String eventType, @RequestParam(value = "eventName") String eventName, @RequestParam(value = "description") String description,
