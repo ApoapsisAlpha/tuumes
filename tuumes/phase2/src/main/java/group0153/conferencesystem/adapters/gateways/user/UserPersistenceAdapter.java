@@ -28,7 +28,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     @Override
     public void saveUser(User user) {
         UserModel userModel = new UserModel(user.getId(), user.getName(), user.getEmail(), user.getPassword(),
-                user.getType(), user.getEvents(), user.getContacts(), user.getMessages());
+                user.getType(), user.getEvents(), user.getContacts());
         userRepository.save(userModel);
     }
 
@@ -69,5 +69,27 @@ public class UserPersistenceAdapter implements UserPersistencePort {
             return Optional.of(user);
         }
         return Optional.empty();
+    }
+
+    /**
+     * Find a user based on an id, and remove a user from their contacts based on the contacts id.
+     *
+     * @param contactId The id of the contact to remove.
+     * @param userId    The id of the user to remove the contact from.
+     */
+    @Override
+    public void removeContactById(String contactId, String userId) {
+
+    }
+
+    /**
+     * Find a user based on an id, and add a user id to their contacts.
+     *
+     * @param contactId The id of the contact to add.
+     * @param userId    The id of the user to add the contact to.
+     */
+    @Override
+    public void addContactById(String contactId, String userId) {
+
     }
 }

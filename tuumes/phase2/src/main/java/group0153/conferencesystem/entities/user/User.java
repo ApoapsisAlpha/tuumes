@@ -1,7 +1,6 @@
 package group0153.conferencesystem.entities.user;
 
 import java.util.HashSet;
-import java.util.UUID;
 
 public class User {
 
@@ -95,7 +94,6 @@ public class User {
     private final String id;
     private final HashSet<String> contacts;
     private final HashSet<String> events;
-    private final HashSet<String> messages;
     protected UserType type;
     private String name;
     private String email;
@@ -116,7 +114,6 @@ public class User {
         this.password = password;
         this.contacts = new HashSet<>();
         this.events = new HashSet<>();
-        this.messages = new HashSet<>();
     }
 
     /**
@@ -126,15 +123,6 @@ public class User {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Changes the name stored in this User instance to name
-     *
-     * @param name the name that this User should change to
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -186,15 +174,6 @@ public class User {
      */
     public String getPassword() {
         return this.password;
-    }
-
-    /**
-     * Get HashSet containing message ids
-     *
-     * @return HashSet of ids of messages sent to this user
-     */
-    public HashSet<String> getMessages() {
-        return this.messages;
     }
 
 

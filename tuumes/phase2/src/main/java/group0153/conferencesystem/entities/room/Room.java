@@ -1,7 +1,5 @@
 package group0153.conferencesystem.entities.room;
 
-import java.util.UUID;
-
 public class Room {
 
     private final String id;

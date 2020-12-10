@@ -1,8 +1,11 @@
 package group0153.conferencesystem.application.room;
 
+import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.room.Room;
+import group0153.conferencesystem.exceptions.RoomNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -27,4 +30,18 @@ public class RoomManager {
         return id;
     }
 
+    /**
+     * Returns a room based on the id.
+     *
+     * @param roomId Id of the room to find.
+     * @return The room based on the id.
+     * @throws RoomNotFoundException Thrown when the room id is not valid.
+     */
+    public RoomData getRoomById(String roomId) throws RoomNotFoundException {
+        Optional<Room> roomOptional = roomPersistencePort.findById(roomId);
+        if (!roomOptional.isPresent())
+            throw new RoomNotFoundException(roomId);
+        Room room = roomOptional.get();
+        return new RoomData(room.getName(), room.getCapacity());
+    }
 }

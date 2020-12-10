@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface UserPersistencePort {
     /**
-     * Saves the user to the database.
+     * Saves the user.
      *
      * @param user User object to be saved.
      */

@@ -22,8 +22,8 @@ public class UserContactController {
         this.userContactManager = userContactManager;
     }
 
-    @GetMapping("/get")
-    public ResponseEntity<Response> getContacts(@RequestParam(value = "userId") String userId) {
+    @GetMapping("/view")
+    public ResponseEntity<Response> getUserContacts(@RequestParam(value = "userId") String userId) {
         try {
             List<Data> contactData = userContactManager.getUserContactsById(userId);
             ResponseArray response = new ResponseArray(true, contactData);

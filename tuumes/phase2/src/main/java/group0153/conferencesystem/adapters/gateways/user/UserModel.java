@@ -29,10 +29,9 @@ public class UserModel {
      * @param type       the type of the user (User, Organizer, Speaker, Vip)
      * @param events     the HashSet of ids of events the user is signed up for
      * @param contacts   the HashSet of ids of contacts of the user
-     * @param messages   the HashSet of ids of messages the user has received
      */
     public UserModel(String resourceId, String name, String email, String password, UserType type,
-                     HashSet<String> events, HashSet<String> contacts, HashSet<String> messages) {
+                     HashSet<String> events, HashSet<String> contacts) {
         this.resourceId = resourceId;
         this.name = name;
         this.email = email;
@@ -40,8 +39,9 @@ public class UserModel {
         this.type = type;
         this.events = events;
         this.contacts = contacts;
-        this.messages = messages;
     }
+
+    public UserModel() {}
 
     /**
      * Get id of user
