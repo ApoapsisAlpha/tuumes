@@ -17,6 +17,7 @@
             margin-left: auto;
             margin-right: 5;
         }
+
     </style>
 </head>
 
@@ -41,10 +42,10 @@
                 </span>
     </div>
 </nav>
-
+R
 <div class="container-fluid mt-5">
     <div class="container white text-center mt-5 pt-4">
-        <img src="../assets/img/stamp.png" class="stamp-img">
+        <img class="stamp-img" src="../../assets/img/stamp.png">
 
         <h3>From: SenderName</h3>
 
@@ -52,9 +53,14 @@
 
         <p class="mb-3">Message content goes here. It contains the message content.</p>
 
-        <button class="btn btn-secondary"><i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read</button><button
-            class="btn btn-secondary"><i class="fa fa-archive fa-lg"></i> &thinsp; Archive</button><button
-            class="btn btn-secondary"><i class="fa fa-reply fa-lg"></i> &thinsp; Reply</button>
+        <button class="btn btn-secondary" id="read"><i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read
+        </button><button
+                class="btn btn-secondary" id="archive"><i class="fa fa-archive fa-lg"></i> &thinsp; Archive
+        </button><button
+                class="btn btn-secondary" id="reply"><i class="fa fa-reply fa-lg"></i> &thinsp; Reply
+        </button><button
+                class="btn btn-secondary" id="delete"><i class="far fa-trash-alt"></i> &thinsp; Delete
+        </button>
         <br><br>
     </div>
 </div>

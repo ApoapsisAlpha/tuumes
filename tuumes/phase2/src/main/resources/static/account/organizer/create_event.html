@@ -51,55 +51,74 @@
     <div class="container white text-center mt-5 pt-4">
         <h3 class="pb-3">Create a new event:</h3>
 
-        <div class="form-group">
-            <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Event Name" type="text">
-        </div>
+        <form class="container needs-validation" id="create_event_form">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="name" placeholder="Event Name" required
+                       type="text">
+            </div>
 
-        <div class="form-group">
-            <textarea autocomplete="off" class="form-control" name="description" placeholder="Event Description"
-                      rows="6"></textarea>
-        </div>
+            <div class="form-group">
+                <textarea autocomplete="off" class="form-control" name="description" placeholder="Event Description"
+                          required
+                          rows="6"></textarea>
+            </div>
 
-        <div class="form-group">
-            <p>Start Time: </p>
-            <input autocomplete="off" class="form-control" name="startTime" placeholder="Start Time" type="datetime-local">
-        </div>
+            <div class="form-group">
+                <p>Start Time: </p>
+                <input autocomplete="off" class="form-control" name="startTime" placeholder="Start Time" required
+                       type="datetime-local">
+            </div>
 
-        <div class="form-group">
-            <p>End Time: </p>
-            <input autocomplete="off" class="form-control" name="endTime" placeholder="End Time" type="datetime-local">
-        </div>
+            <div class="form-group">
+                <p>End Time: </p>
+                <input autocomplete="off" class="form-control" name="endTime" placeholder="End Time" required
+                       type="datetime-local">
+            </div>
 
-        <div class="form-group">
-            <select name="room" class="browser-default custom-select">
-                <option disabled selected>Room</option>
-                <option value="1">Room Name One</option>
-                <option value="2">Room Name Two</option>
-                <option value="3">Room Name Three</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <select class="browser-default custom-select" name="room" required>
+                    <option disabled selected>Room</option>
+                    <option value="1">Room Name One</option>
+                    <option value="2">Room Name Two</option>
+                    <option value="3">Room Name Three</option>
+                </select>
+            </div>
 
-        <p>Select Speakers</p>
+            <div class="form-group">
+                <label for="capacity">Event Capacity:</label>
+                <input autocomplete="off" class="form-control" id="capacity" min="1" name="capacity"
+                       placeholder="Event Capacity"
+                       required type="number">
+            </div>
 
-        <p>Hold control to select more than one or unselect.</p>
+            <p></p>
 
-        <div class="form-group">
-            <select class="browser-default custom-select" multiple name="speakers">
-                <option disabled hidden selected></option>
-                <option value="1">Speaker Name One</option>
-                <option value="2">Speaker Name Two</option>
-                <option value="3">Speaker Name Three</option>
-            </select>
-        </div>
+            <p></p>
 
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="isVip">
-            <label class="custom-control-label" for="isVip">VIPs Only?</label>
-        </div>
+            <div class="form-group">
+                <label for="speakers">
+                    Select Speakers
+                    <br>
+                    Hold control to select more than one or unselect.
+                </label>
+                <select class="browser-default custom-select" id="speakers" multiple name="speakers" required>
+                    <option disabled hidden selected></option>
+                    <option value="1">Speaker Name One</option>
+                    <option value="2">Speaker Name Two</option>
+                    <option value="3">Speaker Name Three</option>
+                </select>
+            </div>
 
-        <br>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" id="isVip" type="checkbox">
+                <label class="custom-control-label" for="isVip">VIPs Only?</label>
+            </div>
 
-        <a class="btn btn-secondary" href=""><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Create</a>
+            <br>
+
+            <button class="btn btn-secondary" type="submit"><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Create
+            </button>
+        </form>
         <br><br>
     </div>
 </div>
