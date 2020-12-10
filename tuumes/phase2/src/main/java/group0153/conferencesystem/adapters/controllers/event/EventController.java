@@ -49,6 +49,11 @@ public class EventController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<Response> addEvent() {
+
+    }
+
 //    private final Event.Builder eventBuilder;
 //    private final EventRegistry eventRegistry;
 //    private final EventScheduler eventScheduler;
