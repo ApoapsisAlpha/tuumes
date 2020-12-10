@@ -24,36 +24,24 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="../dashboard.html">Go back</a>
             </li>
         </ul>
-        <span class="navbar-text white-text">
-                    Guest
-                </span>
     </div>
 </nav>
 
-<div class="container-fluid mt-5">
-    <div class="container white text-center mt-5 pt-4">
-        <h3>Event Name</h3>
-
-        <p class="mt-2 mb-2">Event description goes here. It describes the event concisely.</p>
-
-        <p class="mt-2 mb-2">Time: Event start time through event end time</p>
-
-        <p class="mt-2 mb-2">Location: Room name goes here.</p>
-
-        <p class="mt-2 mb-2">Capacity: #/total</p>
-
-        <a class="mt-2 mb-2" href="">Contact: SpeakerEmail@Email.com</a>
-
+<div class="container-fluid mt-5" id="events">
+    <div class="container white text-center mt-4 pt-4">
+        <h3> ... </h3>
+        <p class="mt-2 mb-2"> ... </p>
+        <p class="mt-2 mb-2">Time: ...</p>
+        <p class="mt-2 mb-2">Location: ... </p>
+        <p class="mt-2 mb-2">Capacity: ... / ...</p>
+        <a class="mt-2 mb-2" href="">Contact: ... </a>
         <br>
 
-        <button class="btn btn-secondary" id="register" type="submit"><i class="fa fa-calendar-plus fa-lg"></i> &thinsp;
-            Register
+        <button class="btn btn-secondary" id="register" type="submit"><i class="fa fa-calendar-plus fa-lg mr-2"></i> 
+            ... 
         </button>
         <br><br>
     </div>
@@ -63,6 +51,78 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
         type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
-<script src="assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/account.js" type="text/javascript"></script>
+
+<script>
+    function getEvents() {
+        $.postJSON("/events/view_all", {
+            userId: USER_ID,
+        }, function(result) {
+            let to_print = ``;
+            result.data.forEach(event => {
+                let print_speakers = ``;
+                let print_delete = ``;
+                event.speakers.forEach(speaker => {
+                    print_speakers = `
+                        <a class="mt-2 mb-2" href="#">Contact: ${speaker.name}</a>
+                    `;
+                });
+                if (USER_TYPE == userType.ORGANIZER) {
+                    print_delete = `
+                    <button class="btn btn-danger" id="register" type="button" onclick="deleteEvent(${event.id});">
+                        <i class="fa fa-calendar-minus fa-lg mr-2"></i> Delete
+                    </button>`;
+                }
+                to_print += `
+                <div class="container white text-center mt-4 pt-4">
+                    <h3>${event.name}</h3>
+                    <p class="mt-2 mb-2">${event.description}</p>
+                    <p class="mt-2 mb-2">
+                        Time: ` + moment(event.startTime).format('MMMM Do YYYY, h:mm:ss a') + ` - ` + 
+                        moment(event.endTime).format('MMMM Do YYYY, h:mm:ss a') + `
+                    </p>
+                    <p class="mt-2 mb-2">Location: ${event.roomName}</p>
+                    <p class="mt-2 mb-2">Capacity: ${event.userCount}/${event.userLimit}</p>
+                    ${print_contacts}
+                    <br>
+                    <button class="btn btn-secondary" id="register" type="button" onclick="registerEvent(${event.id});">
+                        <i class="fa fa-calendar-plus fa-lg mr-2"></i> Register
+                    </button>
+                    ${print_delete}
+                    <br><br>
+                </div>
+                `;
+            });
+            $("#events").html(to_print);
+        });
+    }
+
+    function registerEvent(eventId) {
+        $.postJSON("/user/events/register", {
+            userId: USER_ID,
+            eventId: eventId
+        }, function(result) {
+            getEvents();
+        });
+
+        return false;
+    }
+
+    function deleteEvent(eventId) {
+        $.postJSON("/user/contacts/remove", {
+            userId: USER_ID,
+            eventId: eventId
+        }, function(result) {
+            getEvents();
+        });
+
+        return false;
+    }
+
+    getEvents();
+</script>
+
 </html>
