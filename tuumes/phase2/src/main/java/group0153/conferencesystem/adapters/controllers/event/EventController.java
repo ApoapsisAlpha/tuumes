@@ -110,7 +110,7 @@ public class EventController {
     }
 
     @PostMapping("/update-capacity")
-    public ResponseEntity<Response> updateCapacity(@Request Body EventUpdateCapacityResource capacityResource){
+    public ResponseEntity<Response> updateCapacity(@RequestBody EventUpdateCapacityResource capacityResource){
         try {
             eventUpdater.updateCapacity(capacityResource.getEventId, capacityResource.getUserLimit);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
