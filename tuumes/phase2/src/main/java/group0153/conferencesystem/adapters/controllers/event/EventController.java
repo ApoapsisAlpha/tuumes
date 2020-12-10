@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import group0153.conferencesystem.adapters.controllers.resource.EventUpdateCapacityResource;
 
 import java.util.Date;
 import java.util.List;
@@ -109,6 +110,19 @@ public class EventController {
         this.eventBuilder.setUserLimit(userLimit);
         this.eventBuilder.setIsVipOnlyEvent(isVipOnlyEvent);
     }
+
+    @PostMapping("/update-capacity")
+    public ResponseEntity<Response> updateCapacity(@Request Body EventUpdateCapacityResource capacityResource){
+        try {
+            eventUpdater.updateCapacity(capacityResource.getEventId, capacityResource.getUserLimit);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (EventNotFoundException e){
+            return new ResponseEntity<>(new Respone(false, "BAD_EVENT"), HttpStatus.OK);
+        }
+    }
+}
+
+
 
 //    /**
 //     *
@@ -212,7 +226,3 @@ public class EventController {
 //     */
 
 //    //TODO: more event controller methods here
-//    public void updateEventCapacity(String eventId, int newCapacity){
-//        eventUpdater.updateCapacity(eventId, newCapacity);
-//    }
-}
