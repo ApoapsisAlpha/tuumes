@@ -1,7 +1,7 @@
 package group0153.conferencesystem.application.event;
 
-import group0153.conferencesystem.adapters.gateways.event.EventModel;
-import group0153.conferencesystem.application.EventData;
+import group0153.conferencesystem.application.event.data.EventData;
+import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
 
 import java.util.*;
@@ -10,10 +10,12 @@ import java.util.*;
  * Creates array lists of EventData representing the schedule (in sorted order by preference).
  */
 public class EventScheduleDataPreparer {
-    EventPersistencePort eventPersistencePort;
+    private final EventPersistencePort eventPersistencePort;
+    private final RoomManager roomManager;
 
-    EventScheduleDataPreparer(EventPersistencePort eventPersistencePort) {
+    EventScheduleDataPreparer(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
+        this.roomManager = roomManager;
     }
 
     /**
@@ -36,7 +38,7 @@ public class EventScheduleDataPreparer {
     private ArrayList<EventData> createEventDataArray(ArrayList<Event> events) {
         ArrayList<EventData> res = new ArrayList<>();
         for (Event event : events) {
-            res.add(new EventData(event));
+            res.add(new EventData(event, this.roomManager.getRoomById(event.getRoomId())));
         }
         return res;
     }

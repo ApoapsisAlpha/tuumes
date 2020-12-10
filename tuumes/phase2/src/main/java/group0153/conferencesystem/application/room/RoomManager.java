@@ -5,6 +5,8 @@ import group0153.conferencesystem.entities.room.Room;
 import group0153.conferencesystem.exceptions.RoomNotFoundException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

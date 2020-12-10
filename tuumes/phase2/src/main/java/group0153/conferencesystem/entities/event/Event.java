@@ -4,6 +4,7 @@ import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommand
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public abstract class Event {
     private final String id;                      // id of this event.
@@ -300,7 +301,6 @@ public abstract class Event {
      * Use the build method to return an instance of the event being built.
      */
     public static class Builder {
-        private String id;                            // id of this event.
         private String eventName;                     // name of the event
         private String description;                   // description of the event.
         private Date startTime;                       // start time of event.
@@ -310,16 +310,6 @@ public abstract class Event {
         private boolean isVipOnlyEvent;               // whether this event is VIP-only.
         private ArrayList<String> speakerIds;         // ids of speakers to speak at this event.
         private int speakerLimit;                     // maximum number of speakers allowed at this event.
-
-        /**
-         * Set the id of the Event.
-         *
-         * @param id the String id of the Event.
-         */
-        public void setId(String id) {
-            this.id = id;
-        }
-
         /**
          * Set the name of the Event.
          *
@@ -343,8 +333,34 @@ public abstract class Event {
          *
          * @param startTime the Date start time of the Event.
          */
-        public void setStartTime(Date startTime) {
-            this.startTime = startTime;
+        public void setStartTime(String startTime) throws UnsuccessfulCommandException {
+            this.startTime = convertToDate(startTime);
+        }
+
+        /**
+         *
+         * @param time The time given in the form year\month\monthDay\hour\minute. Seconds is set to 0.
+         * @return The representative date object.
+         */
+        private Date convertToDate(String time) throws UnsuccessfulCommandException {
+            ArrayList<String> parameters = new ArrayList<>();
+            ArrayList<Integer> convertedParameters = new ArrayList<>();
+            int l = 0;
+            int r = 1;
+            while (r < time.length()) {
+                if (time.charAt(r) == '/') {
+                    int value = Integer.parseInt(time.substring(l, r));
+                    convertedParameters.add(value);
+                    l = r + 1;
+                    ++r;
+                }
+                ++r;
+            }
+            int value = Integer.parseInt(time.substring(l, r));
+            convertedParameters.add(value);
+            if (convertedParameters.size() != 5) throw new UnsuccessfulCommandException("The input does not match the required format.");
+            return new Date(convertedParameters.get(0), convertedParameters.get(1), convertedParameters.get(2), convertedParameters.get(3),
+                    convertedParameters.get(4));
         }
 
         /**
@@ -352,8 +368,8 @@ public abstract class Event {
          *
          * @param endTime the Date end time of the Event.
          */
-        public void setEndTime(Date endTime) {
-            this.endTime = endTime;
+        public void setEndTime(String endTime) throws UnsuccessfulCommandException {
+            this.endTime = convertToDate(endTime);
         }
 
         /**
@@ -412,10 +428,10 @@ public abstract class Event {
          */
         public Event build(String eventType) {
             if ("SpeakerEvent".equalsIgnoreCase(eventType))
-                return new SpeakerEvent(id, eventName, description, startTime, endTime,
+                return new SpeakerEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime,
                         roomId, userLimit, isVipOnlyEvent, speakerIds, speakerLimit);
             if ("NoSpeakerEvent".equalsIgnoreCase(eventType))
-                return new NoSpeakerEvent(id, eventName, description, startTime, endTime,
+                return new NoSpeakerEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime,
                         roomId, userLimit, isVipOnlyEvent);
             return null;
         }

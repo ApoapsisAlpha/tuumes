@@ -1,117 +1,88 @@
 package group0153.conferencesystem.application.event.data;
 
 import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.room.data.RoomData;
+import group0153.conferencesystem.entities.event.Event;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class EventData implements Data {
-    private String id;
-    private String name;
-    private String description;
-    private int startTime;
-    private int endTime;
-    private boolean VIPOnly;
-    private int limit;
+    final private String eventName;
+    final private String eventType;
+    final private String description;
+    final private long startTime;
+    final private long endTime;
+    final private ArrayList<String> speakerIds;
+    final private int userLimit;
+    final private int userCount;
+    final private ArrayList<String> userIds;
+    final private boolean isVipOnlyEvent;
+    final private RoomData roomData;
 
-    private String roomName;
-    private int roomCapacity;
-
-    public EventData(String id, String name, String description, int startTime, int endTime, boolean VIPOnly,
-                     int limit) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.VIPOnly = VIPOnly;
-        this.limit = limit;
+    public EventData(Event event, RoomData roomData) {
+        ArrayList<String> speakerIds1;
+        this.eventName = event.getEventName();
+        this.description = event.getDescription();
+        this.startTime = event.getStartTime().getTime() / 1000;
+        this.endTime = event.getEndTime().getTime() / 1000;
+        try {
+            speakerIds1 = event.getSpeakerIds();
+        } catch (UnsuccessfulCommandException ex) {
+            speakerIds1 = new ArrayList<String>();
+        }
+        this.speakerIds = speakerIds1;
+        this.userLimit = event.getUserLimit();
+        this.userCount = event.getUserCount();
+        this.userIds = event.getUserIds();
+        this.isVipOnlyEvent = event.isVipOnlyEvent();
+        this.eventType = event.getEventType();
+        this.roomData = roomData;
     }
 
-    /**
-     * Gets description.
-     *
-     * @return Value of description.
-     */
+    public String getEventName() {
+        return eventName;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    /**
-     * Gets startTime.
-     *
-     * @return Value of startTime.
-     */
-    public int getStartTime() {
+    public long getStartTime() {
         return startTime;
     }
 
-    /**
-     * Gets name.
-     *
-     * @return Value of name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets VIPOnly.
-     *
-     * @return Value of VIPOnly.
-     */
-    public boolean isVIPOnly() {
-        return VIPOnly;
-    }
-
-    /**
-     * Gets id.
-     *
-     * @return Value of id.
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Gets endTime.
-     *
-     * @return Value of endTime.
-     */
-    public int getEndTime() {
+    public long getEndTime() {
         return endTime;
     }
 
-    /**
-     * Gets roomName.
-     *
-     * @return Value of roomName.
-     */
-    public String getRoomName() {
-        return roomName;
+    public ArrayList<String> getSpeakerIds() {
+        return speakerIds;
     }
 
-    /**
-     * Sets new roomName.
-     *
-     * @param roomName New value of roomName.
-     */
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public int getUserLimit() {
+        return userLimit;
     }
 
-    /**
-     * Sets new roomCapacity.
-     *
-     * @param roomCapacity New value of roomCapacity.
-     */
-    public void setRoomCapacity(int roomCapacity) {
-        this.roomCapacity = roomCapacity;
+    public int getUserCount() {
+        return userCount;
     }
 
-    /**
-     * Gets roomCapacity.
-     *
-     * @return Value of roomCapacity.
-     */
-    public int getRoomCapacity() {
-        return roomCapacity;
+    public ArrayList<String> getUserIds() {
+        return userIds;
+    }
+
+    public boolean isVipOnlyEvent() {
+        return isVipOnlyEvent;
+    }
+
+    public String getEventtype() {
+        return eventType;
+    }
+
+    public RoomData getRoomData() {
+        return roomData;
     }
 }

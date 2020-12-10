@@ -1,17 +1,18 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
+import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.application.Data;
-import group0153.conferencesystem.application.EventData;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
 import group0153.conferencesystem.application.event.EventUpdater;
+import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
-import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.application.user.UserEventsManager;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -54,50 +55,61 @@ public class EventController {
     public ResponseEntity<Response> getAllEvents(@RequestParam(value = "userId") String userId) {
         try {
             List<String> userEvents = userEventsManager.getUserEvents(userId);
-            // TODO: 12/9/2020 @weihao This event should return every event a user is not a part of. (only future events too)
-            // This should return List<EventData>
-            ArrayList<EventData> events = this.eventScheduleDataPreparer.getUpcomingEventsExcluding(userEvents);
-            for (EventData event : events) {
-                RoomData room = roomManager.getRoomById(event.getRoomId());
-            }
-
+            List<EventData> events = this.eventScheduleDataPreparer.getUpcomingEventsExcluding(userEvents);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
+    /**
+     *
+     * @param eventType The type of event that is being added.
+     * @param eventName The name of the event.
+     * @param description The description of the event.
+     * @param startTime The start time of the event given in the form year\month\monthDay\hour\minute.
+     * @param endTime The end time of the event given in the form year\month\monthDay\hour\minute.
+     * @param roomId The id of the room that this event takes place in.
+     * @param userLimit The user limit of this event.
+     * @param isVipOnlyEvent If this event is for vip's only.
+     * @return ResponseEntitty.
+     */
     @PostMapping("/add")
-    public ResponseEntity<Response> addEvent() {
+    public ResponseEntity<Response> addEvent(@RequestParam(value = "eventType") String eventType, @RequestParam(value = "eventName") String eventName, @RequestParam(value = "description") String description,
+                                             @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime,
+                                             @RequestParam(value = "roomId") String roomId, @RequestParam(value = "userLimit") int userLimit,
+                                             @RequestParam(value = "isVipOnlyEvent") boolean isVipOnlyEvent) {
+        try {
+            this.setRequiredEventAttributes(eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
+            EventData eventData = this.eventScheduler.scheduleEvent(this.eventBuilder.build(eventType));
+            return new ResponseEntity<>(new Re)
+        } catch (UnsuccessfulCommandException exception) {
 
+        }
     }
 
-//    private final Event.Builder eventBuilder;
-//    private final EventRegistry eventRegistry;
-//    private final EventScheduler eventScheduler;
-//    private final EventUpdater eventUpdater
-//
-//    public EventController(EventManager eventManager) {
-//        ArrayList<Event> events = new ArrayList<Event>();
-//        this.eventRegistry = new EventRegistry(events);
-//        this.eventScheduler = new EventScheduler(events);
-//        this.eventUpdater = new EventUpdater(events);
-//        this.eventBuilder = new Event.Builder();
-//    }
-//
-//    /**
-//     *
-//     * @param eventManager
-//     * @param events A list of the
-//     */
-//    public EventController( EventPersistencePort eventPersistencePort) {
-//        this.eventRegistry = new EventRegistry(eventPersistencePort);
-//        this.eventScheduler = new EventScheduler(eventPersistencePort);
-//        this.eventUpdater = new EventUpdater(eventPersistencePort);
-//
-//        this.eventBuilder = new Event.Builder();
-//    }
-//
+    /**
+     * Sets the attributes of the event class that are present in all subclasses as well.
+     * @param id The id of the event.
+     * @param eventName The event name.
+     * @param description The event description.
+     * @param startTime The start time of the event.
+     * @param endTime The end time of the event.
+     * @param roomId The room id of the event.
+     * @param userLimit The user limit of the event.
+     * @param isVipOnlyEvent If the event is for vip's only.
+     */
+    private void setRequiredEventAttributes(String eventName, String description, String startTime, String endTime,
+                                            String roomId, int userLimit, boolean isVipOnlyEvent) throws UnsuccessfulCommandException {
+        this.eventBuilder.setEventName(eventName);
+        this.eventBuilder.setDescription(description);
+        this.eventBuilder.setStartTime(startTime);
+        this.eventBuilder.setEndTime(endTime);
+        this.eventBuilder.setRoomId(roomId);
+        this.eventBuilder.setUserLimit(userLimit);
+        this.eventBuilder.setIsVipOnlyEvent(isVipOnlyEvent);
+    }
+
 //    /**
 //     *
 //     * @param eventType A string representing this event's type (not case sensitive).
@@ -198,17 +210,7 @@ public class EventController {
 //     * @param userLimit The user limit of this event.
 //     * @param isVipOnlyEvent Whether this is a vip only event or not.
 //     */
-//    private void setRequiredEventAttributes(String id, String eventName, String description, Date startTime, Date endTime,
-//                                         String roomId, int userLimit, boolean isVipOnlyEvent) {
-//        this.eventBuilder.setId(id);
-//        this.eventBuilder.setEventName(eventName);
-//        this.eventBuilder.setDescription(description);
-//        this.eventBuilder.setStartTime(startTime);
-//        this.eventBuilder.setEndTime(endTime);
-//        this.eventBuilder.setRoomId(roomId);
-//        this.eventBuilder.setUserLimit(userLimit);
-//        this.eventBuilder.setIsVipOnlyEvent(isVipOnlyEvent);
-//    }
+
 //    //TODO: more event controller methods here
 //    public void updateEventCapacity(String eventId, int newCapacity){
 //        eventUpdater.updateCapacity(eventId, newCapacity);
