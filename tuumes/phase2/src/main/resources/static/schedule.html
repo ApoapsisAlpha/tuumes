@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-    <title>Create New Event - TUUMES</title>
+    <title>Schedule - TUUMES</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/Manrope/index.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/MDB/css/mdb.min.css" rel="stylesheet">
@@ -10,13 +10,6 @@
         .container {
             border-radius: 25px
         }
-
-        .form-group {
-            width: 50%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
     </style>
 </head>
 
@@ -44,23 +37,56 @@
 
 <div class="container-fluid mt-5">
     <div class="container white text-center mt-5 pt-4">
-        <h3 class="pb-3">Select Speakers</h3>
-
-        <p>Hold control to select more than one.</p>
-
-        <div class="form-group">
-            <select class="browser-default custom-select" multiple name="room">
-                <option disabled hidden selected></option>
-                <option value="1">Speaker Name One</option>
-                <option value="2">Speaker Name Two</option>
-                <option value="3">Speaker Name Three</option>
-            </select>
-        </div>
-
+        <h3>Schedule</h3>
+        <!--Start of table-->
+        <table class="table" id="eventSchedule">
+            <!--Start of table head-->
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Event Name</th>
+                <th>Event Time</th>
+                <th>Speakers</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Capacity</th>
+            </tr>
+            </thead>
+            <!--end of table head-->
+            <!--Start of table body-->
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Event Name 1</td>
+                <td>2021-01-01 5:00am</td>
+                <td>John Smith, Joan Smith</td>
+                <td>An event where people talk to other people.</td>
+                <td>Cafeteria</td>
+                <td>1 / 4 &nbsp; <i class="fa fa-user-friends fa-lg"></i></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Event Name 2</td>
+                <td>2021-01-01 9:00am</td>
+                <td>John Smith, Bob Smith</td>
+                <td>Another event where people talk to other people.</td>
+                <td>Lobby</td>
+                <td>4 / 4 &nbsp; <i class="fa fa-user-friends fa-lg"></i></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Event Name 3</td>
+                <td>2021-01-01 11:00am</td>
+                <td>Joan Smith</td>
+                <td>A third event where people talk to other people.</td>
+                <td>Observatory</td>
+                <td>3 / 4 &nbsp; <i class="fa fa-user-friends fa-lg"></i></td>
+            </tr>
+            </tbody>
+            <!--End of table body-->
+        </table>
+        <!--End of table-->
         <br>
-
-        <a class="btn btn-secondary" href=""><i class="fa fa-user-check fa-lg"></i> &thinsp; Add Speakers</a>
-        <br><br>
     </div>
 </div>
 </body>
