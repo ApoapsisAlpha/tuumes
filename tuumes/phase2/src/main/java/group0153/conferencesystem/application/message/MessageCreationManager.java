@@ -3,6 +3,7 @@ package group0153.conferencesystem.application.message;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class MessageCreationManager {
     private MessagePersistencePort messagePersistencePort;
@@ -24,7 +25,8 @@ public class MessageCreationManager {
      * @return the id of the message created
      */
     public String create(String messageContent, String senderId, ArrayList<String> recipientIds) {
-        Message message = new Message(messageContent, senderId, recipientIds);
+        String newId = UUID.randomUUID().toString();
+        Message message = new Message(newId, messageContent, senderId, recipientIds);
         messagePersistencePort.saveMessage(message);
         return message.getId();
     }
