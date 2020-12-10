@@ -4,6 +4,7 @@ import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommand
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public abstract class Event {
     private final String id;                      // id of this event.
@@ -300,7 +301,6 @@ public abstract class Event {
      * Use the build method to return an instance of the event being built.
      */
     public static class Builder {
-        private String id;                            // id of this event.
         private String eventName;                     // name of the event
         private String description;                   // description of the event.
         private Date startTime;                       // start time of event.
@@ -310,16 +310,6 @@ public abstract class Event {
         private boolean isVipOnlyEvent;               // whether this event is VIP-only.
         private ArrayList<String> speakerIds;         // ids of speakers to speak at this event.
         private int speakerLimit;                     // maximum number of speakers allowed at this event.
-
-        /**
-         * Set the id of the Event.
-         *
-         * @param id the String id of the Event.
-         */
-        public void setId(String id) {
-            this.id = id;
-        }
-
         /**
          * Set the name of the Event.
          *
@@ -438,10 +428,10 @@ public abstract class Event {
          */
         public Event build(String eventType) {
             if ("SpeakerEvent".equalsIgnoreCase(eventType))
-                return new SpeakerEvent(id, eventName, description, startTime, endTime,
+                return new SpeakerEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime,
                         roomId, userLimit, isVipOnlyEvent, speakerIds, speakerLimit);
             if ("NoSpeakerEvent".equalsIgnoreCase(eventType))
-                return new NoSpeakerEvent(id, eventName, description, startTime, endTime,
+                return new NoSpeakerEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime,
                         roomId, userLimit, isVipOnlyEvent);
             return null;
         }

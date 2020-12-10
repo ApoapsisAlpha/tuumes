@@ -81,7 +81,7 @@ public class EventController {
                                              @RequestParam(value = "isVipOnlyEvent") boolean isVipOnlyEvent) {
         try {
             this.setRequiredEventAttributes(eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
-            this.eventScheduler.scheduleEvent(this.eventBuilder.build(eventType));
+            EventData eventData = this.eventScheduler.scheduleEvent(this.eventBuilder.build(eventType));
             return new ResponseEntity<>(new Re)
         } catch (UnsuccessfulCommandException exception) {
 

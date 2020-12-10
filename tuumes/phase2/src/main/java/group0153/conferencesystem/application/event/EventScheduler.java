@@ -1,5 +1,7 @@
 package group0153.conferencesystem.application.event;
 
+import group0153.conferencesystem.application.event.data.EventData;
+import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
@@ -13,9 +15,11 @@ import java.util.Optional;
  */
 public class EventScheduler {
     EventPersistencePort eventPersistencePort;
+    RoomManager roomManager;
 
-    public EventScheduler(EventPersistencePort eventPersistencePort) {
+    public EventScheduler(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
+        this.roomManager = roomManager;
     }
 
     /**
@@ -39,8 +43,9 @@ public class EventScheduler {
      *
      * @param event: The event to be scheduled.
      * @throws UnsuccessfulCommandException The event could not be added successfully.
+     * @return Returns the EventData for the new event after it has been successfully added.
      */
-    public void scheduleEvent(Event event) throws UnsuccessfulCommandException {
+    public EventData scheduleEvent(Event event) throws UnsuccessfulCommandException {
         ArrayList<String> eventIds = getScheduledEventIds();
         for (String otherEventId : eventIds) {
             if (hasTimeConflict(event.getId(), otherEventId)) {
@@ -48,6 +53,7 @@ public class EventScheduler {
             }
         }
         this.eventPersistencePort.saveEvent(event);
+        return new EventData(event, this.roomManager.getRoomById(event.getRoomId()));
     }
 
     /**
