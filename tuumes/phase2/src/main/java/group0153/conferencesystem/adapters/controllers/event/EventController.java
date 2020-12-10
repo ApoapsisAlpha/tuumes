@@ -1,8 +1,8 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
-import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.application.event.data.EventData;
+import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.EventData;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -14,6 +14,11 @@ import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

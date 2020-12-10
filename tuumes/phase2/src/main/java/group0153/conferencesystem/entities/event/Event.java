@@ -195,9 +195,8 @@ public abstract class Event {
     /**
      * @param userId Remove userId from this event. Nothing happens if the user was not
      *               in this event to begin with.
-     * @return Returns true if userId was removed. Returns false if the userId was not found.
      */
-    public boolean removeUserId(String userId) {
+    public void removeUserId(String userId) {
         this.userIds.remove(userId);
     }
 
@@ -295,9 +294,8 @@ public abstract class Event {
             this.speakerIds = speakerIds;
         }
 
-        public void setSpeakerId(String speakerId) {
-            this.speakerId = speakerId;
-        }
+//        public void setSpeakerId(String speakerId) {
+//        }
 
         public void setSpeakerLimit(int speakerLimit) { this.speakerLimit = speakerLimit; }
 
