@@ -56,7 +56,7 @@ public class EventUpdater {
         event.setEndTime(newEndTime);
     }
 
-    public void update(String eventId) {
-        Event event = this.getEvent()
+    public void update(String eventId) throws EventNotFoundException {
+        Event event = this.getEvent(eventId);
     }
 }
