@@ -1,8 +1,5 @@
 package group0153.conferencesystem.entities.user;
 
-import group0153.conferencesystem.entities.user.User;
-import group0153.conferencesystem.entities.user.UserType;
-
 import java.util.ArrayList;
 
 public class Speaker extends User {
@@ -11,6 +8,7 @@ public class Speaker extends User {
     /**
      * Constructor that initiates a Speaker instance.
      *
+     * @param id       id of the speaker.
      * @param name     name of the speaker.
      * @param email    email of the speaker.
      * @param password password of the speaker account.

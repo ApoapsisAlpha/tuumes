@@ -41,7 +41,11 @@ public class UserModel {
         this.contacts = contacts;
     }
 
-    public UserModel() {}
+    /**
+     * Constructs an instance of UserModel
+     */
+    public UserModel() {
+    }
 
     /**
      * Get id of user
