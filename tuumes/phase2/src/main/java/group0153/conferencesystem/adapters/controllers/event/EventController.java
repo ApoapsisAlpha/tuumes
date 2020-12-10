@@ -1,19 +1,16 @@
 package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
+import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.application.Data;
-import group0153.conferencesystem.application.EventData;
-import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
+import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.application.user.UserEventsManager;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,11 +36,14 @@ public class EventController {
         try {
             List<String> userEvents = userEventsManager.getUserEvents(userId);
             // TODO: 12/9/2020 @weihao This event should return every event a user is not a part of. (only future events too)
-            // This should return List<EventData>
-            List<Data> events = WhichEvent.getEventsForUser(userEvents);
-            for (Data event : events) {
-                RoomData room = roomManager.getRoomById(event.)
+            List<EventData> events = WhichEvent.getEventsForUser(userEvents);
+            for (EventData event : events) {
+                RoomData room = roomManager.getRoomById(event.getId());
+                event.setRoomCapacity(room.getCapacity());
+                event.setRoomName(room.getName());
             }
+
+            return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
