@@ -4,6 +4,9 @@ import group0153.conferencesystem.application.message.MessagePersistencePort;
 import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 @Component
 public class MessagePersistenceAdaptor implements MessagePersistencePort {
 
@@ -23,5 +26,27 @@ public class MessagePersistenceAdaptor implements MessagePersistencePort {
                 message.isRead()
         );
         messageRepository.save(messageModel);
+    }
+
+    @Override
+    public Optional<Message> findById(String msgId) {
+        Optional<MessageModel> possibleMessageModel = messageRepository.findById(msgId);
+        if (possibleMessageModel.isPresent()){
+            MessageModel messageModel = possibleMessageModel.get();
+            Message msg = new Message(messageModel.getResourceId(), messageModel.getMessageContent(),
+                    messageModel.getSenderId(), messageModel.getRecipientIds());
+            return Optional.of(msg);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArrayList<String>> findMsgsBySender(String sender) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ArrayList<String>> findMsgsToRecipient(String recipient) {
+        return Optional.empty();
     }
 }
