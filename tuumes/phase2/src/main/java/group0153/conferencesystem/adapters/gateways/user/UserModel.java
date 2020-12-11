@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * A class for purposes of the transfer of information about a user
+ * An entity class for a user to be stored in the database
  */
 @Entity
 public class UserModel {

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * A class facilitating the user's interactions with their contacts
+ */
 @RestController
 @RequestMapping(value = "/user/contacts")
 public class UserContactController {
@@ -26,6 +29,12 @@ public class UserContactController {
         this.userContactManager = userContactManager;
     }
 
+    /**
+     * Get and display the user's contacts via a presenter and UI
+     *
+     * @param userId the String id of the current user
+     * @return Response entity with the data to be displayed and a status
+     */
     @GetMapping("/view")
     public ResponseEntity<Response> getUserContacts(@RequestParam(value = "userId") String userId) {
         try {
@@ -37,6 +46,12 @@ public class UserContactController {
         }
     }
 
+    /**
+     * Attempt to remove a contact specified by the user from their contacts and display the result via a presenter and UI
+     *
+     * @param contactResource Instance of UserContactResource that contains the required contact data
+     * @return Response entity with the data to be displayed and a status
+     */
     @PostMapping("/remove")
     public ResponseEntity<Response> removeContact(@RequestBody UserContactResource contactResource) {
         try {
@@ -47,6 +62,12 @@ public class UserContactController {
         }
     }
 
+    /**
+     * Attempt to add a contact specified by the user to their contacts and display the result via a presenter and UI
+     *
+     * @param contactResource Instance of UserContactResource that contains the required contact data
+     * @return Response entity with the data to be displayed and a status
+     */
     @PostMapping("/add")
     public ResponseEntity<Response> addContact(@RequestBody UserContactResource contactResource) {
         try {
