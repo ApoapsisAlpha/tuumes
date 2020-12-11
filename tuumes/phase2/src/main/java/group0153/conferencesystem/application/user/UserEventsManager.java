@@ -34,6 +34,8 @@ public class UserEventsManager {
         Optional<User> userPresent = userPersistencePort.findById(userId);
         if (!userPresent.isPresent())
             throw new UserNotFoundException(userId);
-        userPresent.get().addEvent(eventId);
+        if (!userPresent.get().getEvents().contains(eventId)){
+            userPresent.get().addEvent(eventId);
+        }
     }
 }
