@@ -1,6 +1,5 @@
 package group0153.conferencesystem.adapters.controllers.user.requests;
 
-import group0153.conferencesystem.entities.user.UserType;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
 
 /**
@@ -10,13 +9,12 @@ public class UserRegisterRequest {
     private String name; // TODO: like in UserLoginResource, these are not assigned values anywhere. Why?
     private String email;
     private String password;
-    private UserType type = UserType.ATTENDEE;
+    private String type = "ATTENDEE";
 
     /**
      * Construct an instance of UserRegisterResource
      */
-    public UserRegisterRequest() {
-    }
+    public UserRegisterRequest() { }
 
     /**
      * Gets email.
@@ -57,9 +55,9 @@ public class UserRegisterRequest {
     /**
      * Return the type of the user that is currently registering for an account
      *
-     * @return UserType type of the user registering
+     * @return type of user
      */
-    public UserType getType() {
+    public String getType() {
         return type;
     }
 }
