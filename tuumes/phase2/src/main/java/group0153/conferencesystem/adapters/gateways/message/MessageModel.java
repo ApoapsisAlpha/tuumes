@@ -5,7 +5,7 @@ import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import javax.persistence.*;
 import java.util.Set;
 /**
- * Class for passing the message entity's information to the frontend.
+ * Class for database message entities.
  */
 @Entity
 public class MessageModel {
