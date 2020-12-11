@@ -2,15 +2,15 @@ package group0153.conferencesystem.entities.event;
 
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Event {
     private final String id;                      // id of this event.
     private String eventName;                     // name of the event.
     private String description;                   // description of the event.
-    private Date startTime;                       // start time of event.
-    private Date endTime;                         // end time of event.
+    private LocalDateTime startTime;              // start time of event.
+    private LocalDateTime endTime;                // end time of event.
     private String roomId;                        // room number where the event take place.
     private ArrayList<String> speakerIds;         // the list of speaker ids of the event.
     private int userLimit;                        // maximum amount of people allowed at this event.
@@ -30,7 +30,7 @@ public class Event {
      * @param userLimit      the total number of Users this Event can have registered
      * @param isVipOnlyEvent a boolean whether this Event is for VIPs only
      */
-    public Event(String id, String eventName, String description, Date startTime, Date endTime,
+    public Event(String id, String eventName, String description, LocalDateTime startTime, LocalDateTime endTime,
                  String roomId, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) {
         this.id = id;
         this.eventName = eventName;
@@ -67,7 +67,7 @@ public class Event {
      * Set the start time of the Event.
      * @param startTime the Date start time of the Event.
      */
-    public void setStartTime(Date startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
@@ -75,7 +75,7 @@ public class Event {
      * Set the end time of the Event.
      * @param endTime the Date end time of the Event.
      */
-    public void setEndTime(Date endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
@@ -226,7 +226,7 @@ public class Event {
      * Get the event start time.
      * @return the start time of this event.
      */
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -234,7 +234,7 @@ public class Event {
      * Get the event end time.
      * @return the end time of this event.
      */
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 

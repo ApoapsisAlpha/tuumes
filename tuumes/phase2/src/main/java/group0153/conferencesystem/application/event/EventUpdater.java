@@ -3,9 +3,10 @@ package group0153.conferencesystem.application.event;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+import org.apache.tomcat.jni.Local;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -36,21 +37,21 @@ public class EventUpdater {
         event.setDescription(newDescription);
     }
 
-    private void updateStartTime(String eventId, Date newStartTime) throws UnsuccessfulCommandException {
+    private void updateStartTime(String eventId, LocalDateTime newStartTime) throws UnsuccessfulCommandException {
         Event event = this.getEvent(eventId);
         ArrayList<Event> events = this.eventPersistencePort.getAllEvents();
         for (Event otherEvent : events) {
-            if (otherEvent.getRoomId().equals(event.getRoomId()) && otherEvent.getEndTime().after(newStartTime))
+            if (otherEvent.getRoomId().equals(event.getRoomId()) && otherEvent.getEndTime().isAfter(newStartTime))
                 throw new UnsuccessfulCommandException("There is a time conflict with the new start time.");
         }
         event.setStartTime(newStartTime);
     }
 
-    private void updateEndTime(String eventId, Date newEndTime) throws UnsuccessfulCommandException {
+    private void updateEndTime(String eventId, LocalDateTime newEndTime) throws UnsuccessfulCommandException {
         Event event = this.getEvent(eventId);
         ArrayList<Event> events = this.eventPersistencePort.getAllEvents();
         for (Event otherEvent : events) {
-            if (otherEvent.getRoomId().equals(event.getRoomId()) && otherEvent.getStartTime().before(newEndTime))
+            if (otherEvent.getRoomId().equals(event.getRoomId()) && otherEvent.getStartTime().isBefore(newEndTime))
                 throw new UnsuccessfulCommandException("There is a time conflict with the new start time.");
         }
         event.setEndTime(newEndTime);

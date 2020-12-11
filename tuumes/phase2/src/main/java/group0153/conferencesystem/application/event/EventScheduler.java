@@ -5,8 +5,8 @@ import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Optional;
 
 
@@ -28,10 +28,10 @@ public class EventScheduler {
      * @return Arraylist of events.
      */
     private ArrayList<String> getScheduledEventIds() {
-        Date current = new Date();
+        LocalDateTime current = LocalDateTime.now();
         ArrayList<String> result = new ArrayList<String>();
         for (Event event : eventPersistencePort.getAllEvents()) {
-            if (!event.getStartTime().before(current)) {
+            if (!event.getStartTime().isBefore(current)) {
                 result.add(event.getId());
             }
         }
@@ -74,10 +74,10 @@ public class EventScheduler {
         if (!event11.getRoomId().equals(event22.getRoomId())) return false;
         if (event11.getStartTime().equals(event22.getStartTime()))
             return true;
-        if (event11.getStartTime().before(event22.getStartTime())) {
-            return event11.getEndTime().after(event22.getStartTime());
+        if (event11.getStartTime().isBefore(event22.getStartTime())) {
+            return event11.getEndTime().isAfter(event22.getStartTime());
         }
-        return event11.getStartTime().before(event22.getEndTime());
+        return event11.getStartTime().isBefore(event22.getEndTime());
     }
 
     /**

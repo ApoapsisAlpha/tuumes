@@ -5,13 +5,14 @@ import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EventData implements Data {
     final private String eventName;
     final private String description;
-    final private long startTime;
-    final private long endTime;
+    final private LocalDateTime startTime;
+    final private LocalDateTime endTime;
     final private ArrayList<String> speakerIds;
     final private int userLimit;
     final private int userCount;
@@ -23,8 +24,8 @@ public class EventData implements Data {
         ArrayList<String> speakerIds1;
         this.eventName = event.getEventName();
         this.description = event.getDescription();
-        this.startTime = event.getStartTime().getTime() / 1000;
-        this.endTime = event.getEndTime().getTime() / 1000;
+        this.startTime = event.getStartTime();
+        this.endTime = event.getEndTime();
         speakerIds1 = event.getSpeakerIds();
         this.speakerIds = speakerIds1;
         this.userLimit = event.getUserLimit();
@@ -42,11 +43,11 @@ public class EventData implements Data {
         return description;
     }
 
-    public long getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public long getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
