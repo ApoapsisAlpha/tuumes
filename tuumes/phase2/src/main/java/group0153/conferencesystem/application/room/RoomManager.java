@@ -1,19 +1,23 @@
 package group0153.conferencesystem.application.room;
 
+import group0153.conferencesystem.application.exceptions.RoomNotFoundException;
 import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.room.Room;
-import group0153.conferencesystem.application.exceptions.RoomNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * A manager class that manipulates Room entities
+ */
 @Component
 public class RoomManager {
     RoomPersistencePort roomPersistencePort;
 
     /**
      * Construct an instance of RoomManager.
+     *
      * @param roomPersistencePort How the rooms are saved to the database.
      */
     public RoomManager(RoomPersistencePort roomPersistencePort) {
@@ -23,7 +27,7 @@ public class RoomManager {
     /**
      * Create a room with the given name and capacity.
      *
-     * @param name the name of the room
+     * @param name     the name of the room
      * @param capacity the capacity of the room
      * @return the id of the created room
      */

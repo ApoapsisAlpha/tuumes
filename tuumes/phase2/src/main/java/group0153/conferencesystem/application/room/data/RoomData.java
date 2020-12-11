@@ -2,6 +2,9 @@ package group0153.conferencesystem.application.room.data;
 
 import group0153.conferencesystem.application.Data;
 
+/**
+ * A class for storing information of a room.
+ */
 public class RoomData implements Data {
     private final String name;
     private final int capacity;
