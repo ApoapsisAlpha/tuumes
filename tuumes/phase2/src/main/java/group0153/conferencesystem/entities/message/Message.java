@@ -18,6 +18,11 @@ public class Message {
 
     /**
      * Constructor that instantiates a Message instance.
+     *
+     * Precondition: id is a valid id belonging to a message.
+     *               senderId is a valid id belonging to a user.
+     *               every element in recipientIds is a valid id belonging to a user.
+     *
      * @param id             : String id of this Message
      * @param messageContent : String with the message's content
      * @param senderId       : id of sender

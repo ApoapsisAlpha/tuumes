@@ -12,6 +12,8 @@ public class Speaker extends User {
     /**
      * Constructor that initiates a Speaker instance.
      *
+     * Precondition: id is a valid id belonging to a user.
+     *
      * @param id       id of the speaker.
      * @param name     name of the speaker.
      * @param email    email of the speaker.
@@ -35,6 +37,8 @@ public class Speaker extends User {
     /**
      * add an event id to the list of event ids this speaker is speaking.
      *
+     * Precondition: id is a valid id belonging to an event.
+     *
      * @param id the event id to add.
      */
     public void addSpeakingEventById(String id) {
@@ -43,6 +47,8 @@ public class Speaker extends User {
 
     /**
      * remove an event id from the list of event ids this speaker is speaking.
+     *
+     * Precondition: id is a valid id belonging to an event.
      *
      * @param id the event id to remove.
      */

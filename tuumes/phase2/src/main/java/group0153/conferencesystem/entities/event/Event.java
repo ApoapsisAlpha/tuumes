@@ -27,7 +27,9 @@ public class Event {
     /**
      * Creates an Event instance.
      *
-     * @param id id
+     * Precondition: evenId is a valid id belonging to an event.
+     *
+     * @param eventId event id
      * @param name name
      * @param description description
      * @param startTime start time
@@ -35,11 +37,12 @@ public class Event {
      * @param roomId room id for the room where the event takes place
      * @param speakerLimit maximum number of speakers
      * @param userLimit maximum number of attending users
-     * @param isVipOnlyEvent
+     * @param isVipOnlyEvent whether it is an event only for VIP users.
+     *
      */
-    public Event(String id, String name, String description, LocalDateTime startTime, LocalDateTime endTime,
+    public Event(String eventId, String name, String description, LocalDateTime startTime, LocalDateTime endTime,
                  String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
-        this.id = id;
+        this.id = eventId;
         this.name = name;
         this.description = description;
         this.startTime = startTime;
@@ -86,6 +89,9 @@ public class Event {
 
     /**
      * Set the id of the room the Event takes place in.
+     *
+     * Precondition: roomId is a valid id belonging to a room.
+     *
      * @param roomId the String id of the room the Event takes place in.
      */
     public void setRoomId(String roomId) {
@@ -94,6 +100,9 @@ public class Event {
 
     /**
      * Add a speaker id to the list of speaker ids of the event.
+     *
+     * Precondition: speakerId is a valid id belonging to a speaker.
+     *
      * @param speakerId The id of the speaker to be added.
      * @throws UnsuccessfulCommandException The speaker could not be successfully added.
      */
@@ -114,6 +123,9 @@ public class Event {
 
     /**
      * Unregister the specified user from this Event.
+     *
+     * Precondition: userId is a valid id belonging to a user.
+     *
      * @param userId Remove userId from this event. Nothing happens if the user was not
      *               in this event to begin with.
      */

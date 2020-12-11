@@ -23,6 +23,8 @@ public class User {
         /**
          * set the user id.
          *
+         * Precondition: id is a valid id belonging to a user.
+         *
          * @param id id of user.
          * @return builder with desired id.
          */
@@ -44,6 +46,8 @@ public class User {
 
         /**
          * set the user email.
+         *
+         * Precondition: email is a valid email belonging to a user.
          *
          * @param email email of user.
          * @return builder with desired email.
@@ -112,6 +116,8 @@ public class User {
     /**
      * Constructor that instantiates a User instance.
      *
+     * Precondition: id is a valid id belonging to a user.
+     *
      * @param id       id of user.
      * @param name     name of user.
      * @param email    email of user.
@@ -149,6 +155,8 @@ public class User {
     /**
      * Changes the email stored in this User instance to email
      *
+     * Precondition: email is a valid email belonging to a user.
+     *
      * @param email the email that this User should change to
      */
     public void setEmail(String email) {
@@ -167,6 +175,8 @@ public class User {
     /**
      * Adds the id of the User to the HashMap representing this User's contact list.
      *
+     * Precondition: userId is a valid id belonging to a user.
+     *
      * @param userId the id of the User to add to the list
      * @return a boolean whether the userId has been successfully added
      */
@@ -175,7 +185,6 @@ public class User {
             contacts.add(userId);
             return true;
         }
-
         return false;
     }
 
@@ -191,6 +200,8 @@ public class User {
 
     /**
      * Removes the id of the User from the HashMap representing this User's contact list.
+     *
+     * Precondition: userId is a valid id belonging to a user.
      *
      * @param userId the id of the User to remove from the list
      * @return a boolean whether the userId has been successfully removed
@@ -235,6 +246,8 @@ public class User {
     /**
      * Remove the eventId from the list of events signed up for
      *
+     * Precondition: evenId is a valid id belonging to an event.
+     *
      * @param eventId the id of the event this User wishes to unregister from
      * @return a boolean whether the event was signed up for prior
      */
@@ -245,6 +258,8 @@ public class User {
     /**
      * Add the eventId to the list of events signed up for
      *
+     * Precondition: evenId is a valid id belonging to an event.
+     *
      * @param eventId the id of the event this User wishes to register for
      * @return a boolean whether the event was not signed up for prior
      */
@@ -254,6 +269,8 @@ public class User {
 
     /**
      * Add a message id to the set of ids corresponding to messages sent to this User
+     *
+     * Precondition: messageId is a valid id belonging to a message.
      *
      * @param messageId the id of the new message received by this User
      */
