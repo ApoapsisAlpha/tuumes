@@ -39,6 +39,14 @@ public class RoomModel {
     }
 
     /**
+     * Get name of room
+     * @return name of room
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Get the capacity of the room
      * @return int value of the capacity of the room
      */

@@ -28,12 +28,14 @@ public class EventPersistenceAdapter implements EventPersistencePort {
 
     @Override
     public void saveEvent(Event event) {
-        RoomModel roomModel = roomRepository.findByResourceId(event.getRoomId());
-        EventModel eventModel = new EventModel(event.getId(), event.getName(), event.getDescription(),
-                event.getStartTime(), event.getEndTime(), roomModel, event.getSpeakerLimit(),
-                event.getUserLimit(), event.isVipOnlyEvent());
+        Optional<RoomModel> roomModel = roomRepository.findByResourceId(event.getRoomId());
+        if (roomModel.isPresent()) {
+            EventModel eventModel = new EventModel(event.getId(), event.getName(), event.getDescription(),
+                    event.getStartTime(), event.getEndTime(), roomModel.get(), event.getSpeakerLimit(),
+                    event.getUserLimit(), event.isVipOnlyEvent());
 
-        eventRepository.save(eventModel);
+            eventRepository.save(eventModel);
+        }
     }
 
     @Override
