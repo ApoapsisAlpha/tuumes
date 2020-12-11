@@ -1,6 +1,6 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.application.message.exception.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.MessageIdNotFoundException;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;

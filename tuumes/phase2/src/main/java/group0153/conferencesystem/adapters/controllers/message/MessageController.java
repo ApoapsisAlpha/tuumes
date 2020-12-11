@@ -7,7 +7,7 @@ import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
 import group0153.conferencesystem.application.message.data.MessageData;
-import group0153.conferencesystem.application.message.exception.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.MessageIdNotFoundException;
 import group0153.conferencesystem.application.message.exception.NoArchivedMessagesException;
 import group0153.conferencesystem.application.message.exception.NoMessagesReceivedException;
 import group0153.conferencesystem.application.message.exception.NoUnarchivedMessagesException;
