@@ -1,11 +1,16 @@
 package group0153.conferencesystem.adapters.controllers.user.resources;
 
+import group0153.conferencesystem.entities.user.UserType;
 import group0153.conferencesystem.exceptions.InvalidInputException;
 
 public class UserRegisterResource {
     private String name;
     private String email;
     private String password;
+    private UserType type = UserType.ATTENDEE;
+
+    public UserRegisterResource() {
+    }
 
     /**
      * Gets email.
@@ -41,5 +46,9 @@ public class UserRegisterResource {
         if (password.isEmpty())
             throw new InvalidInputException("password");
         return password;
+    }
+
+    public UserType getType() {
+        return type;
     }
 }

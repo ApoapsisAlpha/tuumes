@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @RestController
+@RequestMapping("/rooms")
 public class RoomController {
     private RoomManager roomManager;
 
@@ -15,7 +16,7 @@ public class RoomController {
         this.roomManager = roomManager;
     }
 
-    @PostMapping("/rooms")
+    @PostMapping("")
     String createRoom(@RequestBody RoomResource room) {
         return roomManager.createRoom(room.getName(), room.getCapacity());
     }
