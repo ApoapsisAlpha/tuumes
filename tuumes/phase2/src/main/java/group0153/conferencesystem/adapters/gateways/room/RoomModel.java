@@ -26,6 +26,10 @@ public class RoomModel {
         this.capacity = capacity;
     }
 
+    public RoomModel() {
+
+    }
+
     /**
      * Get id of room
      * @return string id of the room
