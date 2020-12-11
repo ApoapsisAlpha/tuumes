@@ -9,7 +9,7 @@
 //import group0153.conferencesystem.application.event.data.EventData;
 //import group0153.conferencesystem.application.room.RoomManager;
 //import group0153.conferencesystem.application.user.UserEventsManager;
-//import group0153.conferencesystem.entities.event.Event;
+//import group0153.conferencesystem.entities.event.old.Event;
 //import group0153.conferencesystem.exceptions.UserNotFoundException;
 //import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 //import org.springframework.http.HttpStatus;

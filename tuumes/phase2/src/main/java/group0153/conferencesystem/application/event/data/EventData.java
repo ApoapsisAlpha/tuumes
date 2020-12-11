@@ -5,13 +5,10 @@ import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EventData implements Data {
     final private String eventName;
-    final private String eventType;
     final private String description;
     final private long startTime;
     final private long endTime;
@@ -28,17 +25,12 @@ public class EventData implements Data {
         this.description = event.getDescription();
         this.startTime = event.getStartTime().getTime() / 1000;
         this.endTime = event.getEndTime().getTime() / 1000;
-        try {
-            speakerIds1 = event.getSpeakerIds();
-        } catch (UnsuccessfulCommandException ex) {
-            speakerIds1 = new ArrayList<String>();
-        }
+        speakerIds1 = event.getSpeakerIds();
         this.speakerIds = speakerIds1;
         this.userLimit = event.getUserLimit();
         this.userCount = event.getUserCount();
         this.userIds = event.getUserIds();
         this.isVipOnlyEvent = event.isVipOnlyEvent();
-        this.eventType = event.getEventType();
         this.roomData = roomData;
     }
 
@@ -76,10 +68,6 @@ public class EventData implements Data {
 
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
-    }
-
-    public String getEventtype() {
-        return eventType;
     }
 
     public RoomData getRoomData() {

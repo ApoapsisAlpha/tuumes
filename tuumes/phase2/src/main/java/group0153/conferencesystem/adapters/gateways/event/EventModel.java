@@ -1,6 +1,6 @@
 package group0153.conferencesystem.adapters.gateways.event;
 
-import group0153.conferencesystem.entities.event.Event;
+import group0153.conferencesystem.entities.event.old.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import javax.persistence.*;

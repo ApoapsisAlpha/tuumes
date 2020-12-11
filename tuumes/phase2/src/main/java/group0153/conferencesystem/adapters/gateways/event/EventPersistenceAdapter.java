@@ -1,7 +1,7 @@
 //package group0153.conferencesystem.adapters.gateways.event;
 //
 //import group0153.conferencesystem.application.event.EventPersistencePort;
-//import group0153.conferencesystem.entities.event.Event;
+//import group0153.conferencesystem.entities.event.old.Event;
 //import org.springframework.stereotype.Component;
 //
 //@Component

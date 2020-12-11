@@ -1,4 +1,4 @@
-package group0153.conferencesystem.entities.event;
+package group0153.conferencesystem.entities.event.old;
 
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
