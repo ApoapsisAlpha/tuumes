@@ -1,5 +1,9 @@
 package group0153.conferencesystem.entities.user;
 
+/**
+ * An entity class for VIP user, subclass of User.
+ * Vip class for a user who is a VIP user.
+ */
 public class Vip extends User {
     /**
      * Constructor that initiates a Vip instance.

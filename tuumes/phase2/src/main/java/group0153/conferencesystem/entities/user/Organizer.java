@@ -1,5 +1,9 @@
 package group0153.conferencesystem.entities.user;
 
+/**
+ * An entity class for organizers, subclass of User.
+ * Organizer class for a user who is an organizer.
+ */
 public class Organizer extends User {
 
     /**

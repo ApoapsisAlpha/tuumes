@@ -2,8 +2,16 @@ package group0153.conferencesystem.entities.user;
 
 import java.util.HashSet;
 
+/**
+ * An entity class for all users, with sub-classes: Organizer, Speaker, Vip.
+ * User class for an object that contains the id, list of contacts, list of events, user type, name,
+ * email, and password of the user.
+ */
 public class User {
 
+    /**
+     * A builder for user.
+     */
     public static class Builder {
         private String id;
         private String name;

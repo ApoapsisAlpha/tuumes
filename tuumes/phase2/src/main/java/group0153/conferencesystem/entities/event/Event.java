@@ -5,6 +5,11 @@ import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommand
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * An entity class for events.
+ * Event class for an object that contains id, name, description, start time, end time, room id, list of speaker ids,
+ * user limit, user count, list of user ids and whether is a Vip-only event of the event.
+ */
 public class Event {
     private final String id;                      // id of this event.
     private String eventName;                     // name of the event.

@@ -1,5 +1,8 @@
 package group0153.conferencesystem.entities.room;
 
+/**
+ * An entity class for room.
+ */
 public class Room {
 
     private final String id;

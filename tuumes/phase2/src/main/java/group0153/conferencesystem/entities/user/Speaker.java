@@ -2,6 +2,10 @@ package group0153.conferencesystem.entities.user;
 
 import java.util.ArrayList;
 
+/**
+ * An entity class for speakers, subclass of User.
+ * Speaker class for a user who is a speaker.
+ */
 public class Speaker extends User {
     private final ArrayList<String> speakingEventIds;
 
