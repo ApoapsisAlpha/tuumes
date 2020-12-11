@@ -1,9 +1,8 @@
 package group0153.conferencesystem.application.event;
 
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
-import org.apache.tomcat.jni.Local;
+import group0153.conferencesystem.application.exceptions.EventNotFoundException;
+import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

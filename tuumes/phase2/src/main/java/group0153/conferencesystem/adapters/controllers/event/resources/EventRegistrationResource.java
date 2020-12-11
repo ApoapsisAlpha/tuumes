@@ -1,10 +1,10 @@
 package group0153.conferencesystem.adapters.controllers.event.resources;
 
-public class EventResource {
+public class EventRegistrationResource {
     private String userId;
     private String eventId;
 
-    public EventResource(String userId, String eventId) {
+    public EventRegistrationResource(String userId, String eventId) {
         this.userId = userId;
         this.eventId = eventId;
     }

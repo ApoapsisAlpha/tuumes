@@ -1,6 +1,6 @@
 //package group0153.conferencesystem.entities.event.old;
 //
-//import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+//import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
 //
 //import java.util.ArrayList;
 //import java.util.Date;

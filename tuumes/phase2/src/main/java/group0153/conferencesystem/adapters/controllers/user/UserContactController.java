@@ -5,7 +5,7 @@ import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.user.resources.UserContactResource;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.user.UserContactManager;
-import group0153.conferencesystem.exceptions.UserNotFoundException;
+import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

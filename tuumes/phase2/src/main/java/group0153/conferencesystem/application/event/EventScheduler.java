@@ -3,10 +3,9 @@ package group0153.conferencesystem.application.event;
 import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;

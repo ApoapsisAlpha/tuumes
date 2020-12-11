@@ -3,52 +3,62 @@ package group0153.conferencesystem.application.event.data;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A class for storing information of a event.
  */
 public class EventData implements Data {
-    final private String eventName;
-    final private String description;
-    final private LocalDateTime startTime;
-    final private LocalDateTime endTime;
-    final private ArrayList<String> speakerIds;
-    final private int userLimit;
-    final private int userCount;
-    final private ArrayList<String> userIds;
-    final private boolean isVipOnlyEvent;
-    final private RoomData roomData;
+    private final String id;
+    private final String name;
+    private final String description;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final String roomId;
+    private final int speakerLimit;
+    private final int userLimit;
+    private final boolean isVipOnlyEvent;
+    private final List<String> userIds;
+    private final List<String> speakerIds;
 
     /**
-     * Construct a new instance of EventData with specified information.
-     * @param event The event to construct EventData.
-     * @param roomData The RoomData to construct EventData.
+     * Construct a new instance of EventData using the specified event
+     * @param event the event
      */
-    public EventData(Event event, RoomData roomData) {
-        ArrayList<String> speakerIds1;
-        this.eventName = event.getEventName();
+    public EventData(Event event) {
+        this.id = event.getId();
+        this.name = event.getName();
         this.description = event.getDescription();
         this.startTime = event.getStartTime();
         this.endTime = event.getEndTime();
-        speakerIds1 = event.getSpeakerIds();
-        this.speakerIds = speakerIds1;
+        this.roomId = event.getRoomId();
+        this.speakerLimit = event.getSpeakerLimit();
         this.userLimit = event.getUserLimit();
-        this.userCount = event.getUserCount();
-        this.userIds = event.getUserIds();
         this.isVipOnlyEvent = event.isVipOnlyEvent();
-        this.roomData = roomData;
+        this.userIds = event.getUserIds();
+        this.speakerIds = event.getSpeakerIds();
+    }
+
+    public EventData(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
+                     String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
+        this.name = name;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.roomId = roomId;
+        this.speakerLimit = speakerLimit;
+        this.userLimit = userLimit;
+        this.isVipOnlyEvent = isVipOnlyEvent;
     }
 
     /**
      * Get the event name.
      * @return name of the event data.
      */
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -76,10 +86,26 @@ public class EventData implements Data {
     }
 
     /**
+     * Get the room id.
+     * @return room id
+     */
+    public String getRoomId() {
+        return roomId;
+    }
+
+    /**
+     * Get the speaker limit
+     * @return speaker limit
+     */
+    public int getSpeakerLimit() {
+        return speakerLimit;
+    }
+
+    /**
      * Get the list of speaker ids of the event data.
      * @return An ArrayList of ids of speakers of the event data.
      */
-    public ArrayList<String> getSpeakerIds() {
+    public List<String> getSpeakerIds() {
         return speakerIds;
     }
 
@@ -92,18 +118,10 @@ public class EventData implements Data {
     }
 
     /**
-     * Get the current number of users registered to the event.
-     * @return The current number of users registered to the event in the event data.
-     */
-    public int getUserCount() {
-        return userCount;
-    }
-
-    /**
      * Get the list of ids of attendees of the event.
      * @return An ArrayList of ids of users who registered to the event in the event data.
      */
-    public ArrayList<String> getUserIds() {
+    public List<String> getUserIds() {
         return userIds;
     }
 
@@ -113,13 +131,5 @@ public class EventData implements Data {
      */
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
-    }
-
-    /**
-     * Get the room data of the event.
-     * @return A RoomData of the event in the event data.
-     */
-    public RoomData getRoomData() {
-        return roomData;
     }
 }

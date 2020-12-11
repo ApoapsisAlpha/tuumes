@@ -18,4 +18,10 @@ public interface EventPersistencePort {
     ArrayList<Event> getAllEvents();
 
     Optional<Event> findById(String eventId);
+
+    Event findEventById(String eventId);
+
+    void registerUserById(String eventId, String userId);
+
+    void registerSpeakerById(String eventId, String userId);
 }

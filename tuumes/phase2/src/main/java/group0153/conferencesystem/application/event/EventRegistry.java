@@ -1,10 +1,9 @@
 package group0153.conferencesystem.application.event;
 import group0153.conferencesystem.entities.user.UserType;
-import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
+import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**

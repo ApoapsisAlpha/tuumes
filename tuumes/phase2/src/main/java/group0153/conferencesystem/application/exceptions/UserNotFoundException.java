@@ -1,4 +1,4 @@
-package group0153.conferencesystem.exceptions;
+package group0153.conferencesystem.application.exceptions;
 
 /**
  * An subclass of RuntimeException, thrown when a user is not found.

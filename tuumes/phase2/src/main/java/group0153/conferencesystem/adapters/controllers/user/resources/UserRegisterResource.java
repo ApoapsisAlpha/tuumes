@@ -1,7 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.user.resources;
 
 import group0153.conferencesystem.entities.user.UserType;
-import group0153.conferencesystem.exceptions.InvalidInputException;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 
 /**
  * A class facilitating the registration of a user by checking if they have inputted their information
