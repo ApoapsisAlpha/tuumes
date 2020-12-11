@@ -1,19 +1,17 @@
 package group0153.conferencesystem.adapters.controllers.event.requests;
 
-import java.time.LocalDateTime;
-
 public class EventCreationRequest {
     private String name;
     private String description;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private Long startTime;
+    private Long endTime;
     private String roomId;
     private int speakerLimit;
     private int userLimit;
     private boolean isVipOnlyEvent;
 
-    public EventCreationRequest(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
-                                String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
+    public EventCreationRequest(String name, String description, Long startTime, Long endTime, String roomId,
+                                int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.name = name;
         this.description = description;
         this.startTime = startTime;
@@ -32,11 +30,11 @@ public class EventCreationRequest {
         return description;
     }
 
-    public LocalDateTime getStartTime() {
+    public Long getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Long getEndTime() {
         return endTime;
     }
 

@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @RestController
@@ -74,8 +76,10 @@ public class EventController {
     @PostMapping("")
     public ResponseEntity<Response> createEvent(@RequestBody EventCreationRequest creationResource) {
         try {
+            LocalDateTime startTime = LocalDateTime.ofEpochSecond(creationResource.getStartTime(), 0, ZoneOffset.UTC);
+            LocalDateTime endTime = LocalDateTime.ofEpochSecond(creationResource.getEndTime(), 0, ZoneOffset.UTC);
             EventData eventData = new EventData(creationResource.getName(), creationResource.getDescription(),
-                                                creationResource.getStartTime(), creationResource.getEndTime(),
+                                                startTime, endTime,
                                                 creationResource.getRoomId(), creationResource.getSpeakerLimit(),
                                                 creationResource.getUserLimit(), creationResource.isVipOnlyEvent());
 
