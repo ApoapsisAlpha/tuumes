@@ -70,7 +70,7 @@ public class EventController {
     public ResponseEntity<Response> registerUserForEvent(@RequestParam(value = "userId") String userId,
                                                          @RequestParam(value = "eventId") String eventId) {
         try {
-            boolean added = eventRegistry.addUserIdToEventUserIdList(eventId, userId);
+            boolean added = eventRegistry.addUserIdToEventUserIdList(eventId, userId, this.userEventsManager.getUserType(userId));
             if (added){
                 userEventsManager.addUserEvents(userId, eventId);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
