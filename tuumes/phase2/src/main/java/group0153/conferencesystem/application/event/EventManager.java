@@ -32,6 +32,26 @@ public class EventManager {
     }
 
     /**
+     * Checks if there is a collision with the given user and event. Specifically, it checks whether the user
+     * has an event at the same time as the provided event.
+     *
+     * @param user the user
+     * @param event the event
+     * @return true if there is a collision, false otherwise
+     */
+    private boolean hasEventCollision(User user, Event event) {
+        // Gets a list of the user's events
+        List<Event> events = user.getEvents().stream().flatMap(eventId -> {
+            return eventPersistencePort.findById(eventId).map(Stream::of).orElseGet(Stream::empty);
+        }).collect(Collectors.toList());
+
+        return events.stream().anyMatch(userEvent -> {
+           return userEvent.getEndTime().isAfter(event.getStartTime()) &&
+                   userEvent.getStartTime().isBefore(event.getEndTime());
+        });
+    }
+
+    /**
      * Get a list of available events for the given user.
      *
      * @param userId user id
@@ -44,6 +64,7 @@ public class EventManager {
         return events.stream().filter(e -> user.getType() == UserType.VIP || !e.isVipOnlyEvent())
                               .filter(e -> e.getStartTime().isAfter(currentTime))
                               .filter(e -> !user.getEvents().contains(e.getId()))
+                              .filter(e -> user.getType() != UserType.ATTENDEE || !hasEventCollision(user, e))
                               .map(EventData::new)
                               .collect(Collectors.toList());
     }
@@ -86,7 +107,8 @@ public class EventManager {
             if (event.getSpeakerCount() >= event.getSpeakerLimit())
                 throw new FullEventException(eventId);
 
-            eventPersistencePort.registerSpeakerById(eventId, userId);
+            if (hasEventCollision(user, event))
+                eventPersistencePort.registerSpeakerById(eventId, userId);
     }
 
     /**
