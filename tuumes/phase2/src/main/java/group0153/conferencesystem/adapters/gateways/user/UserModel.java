@@ -1,12 +1,16 @@
 package group0153.conferencesystem.adapters.gateways.user;
 
 //import group0153.conferencesystem.adapters.gateways.event.EventModel;
+
 import group0153.conferencesystem.adapters.gateways.message.MessageModel;
 import group0153.conferencesystem.entities.user.UserType;
 
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * A class for purposes of the transfer of information about a user
+ */
 @Entity
 public class UserModel {
     private @Id @GeneratedValue Long id;
@@ -27,6 +31,9 @@ public class UserModel {
     @ManyToMany
     private Set<MessageModel> messages;
 
+    /**
+     * Constructs an instance of UserModel
+     */
     public UserModel() {
 
     }
