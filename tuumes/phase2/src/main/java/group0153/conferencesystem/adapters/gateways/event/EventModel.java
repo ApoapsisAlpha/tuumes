@@ -52,7 +52,7 @@ public class EventModel {
     }
 
     public String getEventName() {
-        return eventName;
+        return name;
     }
 
     public String getDescription() {
@@ -67,8 +67,8 @@ public class EventModel {
         return endTime;
     }
 
-    public ArrayList<String> getSpeakerIds() {
-        return speakerIds;
+    public Set<String> getSpeakerIds() {
+        return speakers;
     }
 
     public int getUserLimit() {
