@@ -4,6 +4,11 @@ import group0153.conferencesystem.entities.user.User;
 
 import java.util.Optional;
 
+/**
+ * An interface for saving users to the database. Also describes methods that finds and/or changes the
+ * information in the database.
+ */
+
 public interface UserPersistencePort {
     /**
      * Saves the user.

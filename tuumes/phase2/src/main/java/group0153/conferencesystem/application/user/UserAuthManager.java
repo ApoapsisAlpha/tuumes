@@ -10,10 +10,18 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * A user use case class to handle login and the creation of new users.
+ */
+
 @Component
 public class UserAuthManager {
     UserPersistencePort userPersistencePort;
 
+    /**
+     * Instantiates an UserAuthManager
+     * @param userPersistencePort How users are saved to the database
+     */
     public UserAuthManager(UserPersistencePort userPersistencePort) {
         this.userPersistencePort = userPersistencePort;
     }
