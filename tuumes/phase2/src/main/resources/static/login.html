@@ -75,7 +75,7 @@
                 data[e.name] = e.value;
         });
 
-        $.postJSON("/user/login", data, function(result) {
+        $.postJSON("/users/login", data, function(result) {
             console.log(result);
 
             if (result.valid) {

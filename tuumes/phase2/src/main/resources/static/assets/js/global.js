@@ -23,3 +23,17 @@ $.postJSON = function(url, data, callback) {
     'success': callback
     });
 };
+
+$.getJSON = function(url, data, callback) {
+    return jQuery.ajax({
+    headers: { 
+        'Accept': 'application/json',
+        'Content-Type': 'application/json' 
+    },
+    'type': 'GET',
+    'url': PRIVATE_API + url,
+    'data': JSON.stringify(data),
+    'dataType': 'json',
+    'success': callback
+    });
+};
