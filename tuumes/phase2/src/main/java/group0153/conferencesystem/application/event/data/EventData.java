@@ -1,7 +1,6 @@
 package group0153.conferencesystem.application.event.data;
 
 import group0153.conferencesystem.application.Data;
-import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.event.Event;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.util.List;
  * A class for storing information of a event.
  */
 public class EventData implements Data {
-    private final String id;
+    private String id;
     private final String name;
     private final String description;
     private final LocalDateTime startTime;
@@ -20,8 +19,8 @@ public class EventData implements Data {
     private final int speakerLimit;
     private final int userLimit;
     private final boolean isVipOnlyEvent;
-    private final List<String> userIds;
-    private final List<String> speakerIds;
+    private List<String> userIds;
+    private List<String> speakerIds;
 
     /**
      * Construct a new instance of EventData using the specified event

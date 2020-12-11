@@ -9,6 +9,7 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.user.UserAuthManager;
 import group0153.conferencesystem.application.user.exception.IncorrectLoginException;
 import group0153.conferencesystem.application.user.exception.UserExistsException;
+import group0153.conferencesystem.entities.user.UserType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,7 +43,16 @@ public class UserAuthController {
     @PostMapping("/register")
     public ResponseEntity<Response> registerUser(@RequestBody UserRegisterRequest user) {
         try {
-            userAuthManager.create(user.getName(), user.getEmail(), user.getPassword(), user.getType());
+            UserType userType = UserType.ATTENDEE;
+            if (user.getType().equalsIgnoreCase("Organizer")) {
+                userType = UserType.ORGANIZER;
+            } else if (user.getType().equalsIgnoreCase("Speaker")) {
+                userType = UserType.SPEAKER;
+            } else if (user.getType().equalsIgnoreCase("VIP")) {
+                userType = UserType.VIP;
+            }
+
+            userAuthManager.create(user.getName(), user.getEmail(), user.getPassword(), userType);
             Response response = new Response(true);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UserExistsException e) {

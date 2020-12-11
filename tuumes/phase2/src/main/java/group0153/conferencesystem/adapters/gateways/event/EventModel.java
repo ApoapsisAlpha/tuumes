@@ -1,14 +1,14 @@
 package group0153.conferencesystem.adapters.gateways.event;
 
+import group0153.conferencesystem.adapters.gateways.room.RoomModel;
 import group0153.conferencesystem.adapters.gateways.user.UserModel;
-import group0153.conferencesystem.entities.event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
- * Class for passing the event entity's information to the frontend.
+ * Database model for the event entity.
  */
 @Entity
 public class EventModel {
@@ -18,40 +18,41 @@ public class EventModel {
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String roomId;
+    private int speakerLimit;
     private int userLimit;
     private boolean isVipOnlyEvent;
 
+    @ManyToOne
+    private RoomModel room;
+
     @ManyToMany
     private Set<UserModel> speakers;
+
+    @ManyToMany
+    private Set<UserModel> users;
 
     public EventModel() {
 
     }
 
-    public EventModel(String resourceId,
-                      String eventName,
-                      String description,
-                      LocalDateTime startTime,
-                      LocalDateTime endTime,
-                      String roomId,
-                      int userLimit,
-                      boolean vipOnlyEvent){
+    public EventModel(String resourceId, String name, String description, LocalDateTime startTime, LocalDateTime endTime,
+                      RoomModel room, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.resourceId = resourceId;
-        this.name = eventName;
+        this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.roomId = roomId;
+        this.room = room;
         this.userLimit = userLimit;
-        this.isVipOnlyEvent = vipOnlyEvent;
+        this.speakerLimit = speakerLimit;
+        this.isVipOnlyEvent = isVipOnlyEvent;
     }
 
     public String getResourceId(){
         return resourceId;
     }
 
-    public String getEventName() {
+    public String getName() {
         return name;
     }
 
@@ -79,6 +80,19 @@ public class EventModel {
         return isVipOnlyEvent;
     }
 
-    public String getRoomId() { return roomId;
+    public RoomModel getRoom() {
+        return room;
+    }
+
+    public int getSpeakerLimit() {
+        return speakerLimit;
+    }
+
+    public Set<UserModel> getSpeakers() {
+        return speakers;
+    }
+
+    public Set<UserModel> getUsers() {
+        return users;
     }
 }

@@ -104,13 +104,20 @@ public class Event {
      * Precondition: speakerId is a valid id belonging to a speaker.
      *
      * @param speakerId The id of the speaker to be added.
-     * @throws UnsuccessfulCommandException The speaker could not be successfully added.
      */
-    public void addSpeakerId(String speakerId) throws UnsuccessfulCommandException {
-        for (String otherSpeakerId : this.getSpeakerIds()) {
-            if (otherSpeakerId.equals(speakerId)) throw new UnsuccessfulCommandException("This speaker is already registered for this event.");
-        }
-        this.speakerIds.add(speakerId);
+    public void addSpeakerId(String speakerId) {
+        speakerIds.add(speakerId);
+    }
+
+    /**
+     * Add a user id to the list of user ids of the event.
+     *
+     * Precondition: userId is a valid id belonging to a user.
+     *
+     * @param userId The id of the user to be added.
+     */
+    public void addUserId(String userId) {
+        userIds.add(userId);
     }
 
     /**
