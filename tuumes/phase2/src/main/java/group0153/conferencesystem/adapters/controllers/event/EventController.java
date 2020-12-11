@@ -2,7 +2,6 @@ package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.adapters.controllers.event.resource.EventUpdateRoomIdResource;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -10,16 +9,12 @@ import group0153.conferencesystem.application.event.EventUpdater;
 import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.application.user.UserEventsManager;
-import group0153.conferencesystem.entities.event.old.Event;
+import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
-import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import group0153.conferencesystem.adapters.controllers.event.resource.EventUpdateCapacityResource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,7 +22,6 @@ import java.util.List;
 public class EventController {
     private final UserEventsManager userEventsManager;
     private final RoomManager roomManager;
-    private final Event.Builder eventBuilder;
     private final EventRegistry eventRegistry;
     private final EventScheduler eventScheduler;
     private final EventUpdater eventUpdater;
@@ -38,7 +32,6 @@ public class EventController {
                            EventScheduleDataPreparer eventScheduleDataPreparer) {
         this.userEventsManager = userEventsManager;
         this.roomManager = roomManager;
-        this.eventBuilder = new Event.Builder();
         this.eventRegistry = eventRegistry;
         this.eventScheduler = eventScheduler;
         this.eventUpdater = eventUpdater;

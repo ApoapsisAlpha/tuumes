@@ -56,9 +56,4 @@ public class EventUpdater {
         }
         event.setEndTime(newEndTime);
     }
-
-    public void updateRoomId(String eventId, String newRoomId) throws EventNotFoundException {
-        Event event = this.getEvent(eventId);
-        event.setRoomId(newRoomId);
-    }
 }
