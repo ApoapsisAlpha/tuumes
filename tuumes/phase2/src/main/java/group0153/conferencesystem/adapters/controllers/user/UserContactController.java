@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * A class facilitating the user's interactions with their contacts
+ * A controller class facilitating the user's interactions with their contacts
  */
 @RestController
 @RequestMapping(value = "/user/contacts")
