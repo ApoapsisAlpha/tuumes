@@ -35,11 +35,11 @@ public class MessageController {
         this.messageDataPreparer = messageDataPreparer;
     }
 
-    @PostMapping("/compose")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageComposeResource messageComposeResource) {
-        // this method composes a message, this returns a Response();
-        // make sure to follow the chart thing I sent on Discord as to what types of users can message what types
-    }
+//    @PostMapping("/compose")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageComposeResource messageComposeResource) {
+//        // this method composes a message, this returns a Response();
+//        // make sure to follow the chart thing I sent on Discord as to what types of users can message what types
+//    }
 
     @GetMapping("/view")
     public ResponseEntity<Response> viewMessages(@RequestHeader(value = "userId") String userId) {
@@ -65,28 +65,28 @@ public class MessageController {
         }
     }
 
-    @PostMapping("/read")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-        // marks a message as read, this returns a Response();
-    }
-
-    @PostMapping("/unread")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-        // marks a message as unread, this returns a Response();
-    }
-
-    @PostMapping("/delete")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-        // deletes a message, this returns a Response();
-    }
-
-    @PostMapping("/archive")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-        // archives a message, this returns a Response();
-    }
-
-    @PostMapping("/unarchive")
-    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-        // unarchives a message, this returns a Response();
-    }
+//    @PostMapping("/read")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
+//        // marks a message as read, this returns a Response();
+//    }
+//
+//    @PostMapping("/unread")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
+//        // marks a message as unread, this returns a Response();
+//    }
+//
+//    @PostMapping("/delete")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
+//        // deletes a message, this returns a Response();
+//    }
+//
+//    @PostMapping("/archive")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
+//        // archives a message, this returns a Response();
+//    }
+//
+//    @PostMapping("/unarchive")
+//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
+//        // unarchives a message, this returns a Response();
+//    }
 }
