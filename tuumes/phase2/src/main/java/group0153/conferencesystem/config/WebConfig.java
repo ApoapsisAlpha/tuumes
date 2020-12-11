@@ -1,4 +1,4 @@
-package group0153.conferencesystem;
+package group0153.conferencesystem.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
