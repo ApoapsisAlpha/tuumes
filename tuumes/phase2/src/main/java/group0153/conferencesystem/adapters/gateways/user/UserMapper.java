@@ -3,8 +3,10 @@ package group0153.conferencesystem.adapters.gateways.user;
 import group0153.conferencesystem.entities.user.User;
 
 import java.util.Optional;
-import java.util.Set;
 
+/**
+ * A class which acts as a go-between for a UserModel instance and its corresponding User instance
+ */
 public class UserMapper {
 
     /**
