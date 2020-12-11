@@ -129,6 +129,7 @@ public class EventScheduler {
         if (!event.isPresent()) throw new UnsuccessfulCommandException("The event could not be found.");
         Event e = event.get();
         ArrayList<String> res = e.getUserIds();
+        res.addAll(e.getSpeakerIds());
         this.eventPersistencePort.deleteEvent(eventId);
         return res;
     }
