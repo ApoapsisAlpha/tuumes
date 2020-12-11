@@ -1,10 +1,10 @@
-package group0153.conferencesystem.adapters.controllers.event.resources;
+package group0153.conferencesystem.adapters.controllers.event.requests;
 
-public class EventUpdateCapacityResource {
+public class EventUpdateCapacityRequest {
     private String eventId;
     private int userLimit;
 
-    public EventUpdateCapacityResource(String eventId, int userLimit) {
+    public EventUpdateCapacityRequest(String eventId, int userLimit) {
         this.eventId = eventId;
         this.userLimit = userLimit;
     }

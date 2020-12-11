@@ -1,8 +1,8 @@
-package group0153.conferencesystem.adapters.controllers.event.resources;
+package group0153.conferencesystem.adapters.controllers.event.requests;
 
 import java.time.LocalDateTime;
 
-public class EventCreationResource {
+public class EventCreationRequest {
     private String name;
     private String description;
     private LocalDateTime startTime;
@@ -12,8 +12,8 @@ public class EventCreationResource {
     private int userLimit;
     private boolean isVipOnlyEvent;
 
-    public EventCreationResource(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
-                                 String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
+    public EventCreationRequest(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
+                                String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.name = name;
         this.description = description;
         this.startTime = startTime;

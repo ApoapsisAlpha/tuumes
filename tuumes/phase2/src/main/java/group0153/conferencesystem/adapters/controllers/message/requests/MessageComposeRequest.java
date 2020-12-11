@@ -1,9 +1,9 @@
-package group0153.conferencesystem.adapters.controllers.message.resource;
+package group0153.conferencesystem.adapters.controllers.message.requests;
 
 /**
  * A class facilitating the user's creation of messages by storing the information they input
  */
-public class MessageComposeResource {
+public class MessageComposeRequest {
     private final String content;
     private final String recipientEmail;
     private final String userId;
@@ -15,7 +15,7 @@ public class MessageComposeResource {
      * @param recipientEmail String email of the recipient of the message
      * @param userId         String id of the user that sent this message
      */
-    public MessageComposeResource(String content, String recipientEmail, String userId) {
+    public MessageComposeRequest(String content, String recipientEmail, String userId) {
         this.content = content;
         this.recipientEmail = recipientEmail;
         this.userId = userId;

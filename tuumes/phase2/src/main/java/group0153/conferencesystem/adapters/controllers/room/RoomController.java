@@ -1,5 +1,6 @@
 package group0153.conferencesystem.adapters.controllers.room;
 
+import group0153.conferencesystem.adapters.controllers.room.requests.RoomRequest;
 import group0153.conferencesystem.application.room.RoomManager;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +31,7 @@ public class RoomController {
      * @return String id of the newly created room
      */
     @PostMapping("")
-    String createRoom(@RequestBody RoomResource room) {
+    String createRoom(@RequestBody RoomRequest room) {
         return roomManager.createRoom(room.getName(), room.getCapacity());
     }
 }

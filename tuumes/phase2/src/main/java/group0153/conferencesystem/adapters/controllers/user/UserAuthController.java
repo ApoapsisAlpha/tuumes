@@ -2,8 +2,8 @@ package group0153.conferencesystem.adapters.controllers.user;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseData;
-import group0153.conferencesystem.adapters.controllers.user.resources.UserLoginResource;
-import group0153.conferencesystem.adapters.controllers.user.resources.UserRegisterResource;
+import group0153.conferencesystem.adapters.controllers.user.requests.UserLoginRequest;
+import group0153.conferencesystem.adapters.controllers.user.requests.UserRegisterRequest;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.user.UserAuthManager;
@@ -40,7 +40,7 @@ public class UserAuthController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/register")
-    public ResponseEntity<Response> registerUser(@RequestBody UserRegisterResource user) {
+    public ResponseEntity<Response> registerUser(@RequestBody UserRegisterRequest user) {
         try {
             userAuthManager.create(user.getName(), user.getEmail(), user.getPassword(), user.getType());
             Response response = new Response(true);
@@ -59,7 +59,7 @@ public class UserAuthController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/login")
-    public ResponseEntity<Response> loginUser(@RequestBody UserLoginResource user) {
+    public ResponseEntity<Response> loginUser(@RequestBody UserLoginRequest user) {
         try {
             Data loginData = userAuthManager.login(user.getEmail(), user.getPassword());
             ResponseData response = new ResponseData(true, loginData);

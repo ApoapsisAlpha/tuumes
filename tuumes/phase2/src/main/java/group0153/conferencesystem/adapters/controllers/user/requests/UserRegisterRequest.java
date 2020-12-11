@@ -1,4 +1,4 @@
-package group0153.conferencesystem.adapters.controllers.user.resources;
+package group0153.conferencesystem.adapters.controllers.user.requests;
 
 import group0153.conferencesystem.entities.user.UserType;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
@@ -6,7 +6,7 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 /**
  * A class facilitating the registration of a user by checking if they have inputted their information
  */
-public class UserRegisterResource {
+public class UserRegisterRequest {
     private String name; // TODO: like in UserLoginResource, these are not assigned values anywhere. Why?
     private String email;
     private String password;
@@ -15,7 +15,7 @@ public class UserRegisterResource {
     /**
      * Construct an instance of UserRegisterResource
      */
-    public UserRegisterResource() {
+    public UserRegisterRequest() {
     }
 
     /**

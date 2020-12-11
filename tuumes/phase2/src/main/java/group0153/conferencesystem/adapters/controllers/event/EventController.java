@@ -2,9 +2,8 @@ package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.adapters.controllers.event.resources.EventCreationResource;
-import group0153.conferencesystem.adapters.controllers.event.resources.EventRegistrationResource;
-import group0153.conferencesystem.adapters.controllers.event.resources.EventUpdateCapacityResource;
+import group0153.conferencesystem.adapters.controllers.event.requests.EventCreationRequest;
+import group0153.conferencesystem.adapters.controllers.event.requests.EventRegistrationRequest;
 import group0153.conferencesystem.application.event.*;
 import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.exceptions.*;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,7 +45,7 @@ public class EventController {
      * @return response indicating success/failure
      */
     @PostMapping("/register")
-    public ResponseEntity<Response> registerUserForEvent(@RequestBody EventRegistrationResource registrationResource) {
+    public ResponseEntity<Response> registerUserForEvent(@RequestBody EventRegistrationRequest registrationResource) {
         try {
             eventManager.registerUserForEvent(registrationResource.getEventId(), registrationResource.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
@@ -74,7 +72,7 @@ public class EventController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Response> createEvent(@RequestBody EventCreationResource creationResource) {
+    public ResponseEntity<Response> createEvent(@RequestBody EventCreationRequest creationResource) {
         try {
             EventData eventData = new EventData(creationResource.getName(), creationResource.getDescription(),
                                                 creationResource.getStartTime(), creationResource.getEndTime(),
