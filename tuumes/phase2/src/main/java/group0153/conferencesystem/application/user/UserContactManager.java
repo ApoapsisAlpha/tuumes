@@ -7,9 +7,9 @@ import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UserContactManager {
@@ -27,23 +27,16 @@ public class UserContactManager {
     /**
      * Return the list of all the contacts a user has based on id.
      *
-     * @param userId The id of the user to get the contacts of.
+     * @param userId The id of the user.
      * @return An ArrayList of the contacts.
      * @throws UserNotFoundException Thrown if the userId is not found.
      */
     public List<Data> getUserContactsById(String userId) throws UserNotFoundException {
-        Optional<User> userPresent = userPersistencePort.findById(userId);
-        if (!userPresent.isPresent())
-            throw new UserNotFoundException(userId);
-
-        HashSet<String> contactsSet = userPresent.get().getContacts();
+        User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         List<Data> contacts = new ArrayList<>();
-        for (String contactId : contactsSet) {
-            Optional<User> curContactOpt = userPersistencePort.findById(userId);
-            if (!curContactOpt.isPresent())
-                throw new UserNotFoundException(contactId);
-            User curContact = curContactOpt.get();
-            contacts.add(new UserContactData(curContact.getId(), curContact.getName(), curContact.getEmail()));
+        for (String contactId : user.getContacts()) {
+            User contact = userPersistencePort.findById(contactId).orElseThrow(() -> new UserNotFoundException(contactId));
+            contacts.add(new UserContactData(contact.getId(), contact.getName(), contact.getEmail()));
         }
 
         return contacts;
@@ -57,9 +50,10 @@ public class UserContactManager {
      * @throws UserNotFoundException Thrown if userId or contactId are not found.
      */
     public void removeContactById(String contactId, String userId) throws UserNotFoundException {
-        Optional<User> userPresent = userPersistencePort.findById(userId);
-        if (!userPresent.isPresent())
-            throw new UserNotFoundException(userId);
+        User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        if (!user.getContacts().contains(contactId))
+            throw new UserNotFoundException(contactId);
+
         userPersistencePort.removeContactById(contactId, userId);
     }
 
@@ -71,10 +65,8 @@ public class UserContactManager {
      * @throws UserNotFoundException Thrown if userId or contactId are not found.
      */
     public void addContactById(String contactId, String userId) throws UserNotFoundException {
-        Optional<User> userPresent = userPersistencePort.findById(userId);
-        Optional<User> contactPresent = userPersistencePort.findById(contactId);
-        if (!userPresent.isPresent() || !contactPresent.isPresent())
-            throw new UserNotFoundException(userId);
+        userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        userPersistencePort.findById(contactId).orElseThrow(() -> new UserNotFoundException(contactId));
         userPersistencePort.addContactById(contactId, userId);
     }
 }

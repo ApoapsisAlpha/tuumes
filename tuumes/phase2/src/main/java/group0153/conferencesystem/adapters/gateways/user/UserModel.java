@@ -1,6 +1,6 @@
 package group0153.conferencesystem.adapters.gateways.user;
 
-import group0153.conferencesystem.adapters.gateways.event.EventModel;
+//import group0153.conferencesystem.adapters.gateways.event.EventModel;
 import group0153.conferencesystem.adapters.gateways.message.MessageModel;
 import group0153.conferencesystem.entities.user.UserType;
 
@@ -18,11 +18,11 @@ public class UserModel {
     @Enumerated(EnumType.ORDINAL)
     private UserType type;
 
-    @ManyToMany
-    private Set<EventModel> events;
-
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private Set<UserModel> contacts;
+
+//    @ManyToMany
+//    private Set<EventModel> events;
 
     @ManyToMany
     private Set<MessageModel> messages;
@@ -91,5 +91,23 @@ public class UserModel {
      */
     public UserType getType() {
         return type;
+    }
+
+    /**
+     * Get user contacts
+     *
+     * @return a set of UserModel objects
+     */
+    public Set<UserModel> getContacts() {
+        return contacts;
+    }
+
+    /**
+     * Get received messages
+     *
+     * @return a set of MessageModel objects
+     */
+    public Set<MessageModel> getMessages() {
+        return messages;
     }
 }
