@@ -3,6 +3,9 @@ package group0153.conferencesystem;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * A class that launches the program with the arguments specified
+ */
 @SpringBootApplication
 public class ConferenceSystem {
 
