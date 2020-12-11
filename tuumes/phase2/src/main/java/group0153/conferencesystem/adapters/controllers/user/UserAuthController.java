@@ -28,7 +28,7 @@ public class UserAuthController {
     @PostMapping("/register")
     public ResponseEntity<Response> registerUser(@RequestBody UserRegisterResource user) {
         try {
-            userAuthManager.create(user.getName(), user.getEmail(), user.getPassword(), UserType.ATTENDEE);
+            userAuthManager.create(user.getName(), user.getEmail(), user.getPassword(), user.getType());
             Response response = new Response(true);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UserExistsException e) {

@@ -1,11 +1,11 @@
 package group0153.conferencesystem.adapters.gateways.event;
 
+import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import group0153.conferencesystem.entities.event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Class for passing the event entity's information to the frontend.
@@ -14,14 +14,20 @@ import java.util.List;
 public class EventModel {
     private @Id @GeneratedValue Long id;
     private String resourceId;
-    private String eventName;
+    private String name;
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String roomId;
-    private ArrayList<String> speakerIds;
     private int userLimit;
     private boolean isVipOnlyEvent;
+
+    @ManyToMany
+    private Set<UserModel> speakers;
+
+    public EventModel() {
+
+    }
 
     public EventModel(String resourceId,
                       String eventName,
@@ -29,16 +35,14 @@ public class EventModel {
                       LocalDateTime startTime,
                       LocalDateTime endTime,
                       String roomId,
-                      ArrayList<String> speakerIds,
                       int userLimit,
                       boolean vipOnlyEvent){
         this.resourceId = resourceId;
-        this.eventName = eventName;
+        this.name = eventName;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomId = roomId;
-        this.speakerIds = speakerIds;
         this.userLimit = userLimit;
         this.isVipOnlyEvent = vipOnlyEvent;
     }

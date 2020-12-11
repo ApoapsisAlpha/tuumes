@@ -2,7 +2,7 @@ package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.adapters.controllers.event.resource.EventUpdateCapacityResource;
+import group0153.conferencesystem.adapters.controllers.event.resources.EventUpdateCapacityResource;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -10,12 +10,10 @@ import group0153.conferencesystem.application.event.EventUpdater;
 import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.application.user.UserEventsManager;
-import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
 import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value="/api/event")
+@RequestMapping(value="/events")
 public class EventController {
     private final UserEventsManager userEventsManager;
     private final RoomManager roomManager;
@@ -49,7 +47,7 @@ public class EventController {
      *
      * @return A list of every single event and their information.
      */
-    @GetMapping("/view")
+    @GetMapping("")
     public ResponseEntity<Response> getAllEvents(@RequestParam(value = "userId") String userId) {
         try {
             List<String> userEvents = userEventsManager.getUserEvents(userId);

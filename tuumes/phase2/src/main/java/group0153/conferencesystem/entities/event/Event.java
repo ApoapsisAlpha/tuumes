@@ -17,11 +17,11 @@ public class Event {
     private LocalDateTime startTime;              // start time of event.
     private LocalDateTime endTime;                // end time of event.
     private String roomId;                        // room number where the event take place.
-    private ArrayList<String> speakerIds;         // the list of speaker ids of the event.
+    private int speakerLimit;
     private int userLimit;                        // maximum amount of people allowed at this event.
-    private int userCount;                        // number of people currently scheduled to go to this event.
-    private ArrayList<String> userIds;            // list of ids of the users registered to this event.
     private boolean isVipOnlyEvent;               // whether this event is VIP-only.
+    private ArrayList<String> userIds;            // list of ids of the users registered to this event.
+    private ArrayList<String> speakerIds;         // the list of speaker ids of the event.
 
     /**
      * Constructor of event instance.
@@ -45,7 +45,6 @@ public class Event {
         this.roomId = roomId;
         this.speakerIds = speakerIds;
         this.userLimit = userLimit;
-        this.userCount = 0;
         this.userIds = new ArrayList<>();
         this.isVipOnlyEvent = isVipOnlyEvent;
     }
@@ -127,14 +126,6 @@ public class Event {
      */
     public void setUserLimit(int userLimit) {
         this.userLimit = userLimit;
-    }
-
-    /**
-     * Set the user count of the event.
-     * @param userCount the new number of users registered to attend this event.
-     */
-    public void setUserCount(int userCount) {
-        this.userCount = userCount;
     }
 
     /**
@@ -272,7 +263,7 @@ public class Event {
      * @return the current number of users registered to attend this event.
      */
     public int getUserCount() {
-        return userCount;
+        return userIds.size();
     }
 
     /**
