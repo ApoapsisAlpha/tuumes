@@ -106,14 +106,29 @@ public class SQLiteDialect extends Dialect {
                 .toString();
     }
 
+    /**
+     * Get whether this SQLiteDialect instance supports temporary tables
+     *
+     * @return boolean representing whether this SQLiteDialect instance supports temporary tables
+     */
     public boolean supportsTemporaryTables() {
         return true;
     }
 
+    /**
+     * Get command to create a new temporary table
+     *
+     * @return String command used to create a temporary table
+     */
     public String getCreateTemporaryTableString() {
         return "create temporary table if not exists";
     }
 
+    /**
+     * Get if temporary table must be dropped after use
+     *
+     * @return boolean representing whether temporary table should be dropped after it is used
+     */
     public boolean dropTemporaryTableAfterUse() {
         return false;
     }
