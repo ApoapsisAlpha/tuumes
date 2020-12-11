@@ -21,7 +21,7 @@ public class EventScheduleDataPreparer {
      * @param eventPersistencePort How the events are saved to the database.
      * @param roomManager The room manager for event rooms.
      */
-    EventScheduleDataPreparer(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
+    public EventScheduleDataPreparer(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
         this.roomManager = roomManager;
     }

@@ -1,4 +1,5 @@
 package group0153.conferencesystem.application.event;
+import group0153.conferencesystem.entities.user.UserType;
 import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
@@ -22,25 +23,6 @@ public class EventRegistry {
     }
 
     /**
-     * Private method. Return an event based on its id.
-     * @param eventId The id of the event.
-     * @return A reference to the event if the event exists, otherwise returns null
-     */
-    private Optional<Event> getEventById(String eventId){
-        return eventPersistencePort.findById(eventId);
-    }
-
-    /**
-     * Return an event's user count based on its id.
-     * @param eventId The id of the event.
-     * @return The user count of the event if the event exists, otherwise returns -1.
-     */
-    private int getUserCountById(String eventId){
-        Optional<Event> requestedEvent = getEventById(eventId);
-        return requestedEvent.map(Event::getUserCount).orElse(-1);
-    }
-
-    /**
      * Check if the given user has already registered to the given event.
      * @param eventId The event id of the event.
      * @param userId The user id of the user.
@@ -48,13 +30,20 @@ public class EventRegistry {
      * @throws EventNotFoundException No event found.
      */
     private boolean alreadyRegistered(String eventId, String userId) throws EventNotFoundException {
-        Optional<Event> event = getEventById(eventId);
-        if (!event.isPresent())
-            throw new EventNotFoundException();
-        for (String registeredId : event.get().getUserIds()) {
+        Event event = this.getEvent(eventId);
+        for (String registeredId : event.getUserIds()) {
             if (registeredId.equals(userId)) return true;
         }
         return false;
+    }
+
+    /**
+     *
+     * @param event The event to be checked.
+     * @return True if the event has any spots left. False otherwise.
+     */
+    private boolean hasSpotsLeft(Event event) {
+        return event.getUserCount() < event.getUserLimit();
     }
 
     /**
@@ -66,12 +55,10 @@ public class EventRegistry {
      * @throws EventNotFoundException No event found.
      * @throws UnsuccessfulCommandException User could not be registered.
      */
-    public boolean addUserIdToEventUserIdList(String eventId, String userId) throws UnsuccessfulCommandException {
-        Optional<Event> optionalEvent = getEventById(eventId);
-        if (!optionalEvent.isPresent())
-            throw new EventNotFoundException();
-        Event event = optionalEvent.get();
-        if (alreadyRegistered(event.getId(), userId) || getUserCountById(event.getId()) >= event.getUserLimit()) return false;
+    public boolean addUserIdToEventUserIdList(String eventId, String userId, UserType userType) throws UnsuccessfulCommandException {
+        Event event = this.getEvent(eventId);
+        if (alreadyRegistered(event.getId(), userId) || !this.hasSpotsLeft(event)) return false;
+        if (userType != UserType.VIP && event.isVipOnlyEvent()) return false;
         event.addUserId(userId);
         event.increaseUserCount(1);
         return true;
@@ -86,10 +73,7 @@ public class EventRegistry {
      * @throws EventNotFoundException No event found.
      */
     public boolean removeUserIdFromEventUserIdList(String eventId, String userId) throws EventNotFoundException {
-        Optional<Event> optionalEvent = getEventById(eventId);
-        if (!optionalEvent.isPresent())
-            throw new EventNotFoundException();
-        Event event = optionalEvent.get();
+        Event event = this.getEvent(eventId);
         if (!alreadyRegistered(eventId, userId)) return false;
         event.removeUserId(userId);
         event.decreaseUserCount(1);
@@ -108,5 +92,18 @@ public class EventRegistry {
                 event.addSpeakerId(speakerId);
             }
         }
+    }
+
+    /**
+     *
+     * @param eventId The id of the event to be returned.
+     * @return The event.
+     * @throws EventNotFoundException The event could not be found.
+     */
+    private Event getEvent(String eventId) throws EventNotFoundException {
+        Optional<Event> optionalEvent = this.eventPersistencePort.getEvent(eventId);
+        if (!optionalEvent.isPresent())
+            throw new EventNotFoundException();
+        return optionalEvent.get();
     }
 }
