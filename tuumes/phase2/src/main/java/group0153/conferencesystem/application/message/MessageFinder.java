@@ -62,7 +62,7 @@ public class MessageFinder {
      */
     public ArrayList<String> getArchivedMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> archivedMsgIds = new ArrayList<String>();
+        ArrayList<String> archivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
             throw new NoArchivedMessagesException();
@@ -84,7 +84,7 @@ public class MessageFinder {
      */
     public ArrayList<String> getUnarchivedMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> unarchivedMsgIds = new ArrayList<String>();
+        ArrayList<String> unarchivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
             throw new NoArchivedMessagesException();
@@ -107,7 +107,7 @@ public class MessageFinder {
      */
     public ArrayList<String> getReadMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> readMsgIds = new ArrayList<String>();
+        ArrayList<String> readMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
             throw new NoReadMessagesException();
@@ -130,7 +130,7 @@ public class MessageFinder {
      */
     public ArrayList<String> getUnreadMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> unreadMsgIds = new ArrayList<String>();
+        ArrayList<String> unreadMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
             throw new NoUnreadMessagesException();
