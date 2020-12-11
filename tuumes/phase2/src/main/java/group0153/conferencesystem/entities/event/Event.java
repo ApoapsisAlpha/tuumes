@@ -1,9 +1,10 @@
 package group0153.conferencesystem.entities.event;
 
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An entity class for events.
@@ -11,52 +12,52 @@ import java.util.ArrayList;
  * user limit, user count, list of user ids and whether is a Vip-only event of the event.
  */
 public class Event {
-    private final String id;                      // id of this event.
-    private String eventName;                     // name of the event.
-    private String description;                   // description of the event.
-    private LocalDateTime startTime;              // start time of event.
-    private LocalDateTime endTime;                // end time of event.
-    private String roomId;                        // room number where the event take place.
+    private final String id;
+    private String name;
+    private String description;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private String roomId;
     private int speakerLimit;
-    private int userLimit;                        // maximum amount of people allowed at this event.
-    private boolean isVipOnlyEvent;               // whether this event is VIP-only.
-    private ArrayList<String> userIds;            // list of ids of the users registered to this event.
-    private ArrayList<String> speakerIds;         // the list of speaker ids of the event.
+    private int userLimit;
+    private boolean isVipOnlyEvent;
+    private List<String> userIds;
+    private List<String> speakerIds;
 
     /**
-     * Constructor of event instance.
-     * @param id             the id of the Event
-     * @param eventName      the name of the Event
-     * @param description    the description of the event
-     * @param startTime      the time the Event starts
-     * @param endTime        the time the Event ends
-     * @param roomId         the id of the Room where the Event takes place
-     * @param speakerIds     the list of speaker ids of the event.
-     * @param userLimit      the total number of Users this Event can have registered
-     * @param isVipOnlyEvent a boolean whether this Event is for VIPs only
+     * Creates an Event instance.
+     *
+     * @param id id
+     * @param name name
+     * @param description description
+     * @param startTime start time
+     * @param endTime end time
+     * @param roomId room id for the room where the event takes place
+     * @param speakerLimit maximum number of speakers
+     * @param userLimit maximum number of attending users
+     * @param isVipOnlyEvent
      */
-    public Event(String id, String eventName, String description, LocalDateTime startTime, LocalDateTime endTime,
-                 String roomId, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) {
+    public Event(String id, String name, String description, LocalDateTime startTime, LocalDateTime endTime,
+                 String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.id = id;
-        this.eventName = eventName;
+        this.name = name;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
         this.roomId = roomId;
-        this.speakerIds = speakerIds;
+        this.speakerLimit = speakerLimit;
         this.userLimit = userLimit;
-        this.userIds = new ArrayList<>();
         this.isVipOnlyEvent = isVipOnlyEvent;
+        userIds = new ArrayList<>();
+        speakerIds = new ArrayList<>();
     }
-
-    // setters
 
     /**
      * Set the name of the event.
-     * @param eventName the new name of this Event.
+     * @param name the new name of this Event.
      */
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -104,67 +105,11 @@ public class Event {
     }
 
     /**
-     * @param speakerId The id of the speaker to be removed.
-     *                  If the speaker is not registered for this event, nothing happens.
-     */
-    public void removeSpeakerId(String speakerId) {
-        this.speakerIds.remove(speakerId);
-    }
-
-
-    /**
-     * Set the list of speaker ids of the event.
-     * @param speakerIds the new list of speaker ids of this event.
-     */
-    public void setSpeakerIds(ArrayList<String> speakerIds) {
-        this.speakerIds = speakerIds;
-    }
-
-    /**
      * Set the user limit of the event.
      * @param userLimit the new integer total number of users allowed to attend this event.
      */
     public void setUserLimit(int userLimit) {
         this.userLimit = userLimit;
-    }
-
-    /**
-     * Increase the capacity of the event by amount.
-     * @param amount: the amount to increase.
-     */
-    public void increaseUserCount(int amount) {
-        this.userCount += amount;
-    }
-
-    /**
-     * Decrease the capacity of the event by amount.
-     * @param amount: the amount to decrease.
-     */
-    public void decreaseUserCount(int amount) {
-        this.userCount -= amount;
-    }
-
-    /**
-     * Set the id list of users registered to the event.
-     * @param userIds the new ArrayList containing the String ids of users attending this event.
-     */
-    public void setUserIds(ArrayList<String> userIds) {
-        this.userIds = userIds;
-    }
-
-    /**
-     * Add userId to this event.
-     * @param userId the id of the User registering for this Event.
-     * @throws UnsuccessfulCommandException User could not be registered.
-     */
-    public void addUserId(String userId) throws UnsuccessfulCommandException {
-        for (String otherUserId : this.getUserIds()) {
-            if (userId.equals(otherUserId))
-                throw new UnsuccessfulCommandException("User is already registered for this event.");
-        }
-        if (!this.hasSpotsLeft())
-            throw new UnsuccessfulCommandException("This event's user limit has already been reached.");
-        this.userIds.add(userId);
     }
 
     /**
@@ -174,14 +119,6 @@ public class Event {
      */
     public void removeUserId(String userId) {
         this.userIds.remove(userId);
-    }
-
-    /**
-     * Return whether there is enough room in this Event for another User to register.
-     * @return True if userCount < userLimit.
-     */
-    private boolean hasSpotsLeft(){
-        return this.getUserCount() < this.getUserLimit();
     }
 
     /**
@@ -206,8 +143,8 @@ public class Event {
      * Get the event name.
      * @return the name of this event.
      */
-    public String getEventName() {
-        return eventName;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -246,12 +183,12 @@ public class Event {
      * Get the speaker ids of the event.
      * @return ArrayList of speaker ids of this event.
      */
-    public ArrayList<String> getSpeakerIds() {
+    public List<String> getSpeakerIds() {
         return speakerIds;
     }
 
     /**
-     * Get the maximum number of attendees allowed of this event.
+     * Get the maximum number of attendees allowed in this event.
      * @return the integer total number of users allowed to attend this event.
      */
     public int getUserLimit() {
@@ -267,10 +204,19 @@ public class Event {
     }
 
     /**
+     * Get the maximum number of speakers allowed in the event.
+     *
+     * @return the speaker limit
+     */
+    public int getSpeakerLimit() {
+        return speakerLimit;
+    }
+
+    /**
      * Get a list of the user ids of this event.
      * @return ArrayList containing the string ids of users attending this event.
      */
-    public ArrayList<String> getUserIds() {
+    public List<String> getUserIds() {
         return userIds;
     }
 
@@ -280,5 +226,13 @@ public class Event {
      */
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
+    }
+
+    /**
+     * Get the total speaker count.
+     * @return speaker count
+     */
+    public int getSpeakerCount() {
+        return speakerIds.size();
     }
 }

@@ -2,7 +2,7 @@ package group0153.conferencesystem.application.user;
 
 import group0153.conferencesystem.entities.user.User;
 import group0153.conferencesystem.entities.user.UserType;
-import group0153.conferencesystem.exceptions.UserNotFoundException;
+import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

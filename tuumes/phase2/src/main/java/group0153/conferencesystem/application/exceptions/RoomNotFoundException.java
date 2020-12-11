@@ -1,4 +1,4 @@
-package group0153.conferencesystem.exceptions;
+package group0153.conferencesystem.application.exceptions;
 
 /**
  * Exception class that is thrown when there is no valid room matching with an id given.

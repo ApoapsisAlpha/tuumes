@@ -1,4 +1,4 @@
-package group0153.conferencesystem.exceptions.eventExceptions;
+package group0153.conferencesystem.application.exceptions;
 
 /**
  * Exception class that is thrown when there is an issue with an event-related action

@@ -2,14 +2,12 @@ package group0153.conferencesystem.application.user;
 
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.user.data.UserContactData;
-import group0153.conferencesystem.exceptions.UserNotFoundException;
+import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 /**
  * A user use case class that handles a user's contacts. This includes getting, adding to, and removing from a user's contacts.
