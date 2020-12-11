@@ -4,11 +4,6 @@ public class EventUpdateCapacityRequest {
     private String eventId;
     private int userLimit;
 
-    public EventUpdateCapacityRequest(String eventId, int userLimit) {
-        this.eventId = eventId;
-        this.userLimit = userLimit;
-    }
-
     /**
      * Gets eventId.
      *
