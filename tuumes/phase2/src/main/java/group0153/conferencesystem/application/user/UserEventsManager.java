@@ -38,4 +38,13 @@ public class UserEventsManager {
             userPresent.get().addEvent(eventId);
         }
     }
+
+    public void removeUserEvents(String userId, String eventId){
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
+        if (userPresent.get().getEvents().contains(eventId)){
+            userPresent.get().removeEvent(eventId);
+        }
+    }
 }

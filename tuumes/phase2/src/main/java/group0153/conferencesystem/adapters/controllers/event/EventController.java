@@ -19,6 +19,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -58,6 +59,57 @@ public class EventController {
             return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("/register-event")
+    public ResponseEntity<Response> registerEvent(@RequestParam(value = "userId") String userId,
+                                                  @RequestParam(value = "eventId") String eventId){
+        try {
+            boolean added = eventRegistry.addUserIdToEventUserIdList(eventId, userId);
+            if (added){
+                userEventsManager.addUserEvents(userId, eventId);
+                return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new Response(true, "FAILED, CAPACITY REACHED"), HttpStatus.OK);
+            }
+        } catch (UnsuccessfulCommandException e) {
+            return new ResponseEntity<>(new Response(false, "User could not be registered"), HttpStatus.OK);
+        }
+    }
+
+    //TODO
+    @GetMapping("/unregister-event")
+    public ResponseEntity<Response> unregisterEvent(@RequestParam(value = "userId") String userId,
+                                                    @RequestParam(value = "eventId") String eventId){
+        try {
+            boolean removed = eventRegistry.removeUserIdFromEventUserIdList(eventId, userId);
+            if (removed){
+                userEventsManager.removeUserEvents(userId, eventId);
+                return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new Response(true, "User was not registered to this event"), HttpStatus.OK);
+            }
+        } catch (EventNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "Event not found"), HttpStatus.OK);
+        }
+    }
+
+    //TODO
+    @GetMapping("/add-Event")
+    public ResponseEntity<Response> addEvent(@RequestParam(value = "eventName") String eventName,
+                                             @RequestParam(value = "description") String description,
+                                             @RequestParam(value = "startTime") String startTime,
+                                             @RequestParam(value = "endTime") String endTime,
+                                             @RequestParam(value = "roomId") String roomId,
+                                             @RequestParam(value = "speakerIds") ArrayList<String> speakerIds,
+                                             @RequestParam(value = "userLimit") int userLimit,
+                                             @RequestParam(value = "isVipOnlyEvent") boolean isVipOnlyEvent) {
+    }
+
+    @GetMapping("/cancel-Event")
+    public ResponseEntity<Response> cancelEvent(@RequestParam(value = "eventId") String eventId){
+
+    }
+
 
     //TODO: change this, event builder does not exist now, and event now has speakerIds.
 //    /**
