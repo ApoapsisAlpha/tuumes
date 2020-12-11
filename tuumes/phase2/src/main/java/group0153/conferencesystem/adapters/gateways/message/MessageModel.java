@@ -87,6 +87,10 @@ public class MessageModel {
      */
     public boolean isArchived() {return isArchived; }
 
+    /**
+     * Getter for deleted state
+     * @return boolean deleted state
+     */
     public boolean isDeleted() {
         return isDeleted;
     }
