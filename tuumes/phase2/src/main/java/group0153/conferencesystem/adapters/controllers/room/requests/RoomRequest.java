@@ -1,9 +1,9 @@
-package group0153.conferencesystem.adapters.controllers.room;
+package group0153.conferencesystem.adapters.controllers.room.requests;
 
 /**
  * A class facilitating the user's interaction with rooms by providing the information about them
  */
-public class RoomResource {
+public class RoomRequest {
     private String name;
     private int capacity;
 

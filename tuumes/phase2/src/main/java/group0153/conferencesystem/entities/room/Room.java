@@ -12,6 +12,8 @@ public class Room {
     /**
      * Construct a new instance of Room with the provided information.
      *
+     * Precondition: id is a valid id belonging to a room.
+     *
      * @param id       the String id of the Room.
      * @param name     the String name of the Room.
      * @param capacity the int total capacity of the Room.

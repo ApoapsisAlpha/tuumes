@@ -1,9 +1,9 @@
-package group0153.conferencesystem.adapters.controllers.user.resources;
+package group0153.conferencesystem.adapters.controllers.user.requests;
 
 /**
  * A class facilitating the user's interaction with their contacts by storing information about them
  */
-public class UserContactResource {
+public class UserContactRequest {
     private final String userId;
     private final String contactId;
 
@@ -13,7 +13,7 @@ public class UserContactResource {
      * @param userId    the String id of the current user
      * @param contactId the String id of the user's contact
      */
-    public UserContactResource(String userId, String contactId) {
+    public UserContactRequest(String userId, String contactId) {
         this.userId = userId;
         this.contactId = contactId;
     }

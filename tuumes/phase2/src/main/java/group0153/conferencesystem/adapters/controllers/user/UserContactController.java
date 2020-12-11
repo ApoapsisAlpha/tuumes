@@ -2,7 +2,7 @@ package group0153.conferencesystem.adapters.controllers.user;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.adapters.controllers.user.resources.UserContactResource;
+import group0153.conferencesystem.adapters.controllers.user.requests.UserContactRequest;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.user.UserContactManager;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
@@ -53,7 +53,7 @@ public class UserContactController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/remove")
-    public ResponseEntity<Response> removeContact(@RequestBody UserContactResource contactResource) {
+    public ResponseEntity<Response> removeContact(@RequestBody UserContactRequest contactResource) {
         try {
             userContactManager.removeContactById(contactResource.getContactId(), contactResource.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
@@ -69,7 +69,7 @@ public class UserContactController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/add")
-    public ResponseEntity<Response> addContact(@RequestBody UserContactResource contactResource) {
+    public ResponseEntity<Response> addContact(@RequestBody UserContactRequest contactResource) {
         try {
             userContactManager.addContactById(contactResource.getContactId(), contactResource.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);

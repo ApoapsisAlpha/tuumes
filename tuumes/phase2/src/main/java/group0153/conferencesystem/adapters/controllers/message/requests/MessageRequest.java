@@ -1,9 +1,9 @@
-package group0153.conferencesystem.adapters.controllers.message.resource;
+package group0153.conferencesystem.adapters.controllers.message.requests;
 
 /**
  * A class facilitating the user's interaction with messages by providing the information about them
  */
-public class MessageResource {
+public class MessageRequest {
     private final String userId;
     private final String messageId;
 
@@ -13,7 +13,7 @@ public class MessageResource {
      * @param userId    the id of the user
      * @param messageId the id of the message
      */
-    public MessageResource(String userId, String messageId) {
+    public MessageRequest(String userId, String messageId) {
         this.userId = userId;
         this.messageId = messageId;
     }

@@ -72,9 +72,9 @@
                 });
                 if (USER_TYPE == userType.ORGANIZER) {
                     print_delete = `
-                    <button class="btn btn-danger" id="register" type="button" onclick="deleteEvent(${event.id});">
+                    <a class="btn btn-danger" id="register" href="../organizer/modify_event.html#${event.id}">
                         <i class="fa fa-calendar-minus fa-lg mr-2"></i> Delete
-                    </button>`;
+                    </a>`;
                 }
                 to_print += `
                 <div class="container white text-center mt-4 pt-4">
@@ -102,17 +102,6 @@
 
     function registerEvent(eventId) {
         $.postJSON("/user/events/register", {
-            userId: USER_ID,
-            eventId: eventId
-        }, function(result) {
-            getEvents();
-        });
-
-        return false;
-    }
-
-    function deleteEvent(eventId) {
-        $.postJSON("/user/contacts/remove", {
             userId: USER_ID,
             eventId: eventId
         }, function(result) {
