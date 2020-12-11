@@ -23,6 +23,8 @@
         }
 
 
+
+
     </style>
 </head>
 
@@ -79,9 +81,21 @@
                 <input class="form-control" id="capacity" min="1" name="capacity" placeholder="Capacity" type="number">
             </div>
 
-            <br>
 
             <button class="btn btn-secondary" type="submit"><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Modify
+            </button>
+            <br> OR <br>
+            <div class="form-group">
+                <label for="speakers">Add a Speaker</label>
+                <select class="browser-default custom-select" id="speakers" name="speakers" required>
+                    <option disabled selected>Speaker</option>
+                    <option value="1">Speaker Name One</option>
+                    <option value="2">Speaker Name Two</option>
+                    <option value="3">Speaker Name Three</option>
+                </select>
+
+            </div>
+            <button class="btn btn-secondary" type="submit"><i class="fa fa-user-check fa-lg"></i> &thinsp; Add Speaker
             </button>
             <br> OR <br>
             <button class="btn btn-danger" type="submit"><i class="fa fa-calendar-minus fa-lg"></i> &thinsp; Remove
