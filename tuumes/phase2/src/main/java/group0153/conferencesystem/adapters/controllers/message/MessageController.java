@@ -65,28 +65,52 @@ public class MessageController {
         }
     }
 
-//    @PostMapping("/read")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-//        // marks a message as read, this returns a Response();
-//    }
-//
-//    @PostMapping("/unread")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-//        // marks a message as unread, this returns a Response();
-//    }
-//
+    @PostMapping("/read")
+    public ResponseEntity<Response> markMessageRead(@RequestHeader(value = "msgId") String msgId) {
+        // marks a message as read, this returns a Response();
+        try {
+            messageManager.setMsgReadStatusById(msgId, true);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MessageIdNotFoundException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/unread")
+    public ResponseEntity<Response> markMessageUnread(@RequestHeader(value = "msgId") String msgId) {
+        // marks a message as unread, this returns a Response();
+        try {
+            messageManager.setMsgReadStatusById(msgId, false);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MessageIdNotFoundException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
+
 //    @PostMapping("/delete")
 //    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
 //        // deletes a message, this returns a Response();
 //    }
-//
-//    @PostMapping("/archive")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-//        // archives a message, this returns a Response();
-//    }
-//
-//    @PostMapping("/unarchive")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-//        // unarchives a message, this returns a Response();
-//    }
+
+    @PostMapping("/archive")
+    public ResponseEntity<Response> archiveMessage(@RequestHeader(value = "msgId") String msgId) {
+        // archives a message, this returns a Response();
+        try {
+            messageManager.setArchivedStatusById(msgId, true);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MessageIdNotFoundException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/unarchive")
+    public ResponseEntity<Response> unarchiveMessage(@RequestHeader(value = "msgId") String msgId) {
+        // unarchives a message, this returns a Response();
+        try {
+            messageManager.setArchivedStatusById(msgId, false);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MessageIdNotFoundException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
 }
