@@ -1,8 +1,11 @@
 package group0153.conferencesystem.application.exceptions;
 
+/**
+ * An exception thrown when a given room is already full
+ */
 public class FullRoomException extends RuntimeException {
 
-    private String roomId;
+    private final String roomId;
 
     /**
      * Create an instance of the exception with the given room id.
