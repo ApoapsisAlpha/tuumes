@@ -53,6 +53,15 @@ public class MessageManager {
         messagePersistencePort.updateMessageArchivedStatus(message.get());
     }
 
+    public void setDeletedStatusById(String msgId, boolean deleted){
+        Optional<Message> message = messagePersistencePort.findById(msgId);
+        if(!message.isPresent())
+            throw new MessageIdNotFoundException();
+
+        message.get().setArchived(deleted);
+        messagePersistencePort.updateMessageDeletedStatus(message.get());
+    }
+
     /**
      * Given a message's id, return the message's read state.
      *

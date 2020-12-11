@@ -15,6 +15,7 @@ public class MessageData implements Data {
     private final ArrayList<String> recipientIds;
     private boolean isRead;
     private boolean archived;
+    private boolean deleted;
 
     /**
      * Construct a new instance of MessageData using the provided Message
@@ -28,6 +29,7 @@ public class MessageData implements Data {
         this.recipientIds = message.getRecipientIds();
         this.isRead = message.isRead();
         this.archived = message.isArchived();
+        this.deleted = message.isDeleted();
     }
 
     /**
@@ -82,5 +84,13 @@ public class MessageData implements Data {
      */
     public boolean isArchived() {
         return archived;
+    }
+
+    /**
+     * Get whether the message represented by this MessageData instance is deleted
+     * @return boolean whether message is deleted
+     */
+    public boolean isDeleted() {
+        return deleted;
     }
 }

@@ -14,6 +14,7 @@ public class MessageModel {
     private String content;
     private boolean isRead;
     private boolean isArchived;
+    private boolean isDeleted;
 
     @OneToOne
     private UserModel sender;
@@ -37,14 +38,17 @@ public class MessageModel {
      * @param recipients list of recipient id(s)
      * @param isRead boolean of message read state
      * @param isArchived boolean of message archived state
+     * @param isDeleted boolean of message deleted state
      */
-    public MessageModel(String resourceId, String messageContent, UserModel sender, Set<UserModel> recipients, boolean isRead, boolean isArchived){
+    public MessageModel(String resourceId, String messageContent, UserModel sender, Set<UserModel> recipients,
+                        boolean isRead, boolean isArchived, boolean isDeleted){
         this.resourceId = resourceId;
         this.content = messageContent;
         this.sender = sender;
         this.recipients = recipients;
         this.isRead = isRead;
         this.isArchived = isArchived;
+        this.isDeleted = isDeleted;
     }
 
     /**
@@ -82,4 +86,8 @@ public class MessageModel {
      * @return boolean archive state
      */
     public boolean isArchived() {return isArchived; }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
 }

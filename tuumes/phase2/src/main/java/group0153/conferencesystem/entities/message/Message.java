@@ -1,7 +1,6 @@
 package group0153.conferencesystem.entities.message;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Message class for an object that contains the message id, content,
@@ -15,6 +14,7 @@ public class Message {
     private final ArrayList<String> recipientIds;
     private boolean isRead;
     private boolean archived;
+    private boolean deleted;
 
     /**
      * Constructor that instantiates a Message instance.
@@ -30,6 +30,7 @@ public class Message {
         this.recipientIds = recipientIds;
         isRead = false;
         archived = false;
+        deleted = false;
     }
 
     /**
@@ -73,6 +74,14 @@ public class Message {
     }
 
     /**
+     * Getter for deleted status
+     * @return true if message has been deleted
+     */
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    /**
      * Setter for read status
      * @param read: if true, message is read by user
      */
@@ -86,6 +95,14 @@ public class Message {
      */
     public void setArchived(boolean archived){
         this.archived = archived;
+    }
+
+    /**
+     * Setter for deleted status
+     * @param deleted: if true, message is deleted by user
+     */
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     /**

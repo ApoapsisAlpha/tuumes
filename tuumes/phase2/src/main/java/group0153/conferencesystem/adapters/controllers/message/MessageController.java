@@ -88,6 +88,24 @@ public class MessageController {
     }
 
     /**
+     * Facilitate the display of all unread messages in the program
+     *
+     * @param userId the id of the current user
+     * @return ResponseEntity containing all the data pertaining to all unread messages in the program
+     */
+    @GetMapping("/view_unread")
+    public ResponseEntity<Response> viewMessagesUnread(@RequestHeader(value = "userId") String userId) {
+        // this method gets all the unread messages for a user, returns a ResponseArray();
+        try {
+            ArrayList<String> msgIds = messageFinder.getUnreadMsgsByUser(userId);
+            ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
+            return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
+        } catch (NoArchivedMessagesException | NoMessagesReceivedException | MessageIdNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
+
+    /**
      * Set the message specified by msgId as read
      *
      * @param msgId the id of a message specified by the user
@@ -121,11 +139,22 @@ public class MessageController {
         }
     }
 
-//    @PostMapping("/delete")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageResource messageResource) {
-//        // deletes a message, this returns a Response();
-//    }
-    // TODO: uncomment or remove?
+    /**
+     * Set message specifies by msgId as deleted
+     *
+     * @param msgId the id of a message specified by the user
+     * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
+     */
+    @PostMapping("/delete")
+    public ResponseEntity<Response> deleteMessage(@RequestHeader(value = "msgId") String msgId) {
+        // deletes a message, this returns a Response();
+        try {
+            messageManager.setDeletedStatusById(msgId, true);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MessageIdNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        }
+    }
 
     /**
      * Set the message specified by msgId as archived

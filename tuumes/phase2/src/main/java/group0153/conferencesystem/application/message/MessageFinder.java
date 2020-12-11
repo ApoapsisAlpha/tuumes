@@ -68,7 +68,7 @@ public class MessageFinder {
             throw new NoArchivedMessagesException();
         else{
             for (Message message: messages){
-                if(message.isArchived()){
+                if(message.isArchived() && !message.isDeleted()){
                     archivedMsgIds.add(message.getId());
                 }
             }
@@ -90,7 +90,7 @@ public class MessageFinder {
             throw new NoUnarchivedMessagesException();
         else{
             for (Message message: messages){
-                if(!message.isArchived()){
+                if(!message.isArchived() && !message.isDeleted()){
                     unarchivedMsgIds.add(message.getId());
                 }
             }
@@ -113,7 +113,7 @@ public class MessageFinder {
             throw new NoReadMessagesException();
         else{
             for (Message message: messages){
-                if(!message.isArchived() && message.isRead()){
+                if(!message.isArchived() && message.isRead() && !message.isDeleted()){
                     readMsgIds.add(message.getId());
                 }
             }
@@ -136,7 +136,7 @@ public class MessageFinder {
             throw new NoUnreadMessagesException();
         else{
             for (Message message: messages){
-                if(!message.isArchived() && !message.isRead()){
+                if(!message.isArchived() && !message.isRead() && !message.isDeleted()){
                     unreadMsgIds.add(message.getId());
                 }
             }
