@@ -100,9 +100,10 @@ public class MessageManager {
 
     /**
      * Given a message's id, return the recipient(s)'s id(s).
-     *
+     * @param msgId the message id of the message to return the recipient of.
      * @return A list of recipient id(s)
      */
+
     public ArrayList<String> getRecipientIdsByMsgId(String msgId){
         Optional<Message> message = messagePersistencePort.findById(msgId);
         if(!message.isPresent())

@@ -87,6 +87,19 @@ public class EventScheduler {
         return new EventData(event, this.roomManager.getRoomById(event.getRoomId()));
     }
 
+    /**
+     *
+     * @param eventName       The name of the event.
+     * @param description     The event description.
+     * @param startTime       The start time of the event given by the unix timestamp.
+     * @param endTime         The end time of the event given by the unix timestamp.
+     * @param roomId          The id of the room that this event takes place in.
+     * @param speakerIds      The list of speakers who are to attend this event.
+     * @param userLimit       The maximum amount of people that can attend this event.
+     * @param isVipOnlyEvent  If this event is only for vip people or not.
+     * @return The EventData for the new event after it has been successfully added.
+     * @throws UnsuccessfulCommandException if the event could not be added successfully.
+     */
     public EventData scheduleEvent(String eventName, String description, long startTime, long endTime,
                          String roomId, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) throws UnsuccessfulCommandException {
         Event event = this.createEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime, roomId, speakerIds, userLimit, isVipOnlyEvent);
@@ -123,6 +136,7 @@ public class EventScheduler {
      *
      * @param eventId The id of the event to be removed.
      * @return An arraylist of the id of the users who were registered for this event.
+     * @throws UnsuccessfulCommandException if the event could not be found.
      */
     public ArrayList<String> unScheduleEvent(String eventId) throws UnsuccessfulCommandException {
         Optional<Event> event = this.eventPersistencePort.getEvent(eventId);
