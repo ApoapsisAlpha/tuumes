@@ -43,4 +43,11 @@ public class MessageDataPreparer {
         return messageDataArray;
     }
 
+//    public MessageData createMessageDataFromId(String msgId){
+//        if (!messagePersistencePort.findById(msgId).isPresent()){
+//            throw new MessageIdNotFoundException();
+//        }
+//
+//    }
+
 }
