@@ -15,7 +15,8 @@ public class RoomModel {
     private int capacity;
 
     /**
-     * Constructs an instance of RoomModel
+     * Construct an instance of RoomModel with the given information
+     *
      * @param resourceId the id of the room
      * @param name       the name of the room
      * @param capacity   the user capacity of the room
@@ -26,12 +27,16 @@ public class RoomModel {
         this.capacity = capacity;
     }
 
+    /**
+     * Construct an instance of RoomModel
+     */
     public RoomModel() {
 
     }
 
     /**
      * Get id of room
+     *
      * @return string id of the room
      */
     public String getResourceId() {
@@ -40,6 +45,7 @@ public class RoomModel {
 
     /**
      * Get the capacity of the room
+     *
      * @return int value of the capacity of the room
      */
     public int getCapacity() {
