@@ -1,11 +1,9 @@
 package group0153.conferencesystem.adapters.gateways.event;
 
-import group0153.conferencesystem.entities.event.old.Event;
-import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
+import group0153.conferencesystem.entities.event.Event;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,10 +14,9 @@ public class EventModel {
     private @Id @GeneratedValue Long id;
     private String resourceId;
     private String eventName;
-    private String eventType;
     private String description;
-    private Date startTime;
-    private Date endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     @ElementCollection
     private List<String> speakerIds;
     private int userLimit;
@@ -36,16 +33,11 @@ public class EventModel {
         this.description = event.getDescription();
         this.startTime = event.getStartTime();
         this.endTime = event.getEndTime();
-        try {
-            this.speakerIds = event.getSpeakerIds();
-        } catch (UnsuccessfulCommandException ex) {
-            this.speakerIds = new ArrayList<String>();
-        }
+        this.speakerIds = event.getSpeakerIds();
         this.userLimit = event.getUserLimit();
         this.userCount = event.getUserCount();
         this.userIds = event.getUserIds();
         this.isVipOnlyEvent = event.isVipOnlyEvent();
-        this.eventType = event.getEventType();
     }
 
     public String getResourceId(){
@@ -60,11 +52,11 @@ public class EventModel {
         return description;
     }
 
-    public Date getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    public Date getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
@@ -88,7 +80,4 @@ public class EventModel {
         return isVipOnlyEvent;
     }
 
-    public String getEventType() {
-        return eventType;
-    }
 }
