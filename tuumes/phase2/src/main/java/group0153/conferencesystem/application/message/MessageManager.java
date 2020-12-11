@@ -6,7 +6,7 @@ import group0153.conferencesystem.entities.message.Message;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class MessageVariableManager {
+public class MessageManager {
     final MessagePersistencePort messagePersistencePort;
 
     /**
@@ -14,7 +14,7 @@ public class MessageVariableManager {
      *
      * @param messagePersistencePort How the messages are saved to the database.
      */
-    public MessageVariableManager(MessagePersistencePort messagePersistencePort){
+    public MessageManager(MessagePersistencePort messagePersistencePort){
         this.messagePersistencePort = messagePersistencePort;
     }
 
@@ -31,7 +31,7 @@ public class MessageVariableManager {
             throw new MessageIdNotFoundException();
 
         message.get().setRead(read);
-        messagePersistencePort.saveMessage(message.get());
+        messagePersistencePort.updateMessageReadStatus(message.get());
     }
 
     /**
@@ -46,7 +46,7 @@ public class MessageVariableManager {
             throw new MessageIdNotFoundException();
 
         message.get().setArchived(archived);
-        messagePersistencePort.saveMessage(message.get());
+        messagePersistencePort.updateMessageArchivedStatus(message.get());
     }
 
     /**

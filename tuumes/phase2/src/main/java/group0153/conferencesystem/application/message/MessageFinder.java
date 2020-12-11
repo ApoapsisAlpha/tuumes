@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
-public class MessageGetterManager {
+public class MessageFinder {
     final MessagePersistencePort messagePersistencePort;
 
     /**
@@ -19,7 +19,7 @@ public class MessageGetterManager {
      *
      * @param messagePersistencePort How the messages are saved to the database.
      */
-    public MessageGetterManager(MessagePersistencePort messagePersistencePort) {
+    public MessageFinder(MessagePersistencePort messagePersistencePort) {
         this.messagePersistencePort = messagePersistencePort;
     }
 
@@ -31,24 +31,26 @@ public class MessageGetterManager {
      * @throws NoMessagesSentException No messages have been sent by sender
      */
     public ArrayList<String> findMsgIdsBySender(String sender){
-        ArrayList<String> msgIds = messagePersistencePort.getMsgsBySender(sender);
+        ArrayList<String> msgIds = messagePersistencePort.getMsgIdsBySender(sender);
         if(!msgIds.isEmpty())
             throw new NoMessagesSentException();
+
         return msgIds;
     }
 
     /**
      * Given a user's id, find the id(s)'s of all the messages sent to that user including archived ones.
      *
-     * @param user recipient of the message(s)
+     * @param user recipient id of the message(s)
      * @return A list of message ids
      * @throws NoMessagesReceivedException No messages have been received by recipient
      */
     public ArrayList<String> findMsgIdsByRecipient(String user){
-        ArrayList<String> msgIds = messagePersistencePort.getMsgsToUser(user);
-        if(msgIds.isEmpty())
+        ArrayList<Message> messages = messagePersistencePort.getMsgsToUser(user);
+        if(messages.isEmpty())
             throw new NoMessagesReceivedException();
-        return msgIds;
+
+        return new ArrayList<>();
     }
 
     /**
@@ -58,10 +60,24 @@ public class MessageGetterManager {
      * @throws NoArchivedMessagesException No messages have been archived by recipient
      */
     public ArrayList<String> getArchivedMsgsByUser(String user){
-        ArrayList<String> msgIds = messagePersistencePort.getMsgsToUser(user);
-        if(msgIds.isEmpty())
+        ArrayList<Message> messages = messagePersistencePort.getMsgsToUser(user);
+        if(messages.isEmpty())
             throw new NoArchivedMessagesException();
 
-        return msgIds;
+        return new ArrayList<>();
+    }
+
+    /**
+     * Given user's id, get all their unarchived messages
+     * @param user: id of the user whose unarchived messages are being returned
+     * @return List of all unarchived message ids
+     * @throws NoArchivedMessagesException No unarchived messages have been sent to user
+     */
+    public ArrayList<Message> getUnarchivedMsgsByUser(String user){
+        ArrayList<Message> messages = messagePersistencePort.getMsgsToUser(user);
+        if(messages.isEmpty())
+            throw new NoArchivedMessagesException();
+
+        return new ArrayList<>();
     }
 }
