@@ -41,12 +41,12 @@
 //    }
 //
 //    @Override
-//    public Optional<ArrayList<String>> findMsgsBySender(String sender) {
+//    public ArrayList<String> getMsgsBySender(String sender) {
 //        return Optional.empty();
 //    }
 //
 //    @Override
-//    public Optional<ArrayList<String>> findMsgsToRecipient(String recipient) {
+//    public ArrayList<String> getMsgsToRecipient(String recipient) {
 //        return Optional.empty();
 //    }
 //}

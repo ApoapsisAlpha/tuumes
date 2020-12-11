@@ -12,8 +12,9 @@ public class Message {
     private final String id; // id of the message
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
-    private boolean isRead;
     private final ArrayList<String> recipientIds;
+    private boolean isRead;
+    private boolean archived;
 
     /**
      * Constructor that instantiates a Message instance.
@@ -27,6 +28,8 @@ public class Message {
         this.messageContent = messageContent;
         this.senderId = senderId;
         this.recipientIds = recipientIds;
+        isRead = false;
+        archived = false;
     }
 
     /**
@@ -62,11 +65,27 @@ public class Message {
     }
 
     /**
+     * Getter for archived status
+     * @return true if message has been archived
+     */
+    public boolean isArchived() {
+        return archived;
+    }
+
+    /**
      * Setter for read status
      * @param read: if true, message is read by user
      */
     public void setRead(boolean read) {
         isRead = read;
+    }
+
+    /**
+     * Setter for archived status
+     * @param archived: if true, message is archived by user
+     */
+    public void setArchived(boolean archived){
+        this.archived = archived;
     }
 
     /**
