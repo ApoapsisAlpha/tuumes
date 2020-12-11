@@ -11,6 +11,11 @@ public class RoomPersistenceAdapter implements RoomPersistencePort {
 
     private RoomRepository roomRepository;
 
+    /**
+     * Constructs an instance of RoomPersistenceAdapter using the provided RoomRepository instance
+     *
+     * @param roomRepository a repository storing Rooms
+     */
     public RoomPersistenceAdapter(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
