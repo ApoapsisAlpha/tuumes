@@ -122,6 +122,7 @@ public class EventScheduler {
      * Tries to remove the event by its id (if an event with this id exists).
      *
      * @param eventId The id of the event to be removed.
+     * @return An arraylist of the id of the users who were registered for this event.
      */
     public ArrayList<String> unScheduleEvent(String eventId) throws UnsuccessfulCommandException {
         Optional<Event> event = this.eventPersistencePort.getEvent(eventId);

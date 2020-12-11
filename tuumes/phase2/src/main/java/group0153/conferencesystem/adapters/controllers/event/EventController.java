@@ -58,11 +58,17 @@ public class EventController {
         }
     }
 
+    /**
+     *
+     * @param userId The id of the user to be registered.
+     * @param eventId The id of the event the user is to be registered to.
+     * @return Success response entity if the action was successful. Fail response entity otherwise.
+     */
     @GetMapping("/register-event")
-    public ResponseEntity<Response> registerEvent(@RequestParam(value = "userId") String userId,
-                                                  @RequestParam(value = "eventId") String eventId){
+    public ResponseEntity<Response> registerUserForEvent(@RequestParam(value = "userId") String userId,
+                                                         @RequestParam(value = "eventId") String eventId) {
         try {
-            boolean added = eventRegistry.addUserIdToEventUserIdList(eventId, userId);
+            boolean added = eventRegistry.addUserIdToEventUserIdList(eventId, userId, this.userEventsManager.getUserType(userId));
             if (added){
                 userEventsManager.addUserEvents(userId, eventId);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
@@ -76,7 +82,7 @@ public class EventController {
 
     @GetMapping("/unregister-event")
     public ResponseEntity<Response> unregisterEvent(@RequestParam(value = "userId") String userId,
-                                                    @RequestParam(value = "eventId") String eventId){
+                                                    @RequestParam(value = "eventId") String eventId) {
         try {
             boolean removed = eventRegistry.removeUserIdFromEventUserIdList(eventId, userId);
             if (removed){
@@ -136,6 +142,7 @@ public class EventController {
             return new ResponseEntity<>(new Response(false, exception.getMessage()), HttpStatus.OK);
         }
     }
+
 
 
     //TODO: change this, event builder does not exist now, and event now has speakerIds.

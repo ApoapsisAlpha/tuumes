@@ -5,6 +5,10 @@ import group0153.conferencesystem.entities.message.Message;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * A message use case class which is in charge of creating new messages.
+ */
+
 public class MessageCreationManager {
     private MessagePersistencePort messagePersistencePort;
 
