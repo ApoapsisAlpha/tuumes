@@ -1,6 +1,7 @@
 package group0153.conferencesystem.entities.user;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An entity class for all users, with sub-classes: Organizer, Speaker, Vip.
@@ -100,8 +101,9 @@ public class User {
     }
 
     private final String id;
-    private final HashSet<String> contacts;
-    private final HashSet<String> events;
+    private final Set<String> contacts;
+    private final Set<String> events;
+    private final Set<String> messages;
     protected UserType type;
     private String name;
     private String email;
@@ -123,6 +125,7 @@ public class User {
         this.password = password;
         this.contacts = new HashSet<>();
         this.events = new HashSet<>();
+        this.messages = new HashSet<>();
     }
 
     /**
@@ -216,7 +219,7 @@ public class User {
      *
      * @return a HashSet containing the ids of this User's contacts.
      */
-    public HashSet<String> getContacts() {
+    public Set<String> getContacts() {
         return this.contacts;
     }
 
@@ -225,7 +228,7 @@ public class User {
      *
      * @return the Hashset of ids of events the User is signed up for
      */
-    public HashSet<String> getEvents() {
+    public Set<String> getEvents() {
         return this.events;
     }
 
@@ -247,6 +250,10 @@ public class User {
      */
     public boolean addEvent(String eventId) {
         return this.events.add(eventId);
+    }
+
+    public void addMessage(String messageId) {
+        messages.add(messageId);
     }
 
     /**
