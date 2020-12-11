@@ -9,12 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Creates array lists of EventData representing the schedule (in sorted order by preference).
+ * A event use case class that creates array lists of EventData representing the
+ * schedule (in sorted order by preference).
  */
 public class EventScheduleDataPreparer {
     private final EventPersistencePort eventPersistencePort;
     private final RoomManager roomManager;
 
+    /**
+     * Instantiates an EventScheduleDataPreparer.
+     * @param eventPersistencePort How the events are saved to the database.
+     * @param roomManager The room manager for event rooms.
+     */
     EventScheduleDataPreparer(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
         this.roomManager = roomManager;

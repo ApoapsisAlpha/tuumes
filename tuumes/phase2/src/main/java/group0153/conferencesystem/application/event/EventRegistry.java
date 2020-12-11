@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * Handles the registration of users for events (from the events perspective).
+ * A event use case class that handles the registration of users for events (from the events perspective).
  */
 public class EventRegistry {
 
     EventPersistencePort eventPersistencePort;
 
+    /**
+     * Instantiates an EventRegistry.
+     * @param eventPersistencePort How the events are saved to the database.
+     */
     public EventRegistry(EventPersistencePort eventPersistencePort) {
         this.eventPersistencePort = eventPersistencePort;
     }
@@ -26,36 +30,6 @@ public class EventRegistry {
         return eventPersistencePort.findById(eventId);
     }
 
-
-//    /**
-//     *
-//     * @param events The list of events that are currently scheduled.
-    //    */
-//    public EventRegistry(ArrayList<Event> events) {
-//        this.events = events;
-//    }
-//
-//    /**
-//     *
-//     * @param userId The id of the user to be registered.
-//     * @param eventId The id of the event that the user is to be registered for.
-//     */
-//    public void registerUserForEvent(String userId, String eventId) throws CommandException {
-//        for (Event event : this.events) {
-//            if (event.getId().equals(eventId)) {
-//                ArrayList<String> userIds = event.getUserIds();
-//                for (String id : userIds) {
-//                    if (id.equals(userId)) throw new CommandException("User is already registered for this event.");
-//                }
-//                if (event.getUserCount() < event.getUserLimit()) {
-//                    event.addUserId(userId);
-//                    event.increaseUserCount(1);
-//                } else {
-//                    throw new CommandException("This event's user limit has already been reached.");
-//                }
-//            }
-//        }
-//    }
     /**
      * Return an event's user count based on its id.
      * @param eventId The id of the event.

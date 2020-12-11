@@ -11,12 +11,17 @@ import java.util.Optional;
 
 
 /**
- * Handles the scheduling of events.
+ * A event use case class that handles the scheduling of events.
  */
 public class EventScheduler {
     EventPersistencePort eventPersistencePort;
     RoomManager roomManager;
 
+    /**
+     * Instantiates an EventScheduler.
+     * @param eventPersistencePort How the events are saved to the database.
+     * @param roomManager The room manager for event rooms.
+     */
     public EventScheduler(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
         this.roomManager = roomManager;
@@ -29,7 +34,7 @@ public class EventScheduler {
      */
     private ArrayList<String> getScheduledEventIds() {
         LocalDateTime current = LocalDateTime.now();
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         for (Event event : eventPersistencePort.getAllEvents()) {
             if (!event.getStartTime().isBefore(current)) {
                 result.add(event.getId());
@@ -57,7 +62,8 @@ public class EventScheduler {
     }
 
     /**
-     * Check if two events have time conflict.
+     * Check if two events have time conflict, two events have time conflict if they are using the same room and have
+     * overlapped duration.
      *
      * @param eventId1 event id of the first event.
      * @param eventId2 event id of the second event.
