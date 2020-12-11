@@ -1,5 +1,8 @@
 package group0153.conferencesystem.exceptions;
 
+/**
+ * Exception class that is thrown when there is no valid room matching with an id given.
+ */
 public class RoomNotFoundException extends RuntimeException {
 
     /**

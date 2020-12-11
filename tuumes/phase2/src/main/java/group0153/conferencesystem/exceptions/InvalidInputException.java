@@ -1,5 +1,8 @@
 package group0153.conferencesystem.exceptions;
 
+/**
+ * Exception class that is thrown when there is invalid input.
+ */
 public class InvalidInputException extends Exception {
     private String field;
 
