@@ -14,6 +14,10 @@ import java.util.UUID;
 public class RoomManager {
     RoomPersistencePort roomPersistencePort;
 
+    /**
+     * Construct an instance of RoomManager.
+     * @param roomPersistencePort How the rooms are saved to the database.
+     */
     public RoomManager(RoomPersistencePort roomPersistencePort) {
         this.roomPersistencePort = roomPersistencePort;
     }
