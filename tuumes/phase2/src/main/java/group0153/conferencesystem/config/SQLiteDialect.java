@@ -8,8 +8,14 @@ import org.hibernate.type.StringType;
 
 import java.sql.Types;
 
+/**
+ * A class facilitating the interaction of the program with the database
+ */
 public class SQLiteDialect extends Dialect {
 
+    /**
+     * Construct an instance of SQLiteDialect and set all of the column types and functions
+     */
     public SQLiteDialect() {
         registerColumnType(Types.BIT, "integer");
         registerColumnType(Types.TINYINT, "tinyint");
@@ -40,26 +46,61 @@ public class SQLiteDialect extends Dialect {
         registerFunction("substring", new StandardSQLFunction("substr", StringType.INSTANCE));
     }
 
+    /**
+     * Get whether the database supports identity column key generation
+     *
+     * @return boolean representing whether the database supports identity column key generation
+     */
     public boolean supportsIdentityColumns() {
         return true;
     }
 
+    /**
+     * Get whether this SQLiteDialect instance has a separate identity data type  or an Identity clause added to
+     * the data type
+     *
+     * @return boolean representing whether this SQLiteDialect instance has a separate identity data type (false) or an
+     * Identity clause added to the data type (true)
+     */
     public boolean hasDataTypeInIdentityColumn() {
         return false;
     }
 
+    /**
+     * Get a string representing the identity column
+     *
+     * @return String representation of identity column
+     */
     public String getIdentityColumnString() {
         return "integer";
     }
 
+    /**
+     * Get SELECT command applicable to retrieve last identity value generated
+     *
+     * @return String SELECT command that can be used to retrieve last generated identify value
+     */
     public String getIdentitySelectString() {
         return "select last_insert_rowid()";
     }
 
+    /**
+     * Get whether this SQLiteDialect instance can handle putting a limit on query results with an SQL clause
+     *
+     * @return boolean representing if SQLiteDialect instance is able to handle having a limit on query results with
+     * an SQL clause
+     */
     public boolean supportsLimit() {
         return true;
     }
 
+    /**
+     * Applies and returns a modified query that has a limiting clause applied
+     *
+     * @param query     String SQL query that is to have the limit clause applied
+     * @param hasOffset boolean whether the query requests an offset
+     * @return the modified String query with the limiting clause applied
+     */
     protected String getLimitString(String query, boolean hasOffset) {
         return new StringBuffer(query.length() + 20).append(query).append(hasOffset ? " limit ? offset ?" : " limit ?")
                 .toString();
