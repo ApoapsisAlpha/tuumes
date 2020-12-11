@@ -4,6 +4,9 @@ import group0153.conferencesystem.entities.room.Room;
 
 import java.util.Optional;
 
+/**
+ * Adapter class that adapts room storage to work with database storage
+ */
 public interface RoomPersistencePort {
     /**
      * Saves the room.

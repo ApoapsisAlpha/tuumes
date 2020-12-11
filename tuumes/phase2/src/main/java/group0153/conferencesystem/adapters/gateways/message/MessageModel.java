@@ -21,6 +21,9 @@ public class MessageModel {
     @ManyToMany
     private Set<UserModel> recipients;
 
+    /**
+     * Instantiates a MessageModel with no specified information.
+     */
     public MessageModel() {
 
     }

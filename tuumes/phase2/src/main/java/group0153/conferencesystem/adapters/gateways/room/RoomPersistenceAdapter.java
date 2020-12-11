@@ -6,10 +6,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Adapter class that adapts RoomRepository to work with database storage
+ */
 @Component
 public class RoomPersistenceAdapter implements RoomPersistencePort {
 
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
     /**
      * Constructs an instance of RoomPersistenceAdapter using the provided RoomRepository instance
@@ -20,6 +23,11 @@ public class RoomPersistenceAdapter implements RoomPersistencePort {
         this.roomRepository = roomRepository;
     }
 
+    /**
+     * Saves the room to the database.
+     *
+     * @param room Room object to be saved.
+     */
     @Override
     public void saveRoom(Room room) {
         RoomModel roomModel = new RoomModel(room.getId(), room.getName(), room.getCapacity());
