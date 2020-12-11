@@ -41,9 +41,8 @@ public class UserEventsManager {
         user.removeEvent(eventId);
     }
 
-    public boolean userIsVip(String userId) throws UserNotFoundException {
-        User user = this.getUser(userId);
-        return user.getType() == UserType.VIP;
+    public UserType getUserType(String userId) throws UserNotFoundException {
+        return getUser(userId).getType();
     }
 
     private User getUser(String userId) throws UserNotFoundException {
