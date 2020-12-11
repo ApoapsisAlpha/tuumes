@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * A class facilitating the retrieval and saving of information pertaining to users to the database.
+ */
 @Component
 public class UserPersistenceAdapter implements UserPersistencePort {
     private final UserRepository userRepository;
@@ -46,7 +49,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     /**
      * Find a user based on their id.
      *
-     * @param userId The users id.
+     * @param userId The user's id.
      * @return The user with the id. (Empty if they don't exist)
      */
     @Override
