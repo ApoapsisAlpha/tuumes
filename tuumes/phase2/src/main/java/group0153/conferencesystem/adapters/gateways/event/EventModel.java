@@ -4,6 +4,7 @@ import group0153.conferencesystem.entities.event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,27 +18,29 @@ public class EventModel {
     private String description;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    @ElementCollection
-    private List<String> speakerIds;
+    private String roomId;
+    private ArrayList<String> speakerIds;
     private int userLimit;
-    private int userCount;
-    @ElementCollection
-    private List<String> userIds;
     private boolean isVipOnlyEvent;
 
-    public EventModel(){}
-
-    public EventModel(Event event, String resourceId) {
+    public EventModel(String resourceId,
+                      String eventName,
+                      String description,
+                      LocalDateTime startTime,
+                      LocalDateTime endTime,
+                      String roomId,
+                      ArrayList<String> speakerIds,
+                      int userLimit,
+                      boolean vipOnlyEvent){
         this.resourceId = resourceId;
-        this.eventName = event.getEventName();
-        this.description = event.getDescription();
-        this.startTime = event.getStartTime();
-        this.endTime = event.getEndTime();
-        this.speakerIds = event.getSpeakerIds();
-        this.userLimit = event.getUserLimit();
-        this.userCount = event.getUserCount();
-        this.userIds = event.getUserIds();
-        this.isVipOnlyEvent = event.isVipOnlyEvent();
+        this.eventName = eventName;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.roomId = roomId;
+        this.speakerIds = speakerIds;
+        this.userLimit = userLimit;
+        this.isVipOnlyEvent = vipOnlyEvent;
     }
 
     public String getResourceId(){
@@ -60,7 +63,7 @@ public class EventModel {
         return endTime;
     }
 
-    public List<String> getSpeakerIds() {
+    public ArrayList<String> getSpeakerIds() {
         return speakerIds;
     }
 
@@ -68,16 +71,10 @@ public class EventModel {
         return userLimit;
     }
 
-    public int getUserCount() {
-        return userCount;
-    }
-
-    public List<String> getUserIds() {
-        return userIds;
-    }
-
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
     }
 
+    public String getRoomId() { return roomId;
+    }
 }
