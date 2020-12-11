@@ -100,14 +100,14 @@ public class User {
         }
     }
 
-    private final String id;
-    private final Set<String> contacts;
-    private final Set<String> events;
-    private final Set<String> messages;
-    protected UserType type;
-    private String name;
-    private String email;
-    private String password;
+    private final String id;              // the id of this User
+    private final Set<String> contacts;   // the set of ids of contacts of this User
+    private final Set<String> events;     // the set of ids of events this User is registered for
+    private final Set<String> messages;   // the set of ids of messages received by this User
+    protected UserType type;              // the type of this User
+    private String name;                  // the name of this User
+    private String email;                 // the email of this User
+    private String password;              // the password of this User
 
     /**
      * Constructor that instantiates a User instance.
@@ -252,6 +252,11 @@ public class User {
         return this.events.add(eventId);
     }
 
+    /**
+     * Add a message id to the set of ids corresponding to messages sent to this User
+     *
+     * @param messageId the id of the new message received by this User
+     */
     public void addMessage(String messageId) {
         messages.add(messageId);
     }

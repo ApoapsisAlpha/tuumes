@@ -3,10 +3,17 @@ package group0153.conferencesystem.application.user.data;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.entities.user.UserType;
 
+/**
+ * A class containing the id and type of the current user of the program
+ */
 public class UserLoginData implements Data {
-    private String id;
-    private UserType userType;
+    private final String id;
+    private final UserType userType;
 
+    /**
+     * @param id       the id of the user logging in
+     * @param userType the type of the user logging in
+     */
     public UserLoginData(String id, UserType userType) {
         this.id = id;
         this.userType = userType;

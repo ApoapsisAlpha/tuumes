@@ -1,5 +1,8 @@
 package group0153.conferencesystem.exceptions;
 
+/**
+ *
+ */
 public class UserNotFoundException extends RuntimeException {
     private String userId;
 
