@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 // import group0153.conferencesystem.adapters.controllers.resource.EventUpdateCapacityResource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,9 @@ public class EventController {
     private final EventUpdater eventUpdater;
     private final EventScheduleDataPreparer eventScheduleDataPreparer;
 
-    public EventController(UserEventsManager userEventsManager, RoomManager roomManager, EventRegistry eventRegistry, EventScheduler eventScheduler, EventUpdater eventUpdater, EventScheduleDataPreparer eventScheduleDataPreparer) {
+    public EventController(UserEventsManager userEventsManager, RoomManager roomManager, EventRegistry eventRegistry,
+                           EventScheduler eventScheduler, EventUpdater eventUpdater,
+                           EventScheduleDataPreparer eventScheduleDataPreparer) {
         this.userEventsManager = userEventsManager;
         this.roomManager = roomManager;
         this.eventBuilder = new Event.Builder();
@@ -53,26 +56,33 @@ public class EventController {
             List<EventData> events = this.eventScheduleDataPreparer.getUpcomingEventsExcluding(userEvents);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
         }
     }
 
-    /**
-     *
+    //TODO: change this, event builder does not exist now, and event now has speakerIds.
+/*    *//**
+     * Add event to the list of event user can register.
      * @param eventType The type of event that is being added.
      * @param eventName The name of the event.
      * @param description The description of the event.
      * @param startTime The start time of the event given in the form year\month\monthDay\hour\minute.
      * @param endTime The end time of the event given in the form year\month\monthDay\hour\minute.
      * @param roomId The id of the room that this event takes place in.
+     * @param speakerIds The speaker id list of this event.
      * @param userLimit The user limit of this event.
      * @param isVipOnlyEvent If this event is for vip's only.
      * @return ResponseEntity.
-     */
+     *//*
     @PostMapping("/add")
-    public ResponseEntity<Response> addEvent(@RequestParam(value = "eventType") String eventType, @RequestParam(value = "eventName") String eventName, @RequestParam(value = "description") String description,
-                                             @RequestParam(value = "startTime") String startTime, @RequestParam(value = "endTime") String endTime,
-                                             @RequestParam(value = "roomId") String roomId, @RequestParam(value = "userLimit") int userLimit,
+    public ResponseEntity<Response> addEvent(@RequestParam(value = "eventType") String eventType,
+                                             @RequestParam(value = "eventName") String eventName,
+                                             @RequestParam(value = "description") String description,
+                                             @RequestParam(value = "startTime") String startTime,
+                                             @RequestParam(value = "endTime") String endTime,
+                                             @RequestParam(value = "roomId") String roomId,
+                                             @RequestParam(value = "speakerIds") ArrayList<String> speakerIds,
+                                             @RequestParam(value = "userLimit") int userLimit,
                                              @RequestParam(value = "isVipOnlyEvent") boolean isVipOnlyEvent) {
         try {
             this.setRequiredEventAttributes(eventName, description, startTime, endTime, roomId, userLimit, isVipOnlyEvent);
@@ -81,7 +91,7 @@ public class EventController {
         } catch (UnsuccessfulCommandException exception) {
 
         }
-    }
+    }*/
 
     /**
      * Sets the attributes of the event class that are present in all subclasses as well.

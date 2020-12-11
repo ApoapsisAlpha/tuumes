@@ -61,7 +61,7 @@ public class EventScheduler {
      *
      * @param eventId1 event id of the first event.
      * @param eventId2 event id of the second event.
-     * @return True if the first event and the second event have time conflict.
+     * @return True if and only if the first event and the second event have time conflict and using the same room.
      */
     private boolean hasTimeConflict(String eventId1, String eventId2) {
         Optional<Event> event1 = this.eventPersistencePort.getEvent(eventId1);
@@ -85,7 +85,7 @@ public class EventScheduler {
      *
      * @param eventId The id of the event to be removed.
      */
-    public void unscheduleEvent(String eventId) throws UnsuccessfulCommandException {
+    public void unScheduleEvent(String eventId) throws UnsuccessfulCommandException {
         Optional<Event> event = this.eventPersistencePort.getEvent(eventId);
         if (!event.isPresent()) throw new UnsuccessfulCommandException("The event could not be found.");
         this.eventPersistencePort.deleteEvent(eventId);
