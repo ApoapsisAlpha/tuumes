@@ -172,6 +172,15 @@ public class Event {
     }
 
     /**
+     * Unregister the specified user from this Event.
+     * @param userId Remove userId from this event. Nothing happens if the user was not
+     *               in this event to begin with.
+     */
+    public void removeUserId(String userId) {
+        this.userIds.remove(userId);
+    }
+
+    /**
      * Return whether there is enough room in this Event for another User to register.
      * @return True if userCount < userLimit.
      */
