@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.controllers.event;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
+import group0153.conferencesystem.adapters.controllers.event.resource.EventUpdateCapacityResource;
 import group0153.conferencesystem.application.event.EventRegistry;
 import group0153.conferencesystem.application.event.EventScheduleDataPreparer;
 import group0153.conferencesystem.application.event.EventScheduler;
@@ -11,7 +12,10 @@ import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.application.user.UserEventsManager;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.UserNotFoundException;
+import group0153.conferencesystem.exceptions.eventExceptions.EventNotFoundException;
+import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,26 +116,15 @@ public class EventController {
 //        this.eventBuilder.setIsVipOnlyEvent(isVipOnlyEvent);
 //    }
 //
-//    @PostMapping("/update-capacity")
-//    public ResponseEntity<Response> updateCapacity(@RequestBody EventUpdateCapacityResource capacityResource) {
-//        try {
-//            eventUpdater.updateCapacity(capacityResource.getEventId(), capacityResource.getUserLimit());
-//            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
-//        } catch (EventNotFoundException e) {
-//            return new ResponseEntity<>(new Response(false, "Event not found"), HttpStatus.OK);
-//        }
-//    }
-//
-//    @PostMapping("/update-room")
-//    public ResponseEntity<Response> updateRoomId(@RequestParam EventUpdateRoomIdResource roomIdResource) {
-//        try {
-//            eventUpdater.updateRoomId(roomIdResource.getEventId(), roomIdResource.getRoomId());
-//            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
-//        } catch (EventNotFoundException e) {
-//            return new ResponseEntity<>(new Response(false, "Event not found"), HttpStatus.OK);
-//        }
-//    }
-
+    @PostMapping("/update-capacity")
+    public ResponseEntity<Response> updateCapacity(@RequestBody EventUpdateCapacityResource capacityResource) {
+        try {
+            eventUpdater.updateCapacity(capacityResource.getEventId(), capacityResource.getUserLimit());
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (EventNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "Event not found"), HttpStatus.OK);
+        }
+    }
 
 //    /**
 //     *
