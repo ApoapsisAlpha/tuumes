@@ -91,4 +91,15 @@ public class EventUpdater {
         }
         event.setEndTime(newEndTime);
     }
+
+    /**
+     * Update the name of the event
+     * @param eventId The id of the event to change the name.
+     * @param newName The String name to change the event name to.
+     * @throws EventNotFoundException if the event does not exist
+     */
+    private void updateName(String eventId, String newName) throws EventNotFoundException  {
+        Event event = this.getEvent(eventId);
+        event.setName(newName);
+    }
 }
