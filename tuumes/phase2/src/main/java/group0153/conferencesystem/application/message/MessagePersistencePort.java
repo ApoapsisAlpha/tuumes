@@ -11,7 +11,8 @@ public interface MessagePersistencePort {
 
     Optional<Message> findById(String msgId);
 
-    Optional<ArrayList<String>> findMsgsBySender(String sender);
+    ArrayList<String> getMsgsBySender(String sender);
 
-    Optional<ArrayList<String>> findMsgsToRecipient(String recipient);
+    ArrayList<String> getMsgsToUser(String user);
+
 }

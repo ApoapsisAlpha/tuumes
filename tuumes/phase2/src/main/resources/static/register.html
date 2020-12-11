@@ -79,7 +79,7 @@
                 data[e.name] = e.value;
         });
 
-        $.postJSON("api/user/register", data, function(result) {
+        $.postJSON("/users/register", data, function(result) {
             console.log(result);
 
             if (result.valid) {
