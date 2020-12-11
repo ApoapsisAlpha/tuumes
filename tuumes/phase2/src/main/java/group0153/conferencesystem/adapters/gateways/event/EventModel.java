@@ -67,7 +67,7 @@ public class EventModel {
         return endTime;
     }
 
-    public Set<String> getSpeakerIds() {
+    public Set<UserModel> getSpeaker() {
         return speakers;
     }
 
