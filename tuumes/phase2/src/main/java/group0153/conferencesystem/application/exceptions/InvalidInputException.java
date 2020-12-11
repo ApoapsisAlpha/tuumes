@@ -3,7 +3,7 @@ package group0153.conferencesystem.application.exceptions;
 /**
  * Exception class that is thrown when there is invalid input.
  */
-public class InvalidInputException extends Exception {
+public class InvalidInputException extends RuntimeException {
     private String field;
 
     /**
