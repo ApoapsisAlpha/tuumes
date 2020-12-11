@@ -5,9 +5,13 @@ import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.exceptions.eventExceptions.UnsuccessfulCommandException;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.TimeZone;
+import java.util.UUID;
 
 
 /**
@@ -25,6 +29,28 @@ public class EventScheduler {
     public EventScheduler(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
         this.roomManager = roomManager;
+    }
+
+    /**
+     *
+     * @param id The id of the event.
+     * @param eventName The event name.
+     * @param description The event description.
+     * @param startTime The start time of the event given by the unix timestamp.
+     * @param endTime The end time of the event given by the unix timestamp.
+     * @param roomId The id of the room that this event takes place in.
+     * @param speakerIds The list of speakers who are to attend this event.
+     * @param userLimit The maximum amount of people that can attend this event.
+     * @param isVipOnlyEvent If this event is only for vip people or not.
+     * @return A new event entity with the above attributes.
+     */
+    private Event createEvent(String id, String eventName, String description, long startTime, long endTime,
+                              String roomId, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) {
+        startTime *= 1000;
+        endTime *= 1000;
+        LocalDateTime st = LocalDateTime.ofInstant(Instant.ofEpochMilli(startTime), TimeZone.getDefault().toZoneId());
+        LocalDateTime et = LocalDateTime.ofInstant(Instant.ofEpochMilli(endTime), TimeZone.getDefault().toZoneId());
+        return new Event(id, eventName, description, st, et, roomId, speakerIds, userLimit, isVipOnlyEvent);
     }
 
     /**
@@ -50,7 +76,7 @@ public class EventScheduler {
      * @throws UnsuccessfulCommandException The event could not be added successfully.
      * @return Returns the EventData for the new event after it has been successfully added.
      */
-    public EventData scheduleEvent(Event event) throws UnsuccessfulCommandException {
+    private EventData scheduleEventHelper(Event event) throws UnsuccessfulCommandException {
         ArrayList<String> eventIds = getScheduledEventIds();
         for (String otherEventId : eventIds) {
             if (hasTimeConflict(event.getId(), otherEventId)) {
@@ -59,6 +85,12 @@ public class EventScheduler {
         }
         this.eventPersistencePort.saveEvent(event);
         return new EventData(event, this.roomManager.getRoomById(event.getRoomId()));
+    }
+
+    public EventData scheduleEvent(String eventName, String description, long startTime, long endTime,
+                         String roomId, ArrayList<String> speakerIds, int userLimit, boolean isVipOnlyEvent) throws UnsuccessfulCommandException {
+        Event event = this.createEvent(UUID.randomUUID().toString(), eventName, description, startTime, endTime, roomId, speakerIds, userLimit, isVipOnlyEvent);
+        return this.scheduleEventHelper(event);
     }
 
     /**
@@ -91,9 +123,12 @@ public class EventScheduler {
      *
      * @param eventId The id of the event to be removed.
      */
-    public void unScheduleEvent(String eventId) throws UnsuccessfulCommandException {
+    public ArrayList<String> unScheduleEvent(String eventId) throws UnsuccessfulCommandException {
         Optional<Event> event = this.eventPersistencePort.getEvent(eventId);
         if (!event.isPresent()) throw new UnsuccessfulCommandException("The event could not be found.");
+        Event e = event.get();
+        ArrayList<String> res = e.getUserIds();
         this.eventPersistencePort.deleteEvent(eventId);
+        return res;
     }
 }

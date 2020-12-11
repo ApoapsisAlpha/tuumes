@@ -76,7 +76,6 @@ public class EventController {
         }
     }
 
-    //TODO
     @GetMapping("/unregister-event")
     public ResponseEntity<Response> unregisterEvent(@RequestParam(value = "userId") String userId,
                                                     @RequestParam(value = "eventId") String eventId){
@@ -93,21 +92,51 @@ public class EventController {
         }
     }
 
-    //TODO
+    /**
+     *
+     * @param eventName The name of the event.
+     * @param description The event's description.
+     * @param startTime The start time of the event (this should be an integer representing the time in seconds).
+     * @param endTime The end time of the event (this should be an integer representing the time in seconds).
+     * @param roomId The id of the room that this event takes place in.
+     * @param speakerIds The ids of the speakers for this event.
+     * @param userLimit The user limit of this event.
+     * @param isVipOnlyEvent Whether this event is for vip's only or not.
+     * @return Success response entity if the action was successfull, otherwise fail response entity.
+     */
     @GetMapping("/add-Event")
     public ResponseEntity<Response> addEvent(@RequestParam(value = "eventName") String eventName,
                                              @RequestParam(value = "description") String description,
-                                             @RequestParam(value = "startTime") String startTime,
-                                             @RequestParam(value = "endTime") String endTime,
+                                             @RequestParam(value = "startTime") long startTime,
+                                             @RequestParam(value = "endTime") long endTime,
                                              @RequestParam(value = "roomId") String roomId,
                                              @RequestParam(value = "speakerIds") ArrayList<String> speakerIds,
                                              @RequestParam(value = "userLimit") int userLimit,
                                              @RequestParam(value = "isVipOnlyEvent") boolean isVipOnlyEvent) {
+        try {
+            this.eventScheduler.scheduleEvent(eventName, description, startTime, endTime, roomId, speakerIds, userLimit, isVipOnlyEvent);
+            return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+        } catch (UnsuccessfulCommandException exception) {
+            return new ResponseEntity<>(new Response(false, exception.getMessage()), HttpStatus.OK);
+        }
     }
 
+    /**
+     *
+     * @param eventId The id of the event to be cancelled.
+     * @return Success response entity if the action was successfull. Fail rewsponse entity otherwise.
+     */
     @GetMapping("/cancel-Event")
     public ResponseEntity<Response> cancelEvent(@RequestParam(value = "eventId") String eventId){
-
+        try {
+            ArrayList<String> userIds = this.eventScheduler.unScheduleEvent(eventId);
+            for (String id : userIds) {
+                this.userEventsManager.removeUserEvents(id, eventId);
+            }
+            return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+        } catch (UnsuccessfulCommandException exception) {
+            return new ResponseEntity<>(new Response(false, exception.getMessage()), HttpStatus.OK);
+        }
     }
 
 
@@ -177,6 +206,7 @@ public class EventController {
             return new ResponseEntity<>(new Response(false, "Event not found"), HttpStatus.OK);
         }
     }
+
 
 //    /**
 //     *
