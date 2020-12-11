@@ -101,12 +101,11 @@ public class EventManager {
 
         if (event.getUserCount() >= event.getUserLimit())
             throw new FullEventException(eventId);
-
+        if (event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP)) throw new VipOnlyEventException(eventId);
         eventPersistencePort.registerUserById(eventId, userId);
         if (user.getType() == UserType.SPEAKER)
             if (event.getSpeakerCount() >= event.getSpeakerLimit())
                 throw new FullEventException(eventId);
-
             if (hasEventCollision(user, event))
                 eventPersistencePort.registerSpeakerById(eventId, userId);
     }
