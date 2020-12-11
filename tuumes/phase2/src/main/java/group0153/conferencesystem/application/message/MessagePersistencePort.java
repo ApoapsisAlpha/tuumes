@@ -5,6 +5,10 @@ import group0153.conferencesystem.entities.message.Message;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * An interface which describes how data is saved from use case to the database.
+ */
+
 public interface MessagePersistencePort {
 
     /**

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 /**
- * MessageFinder class is used to find different messages depending on archived state,
+ * A message use case class to find different messages depending on archived state,
  * sender, recipient, or read state.
  */
 
@@ -80,14 +80,14 @@ public class MessageFinder {
      * Given user's id, get all their unarchived messages
      * @param user: id of the user whose unarchived messages are being returned
      * @return List of all unarchived message ids
-     * @throws NoArchivedMessagesException No unarchived messages have been sent to user
+     * @throws NoUnarchivedMessagesException No unarchived messages have been sent to user
      */
     public ArrayList<String> getUnarchivedMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> unarchivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
-            throw new NoArchivedMessagesException();
+            throw new NoUnarchivedMessagesException();
         else{
             for (Message message: messages){
                 if(!message.isArchived()){
