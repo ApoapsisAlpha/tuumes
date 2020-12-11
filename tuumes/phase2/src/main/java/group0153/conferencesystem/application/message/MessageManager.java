@@ -6,6 +6,10 @@ import group0153.conferencesystem.entities.message.Message;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A message use case class that has setters and getters for variables within a message.
+ */
+
 public class MessageManager {
     final MessagePersistencePort messagePersistencePort;
 
