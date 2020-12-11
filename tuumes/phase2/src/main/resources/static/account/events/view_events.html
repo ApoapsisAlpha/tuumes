@@ -58,7 +58,7 @@
 
 <script>
     function getEvents() {
-        $.postJSON("/events/view_all", {
+        $.getJSON("/events/view_all", {
             userId: USER_ID,
         }, function(result) {
             let to_print = ``;

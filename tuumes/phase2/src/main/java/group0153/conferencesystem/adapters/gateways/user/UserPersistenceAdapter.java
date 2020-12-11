@@ -4,7 +4,6 @@ import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -41,17 +40,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     @Override
     public Optional<User> findUserByEmail(String email) {
         Optional<UserModel> userModel = userRepository.findByEmail(email);
-        Optional<User> mappedUser = userModel.flatMap(u -> {
-            User user = new User.Builder()
-                    .id(u.getResourceId())
-                    .name(u.getName())
-                    .email(u.getEmail())
-                    .password(u.getPassword())
-                    .type(u.getType()).build();
-            return Optional.of(user);
-        });
-
-        return mappedUser;
+        return new UserMapper().mapModelToEntity(userModel);
     }
 
     /**
@@ -62,7 +51,8 @@ public class UserPersistenceAdapter implements UserPersistencePort {
      */
     @Override
     public Optional<User> findById(String userId) {
-        return Optional.empty();
+        Optional<UserModel> userModel = userRepository.findByResourceId(userId);
+        return new UserMapper().mapModelToEntity(userModel);
     }
 
     /**
@@ -73,7 +63,10 @@ public class UserPersistenceAdapter implements UserPersistencePort {
      */
     @Override
     public void removeContactById(String contactId, String userId) {
-
+        UserModel userModel = userRepository.findByResourceId(userId).get();
+        UserModel contactModel = userRepository.findByResourceId(contactId).get();
+        userModel.getContacts().remove(contactModel);
+        userRepository.flush();
     }
 
     /**
@@ -84,6 +77,9 @@ public class UserPersistenceAdapter implements UserPersistencePort {
      */
     @Override
     public void addContactById(String contactId, String userId) {
-
+        UserModel userModel = userRepository.findByResourceId(userId).get();
+        UserModel contactModel = userRepository.findByResourceId(contactId).get();
+        userModel.getContacts().add(contactModel);
+        userRepository.flush();
     }
 }

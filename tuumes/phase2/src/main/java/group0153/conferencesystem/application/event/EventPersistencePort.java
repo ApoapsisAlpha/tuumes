@@ -17,4 +17,5 @@ public interface EventPersistencePort {
 
     ArrayList<Event> getAllEvents();
 
+    Optional<Event> findById(String eventId);
 }

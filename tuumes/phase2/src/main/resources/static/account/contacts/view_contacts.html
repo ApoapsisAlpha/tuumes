@@ -84,7 +84,7 @@
 
 <script>
     function getContacts() {
-        $.postJSON("/user/contacts/view", {
+        $.getJSON("/user/contacts/view", {
             userId: USER_ID,
         }, function(result) {
             let to_print = ``;

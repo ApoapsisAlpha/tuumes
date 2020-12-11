@@ -2,9 +2,9 @@ package group0153.conferencesystem.adapters.controllers.event.resource;
 
 public class EventUpdateCapacityResource {
     private String eventId;
-    private String userLimit;
+    private int userLimit;
 
-    public EventUpdateCapacityResource(String eventId, String userLimit) {
+    public EventUpdateCapacityResource(String eventId, int userLimit) {
         this.eventId = eventId;
         this.userLimit = userLimit;
     }
@@ -23,7 +23,7 @@ public class EventUpdateCapacityResource {
      *
      * @return Value of userLimit.
      */
-    public String getUserLimit() {
+    public int getUserLimit() {
         return userLimit;
     }
 }

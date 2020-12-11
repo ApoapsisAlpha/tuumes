@@ -4,15 +4,23 @@ import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.room.RoomManager;
 import group0153.conferencesystem.entities.event.Event;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Creates array lists of EventData representing the schedule (in sorted order by preference).
+ * A event use case class that creates array lists of EventData representing the
+ * schedule (in sorted order by preference).
  */
 public class EventScheduleDataPreparer {
     private final EventPersistencePort eventPersistencePort;
     private final RoomManager roomManager;
 
+    /**
+     * Instantiates an EventScheduleDataPreparer.
+     * @param eventPersistencePort How the events are saved to the database.
+     * @param roomManager The room manager for event rooms.
+     */
     EventScheduleDataPreparer(EventPersistencePort eventPersistencePort, RoomManager roomManager) {
         this.eventPersistencePort = eventPersistencePort;
         this.roomManager = roomManager;
@@ -21,12 +29,12 @@ public class EventScheduleDataPreparer {
     /**
      *
      * @param date Date to be checked.
-     * @param lDate The earliest date in the interval.
-     * @param rDate The latest date in the interval.
-     * @return Returns true iff date occurs between lDate and rDate (inclusive of endpoints).
+     * @param earliestDate The earliest date in the interval.
+     * @param latestDate The latest date in the interval.
+     * @return Returns true iff date occurs between earliestDate and latestDate (inclusive of endpoints).
      */
-    private boolean inTimeInterval(Date date, Date lDate, Date rDate) {
-        return !date.before(lDate) && !date.after(rDate);
+    private boolean inTimeInterval(LocalDateTime date, LocalDateTime earliestDate, LocalDateTime latestDate) {
+        return !date.isBefore(earliestDate) && !date.isAfter(latestDate);
     }
 
     /**
@@ -49,10 +57,10 @@ public class EventScheduleDataPreparer {
      */
     private ArrayList<Event> getUpcomingEventsHelper() {
         ArrayList<Event> events = eventPersistencePort.getAllEvents();
-        Date now = new Date();
+        LocalDateTime now = LocalDateTime.now();
         ArrayList<Event> upcomingEvents = new ArrayList<>();
         for (Event event : events) {
-            if (event.getStartTime().after(now))
+            if (event.getStartTime().isAfter(now))
                 upcomingEvents.add(event);
         }
         upcomingEvents.sort(new SortEventsByDate());
@@ -61,16 +69,17 @@ public class EventScheduleDataPreparer {
 
     /**
      *
-     * @param lDate The earliest date in the time interval.
-     * @param rDate The latest date in the time interval.
+     * @param earliestDate The earliest date in the time interval.
+     * @param latestDate The latest date in the time interval.
      * @return Returns an array list of EventData sorted by the start time of the event. The events
-     * all occur and end within lDate and rDate (inclusive).
+     * all occur and end within earliestDate and latestDate (inclusive).
      */
-    public ArrayList<EventData> getScheduleModelByInInterval(Date lDate, Date rDate) {
+    public ArrayList<EventData> getScheduleModelByInInterval(LocalDateTime earliestDate, LocalDateTime latestDate) {
         ArrayList<Event> events = eventPersistencePort.getAllEvents();
         ArrayList<Event> eventsInInterval = new ArrayList<>();
         for (Event event : events) {
-            if (this.inTimeInterval(event.getStartTime(), lDate, rDate) && this.inTimeInterval(event.getEndTime(), lDate, rDate)) {
+            if (this.inTimeInterval(event.getStartTime(), earliestDate, latestDate) &&
+                    this.inTimeInterval(event.getEndTime(), earliestDate, latestDate)) {
                 eventsInInterval.add(event);
             }
         }

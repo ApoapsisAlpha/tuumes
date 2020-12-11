@@ -5,7 +5,7 @@
     <link href="https://cdn.mkn.cx/Manrope/index.css" rel="stylesheet">
     <link href="https://cdn.mkn.cx/MDB/css/mdb.min.css" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet">
-    <link href="../assets/css/global.css" rel="stylesheet">
+    <link href="../../assets/css/global.css" rel="stylesheet">
     <style>
         .container {
             border-radius: 25px
@@ -31,35 +31,48 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="register.html">Register</a>
+                <a class="nav-link" href="menu.html">Go back</a>
             </li>
         </ul>
-        <span class="navbar-text white-text">
-                    Guest
-                </span>
     </div>
 </nav>
 
-<div class="container-fluid mt-5">
-    <div class="container white text-center mt-5 pt-4">
+<div class="container-fluid mt-5" id="messages">
+    <div class="container white text-center mt-4 pt-4">
         <img class="stamp-img" src="../../assets/img/stamp.png">
-
         <h3>From: SenderName</h3>
-
         <p>Sender email goes here.</p>
-
         <p class="mb-3">Message content goes here. It contains the message content.</p>
-
-        <button class="btn btn-secondary" id="read"><i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read
-        </button><button
-                class="btn btn-secondary" id="archive"><i class="fa fa-archive fa-lg"></i> &thinsp; Archive
-        </button><button
-                class="btn btn-secondary" id="reply"><i class="fa fa-reply fa-lg"></i> &thinsp; Reply
-        </button><button
-                class="btn btn-secondary" id="delete"><i class="far fa-trash-alt"></i> &thinsp; Delete
+        <button class="btn btn-primary" id="read">
+            <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
+        </button>
+        <button class="btn btn-warning" id="archive">
+            <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
+        </button>
+        <button class="btn btn-secondary" id="reply">
+            <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
+        </button>
+        <button class="btn btn-danger" id="delete">
+            <i class="far fa-trash-alt"></i> &thinsp; Delete
+        </button>
+        <br><br>
+    </div>
+</div>
+<div class="container-fluid mt-4" id="archived_notice" onclick="showArchived();">
+    <div class='text-center'>
+        <a href="#">View archived messages</a>
+    </div>
+</div>
+<div class="container-fluid mt-4" id="archived">
+    <div class="container white text-center mt-4 pt-4">
+        <h3>From: SenderName</h3>
+        <p>Sender email goes here.</p>
+        <p class="mb-3">Message content goes here. It contains the message content.</p>
+        <button class="btn btn-default" id="archive">
+            <i class="fa fa-archive fa-lg"></i> &thinsp; Unarchive 
+        </button>
+        <button class="btn btn-danger" id="delete">
+            <i class="far fa-trash-alt"></i> &thinsp; Delete
         </button>
         <br><br>
     </div>
@@ -70,5 +83,139 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
         type="text/javascript"></script>
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
-<script src="assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/account.js" type="text/javascript"></script>
+<script>
+    $("#archived").hide();
+    function showArchived() {
+        $("#archived_notice").hide(0);
+        $("#archived").slideDown();
+    }
+
+    function getMessages() {
+        $.getJSON("/messages/view", {
+            userId: USER_ID,
+        }, function(result) {
+            let to_print = ``;
+            result.data.forEach(msg => {
+                let mark_button = `
+                <button class="btn btn-primary" onclick="markRead(${msg.id})">
+                    <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
+                </button>`;
+                let new_print = `<img class="stamp-img" src="../../assets/img/stamp.png">`;
+                if (msg.seen) {
+                    mark_button = `
+                    <button class="btn btn-info" onclick="markUnread(${msg.id})">
+                        <i class="fa fa-envelope-close fa-lg"></i> &thinsp; Mark As Unread 
+                    </button>`;
+                    new_print = ``;
+                }
+                to_print += `
+                <div class="container white text-center mt-4 pt-4">
+                    ${new_print}
+                    <h3>From: ${msg.sender}</h3>
+                    <p>${msg.recipient}</p>
+                    <p class="mb-3">${msg.content}</p>
+                    ${mark_button}
+                    <button class="btn btn-warning" onclick="markArchive(${msg.id})">
+                        <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
+                    </button>
+                    <a class="btn btn-secondary" href="send_message.html#${msg.email}">
+                        <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
+                    </a>
+                    <button class="btn btn-danger" onclick="deleteMsg(${msg.id})">
+                        <i class="far fa-trash-alt"></i> &thinsp; Delete
+                    </button>
+                    <br><br>
+                </div>`;
+            });
+            $("#messages").html(to_print);
+        });
+    }
+
+    function getArchived() {
+        $.getJSON("/messages/view_archived", {
+            userId: USER_ID,
+        }, function(result) {
+            let to_print = ``;
+            result.data.forEach(msg => {
+                to_print += `
+                <div class="container white text-center mt-4 pt-4">
+                    <h3>From: ${msg.sender}</h3>
+                    <p>${msg.recipient}</p>
+                    <p class="mb-3">${msg.content}</p>
+                    <button class="btn btn-default" onclick="markUnarchive(${msg.id})">
+                        <i class="fa fa-archive fa-lg"></i> &thinsp; Unarchive 
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteMsg(${msg.id})">
+                        <i class="far fa-trash-alt"></i> &thinsp; Delete
+                    </button>
+                    <br><br>
+                </div>`;
+            });
+
+            $("#messages").html(to_print);
+        });
+    }
+
+    function markRead(messageId) {
+        $.postJSON("/messages/read", {
+            userId: USER_ID,
+            messageId: messageId
+        }, function(result) {
+            getMessages();
+        });
+
+        return false;
+    }
+
+    function markUnread(messageId) {
+        $.postJSON("/messages/unread", {
+            userId: USER_ID,
+            messageId: messageId
+        }, function(result) {
+            getMessages();
+        });
+
+        return false;
+    }
+
+    function deleteMsg(messageId) {
+        $.postJSON("/messages/delete", {
+            userId: USER_ID,
+            messageId: messageId
+        }, function(result) {
+            getMessages();
+            getArchived();
+        });
+
+        return false;
+    }
+
+    function markArchive(messageId) {
+        $.postJSON("/messages/archive", {
+            userId: USER_ID,
+            messageId: messageId
+        }, function(result) {
+            getMessages();
+        });
+
+        return false;
+    }
+
+    function markUnarchive(messageId) {
+        $.postJSON("/messages/unarchive", {
+            userId: USER_ID,
+            messageId: messageId
+        }, function(result) {
+            getArchived();
+        });
+
+        return false;
+    }
+    
+
+    getMessages();
+    getArchived();
+</script>
 </html>

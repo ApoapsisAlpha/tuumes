@@ -27,6 +27,24 @@ public class UserEventsManager {
         Optional<User> userPresent = userPersistencePort.findById(userId);
         if (!userPresent.isPresent())
             throw new UserNotFoundException(userId);
-        return new ArrayList<>(userPresent.get().getContacts());
+        return new ArrayList<>(userPresent.get().getEvents());
+    }
+
+    public void addUserEvents(String userId, String eventId){
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
+        if (!userPresent.get().getEvents().contains(eventId)){
+            userPresent.get().addEvent(eventId);
+        }
+    }
+
+    public void removeUserEvents(String userId, String eventId){
+        Optional<User> userPresent = userPersistencePort.findById(userId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(userId);
+        if (userPresent.get().getEvents().contains(eventId)){
+            userPresent.get().removeEvent(eventId);
+        }
     }
 }
