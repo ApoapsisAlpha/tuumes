@@ -26,7 +26,7 @@ public class EventUpdater {
         return optionalEvent.get();
     }
 
-    private void updateCapacity(String eventId, int newCapacity) throws EventNotFoundException {
+    public void updateCapacity(String eventId, int newCapacity) throws EventNotFoundException {
         Event event = this.getEvent(eventId);
         event.setUserLimit(newCapacity);
     }
@@ -56,7 +56,8 @@ public class EventUpdater {
         event.setEndTime(newEndTime);
     }
 
-    public void update(String eventId) throws EventNotFoundException {
+    public void updateRoomId(String eventId, String newRoomId) throws EventNotFoundException {
         Event event = this.getEvent(eventId);
+        event.setRoomId(newRoomId);
     }
 }

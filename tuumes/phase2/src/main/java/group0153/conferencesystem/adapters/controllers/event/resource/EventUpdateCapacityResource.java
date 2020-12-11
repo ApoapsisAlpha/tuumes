@@ -23,7 +23,7 @@ public class EventUpdateCapacityResource {
      *
      * @return Value of userLimit.
      */
-    public String getUserLimit() {
+    public int getUserLimit() {
         return userLimit;
     }
 }
