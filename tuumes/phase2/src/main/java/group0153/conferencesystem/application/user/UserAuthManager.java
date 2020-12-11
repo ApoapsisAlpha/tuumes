@@ -53,6 +53,7 @@ public class UserAuthManager {
      * @param email the email of the user
      * @param password the password of the user
      * @param userType the type of user
+     * @throws UserExistsException if the user already exists
      */
     public void create(String name, String email, String password, UserType userType) throws
             UserExistsException {
