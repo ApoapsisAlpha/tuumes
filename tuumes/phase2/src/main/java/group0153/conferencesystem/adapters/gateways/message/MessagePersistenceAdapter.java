@@ -19,9 +19,11 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     private UserRepository userRepository;
 
     /**
-     * Construct an instance of MessagePersistenceAdapter using the provided MessageRepository instance.
+     * Construct an instance of MessagePersistenceAdapter using the provided MessageRepository and UserRepository
+     * instances.
      *
      * @param messageRepository instance of MessageRepository that can facilitate message saving and retrieval
+     * @param userRepository    instance of UserRepository that can facilitate user information retrieval
      */
     public MessagePersistenceAdapter(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
