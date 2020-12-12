@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -32,7 +31,7 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
     /**
      * Get the messages from sender.
      *
-     * @param sender
+     * @param sender the UserModel of the user that sent the messages
      * @return list of messages
      */
     List<MessageModel> findAllBySender(UserModel sender);
