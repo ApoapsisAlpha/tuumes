@@ -20,10 +20,10 @@ import java.util.UUID;
  * A message use case class which is in charge of creating new messages.
  */
 @Component
-public class MessageCreationManager {
-    private MessagePersistencePort messagePersistencePort;
-    private UserPersistencePort userPersistencePort;
-    private EventPersistencePort eventPersistencePort;
+public class MessageSender {
+    private final MessagePersistencePort messagePersistencePort;
+    private final UserPersistencePort userPersistencePort;
+    private final EventPersistencePort eventPersistencePort;
 
     /**
      * Precondition: Sender and Recipient are contacts
@@ -33,8 +33,8 @@ public class MessageCreationManager {
      * @param userPersistencePort    where users are stored
      * @param eventPersistencePort   where events are stored
      */
-    public MessageCreationManager(MessagePersistencePort messagePersistencePort,
-                                  UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort) {
+    public MessageSender(MessagePersistencePort messagePersistencePort,
+                         UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort) {
         this.messagePersistencePort = messagePersistencePort;
         this.userPersistencePort = userPersistencePort;
         this.eventPersistencePort = eventPersistencePort;
@@ -118,6 +118,14 @@ public class MessageCreationManager {
         }
     }
 
+    /**
+     * Create a message sent to every user
+     *
+     * @param messageContent: String with message's content
+     * @param senderId:       id of sender
+     * @throws UserNotFoundException if sender id is not found
+     * @throws InvalidInputException if user is not an organizer
+     */
     public void sendToEveryone(String messageContent, String senderId) throws UserNotFoundException, InvalidInputException{
         Optional<User> userPresent = userPersistencePort.findById(senderId);
         if (!userPresent.isPresent())

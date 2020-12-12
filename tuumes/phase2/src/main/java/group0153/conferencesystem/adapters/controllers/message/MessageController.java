@@ -2,8 +2,7 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.application.exceptions.InvalidInputException;
-import group0153.conferencesystem.application.message.MessageCreationManager;
+import group0153.conferencesystem.application.message.MessageSender;
 import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
@@ -34,7 +33,7 @@ public class MessageController {
      * @param messageManager         Instance of MessageManager that can manipulate stored messages
      * @param messageDataPreparer    Instance of MessageDataPreparer that can prepare messages' data to be utilized
      */
-    public MessageController(MessageCreationManager messageCreationManager, MessageFinder messageFinder,
+    public MessageController(MessageSender messageCreationManager, MessageFinder messageFinder,
                              MessageManager messageManager, MessageDataPreparer messageDataPreparer) {
         this.messageFinder = messageFinder;
         this.messageManager = messageManager;

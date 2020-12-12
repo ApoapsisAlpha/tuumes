@@ -7,7 +7,7 @@ import group0153.conferencesystem.adapters.controllers.message.requests.MessageC
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
-import group0153.conferencesystem.application.message.MessageCreationManager;
+import group0153.conferencesystem.application.message.MessageSender;
 import group0153.conferencesystem.application.user.UserContactManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/messages")
 public class MessageSendController {
-    private final MessageCreationManager messageCreationManager;
+    private final MessageSender messageCreationManager;
     private final UserContactManager userContactManager;
 
     /**
@@ -31,7 +31,7 @@ public class MessageSendController {
      * @param messageCreationManager instance of MessageCreationManager that can facilitate message creation
      * @param userContactManager     instance of UserContactManager that can facility manipulation of contacts of a user
      */
-    public MessageSendController(MessageCreationManager messageCreationManager, UserContactManager userContactManager) {
+    public MessageSendController(MessageSender messageCreationManager, UserContactManager userContactManager) {
         this.messageCreationManager = messageCreationManager;
         this.userContactManager = userContactManager;
     }
