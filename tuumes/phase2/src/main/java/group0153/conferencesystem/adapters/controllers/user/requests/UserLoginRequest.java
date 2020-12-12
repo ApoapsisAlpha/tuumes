@@ -26,7 +26,7 @@ public class UserLoginRequest {
      * @throws InvalidInputException When the user does not input anything into the email field
      */
     public String getEmail() throws InvalidInputException {
-        if (email.isEmpty())
+        if (email.isEmpty() || !email.contains("@"))
             throw new InvalidInputException("email");
 
         return email;
