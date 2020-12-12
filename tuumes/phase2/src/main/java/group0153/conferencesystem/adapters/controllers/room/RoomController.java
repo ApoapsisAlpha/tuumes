@@ -3,6 +3,7 @@ package group0153.conferencesystem.adapters.controllers.room;
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.room.requests.RoomRequest;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.room.RoomManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,11 @@ public class RoomController {
      */
     @PostMapping("/create")
     ResponseEntity<Response> createRoom(@RequestBody RoomRequest room) {
-        roomManager.createRoom(room.getName(), room.getCapacity());
-        return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        try {
+            roomManager.createRoom(room.getName(), room.getCapacity());
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }
