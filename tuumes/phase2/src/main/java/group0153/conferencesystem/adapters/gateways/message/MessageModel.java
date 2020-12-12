@@ -73,4 +73,28 @@ public class MessageModel {
      * @return array list of recipient id(s)
      */
     public Set<UserModel> getRecipients() { return recipients; }
+
+    /**
+     * Getter for the set of users that read the message.
+     * @return set of user models
+     */
+    public Set<UserModel> getReadSet() {
+        return readSet;
+    }
+
+    /**
+     * Getter for the set of users that archived the message.
+     * @return set of user models
+     */
+    public Set<UserModel> getArchivedSet() {
+        return archivedSet;
+    }
+
+    /**
+     * Getter for the set of users that deleted the message.
+     * @return set of user models
+     */
+    public Set<UserModel> getDeleteSet() {
+        return deleteSet;
+    }
 }

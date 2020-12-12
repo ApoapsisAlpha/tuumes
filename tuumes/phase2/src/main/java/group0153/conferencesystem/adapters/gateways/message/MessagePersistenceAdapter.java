@@ -49,37 +49,38 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     /**
      * Given a Message that already exists, update the database Model to the given Message's read status
      *
-     * @param message The message to be updated
-     * @param userId  The user to update
-     * @param status  The new status
+     * @param messageId The message id of the message to be updated
+     * @param userId    The user to update
+     * @param status    The new status
      */
     @Override
-    public void updateMessageReadStatus(Message message, String userId, boolean status) {
-
+    public void updateMessageReadStatus(String messageId, String userId, boolean status) {
+        MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
+        messageModel.
     }
 
     /**
      * Given a Message that already exists, update the database Model to the given Message's archived status
      *
-     * @param message The message to be updated
-     * @param userId  The user to update
-     * @param status  The new status
+     * @param messageId The message id of the message to be updated
+     * @param userId    The user to update
+     * @param status    The new status
      */
     @Override
-    public void updateMessageArchivedStatus(Message message, String userId, boolean status) {
-
+    public void updateMessageArchivedStatus(String messageId, String userId, boolean status) {
+        MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
     }
 
     /**
      * Given a Message that already exists, update the database Model to the given Message's archived status
      *
-     * @param message The message to be updated
-     * @param userId  The user to update
-     * @param status  The new status
+     * @param messageId The message id of the message to be updated
+     * @param userId    The user to update
+     * @param status    The new status
      */
     @Override
-    public void updateMessageDeletedStatus(Message message, String userId, boolean status) {
-
+    public void updateMessageDeletedStatus(String messageId, String userId, boolean status) {
+        MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
     }
 
     /**

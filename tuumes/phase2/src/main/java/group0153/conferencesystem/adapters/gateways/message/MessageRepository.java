@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.gateways.message;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -14,5 +15,5 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
      * @param msgId id of the message that is requested
      * @return Optional possibly containing an instance of MessageModel if it exists
      */
-    Optional<MessageModel> findById(String msgId);
+    Optional<MessageModel> findByResourceId(String msgId);;
 }
