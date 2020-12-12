@@ -57,4 +57,16 @@ public interface EventPersistencePort {
      * @param userId The user id that is added to an event.
      */
     void unregisterSpeakerById(String eventId, String userId);
+
+    /**
+     * Delete a event from the database.
+     * @param eventId the event id of the event to delete.
+     */
+    void deleteEvent(String eventId);
+
+    /**
+     * Gets all event ids from the database.
+     * @return A list of all event ids at the conference.
+     */
+    List<String> getAllEventIds();
 }

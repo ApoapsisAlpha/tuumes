@@ -25,7 +25,7 @@ public class MessageComposeEventRequest {
     /**
      * Get recipient email.
      *
-     * @return Value of recipientEmail.
+     * @return Value of eventId.
      */
     public String getEventId() {
         return eventId;

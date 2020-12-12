@@ -45,7 +45,7 @@ public class EventController {
             List<EventData> events = eventManager.getAvailableEvents(userId);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -60,9 +60,9 @@ public class EventController {
             eventManager.registerUserForEvent(registrationResource.getEventId(), registrationResource.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         } catch (EventNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid event"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -77,14 +77,15 @@ public class EventController {
             eventManager.unregisterUserFromEvent(registrationResource.getEventId(), registrationResource.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         } catch (EventNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid event"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.FORBIDDEN);
         }
     }
 
     /**
      * Fetches a list of events the user is registered for or can manage depending on the user type.
+     *
      * @param userId user id
      * @return response indicating success/failure along with a list of events in the case of a success
      */
@@ -94,12 +95,13 @@ public class EventController {
             List<EventData> events = eventManager.getEvents(userId);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
     /**
      * Allows an organizer to create an event based on their inputs.
+     *
      * @param creationResource A resource containing the information needed to create an event.
      * @return response indicating sucess/failure
      */
@@ -117,14 +119,14 @@ public class EventController {
                 eventManager.createEvent(eventData);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new Response(false, "Full room"), HttpStatus.FORBIDDEN);
+                return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);
             }
         } catch (FullRoomException e) {
-            return new ResponseEntity<>(new Response(false, "Full room"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);
         } catch (RoomNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Invalid room"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "INVALID_ROOM"), HttpStatus.OK);
         } catch (ExistingOverlappingEventException e) {
-            return new ResponseEntity<>(new Response(false, "Existing overlapping event"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "TIME_CONFLICT"), HttpStatus.FORBIDDEN);
         }
     }
 

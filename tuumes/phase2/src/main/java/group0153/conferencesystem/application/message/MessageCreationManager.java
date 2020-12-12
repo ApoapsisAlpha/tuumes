@@ -79,7 +79,7 @@ public class MessageCreationManager {
      *
      * @param messageContent: String with the message's content
      * @param senderId:       id of sender
-     * @param eventId:        a recipient's email
+     * @param eventId:        an event id
      * @throws EventNotFoundException if given event is not found
      */
     public void sendToEvent(String messageContent, String senderId, String eventId) throws EventNotFoundException {
@@ -101,5 +101,19 @@ public class MessageCreationManager {
         }
         Message message = new Message(newId, messageContent, senderId, recipients);
         messagePersistencePort.saveMessage(message);
+    }
+
+    /**
+     * Create a message with the provided parameters
+     *
+     * @param messageContent: String with the message's content
+     * @param senderId:       id of sender
+     * @param eventIds:       a list of event ids
+     * @throws EventNotFoundException if given event is not found
+     */
+    public void sendToMultiEvent(String messageContent, String senderId, List<String> eventIds) throws EventNotFoundException {
+        for(String id: eventIds){
+            this.sendToEvent(messageContent, senderId, id);
+        }
     }
 }
