@@ -4,6 +4,7 @@ import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import group0153.conferencesystem.adapters.gateways.user.UserRepository;
 import group0153.conferencesystem.application.message.MessagePersistencePort;
 import group0153.conferencesystem.entities.message.Message;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 /**
  * A class facilitating the retrieval and saving of information pertaining to messages to/from the database.
  */
+@Component
 public class MessagePersistenceAdapter implements MessagePersistencePort {
 
     private MessageRepository messageRepository;
