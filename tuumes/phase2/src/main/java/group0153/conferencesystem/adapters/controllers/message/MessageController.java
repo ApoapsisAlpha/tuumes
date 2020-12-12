@@ -2,13 +2,13 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.application.message.MessageSender;
+import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
+import group0153.conferencesystem.application.message.MessageSender;
 import group0153.conferencesystem.application.message.data.MessageData;
-import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
-import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
- * A controller class that facilitates the viewing and manipulating of messages as requested by the user
+ * A controller class that facilitates the viewing and manipulating of messages as requested by the user.
  */
 @RestController
 @RequestMapping(value = "/messages")
@@ -26,7 +26,7 @@ public class MessageController {
     private final MessageDataPreparer messageDataPreparer;
 
     /**
-     * Construct a new instance of MessageController using the provided data
+     * Construct a new instance of MessageController using the provided data.
      *
      * @param messageCreationManager Instance of MessageCreationManager that handles the creation of new messages
      * @param messageFinder          Instance of MessageFinder that handles the retrieval of messages
@@ -41,7 +41,7 @@ public class MessageController {
     }
 
     /**
-     * Facilitate the display of all unarchived messages in the program
+     * Facilitate the display of all unarchived messages in the program.
      *
      * @param userId the id of the current user
      * @return ResponseEntity containing all the data pertaining to all unarchived messages in the program
@@ -59,7 +59,7 @@ public class MessageController {
     }
 
     /**
-     * Facilitate the display of all archived messages in the program
+     * Facilitate the display of all archived messages in the program.
      *
      * @param userId the id of the current user
      * @return ResponseEntity containing all the data pertaining to all archived messages in the program
@@ -77,7 +77,7 @@ public class MessageController {
     }
 
     /**
-     * Facilitate the display of all unread messages in the program
+     * Facilitate the display of all unread messages in the program.
      *
      * @param userId the id of the current user
      * @return ResponseEntity containing all the data pertaining to all unread messages in the program
@@ -95,9 +95,10 @@ public class MessageController {
     }
 
     /**
-     * Set the message specified by msgId as read
+     * Set the message specified by msgId as read.
      *
-     * @param msgId the id of a message specified by the user
+     * @param msgId  the id of a message specified by the user
+     * @param userId the id of the user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/read")
@@ -112,9 +113,10 @@ public class MessageController {
     }
 
     /**
-     * Set the message specified by msgId as unread
+     * Set the message specified by msgId as unread.
      *
-     * @param msgId the id of a message specified by the user
+     * @param msgId  the id of a message specified by the user
+     * @param userId the id of the user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unread")
@@ -129,9 +131,10 @@ public class MessageController {
     }
 
     /**
-     * Set message specifies by msgId as deleted
+     * Set message specifies by msgId as deleted.
      *
-     * @param msgId the id of a message specified by the user
+     * @param msgId  the id of a message specified by the user
+     * @param userId the id of the user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/delete")
@@ -146,9 +149,10 @@ public class MessageController {
     }
 
     /**
-     * Set the message specified by msgId as archived
+     * Set the message specified by msgId as archived.
      *
-     * @param msgId the id of a message specified by the user
+     * @param msgId  the id of a message specified by the user
+     * @param userId the id of the user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/archive")
@@ -163,9 +167,10 @@ public class MessageController {
     }
 
     /**
-     * Set the message specified by msgId as unarchived
+     * Set the message specified by msgId as unarchived.
      *
-     * @param msgId the id of a message specified by the user
+     * @param msgId  the id of a message specified by the user
+     * @param userId the id of the user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unarchive")
