@@ -66,7 +66,7 @@
             result.data.forEach(event => {
                 let print_speakers = ``;
                 let print_delete = ``;
-                event.speakers.forEach(speaker => {
+                event.speakerData.forEach(speaker => {
                     print_speakers = `
                         <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
                     `;
@@ -77,6 +77,7 @@
                         <i class="fa fa-calendar-minus fa-lg mr-2"></i> Delete
                     </a>`;
                 }
+                let userCount = event.userIds.length;
                 to_print += `
                 <div class="container white text-center mt-4 pt-4">
                     <h3>${event.name}</h3>
@@ -86,8 +87,8 @@
                         moment(event.endTime).format('MMMM Do YYYY, h:mm:ss a') + `
                     </p>
                     <p class="mt-2 mb-2">Location: ${event.roomName}</p>
-                    <p class="mt-2 mb-2">Capacity: ${event.userCount}/${event.userLimit}</p>
-                    ${print_contacts}
+                    <p class="mt-2 mb-2">Capacity: ${userCount}/${event.userLimit}</p>
+                    ${print_speakers}
                     <br>
                     <button class="btn btn-secondary" id="register" type="button" onclick="registerEvent(${event.id});">
                         <i class="fa fa-calendar-plus fa-lg mr-2"></i> Register

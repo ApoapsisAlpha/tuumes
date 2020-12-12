@@ -43,7 +43,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-2" id="events">
                 <div class="card">
                     <a href="events/menu.html">
                         <div class="card-content text-center">
@@ -97,9 +97,10 @@
     $("#speaker").hide();
     $("#organizer").hide();
 
-    if (USER_TYPE == userType.SPEAKER)
+    if (USER_TYPE == userType.SPEAKER) {
         $("#speaker").show();
-    else if (USER_TYPE == userType.ORGANIZER)
+        $("#events").hide();
+    } else if (USER_TYPE == userType.ORGANIZER)
         $("#organizer").show();
 </script>
 

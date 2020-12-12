@@ -53,48 +53,11 @@
         <h3 class="pb-2">Events you are scheduled to speak at: </h3>
 
         <div class="white z-depth-1 px-3 pt-3 pb-0 event-list">
-            <ul class="list-unstyled">
+            <ul class="list-unstyled" id="events">
                 <li class="p-2">
                     <div class="form-check">
                         <input class="form-check-input" id="event1" type="checkbox">
                         <label class="form-check-label" for="event1">
-                            <strong>Event Name</strong>
-                            <a class="text-muted">Location: 3/5 &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
-                            <a class="text-muted">StartTime - EndTime</a>
-                            <br>
-                            <a class="text-muted">Description</a>
-                        </label>
-                    </div>
-
-                </li>
-                <li class="p-2">
-                    <div class="form-check">
-                        <input class="form-check-input" id="event2" type="checkbox">
-                        <label class="form-check-label" for="event2">
-                            <strong>Event Name</strong>
-                            <a class="text-muted">Location: 3/5 &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
-                            <a class="text-muted">StartTime - EndTime</a>
-                            <br>
-                            <a class="text-muted">Description</a>
-                        </label>
-                    </div>
-                </li>
-                <li class="p-2">
-                    <div class="form-check">
-                        <input class="form-check-input" id="event3" type="checkbox">
-                        <label class="form-check-label" for="event3">
-                            <strong>Event Name</strong>
-                            <a class="text-muted">Location: 3/5 &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
-                            <a class="text-muted">StartTime - EndTime</a>
-                            <br>
-                            <a class="text-muted">Description</a>
-                        </label>
-                    </div>
-                </li>
-                <li class="p-2">
-                    <div class="form-check">
-                        <input class="form-check-input" id="event4" type="checkbox">
-                        <label class="form-check-label" for="event4">
                             <strong>Event Name</strong>
                             <a class="text-muted">Location: 3/5 &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
                             <a class="text-muted">StartTime - EndTime</a>
@@ -126,4 +89,39 @@
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../assets/js/global.js"></script>
 <script type="text/javascript" src="../../assets/js/account.js"></script>
+
+<script>
+    function getEvents() {
+        $.getJSON("/events", {
+            userId: USER_ID,
+        }, function(result) {
+            console.log(result);
+            let to_print = ``;
+            result.data.forEach(event => {
+                let userCount = event.userIds.length;
+                to_print += `
+                <li class="p-2">
+                    <div class="form-check">
+                        <input class="form-check-input" id="${event.id}" type="checkbox">
+                        <label class="form-check-label" for="event1">
+                            <strong>Event Name</strong>
+                            <a class="text-muted">Location: ${userCount}/${event.userLimit} &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
+                            <a class="text-muted">` + moment(event.startTime).format('MMMM Do YYYY, h:mm:ss a') + ` - ` + 
+                            moment(event.endTime).format('MMMM Do YYYY, h:mm:ss a') + `</a>
+                            <br>
+                            <a class="text-muted">${event.description}</a>
+                        </label>
+                    </div>
+                </li>
+                `;
+            });
+            $("#events").html(to_print);
+            if (result.data.length == 0)
+                toastr.error("You are in no events!");
+        });
+    }
+
+    getEvents();
+</script>
+
 </html>
