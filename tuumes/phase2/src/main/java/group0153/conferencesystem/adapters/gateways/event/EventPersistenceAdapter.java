@@ -147,15 +147,15 @@ public class EventPersistenceAdapter implements EventPersistencePort {
 
     }
 
-    /**
-     * Gets all event ids from the database.
-     *
-     * @return A list of all event ids at the conference.
-     */
-    @Override
-    public List<String> getAllEventIds() {
-        return null;
-    }
+//    /**
+//     * Gets all event ids from the database.
+//     *
+//     * @return A list of all event ids at the conference.
+//     */
+//    @Override
+//    public List<String> getAllEventIds() {
+//        return null;
+//    }
 
 }
 

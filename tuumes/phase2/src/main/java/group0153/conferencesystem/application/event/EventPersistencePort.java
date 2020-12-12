@@ -64,9 +64,4 @@ public interface EventPersistencePort {
      */
     void deleteEvent(String eventId);
 
-    /**
-     * Gets all event ids from the database.
-     * @return A list of all event ids at the conference.
-     */
-    List<String> getAllEventIds();
 }
