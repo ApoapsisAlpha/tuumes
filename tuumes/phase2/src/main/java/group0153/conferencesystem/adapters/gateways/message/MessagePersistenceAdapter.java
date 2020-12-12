@@ -7,6 +7,7 @@ import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -59,6 +60,11 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     public void updateMessageReadStatus(String messageId, String userId, boolean status) {
         MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
         UserModel userModel = userRepository.findByResourceId(userId).get();
+        if (status) {
+            messageModel.getReadSet().add(userModel);
+        } else {
+            messageModel.getReadSet().remove(userModel);
+        }
     }
 
     /**
@@ -71,6 +77,12 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     @Override
     public void updateMessageArchivedStatus(String messageId, String userId, boolean status) {
         MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
+        UserModel userModel = userRepository.findByResourceId(userId).get();
+        if (status) {
+            messageModel.getArchivedSet().add(userModel);
+        } else {
+            messageModel.getArchivedSet().remove(userModel);
+        }
     }
 
     /**
@@ -83,6 +95,12 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     @Override
     public void updateMessageDeletedStatus(String messageId, String userId, boolean status) {
         MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
+        UserModel userModel = userRepository.findByResourceId(userId).get();
+        if (status) {
+            messageModel.getDeleteSet().add(userModel);
+        } else {
+            messageModel.getDeleteSet().remove(userModel);
+        }
     }
 
     /**
@@ -93,7 +111,8 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public Optional<Message> findById(String msgId) {
-        return Optional.empty();
+        Optional<MessageModel> messageModel = messageRepository.findByResourceId(msgId);
+        return new MessageMapper().mapModelToEntity(messageModel);
     }
 
     /**
@@ -103,7 +122,7 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      * @return A List of all Messages of the given user
      */
     @Override
-    public ArrayList<Message> getMsgsToUser(String user) {
+    public List<Message> getMsgsToUser(String user) {
         return null;
     }
 
@@ -114,7 +133,7 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      * @return A List of all messages sent by the given sender
      */
     @Override
-    public ArrayList<String> getMsgIdsBySender(String sender) {
+    public List<String> getMsgIdsBySender(String sender) {
         return null;
     }
 }

@@ -2,7 +2,7 @@ package group0153.conferencesystem.application.message;
 
 import group0153.conferencesystem.entities.message.Message;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -53,13 +53,13 @@ public interface MessagePersistencePort {
      * @param user The id of the user whose Messages are being given
      * @return A List of all Messages of the given user
      */
-    ArrayList<Message> getMsgsToUser(String user);
+    List<Message> getMsgsToUser(String user);
 
     /**
      * Given a senderid, returns a list of all Message ids sent by that sender
      * @param sender The id of the sender whose messages are being found
      * @return A List of all messages sent by the given sender
      */
-    ArrayList<String> getMsgIdsBySender(String sender);
+    List<String> getMsgIdsBySender(String sender);
 
 }

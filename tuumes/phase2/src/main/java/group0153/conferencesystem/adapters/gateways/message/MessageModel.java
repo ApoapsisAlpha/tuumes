@@ -66,7 +66,7 @@ public class MessageModel {
      * Getter for sender id
      * @return sender id
      */
-    public UserModel getSenderId() { return sender; }
+    public UserModel getSender() { return sender; }
 
     /**
      * Getter for recipient id
