@@ -1,16 +1,20 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
+/**
+ * A class facilitating the user's creation of messages sent to attendees of an event by storing the information
+ * they input.
+ */
 public class MessageComposeEventRequest {
     private final String content;
     private final String eventId;
     private final String userId;
 
     /**
-     * Construct an instance of MessageComposeResource using the provided information about a message
+     * Construct an instance of MessageComposeResource using the provided information about a message.
      *
-     * @param content        String content of the message
-     * @param eventId        String id of the event to message
-     * @param userId         String id of the user that sent this message
+     * @param content String content of the message
+     * @param eventId String id of the event to message
+     * @param userId  String id of the user that sent this message
      */
     public MessageComposeEventRequest(String content, String eventId, String userId) {
         this.content = content;

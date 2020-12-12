@@ -1,7 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
 /**
- * A class facilitating the user's creation of messages by storing the information they input
+ * A class facilitating the user's creation of messages by storing the information they input.
  */
 public class MessageComposeRequest {
     private final String content;
@@ -9,7 +9,7 @@ public class MessageComposeRequest {
     private final String userId;
 
     /**
-     * Construct an instance of MessageComposeResource using the provided information about a message
+     * Construct an instance of MessageComposeResource using the provided information about a message.
      *
      * @param content        String content of the message
      * @param recipientEmail String email of the recipient of the message
