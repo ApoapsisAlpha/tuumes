@@ -126,7 +126,7 @@ public class EventRegistrationManager {
      */
     public void cancelEvent(String eventId){
         Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
-        if (!eventPersistencePort.getAllEventIds().contains(eventId)){
+        if (!eventPersistencePort.getAllEvents().contains(event)){
             throw new EventNotFoundException(eventId);
         }
         for (String userid : event.getUserIds()){
