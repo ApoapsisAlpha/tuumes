@@ -8,6 +8,7 @@ import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.message.Message;
 import group0153.conferencesystem.entities.user.User;
+import group0153.conferencesystem.entities.user.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class MessageCreationManager {
     }
 
     /**
-     * Create a message with the provided parameters and return its id.
+     * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
      * @param senderId: id of sender
@@ -52,11 +53,12 @@ public class MessageCreationManager {
     }
 
     /**
-     * Create a message with the provided parameters and return its id.
+     * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
      * @param senderId: id of sender
      * @param recipientEmail: a recipient's email
+     * @throws UserNotFoundException if given user is not found
      */
     public void create(String messageContent, String senderId, String recipientEmail) throws UserNotFoundException {
         Optional<User> userPresent = userPersistencePort.findUserByEmail(recipientEmail);
@@ -70,14 +72,31 @@ public class MessageCreationManager {
         messagePersistencePort.saveMessage(message);
     }
 
-    public void sendToEvent(String messageContent, String senderId, String eventId){
+    /**
+     * Create a message with the provided parameters
+     *
+     * @param messageContent: String with the message's content
+     * @param senderId: id of sender
+     * @param eventId: a recipient's email
+     * @throws EventNotFoundException if given event is not found
+     */
+    public void sendToEvent(String messageContent, String senderId, String eventId) throws EventNotFoundException {
         Optional<Event> eventPresent = eventPersistencePort.findById(eventId);
         if (!eventPresent.isPresent())
             throw new EventNotFoundException(eventId);
 
         String newId = UUID.randomUUID().toString();
-        List<String> listRecipients = eventPresent.get().getUserIds();
-        ArrayList<String> recipients = new ArrayList<>(listRecipients);
+        List<String> attendees = eventPresent.get().getUserIds();
+        ArrayList<String> recipients = new ArrayList<>();
+        for(String id: attendees){
+            Optional<User> userPresent = userPersistencePort.findById(id);
+            if (!userPresent.isPresent())
+                throw new UserNotFoundException(id);
+
+            if (userPresent.get().getType() != UserType.SPEAKER){
+                recipients.add(id);
+            }
+        }
         Message message = new Message(newId, messageContent, senderId, recipients);
         messagePersistencePort.saveMessage(message);
     }
