@@ -24,6 +24,7 @@ public class EventData implements Data {
 
     /**
      * Construct a new instance of EventData using the specified event
+     *
      * @param event the event
      */
     public EventData(Event event) {
@@ -40,6 +41,18 @@ public class EventData implements Data {
         this.speakerIds = event.getSpeakerIds();
     }
 
+    /**
+     * Construct a new instance of EventData using the specified information about the event
+     *
+     * @param name           the name of the event
+     * @param description    the description of the event
+     * @param startTime      the start time of the event
+     * @param endTime        the end time of the event
+     * @param roomId         the id of the room the event takes place in
+     * @param speakerLimit   the maximum number of speakers at the event
+     * @param userLimit      the maximum number of users allowed to register for the event
+     * @param isVipOnlyEvent boolean whether the event is for VIPs only
+     */
     public EventData(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
                      String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.name = name;
@@ -54,6 +67,7 @@ public class EventData implements Data {
 
     /**
      * Get the event name.
+     *
      * @return name of the event data.
      */
     public String getName() {
@@ -62,6 +76,7 @@ public class EventData implements Data {
 
     /**
      * Get the event description.
+     *
      * @return description of the event data.
      */
     public String getDescription() {
@@ -70,6 +85,7 @@ public class EventData implements Data {
 
     /**
      * Get the start time.
+     *
      * @return start time of the event data.
      */
     public LocalDateTime getStartTime() {
@@ -78,6 +94,7 @@ public class EventData implements Data {
 
     /**
      * Get the end time.
+     *
      * @return end time of the event data.
      */
     public LocalDateTime getEndTime() {
@@ -86,6 +103,7 @@ public class EventData implements Data {
 
     /**
      * Get the room id.
+     *
      * @return room id
      */
     public String getRoomId() {
@@ -94,6 +112,7 @@ public class EventData implements Data {
 
     /**
      * Get the speaker limit
+     *
      * @return speaker limit
      */
     public int getSpeakerLimit() {
@@ -102,6 +121,7 @@ public class EventData implements Data {
 
     /**
      * Get the list of speaker ids of the event data.
+     *
      * @return An ArrayList of ids of speakers of the event data.
      */
     public List<String> getSpeakerIds() {
@@ -110,6 +130,7 @@ public class EventData implements Data {
 
     /**
      * Get the maximum number of users allowed to attend the event of the event data.
+     *
      * @return The maximum number of users allowed to attend in the event data.
      */
     public int getUserLimit() {
@@ -118,6 +139,7 @@ public class EventData implements Data {
 
     /**
      * Get the list of ids of attendees of the event.
+     *
      * @return An ArrayList of ids of users who registered to the event in the event data.
      */
     public List<String> getUserIds() {
@@ -126,6 +148,7 @@ public class EventData implements Data {
 
     /**
      * Get whether the event in event data is a VIP-only event.
+     *
      * @return true iff the event in event data is a VIP-only event.
      */
     public boolean isVipOnlyEvent() {

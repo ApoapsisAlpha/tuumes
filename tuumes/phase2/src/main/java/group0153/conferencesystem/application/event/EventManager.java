@@ -17,6 +17,9 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * A manager class that manipulates events
+ */
 @Component
 public class EventManager {
 
@@ -24,6 +27,13 @@ public class EventManager {
     EventPersistencePort eventPersistencePort;
     RoomPersistencePort roomPersistencePort;
 
+    /**
+     * Constructs a new instance of EventManager using the provided ports to provide access to data
+     *
+     * @param userPersistencePort  instance of UserPersistencePort, giving access to User data
+     * @param eventPersistencePort instance of EventPersistencePort, giving access to Event data
+     * @param roomPersistencePort  instance of RoomPersistencePort, giving access to Room data
+     */
     public EventManager(UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort,
                         RoomPersistencePort roomPersistencePort) {
         this.userPersistencePort = userPersistencePort;
@@ -35,7 +45,7 @@ public class EventManager {
      * Checks if there is a collision with the given user and event. Specifically, it checks whether the user
      * has an event at the same time as the provided event.
      *
-     * @param user the user
+     * @param user  the user
      * @param event the event
      * @return true if there is a collision, false otherwise
      */
@@ -46,8 +56,8 @@ public class EventManager {
         }).collect(Collectors.toList());
 
         return events.stream().anyMatch(userEvent -> {
-           return userEvent.getEndTime().isAfter(event.getStartTime()) &&
-                   userEvent.getStartTime().isBefore(event.getEndTime());
+            return userEvent.getEndTime().isAfter(event.getStartTime()) &&
+                    userEvent.getStartTime().isBefore(event.getEndTime());
         });
     }
 
@@ -56,21 +66,23 @@ public class EventManager {
      *
      * @param userId user id
      * @return list of events which are available
+     * @throws UserNotFoundException no user corresponds to the provided id
      */
     public List<EventData> getAvailableEvents(String userId) throws UserNotFoundException {
         User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         List<Event> events = eventPersistencePort.getAllEvents();
         LocalDateTime currentTime = LocalDateTime.now();
         return events.stream().filter(e -> user.getType() == UserType.VIP || !e.isVipOnlyEvent())
-                              .filter(e -> e.getStartTime().isAfter(currentTime))
-                              .filter(e -> !user.getEvents().contains(e.getId()))
-                              .filter(e -> user.getType() != UserType.ATTENDEE || !hasEventCollision(user, e))
-                              .map(EventData::new)
-                              .collect(Collectors.toList());
+                .filter(e -> e.getStartTime().isAfter(currentTime))
+                .filter(e -> !user.getEvents().contains(e.getId()))
+                .filter(e -> user.getType() != UserType.ATTENDEE || !hasEventCollision(user, e))
+                .map(EventData::new)
+                .collect(Collectors.toList());
     }
 
     /**
      * Get a list of events for the given user.
+     *
      * @param userId the user id
      * @return a list of events
      */
@@ -91,8 +103,13 @@ public class EventManager {
 
     /**
      * Register the given user for the provided event.
+     *
      * @param eventId event id
-     * @param userId user id
+     * @param userId  user id
+     * @throws UserNotFoundException no user corresponds with the provided id
+     * @throws EventNotFoundException no event corresponds with the provided id
+     * @throws FullEventException event specified is full
+     * @throws VipOnlyEventException event specified is only open for registration by VIPs
      */
     public void registerUserForEvent(String eventId, String userId) throws UserNotFoundException,
             EventNotFoundException, FullEventException {
@@ -103,30 +120,32 @@ public class EventManager {
             throw new FullEventException(eventId);
         if (event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP)) throw new VipOnlyEventException(eventId);
         eventPersistencePort.registerUserById(eventId, userId);
-        if (user.getType() == UserType.SPEAKER)
+        if (user.getType() == UserType.SPEAKER) {
             if (event.getSpeakerCount() >= event.getSpeakerLimit())
                 throw new FullEventException(eventId);
-            if (hasEventCollision(user, event))
+            if (!hasEventCollision(user, event))
                 eventPersistencePort.registerSpeakerById(eventId, userId);
+        }
     }
 
     /**
      * Create an event with the given event data.
+     *
      * @param eventData event data
      * @throws RoomNotFoundException if room is not found
-     * @throws FullRoomException if the room is full
+     * @throws FullRoomException     if the room is full
      */
     public void createEvent(EventData eventData) throws RoomNotFoundException, FullRoomException {
         Event event = new Event(UUID.randomUUID().toString(), eventData.getName(), eventData.getDescription(),
-                                eventData.getStartTime(), eventData.getEndTime(), eventData.getRoomId(),
-                                eventData.getSpeakerLimit(), eventData.getUserLimit(), eventData.isVipOnlyEvent());
+                eventData.getStartTime(), eventData.getEndTime(), eventData.getRoomId(),
+                eventData.getSpeakerLimit(), eventData.getUserLimit(), eventData.isVipOnlyEvent());
 
         Room room = roomPersistencePort.findById(event.getRoomId())
-                                                      .orElseThrow(() -> new RoomNotFoundException(event.getRoomId()));
+                .orElseThrow(() -> new RoomNotFoundException(event.getRoomId()));
 
         List<Event> roomEvents = eventPersistencePort.getAllEvents().stream()
-                                                                    .filter(e -> e.getRoomId().equals(room.getId()))
-                                                                    .collect(Collectors.toList());
+                .filter(e -> e.getRoomId().equals(room.getId()))
+                .collect(Collectors.toList());
         // sum of user limits for all events in the room
         int totalRoomEventLimit = roomEvents.stream().mapToInt(Event::getUserLimit).sum();
         if (totalRoomEventLimit + event.getUserLimit() >= room.getCapacity())

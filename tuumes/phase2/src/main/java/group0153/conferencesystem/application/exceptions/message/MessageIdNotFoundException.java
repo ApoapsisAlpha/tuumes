@@ -1,4 +1,4 @@
-package group0153.conferencesystem.application.exceptions;
+package group0153.conferencesystem.application.exceptions.message;
 
 /**
  * An exception class that is thrown when message id is not found.

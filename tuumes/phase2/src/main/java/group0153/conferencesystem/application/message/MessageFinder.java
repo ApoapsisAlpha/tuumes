@@ -1,6 +1,6 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.application.message.exception.*;
+import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
