@@ -27,9 +27,10 @@ public class MessageComposeRequest {
      * Get recipient email.
      *
      * @return Value of recipientEmail.
+     * @throws InvalidInputException when the recipient email was not inputted by the user
      */
     public String getRecipientEmail() throws InvalidInputException {
-        if(recipientEmail.isEmpty()){
+        if (recipientEmail.isEmpty()) {
             throw new InvalidInputException("email");
         }
         return recipientEmail;
@@ -39,9 +40,10 @@ public class MessageComposeRequest {
      * Get content of message.
      *
      * @return Value of content.
+     * @throws InvalidInputException when the message content was not inputted by the user
      */
     public String getContent() throws InvalidInputException {
-        if(content.isEmpty()){
+        if (content.isEmpty()) {
             throw new InvalidInputException("message content");
         }
         return content;
@@ -51,9 +53,10 @@ public class MessageComposeRequest {
      * Get id of user.
      *
      * @return Value of userId.
+     * @throws InvalidInputException when the user id does not correspond to a stored user
      */
     public String getUserId() throws InvalidInputException {
-        if (userId.isEmpty()){
+        if (userId.isEmpty()) {
             throw new InvalidInputException("user id");
         }
         return userId;

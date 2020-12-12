@@ -1,5 +1,8 @@
 package group0153.conferencesystem.adapters.controllers.event.requests;
 
+/**
+ * A class that facilitates the creation of an event as requested.
+ */
 public class EventCreationRequest {
     private String name;
     private String description;
@@ -11,7 +14,6 @@ public class EventCreationRequest {
     private boolean isVipOnlyEvent;
 
     /**
-     *
      * @param name           Name of event
      * @param description    Description of event
      * @param startTime      Start time of event
@@ -35,6 +37,7 @@ public class EventCreationRequest {
 
     /**
      * Get the name of the event.
+     *
      * @return the name of the event.
      */
     public String getName() {
@@ -43,6 +46,7 @@ public class EventCreationRequest {
 
     /**
      * Get the description of the event.
+     *
      * @return a String description of the event.
      */
     public String getDescription() {
@@ -51,6 +55,7 @@ public class EventCreationRequest {
 
     /**
      * Get the event start time.
+     *
      * @return the start time of this event
      */
     public Long getStartTime() {
@@ -59,6 +64,7 @@ public class EventCreationRequest {
 
     /**
      * Get the event end time.
+     *
      * @return the end time of this event.
      */
     public Long getEndTime() {
@@ -67,6 +73,7 @@ public class EventCreationRequest {
 
     /**
      * Get the id of the room this event takes place in.
+     *
      * @return the id of the room the event takes place in.
      */
     public String getRoomId() {
@@ -75,6 +82,7 @@ public class EventCreationRequest {
 
     /**
      * Get the limit of number of speakers for this event.
+     *
      * @return the limit of the number of speakers for this event.
      */
     public int getSpeakerLimit() {
@@ -83,6 +91,7 @@ public class EventCreationRequest {
 
     /**
      * Get the maximum number of attendees allowed in this event.
+     *
      * @return the integer total number of users allowed to attend this event.
      */
     public int getUserLimit() {
@@ -91,6 +100,7 @@ public class EventCreationRequest {
 
     /**
      * Get whether this event is a VIP-only event.
+     *
      * @return a boolean indicating whether this event is a VIP-only event.
      */
     public boolean isVipOnlyEvent() {

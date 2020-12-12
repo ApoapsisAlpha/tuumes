@@ -117,6 +117,11 @@ public class EventRegistryManager {
         eventPersistencePort.saveEvent(event);
     }
 
+    /**
+     * Cancels an event - if it exists - on request
+     *
+     * @param eventId the String id of the event to be cancelled
+     */
     public void cancelEvent(String eventId){
         Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
         if (!eventPersistencePort.getAllEventIds().contains(eventId)){
