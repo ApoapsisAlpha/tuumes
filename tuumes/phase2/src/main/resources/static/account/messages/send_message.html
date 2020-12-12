@@ -49,7 +49,6 @@
             <div class="form-group" id="recipient_selector">
                 <select class="browser-default custom-select" id="recipient" name="recipient" onchange="switchContact();">
                     <option disabled hidden selected>Recipient</option>
-                    <option value="...">...</option>
                 </select>
             </div>
 
@@ -107,7 +106,7 @@
         data['recipientEmail'] = $("#recipient").val();
         data['userId'] = USER_ID;
 
-        $.postJSON("/message/compose", data, function(result) {
+        $.postJSON("/messages/send", data, function(result) {
             console.log(result);
 
             if (result.valid) {
@@ -131,7 +130,7 @@
     });
 
     function getContacts() {
-        $.getJSON("/users/contacts", {
+        $.getJSON("/users/contacts/view", {
             userId: USER_ID,
         }, function(result) {
             let to_print = `<option disabled hidden selected>Recipient</option>`;
@@ -141,7 +140,7 @@
                 `;
             });
 
-            $("#messages").html(to_print);
+            $("#recipient").html(to_print);
         });
     }
 

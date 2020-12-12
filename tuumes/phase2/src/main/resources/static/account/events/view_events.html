@@ -71,12 +71,6 @@
                         <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
                     `;
                 });
-                if (USER_TYPE == userType.ORGANIZER) {
-                    print_delete = `
-                    <a class="btn btn-default" id="register" href="../organizer/modify_event.html#${event.id}">
-                        <i class="fas fa-edit"></i> Modify
-                    </a>`;
-                }
                 let userCount = event.userIds.length;
                 to_print += `
                 <div class="container white text-center mt-4 pt-4">
@@ -93,7 +87,6 @@
                     <button class="btn btn-secondary" id="register" type="button" onclick="registerEvent('${event.id}');">
                         <i class="fa fa-calendar-plus fa-lg mr-2"></i> Register
                     </button>
-                    ${print_delete}
                     <br><br>
                 </div>
                 `;

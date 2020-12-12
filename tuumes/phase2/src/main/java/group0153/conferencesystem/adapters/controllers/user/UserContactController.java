@@ -18,7 +18,7 @@ import java.util.List;
  * A controller class facilitating the user's interactions with their contacts.
  */
 @RestController
-@RequestMapping(value = "/user/contacts")
+@RequestMapping(value = "/users/contacts")
 public class UserContactController {
     private final UserContactManager userContactManager;
 

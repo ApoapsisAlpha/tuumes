@@ -84,15 +84,30 @@
                     <p class="mt-2 mb-2">Capacity: ${userCount}/${event.userLimit}</p>
                     ${print_speakers}
                     <br>
-                    <a class="btn btn-default" id="register" href="../organizer/modify_event.html#${event.id}">
+                    <!--- <a class="btn btn-default" id="register" href="../organizer/modify_event.html#${event.id}">
                         <i class="fas fa-edit"></i> Modify
-                    </a>
+                    </a> --->
+                    <button class="btn btn-default" id="delete" onclick="deleteEvent('${event.id}')">
+                        <i class="fas fa-edit"></i> Delete
+                    </button> 
                     <br><br>
                 </div>
                 `;
             });
             $("#events").html(to_print);
         });
+    }
+
+    function deleteEvent(eventId) {
+        $.postJSON("/users/contacts/remove", {
+            eventId: eventId
+        }, function(result) {
+            
+            getEvents();
+        });
+
+        alert("A fatal error occured");
+        return false;
     }
 
     getEvents();

@@ -142,6 +142,11 @@
         data['speakerLimit'] = parseInt(data['speakerLimit']);
         data['userLimit'] = parseInt(data['userLimit']);
 
+        if (data['startTime'] >= data['endTime']) {
+            toastr.error("Bad time input, try something else.");
+            return false;
+        }
+
         console.log(data);
 
         $.postJSON("/events", data, function(result) {

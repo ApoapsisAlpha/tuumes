@@ -133,5 +133,20 @@ public class EventController {
         }
     }
 
+    /**
+     * Allows an organizer to delete an event based on their inputs.
+     *
+     * @param eventId id of the event to be deleted.
+     * @return response indicating sucess/failure
+     */
+    @PostMapping("/remove")
+    public ResponseEntity<Response> deleteEvent(@RequestHeader(value = "eventId") String eventId) {
+        try {
+            eventRegistrationManager.cancelEvent(eventId);
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (EventNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.OK);
+        }
+    }
 
 }

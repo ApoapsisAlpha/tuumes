@@ -117,13 +117,13 @@
                     <p>${msg.recipient}</p>
                     <p class="mb-3">${msg.content}</p>
                     ${mark_button}
-                    <button class="btn btn-warning" onclick="markArchive(${msg.id})">
+                    <button class="btn btn-warning" onclick="markArchive('${msg.id}')">
                         <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
                     </button>
                     <a class="btn btn-secondary" href="send_message.html#${msg.email}">
                         <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
                     </a>
-                    <button class="btn btn-danger" onclick="deleteMsg(${msg.id})">
+                    <button class="btn btn-danger" onclick="deleteMsg('${msg.id}')">
                         <i class="far fa-trash-alt"></i> &thinsp; Delete
                     </button>
                     <br><br>
