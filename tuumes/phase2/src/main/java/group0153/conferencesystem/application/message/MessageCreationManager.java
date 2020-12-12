@@ -29,6 +29,8 @@ public class MessageCreationManager {
      * Constructor to instantiate a MessageCreationManager using message repository
      *
      * @param messagePersistencePort where messages are stored
+     * @param userPersistencePort    where users are stored
+     * @param eventPersistencePort   where events are stored
      */
     public MessageCreationManager(MessagePersistencePort messagePersistencePort,
                                   UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort) {
@@ -41,8 +43,8 @@ public class MessageCreationManager {
      * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
-     * @param senderId: id of sender
-     * @param recipientIds: an ArrayList of the recipient(s)'s id(s)
+     * @param senderId:       id of sender
+     * @param recipientIds:   an ArrayList of the recipient(s)'s id(s)
      * @return the id of the message created
      */
     public String create(String messageContent, String senderId, ArrayList<String> recipientIds) {
@@ -56,7 +58,7 @@ public class MessageCreationManager {
      * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
-     * @param senderId: id of sender
+     * @param senderId:       id of sender
      * @param recipientEmail: a recipient's email
      * @throws UserNotFoundException if given user is not found
      */
@@ -76,8 +78,8 @@ public class MessageCreationManager {
      * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
-     * @param senderId: id of sender
-     * @param eventId: an event id
+     * @param senderId:       id of sender
+     * @param eventId:        an event id
      * @throws EventNotFoundException if given event is not found
      */
     public void sendToEvent(String messageContent, String senderId, String eventId) throws EventNotFoundException {
@@ -88,12 +90,12 @@ public class MessageCreationManager {
         String newId = UUID.randomUUID().toString();
         List<String> attendees = eventPresent.get().getUserIds();
         ArrayList<String> recipients = new ArrayList<>();
-        for(String id : attendees){
+        for (String id : attendees) {
             Optional<User> userPresent = userPersistencePort.findById(id);
             if (!userPresent.isPresent())
                 throw new UserNotFoundException(id);
 
-            if (userPresent.get().getType() != UserType.SPEAKER){
+            if (userPresent.get().getType() != UserType.SPEAKER) {
                 recipients.add(id);
             }
         }
@@ -105,8 +107,8 @@ public class MessageCreationManager {
      * Create a message with the provided parameters
      *
      * @param messageContent: String with the message's content
-     * @param senderId: id of sender
-     * @param eventIds: a list of event ids
+     * @param senderId:       id of sender
+     * @param eventIds:       a list of event ids
      * @throws EventNotFoundException if given event is not found
      */
     public void sendToMultiEvent(String messageContent, String senderId, List<String> eventIds) throws EventNotFoundException {
