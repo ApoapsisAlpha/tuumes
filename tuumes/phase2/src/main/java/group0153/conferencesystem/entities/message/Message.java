@@ -15,9 +15,9 @@ public class Message {
     private final String senderId; // the sender's id
     private final ArrayList<String> recipientIds;
 
-    private Set<String> readSet;
-    private Set<String> archivedSet;
-    private Set<String> deletedSet;
+    private final Set<String> readSet;
+    private final Set<String> archivedSet;
+    private final Set<String> deletedSet;
 
     /**
      * Constructor that instantiates a Message instance.
@@ -36,9 +36,9 @@ public class Message {
         this.messageContent = messageContent;
         this.senderId = senderId;
         this.recipientIds = recipientIds;
-        Set<String> readSet = new HashSet<>();
-        Set<String> archivedSet = new HashSet<>();
-        Set<String> deletedSet = new HashSet<>();
+        this.readSet = new HashSet<>();
+        this.archivedSet = new HashSet<>();
+        this.deletedSet = new HashSet<>();
     }
 
     /**
