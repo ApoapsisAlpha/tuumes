@@ -25,12 +25,13 @@ public class MessageComposeEventRequest {
     }
 
     /**
-     * Get recipient email.
+     * Get id of the event.
      *
      * @return Value of eventId.
+     * @throws InvalidInputException when the event specified by eventId does not exist
      */
     public String getEventId() throws InvalidInputException {
-        if(eventId.isEmpty()){
+        if (eventId.isEmpty()) {
             throw new InvalidInputException("event id");
         }
         return eventId;
@@ -40,9 +41,10 @@ public class MessageComposeEventRequest {
      * Get content of message.
      *
      * @return Value of content.
+     * @throws InvalidInputException when no content is entered into the message field by the user
      */
     public String getContent() throws InvalidInputException {
-        if(content.isEmpty()){
+        if (content.isEmpty()) {
             throw new InvalidInputException("message content");
         }
         return content;
@@ -52,9 +54,10 @@ public class MessageComposeEventRequest {
      * Get id of user.
      *
      * @return Value of userId.
+     * @throws InvalidInputException when there is no user id specified
      */
     public String getUserId() throws InvalidInputException {
-        if(userId.isEmpty()){
+        if (userId.isEmpty()) {
             throw new InvalidInputException("user id");
         }
         return userId;

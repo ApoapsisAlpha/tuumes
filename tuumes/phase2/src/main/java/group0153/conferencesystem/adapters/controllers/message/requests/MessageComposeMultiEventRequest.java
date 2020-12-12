@@ -16,9 +16,9 @@ public class MessageComposeMultiEventRequest {
     /**
      * Construct an instance of MessageComposeResource using the provided information about a message
      *
-     * @param content        String content of the message
-     * @param eventIds       String ids of the events to message
-     * @param userId         String id of the user that sent this message
+     * @param content  String content of the message
+     * @param eventIds String ids of the events to message
+     * @param userId   String id of the user that sent this message
      */
     public MessageComposeMultiEventRequest(String content, List<String> eventIds, String userId) {
         this.content = content;
@@ -30,9 +30,10 @@ public class MessageComposeMultiEventRequest {
      * Get recipient email.
      *
      * @return Value of eventIds.
+     * @throws InvalidInputException when no events are specified
      */
     public List<String> getEventIds() throws InvalidInputException {
-        if (eventIds.isEmpty()){
+        if (eventIds.isEmpty()) {
             throw new InvalidInputException("event ids");
         }
         return eventIds;
@@ -42,9 +43,10 @@ public class MessageComposeMultiEventRequest {
      * Get content of message.
      *
      * @return Value of content.
+     * @throws InvalidInputException when no message content is specified
      */
     public String getContent() throws InvalidInputException {
-        if (content.isEmpty()){
+        if (content.isEmpty()) {
             throw new InvalidInputException("message content");
         }
         return content;
@@ -54,9 +56,10 @@ public class MessageComposeMultiEventRequest {
      * Get id of user.
      *
      * @return Value of userId.
+     * @throws InvalidInputException when no user corresponds to the user id
      */
     public String getUserId() throws InvalidInputException {
-        if (userId.isEmpty()){
+        if (userId.isEmpty()) {
             throw new InvalidInputException("user id");
         }
         return userId;
