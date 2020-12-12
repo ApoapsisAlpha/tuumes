@@ -25,7 +25,7 @@ public class MessageModel {
     @OneToOne
     private UserModel sender;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<UserModel> recipients;
 
     /**

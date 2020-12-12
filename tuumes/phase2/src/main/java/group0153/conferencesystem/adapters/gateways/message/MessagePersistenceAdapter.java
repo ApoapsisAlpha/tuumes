@@ -45,6 +45,9 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
         }).collect(Collectors.toSet());
         UserModel sender = userRepository.findByResourceId(message.getSenderId()).get();
         MessageModel messageModel = new MessageModel(message.getId(), message.getMessageContent(), sender, recipients);
+        for (UserModel recipient : recipients) {
+            recipient.getMessages().add(messageModel);
+        }
 
         messageRepository.save(messageModel);
     }
