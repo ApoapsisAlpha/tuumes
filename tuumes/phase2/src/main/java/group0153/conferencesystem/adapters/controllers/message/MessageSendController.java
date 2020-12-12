@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeEventRequest;
+import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeMultiEventRequest;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeRequest;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
@@ -46,6 +47,18 @@ public class MessageSendController {
             messageCreationManager.sendToEvent(messageComposeEventRequest.getContent(),
                     messageComposeEventRequest.getUserId(),
                     messageComposeEventRequest.getEventId());
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (EventNotFoundException e){
+            return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/send_multi_event")
+    public ResponseEntity<Response> sendMultiEventMessage(@RequestBody MessageComposeMultiEventRequest messageComposeMultiEventRequest) {
+        try {
+            messageCreationManager.sendToMultiEvent(messageComposeMultiEventRequest.getContent(),
+                    messageComposeMultiEventRequest.getUserId(),
+                    messageComposeMultiEventRequest.getEventIds());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);

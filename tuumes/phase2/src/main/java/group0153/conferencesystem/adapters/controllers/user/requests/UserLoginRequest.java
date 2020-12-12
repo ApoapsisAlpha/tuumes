@@ -10,6 +10,16 @@ public class UserLoginRequest {
     private String password;
 
     /**
+     * Creates a UserLoginRequest instance
+     * @param email The email of the request
+     * @param password The password of the login
+     */
+    public UserLoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    /**
      * Gets email.
      *
      * @return Value of email.
@@ -18,6 +28,7 @@ public class UserLoginRequest {
     public String getEmail() throws InvalidInputException {
         if (email.isEmpty())
             throw new InvalidInputException("email");
+
         return email;
     }
 
@@ -30,6 +41,7 @@ public class UserLoginRequest {
     public String getPassword() throws InvalidInputException {
         if (password.isEmpty())
             throw new InvalidInputException("password");
+
         return password;
     }
 }

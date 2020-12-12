@@ -1,30 +1,32 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
-public class MessageComposeEventRequest {
+import java.util.List;
+
+public class MessageComposeMultiEventRequest {
     private final String content;
-    private final String eventId;
+    private final List<String> eventIds;
     private final String userId;
 
     /**
      * Construct an instance of MessageComposeResource using the provided information about a message
      *
      * @param content        String content of the message
-     * @param eventId        String id of the event to message
+     * @param eventIds       String ids of the events to message
      * @param userId         String id of the user that sent this message
      */
-    public MessageComposeEventRequest(String content, String eventId, String userId) {
+    public MessageComposeMultiEventRequest(String content, List<String> eventIds, String userId) {
         this.content = content;
-        this.eventId = eventId;
+        this.eventIds = eventIds;
         this.userId = userId;
     }
 
     /**
      * Get recipient email.
      *
-     * @return Value of eventId.
+     * @return Value of eventIds.
      */
-    public String getEventId() {
-        return eventId;
+    public List<String> getEventIds() {
+        return eventIds;
     }
 
     /**
