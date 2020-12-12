@@ -27,7 +27,7 @@ public class UserModel {
     @ManyToMany(cascade = CascadeType.MERGE)
     private Set<EventModel> events;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<MessageModel> messages;
 
     /**
