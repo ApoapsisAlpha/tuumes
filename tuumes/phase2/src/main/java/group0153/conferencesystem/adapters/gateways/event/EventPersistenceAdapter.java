@@ -6,7 +6,6 @@ import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import group0153.conferencesystem.adapters.gateways.user.UserRepository;
 import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.entities.event.Event;
-import group0153.conferencesystem.entities.room.Room;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -136,6 +135,26 @@ public class EventPersistenceAdapter implements EventPersistencePort {
             eventModel.get().getSpeakers().remove(userModel.get());
             eventRepository.flush();
         }
+    }
+
+    /**
+     * Delete a event from the database.
+     *
+     * @param eventId the event id of the event to delete.
+     */
+    @Override
+    public void deleteEvent(String eventId) {
+
+    }
+
+    /**
+     * Gets all event ids from the database.
+     *
+     * @return A list of all event ids at the conference.
+     */
+    @Override
+    public List<String> getAllEventIds() {
+        return null;
     }
 
 }

@@ -8,7 +8,7 @@ import group0153.conferencesystem.application.user.data.UserContactData;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.user.User;
 import group0153.conferencesystem.entities.user.UserType;
-import group0153.conferencesystem.application.event.EventRegistryManager;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +19,8 @@ import java.util.stream.Stream;
 /**
  * A manager class get the list of events according by request
  */
-public class EventGetter {
+@Component
+public class EventFinder {
     UserPersistencePort userPersistencePort;
     EventPersistencePort eventPersistencePort;
     RoomPersistencePort roomPersistencePort;
@@ -31,8 +32,8 @@ public class EventGetter {
      * @param eventPersistencePort instance of EventPersistencePort, giving access to Event data
      * @param roomPersistencePort  instance of RoomPersistencePort, giving access to Room data
      */
-    public EventGetter(UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort,
-                                RoomPersistencePort roomPersistencePort) {
+    public EventFinder(UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort,
+                       RoomPersistencePort roomPersistencePort) {
         this.userPersistencePort = userPersistencePort;
         this.eventPersistencePort = eventPersistencePort;
         this.roomPersistencePort = roomPersistencePort;

@@ -1,10 +1,14 @@
 package group0153.conferencesystem.adapters.gateways.message;
 
+import group0153.conferencesystem.adapters.gateways.user.UserModel;
+import group0153.conferencesystem.adapters.gateways.user.UserRepository;
 import group0153.conferencesystem.application.message.MessagePersistencePort;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A class facilitating the retrieval and saving of information pertaining to messages to/from the database.
@@ -12,14 +16,16 @@ import java.util.Optional;
 public class MessagePersistenceAdapter implements MessagePersistencePort {
 
     private MessageRepository messageRepository;
+    private UserRepository userRepository;
 
     /**
      * Construct an instance of MessagePersistenceAdapter using the provided MessageRepository instance.
      *
      * @param messageRepository instance of MessageRepository that can facilitate message saving and retrieval
      */
-    public MessagePersistenceAdapter(MessageRepository messageRepository) {
+    public MessagePersistenceAdapter(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -29,6 +35,48 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public void saveMessage(Message message) {
+        Set<UserModel> recipients = message.getRecipientIds().stream().map(recipientId -> {
+            return userRepository.findByResourceId(recipientId).get();
+        }).collect(Collectors.toSet());
+        UserModel sender = userRepository.findByResourceId(message.getSenderId()).get();
+        MessageModel messageModel = new MessageModel(message.getId(), message.getMessageContent(), sender, recipients);
+
+        messageRepository.save(messageModel);
+    }
+
+    /**
+     * Given a Message that already exists, update the database Model to the given Message's read status
+     *
+     * @param message The message to be updated
+     * @param userId  The user to update
+     * @param status  The new status
+     */
+    @Override
+    public void updateMessageReadStatus(Message message, String userId, boolean status) {
+
+    }
+
+    /**
+     * Given a Message that already exists, update the database Model to the given Message's archived status
+     *
+     * @param message The message to be updated
+     * @param userId  The user to update
+     * @param status  The new status
+     */
+    @Override
+    public void updateMessageArchivedStatus(Message message, String userId, boolean status) {
+
+    }
+
+    /**
+     * Given a Message that already exists, update the database Model to the given Message's archived status
+     *
+     * @param message The message to be updated
+     * @param userId  The user to update
+     * @param status  The new status
+     */
+    @Override
+    public void updateMessageDeletedStatus(Message message, String userId, boolean status) {
 
     }
 
