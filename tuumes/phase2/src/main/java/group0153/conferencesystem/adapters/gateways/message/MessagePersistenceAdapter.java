@@ -123,7 +123,9 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public List<Message> getMsgsToUser(String user) {
-        return null;
+        List<MessageModel> messageModels = messageRepository.findAllByRecipientId(user);
+        MessageMapper mapper = new MessageMapper();
+        return messageModels.stream().map(m -> mapper.mapModelToEntity(Optional.of(m)).get()).collect(Collectors.toList());
     }
 
     /**
@@ -134,6 +136,9 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public List<String> getMsgIdsBySender(String sender) {
-        return null;
+        UserModel userModel = userRepository.findByResourceId(sender).get();
+        List<MessageModel> messageModels = messageRepository.findAllBySender(userModel);
+        MessageMapper mapper = new MessageMapper();
+        return messageModels.stream().map(m -> mapper.mapModelToEntity(Optional.of(m)).get().getId()).collect(Collectors.toList());
     }
 }
