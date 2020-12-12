@@ -6,10 +6,18 @@ import group0153.conferencesystem.entities.message.Message;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A class facilitating the retrieval and saving of information pertaining to messages to/from the database.
+ */
 public class MessagePersistenceAdapter implements MessagePersistencePort {
 
     private MessageRepository messageRepository;
 
+    /**
+     * Construct an instance of MessagePersistenceAdapter using the provided MessageRepository instance.
+     *
+     * @param messageRepository instance of MessageRepository that can facilitate message saving and retrieval
+     */
     public MessagePersistenceAdapter(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
