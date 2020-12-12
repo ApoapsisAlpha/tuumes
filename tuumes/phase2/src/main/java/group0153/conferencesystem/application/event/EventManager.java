@@ -119,8 +119,12 @@ public class EventManager {
 
         if (event.getUserCount() >= event.getUserLimit())
             throw new FullEventException(eventId);
-        if (event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP)) throw new VipOnlyEventException(eventId);
+
+        if (event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP))
+            throw new VipOnlyEventException(eventId);
+
         eventPersistencePort.registerUserById(eventId, userId);
+
         if (user.getType() == UserType.SPEAKER) {
             if (event.getSpeakerCount() >= event.getSpeakerLimit())
                 throw new FullEventException(eventId);
@@ -137,17 +141,15 @@ public class EventManager {
      * @throws UserNotFoundException no user corresponds with the provided id
      * @throws EventNotFoundException no event corresponds with the provided id
      */
-    public void unregisterUserForEvent(String eventId, String userId) throws UserNotFoundException,
+    public void unregisterUserFromEvent(String eventId, String userId) throws UserNotFoundException,
             EventNotFoundException{
         User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
-        if (!event.getUserIds().contains(userId)){
-            throw new UserNotFoundException(userId);
-        }
-        if (!user.getEvents().contains(eventId)){
-            throw new EventNotFoundException(eventId);
-        }
+
         eventPersistencePort.unregisterUserById(eventId, userId);
+        if (user.getType() == UserType.SPEAKER) {
+            eventPersistencePort.unregisterSpeakerById(eventId, userId);
+        }
     }
 
     /**
@@ -189,6 +191,7 @@ public class EventManager {
 
         EventData data = new EventData(e);
         data.setSpeakerData(speakerData);
+        data.setRoomName(roomPersistencePort.findById(e.getRoomId()).get().getName());
         return data;
     }
 }

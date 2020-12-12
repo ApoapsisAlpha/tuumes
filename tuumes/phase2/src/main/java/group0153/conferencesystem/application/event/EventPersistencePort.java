@@ -46,8 +46,15 @@ public interface EventPersistencePort {
 
     /**
      * Unregister a user from an event.
-     * @param eventId The event id in which the speaker is added to.
-     * @param userId The speaker id that is added to an event.
+     * @param eventId The event id in which the user is added to.
+     * @param userId The user id that is added to an event.
      */
     void unregisterUserById(String eventId, String userId);
+
+    /**
+     * Unregister a speaker from an event.
+     * @param eventId The event id in which the user is added to.
+     * @param userId The user id that is added to an event.
+     */
+    void unregisterSpeakerById(String eventId, String userId);
 }
