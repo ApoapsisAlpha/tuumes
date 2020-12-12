@@ -13,6 +13,7 @@ public class RoomData implements Data {
     /**
      * Construct a new instance of RoomData with the specified information
      *
+     * @param id       the id of the room
      * @param name     the String name of the room
      * @param capacity the int total capacity of the room
      */

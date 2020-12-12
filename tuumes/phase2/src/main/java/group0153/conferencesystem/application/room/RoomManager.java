@@ -31,7 +31,6 @@ public class RoomManager {
      *
      * @param name     the name of the room
      * @param capacity the capacity of the room
-     * @return the id of the created room
      */
     public void createRoom(String name, int capacity) {
         String id = UUID.randomUUID().toString();
