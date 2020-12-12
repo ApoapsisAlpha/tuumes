@@ -7,10 +7,8 @@ import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
 import group0153.conferencesystem.application.message.data.MessageData;
-import group0153.conferencesystem.application.message.exception.MessageIdNotFoundException;
-import group0153.conferencesystem.application.message.exception.NoArchivedMessagesException;
-import group0153.conferencesystem.application.message.exception.NoMessagesReceivedException;
-import group0153.conferencesystem.application.message.exception.NoUnarchivedMessagesException;
+import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +62,7 @@ public class MessageController {
             ArrayList<String> msgIds = messageFinder.getUnarchivedMsgsByUser(userId);
             ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoUnarchivedMessagesException | NoMessagesReceivedException | MessageIdNotFoundException e) {
+        } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         }
     }
@@ -82,7 +80,7 @@ public class MessageController {
             ArrayList<String> msgIds = messageFinder.getArchivedMsgsByUser(userId);
             ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoArchivedMessagesException | NoMessagesReceivedException | MessageIdNotFoundException e) {
+        } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         }
     }
@@ -100,7 +98,7 @@ public class MessageController {
             ArrayList<String> msgIds = messageFinder.getUnreadMsgsByUser(userId);
             ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoArchivedMessagesException | NoMessagesReceivedException | MessageIdNotFoundException e) {
+        } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         }
     }

@@ -1,6 +1,6 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.application.message.exception.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;
@@ -116,6 +116,7 @@ public class MessageManager {
      * Given a message's id, return the recipient(s)'s id(s).
      * @param msgId the message id of the message to return the recipient of.
      * @return A list of recipient id(s)
+     * @throws MessageIdNotFoundException Thrown if message doesn't exist
      */
 
     public ArrayList<String> getRecipientIdsByMsgId(String msgId){

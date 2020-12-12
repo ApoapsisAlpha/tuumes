@@ -1,6 +1,6 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.application.message.exception.*;
+import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
@@ -29,12 +29,12 @@ public class MessageFinder {
      *
      * @param sender Sender of the message(s)
      * @return A list of message ids
-     * @throws NoMessagesSentException No messages have been sent by sender
+     * @throws NoMessagesFoundException No messages have been sent by sender
      */
     public ArrayList<String> findMsgIdsBySender(String sender){
         ArrayList<String> msgIds = messagePersistencePort.getMsgIdsBySender(sender);
         if(!msgIds.isEmpty())
-            throw new NoMessagesSentException();
+            throw new NoMessagesFoundException("sent");
 
         return msgIds;
     }
@@ -44,12 +44,12 @@ public class MessageFinder {
      *
      * @param user recipient id of the message(s)
      * @return A list of messages received by user
-     * @throws NoMessagesReceivedException No messages have been received by recipient
+     * @throws NoMessagesFoundException No messages have been received by recipient
      */
     private ArrayList<Message> findMsgsByRecipient(String user){
         ArrayList<Message> messages = messagePersistencePort.getMsgsToUser(user);
         if(messages.isEmpty())
-            throw new NoMessagesReceivedException();
+            throw new NoMessagesFoundException("received");
 
         return messages;
     }
@@ -58,14 +58,14 @@ public class MessageFinder {
      * Given user's id, get all their archived messages
      * @param user: id of the user whose archived messages are being returned
      * @return List of all archived message ids
-     * @throws NoArchivedMessagesException No messages have been archived by recipient
+     * @throws NoMessagesFoundException No messages have been archived by recipient
      */
     public ArrayList<String> getArchivedMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> archivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
-            throw new NoArchivedMessagesException();
+            throw new NoMessagesFoundException("archived");
         else{
             for (Message message: messages){
                 if(message.isArchived() && !message.isDeleted()){
@@ -80,14 +80,14 @@ public class MessageFinder {
      * Given user's id, get all their unarchived messages
      * @param user: id of the user whose unarchived messages are being returned
      * @return List of all unarchived message ids
-     * @throws NoUnarchivedMessagesException No unarchived messages have been sent to user
+     * @throws NoMessagesFoundException No unarchived messages have been sent to user
      */
     public ArrayList<String> getUnarchivedMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> unarchivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
-            throw new NoUnarchivedMessagesException();
+            throw new NoMessagesFoundException("unarchived");
         else{
             for (Message message: messages){
                 if(!message.isArchived() && !message.isDeleted()){
@@ -103,14 +103,14 @@ public class MessageFinder {
      * Given user's id, get all their read messages
      * @param user: id of the user whose read messages are being returned
      * @return List of all read message ids
-     * @throws NoReadMessagesException A user has no unread messages.
+     * @throws NoMessagesFoundException A user has no unread messages.
      */
     public ArrayList<String> getReadMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> readMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
-            throw new NoReadMessagesException();
+            throw new NoMessagesFoundException("read");
         else{
             for (Message message: messages){
                 if(!message.isArchived() && message.isRead() && !message.isDeleted()){
@@ -126,14 +126,14 @@ public class MessageFinder {
      * Given user's id, get all their unread messages
      * @param user: id of the user whose unread messages are being returned
      * @return List of all unread message ids
-     * @throws NoUnreadMessagesException A user has no unread messages.
+     * @throws NoMessagesFoundException A user has no unread messages.
      */
     public ArrayList<String> getUnreadMsgsByUser(String user){
         ArrayList<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> unreadMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
-            throw new NoUnreadMessagesException();
+            throw new NoMessagesFoundException("unread");
         else{
             for (Message message: messages){
                 if(!message.isArchived() && !message.isRead() && !message.isDeleted()){
