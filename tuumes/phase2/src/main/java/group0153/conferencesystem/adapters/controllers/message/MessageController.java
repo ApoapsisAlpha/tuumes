@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
- * A controller class that facilitates the sending, viewing, and manipulating of messages as requested by the user
+ * A controller class that facilitates the viewing and manipulating of messages as requested by the user
  */
 @RestController
 @RequestMapping(value = "/messages")
