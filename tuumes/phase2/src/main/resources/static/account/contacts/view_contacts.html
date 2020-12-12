@@ -80,7 +80,7 @@
 
 <script>
     function getContacts() {
-        $.getJSON("/user/contacts/view", {
+        $.getJSON("/users/contacts/view", {
             userId: USER_ID,
         }, function(result) {
             console.log(result);
@@ -110,7 +110,7 @@
     }
 
     function removeContact(contactId) {
-        $.postJSON("/user/contacts/remove", {
+        $.postJSON("/users/contacts/remove", {
             userId: USER_ID,
             contactId: contactId
         }, function(result) {
@@ -122,7 +122,7 @@
     }
 
     function addContact() {
-        $.postJSON("/user/contacts/add", {
+        $.postJSON("/users/contacts/add", {
             userId: USER_ID,
             contactEmail: $("#newContactEmail").val()
         }, function(result) {

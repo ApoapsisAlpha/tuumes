@@ -106,7 +106,7 @@
 
 <script>
     function deleteEvent(eventId) {
-        $.postJSON("/user/contacts/remove", {
+        $.postJSON("/users/contacts/remove", {
             userId: USER_ID,
             eventId: eventId
         }, function(result) {
