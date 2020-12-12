@@ -2,6 +2,7 @@ package group0153.conferencesystem.application.message;
 
 import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
 import group0153.conferencesystem.entities.message.Message;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -9,7 +10,7 @@ import java.util.Optional;
 /**
  * A message use case class that has setters and getters for variables within a message.
  */
-
+@Component
 public class MessageManager {
     final MessagePersistencePort messagePersistencePort;
 

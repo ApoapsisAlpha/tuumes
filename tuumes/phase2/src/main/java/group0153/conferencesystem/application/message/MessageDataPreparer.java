@@ -3,6 +3,7 @@ package group0153.conferencesystem.application.message;
 import group0153.conferencesystem.application.message.data.MessageData;
 import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
 import group0153.conferencesystem.entities.message.Message;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * A message use case class that creates array lists of MessageData representing the
  * list of messages
  */
-
+@Component
 public class MessageDataPreparer {
     private final MessagePersistencePort messagePersistencePort;
 
