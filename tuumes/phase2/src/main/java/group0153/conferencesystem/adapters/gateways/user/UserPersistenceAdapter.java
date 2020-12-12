@@ -1,10 +1,14 @@
 package group0153.conferencesystem.adapters.gateways.user;
 
+import group0153.conferencesystem.adapters.gateways.event.EventMapper;
 import group0153.conferencesystem.application.user.UserPersistencePort;
+import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A class facilitating the retrieval and saving of information pertaining to users to the database.
@@ -84,5 +88,17 @@ public class UserPersistenceAdapter implements UserPersistencePort {
         UserModel contactModel = userRepository.findByResourceId(contactId).get();
         userModel.getContacts().add(contactModel);
         userRepository.flush();
+    }
+
+    /**
+     * Gets a list of all users at the conference.
+     * @return A list of all users at the conference.
+     */
+    @Override
+    public List<User> getAllUsers() {
+        UserMapper mapper = new UserMapper();
+        return userRepository.findAll().stream()
+                .map(userModel -> mapper.mapModelToEntity(Optional.of(userModel)).get())
+                .collect(Collectors.toList());
     }
 }
