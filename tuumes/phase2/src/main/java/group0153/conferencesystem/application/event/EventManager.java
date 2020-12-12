@@ -130,6 +130,27 @@ public class EventManager {
     }
 
     /**
+     * Unregister the given user for the provided event.
+     *
+     * @param eventId event id
+     * @param userId  user id
+     * @throws UserNotFoundException no user corresponds with the provided id
+     * @throws EventNotFoundException no event corresponds with the provided id
+     */
+    public void unregisterUserForEvent(String eventId, String userId) throws UserNotFoundException,
+            EventNotFoundException{
+        User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
+        if (!event.getUserIds().contains(userId)){
+            throw new UserNotFoundException(userId);
+        }
+        if (!user.getEvents().contains(eventId)){
+            throw new EventNotFoundException(eventId);
+        }
+        eventPersistencePort.unregisterUserById(eventId, userId);
+    }
+
+    /**
      * Create an event with the given event data.
      *
      * @param eventData event data

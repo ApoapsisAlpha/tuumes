@@ -49,7 +49,6 @@ public class EventPersistenceAdapter implements EventPersistencePort {
             EventModel eventModel = new EventModel(event.getId(), event.getName(), event.getDescription(),
                     event.getStartTime(), event.getEndTime(), roomModel.get(), event.getSpeakerLimit(),
                     event.getUserLimit(), event.isVipOnlyEvent());
-
             eventRepository.save(eventModel);
         }
     }
