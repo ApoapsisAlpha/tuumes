@@ -26,6 +26,7 @@ public class UserMapper {
 
             u.getContacts().forEach(contact -> user.addContact(contact.getResourceId()));
             u.getMessages().forEach(message -> user.addMessage(message.getResourceId()));
+            u.getMessages().forEach(event -> user.addEvent(event.getResourceId()));
             return Optional.of(user);
         });
     }

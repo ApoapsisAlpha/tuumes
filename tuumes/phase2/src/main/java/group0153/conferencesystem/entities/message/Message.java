@@ -15,9 +15,9 @@ public class Message {
     private final String senderId; // the sender's id
     private final ArrayList<String> recipientIds;
 
-    private Set<String> readSet;
-    private Set<String> archivedSet;
-    private Set<String> deletedSet;
+    private final Set<String> readSet;
+    private final Set<String> archivedSet;
+    private final Set<String> deletedSet;
 
     /**
      * Constructor that instantiates a Message instance.
@@ -36,9 +36,9 @@ public class Message {
         this.messageContent = messageContent;
         this.senderId = senderId;
         this.recipientIds = recipientIds;
-        Set<String> readSet = new HashSet<>();
-        Set<String> archivedSet = new HashSet<>();
-        Set<String> deletedSet = new HashSet<>();
+        this.readSet = new HashSet<>();
+        this.archivedSet = new HashSet<>();
+        this.deletedSet = new HashSet<>();
     }
 
     /**
@@ -71,10 +71,7 @@ public class Message {
      * @return true if message has been read
      */
     public boolean isRead(String recipientId) {
-        if (readSet.contains(userId)){
-            return true;
-        }
-        return false;
+        return readSet.contains(recipientId);
     }
 
     /**
@@ -83,10 +80,7 @@ public class Message {
      * @return true if message has been archived
      */
     public boolean isArchived(String recipientId) {
-        if (archivedSet.contains(recipientId)){
-            return true;
-        }
-        return false;
+        return archivedSet.contains(recipientId);
     }
 
     /**
@@ -95,10 +89,7 @@ public class Message {
      * @return true if message has been deleted
      */
     public boolean isDeleted(String recipientId) {
-        if (deletedSet.contains(recipientId)){
-            return true;
-        }
-        return false;
+        return deletedSet.contains(recipientId);
     }
 
     /**
@@ -106,9 +97,7 @@ public class Message {
      * @param recipientId recipient id
      */
     public void addRead(String recipientId) {
-        if (!readSet.contains(recipientId)){
-            readSet.add(recipientId);
-        }
+        readSet.add(recipientId);
     }
 
     /**
@@ -116,9 +105,7 @@ public class Message {
      * @param recipientId recipient id
      */
     public void removeRead(String recipientId) {
-        if (readSet.contains(recipientId)){
-            readSet.remove(recipientId);
-        }
+        readSet.remove(recipientId);
     }
 
     /**
@@ -126,9 +113,7 @@ public class Message {
      * @param recipientId recipient id
      */
     public void addArchived(String recipientId){
-        if (!archivedSet.contains(recipientId)){
-            archivedSet.add(recipientId);
-        }
+        archivedSet.add(recipientId);
     }
 
     /**
@@ -136,9 +121,7 @@ public class Message {
      * @param recipientId recipient id
      */
     public void removeArchived(String recipientId){
-        if (archivedSet.contains(recipientId)){
-            archivedSet.remove(recipientId);
-        }
+        archivedSet.remove(recipientId);
     }
 
     /**
@@ -146,9 +129,7 @@ public class Message {
      * @param recipientId recipient id
      */
     public void addDeleted(String recipientId) {
-        if (!deletedSet.contains(recipientId)){
-            deletedSet.add(recipientId);
-        }
+        deletedSet.add(recipientId);
     }
 
     /**
@@ -156,9 +137,31 @@ public class Message {
      * @param recipientId recipient id
      */
     public void removeDeleted(String recipientId) {
-        if (deletedSet.contains(recipientId)){
-            deletedSet.remove(recipientId);
-        }
+        deletedSet.remove(recipientId);
+    }
+
+    /**
+     * Getter for read statuses set for recipients
+     * @return a set of read statuses
+     */
+    public Set<String> getReadSet() {
+        return readSet;
+    }
+
+    /**
+     * Getter for archived statuses set for recipients
+     * @return a set of archived statuses
+     */
+    public Set<String> getArchivedSet() {
+        return archivedSet;
+    }
+
+    /**
+     * Getter for deleted statuses set for recipients
+     * @return a set of deleted statuses
+     */
+    public Set<String> getDeletedSet() {
+        return deletedSet;
     }
 
     /**

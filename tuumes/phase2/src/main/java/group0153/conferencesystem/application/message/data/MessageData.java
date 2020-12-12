@@ -4,6 +4,8 @@ import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A class for storing information of a message.
@@ -13,9 +15,10 @@ public class MessageData implements Data {
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
     private final ArrayList<String> recipientIds;
-    private boolean isRead;
-    private boolean archived;
-    private boolean deleted;
+
+    private Set<String> readSet;
+    private Set<String> archivedSet;
+    private Set<String> deletedSet;
 
     /**
      * Construct a new instance of MessageData using the provided Message
@@ -27,9 +30,9 @@ public class MessageData implements Data {
         this.messageContent = message.getMessageContent();
         this.senderId = message.getSenderId();
         this.recipientIds = message.getRecipientIds();
-        this.isRead = message.isRead();
-        this.archived = message.isArchived();
-        this.deleted = message.isDeleted();
+        this.readSet = message.getReadSet();
+        this.archivedSet = message.getArchivedSet();
+        this.deletedSet = message.getDeletedSet();
     }
 
     /**
@@ -71,26 +74,30 @@ public class MessageData implements Data {
     /**
      * Get whether the message represented by this MessageData instance has been read
      *
+     * @param recipientId recipient id
      * @return boolean whether message has been read
      */
-    public boolean isRead() {
-        return isRead;
+    public boolean isRead(String recipientId) {
+        return readSet.contains(recipientId);
     }
 
     /**
      * Get whether the message represented by this MessageData instance is archived
      *
+     * @param recipientId recipient id
      * @return boolean whether message is archived
      */
-    public boolean isArchived() {
-        return archived;
+    public boolean isArchived(String recipientId) {
+        return archivedSet.contains(recipientId);
     }
 
     /**
      * Get whether the message represented by this MessageData instance is deleted
+     *
+     * @param recipientId recipient id
      * @return boolean whether message is deleted
      */
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isDeleted(String recipientId) {
+        return deletedSet.contains(recipientId);
     }
 }
