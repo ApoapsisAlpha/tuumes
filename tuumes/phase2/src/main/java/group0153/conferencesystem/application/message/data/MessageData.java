@@ -5,6 +5,7 @@ import group0153.conferencesystem.entities.message.Message;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,7 +15,7 @@ public class MessageData implements Data {
     private final String id; // id of the message
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
-    private final ArrayList<String> recipientIds;
+    private final List<String> recipientIds;
 
     private Set<String> readSet;
     private Set<String> archivedSet;
@@ -67,7 +68,7 @@ public class MessageData implements Data {
      *
      * @return ArrayList of String recipient ids
      */
-    public ArrayList<String> getRecipientIds() {
+    public List<String> getRecipientIds() {
         return recipientIds;
     }
 
