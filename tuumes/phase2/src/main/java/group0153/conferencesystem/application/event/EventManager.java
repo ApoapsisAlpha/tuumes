@@ -99,13 +99,7 @@ public class EventManager {
             }).collect(Collectors.toList());
         }
 
-        return events.stream().map(e -> {
-            List<UserContactData> speakerData = e.getSpeakerIds().stream().map(speakerId -> {
-                User speaker = userPersistencePort.findById(speakerId).get();
-                return new UserContactData(speakerId, speaker.getName(), speaker.getEmail());
-            }).collect(Collectors.toList());
-            return new EventData(e);
-        }).collect(Collectors.toList());
+        return events.stream().map(this::mapEntityToData).collect(Collectors.toList());
     }
 
     /**
