@@ -5,6 +5,7 @@ import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.user.requests.UserAddContactRequest;
 import group0153.conferencesystem.adapters.controllers.user.requests.UserRemoveContactRequest;
 import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.user.UserContactManager;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -61,6 +62,8 @@ public class UserContactController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -80,6 +83,8 @@ public class UserContactController {
                 return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
             else
                 return new ResponseEntity<>(new Response(false, "USER_NOT_FOUND"), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 }

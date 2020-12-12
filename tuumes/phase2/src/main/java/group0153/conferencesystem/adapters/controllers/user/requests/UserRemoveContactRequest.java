@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.user.requests;
 
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
+
 /**
  * A class facilitating the user's interaction with their contacts by storing information about them.
  */
@@ -23,7 +25,10 @@ public class UserRemoveContactRequest {
      *
      * @return Value of userId.
      */
-    public String getUserId() {
+    public String getUserId() throws InvalidInputException {
+        if (userId.isEmpty())
+            throw new InvalidInputException("userId");
+
         return userId;
     }
 
@@ -32,7 +37,10 @@ public class UserRemoveContactRequest {
      *
      * @return Value of contactId.
      */
-    public String getContactId() {
+    public String getContactId() throws InvalidInputException{
+        if (contactId.isEmpty())
+            throw new InvalidInputException("contactId");
+
         return contactId;
     }
 }
