@@ -24,6 +24,18 @@ public class MessageComposeRequest {
     }
 
     /**
+     * Construct an instance of MessageComposeResource using the provided information about a message.
+     *
+     * @param content        String content of the message
+     * @param userId         String id of the user that sent this message
+     */
+    public MessageComposeRequest(String content, String userId) {
+        this.content = content;
+        this.recipientEmail = "";
+        this.userId = userId;
+    }
+
+    /**
      * Get recipient email.
      *
      * @return Value of recipientEmail.
