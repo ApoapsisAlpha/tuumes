@@ -7,7 +7,15 @@ public class RoomRequest {
     private String name;
     private int capacity;
 
-    //TODO: assign variables in constructor? not sure why they aren't assigned anywhere
+    /**
+     * Constructs the RoomRequest.
+     * @param name Name of the room
+     * @param capacity Capacity of the room
+     */
+    public RoomRequest(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
 
     /**
      * Get name of room

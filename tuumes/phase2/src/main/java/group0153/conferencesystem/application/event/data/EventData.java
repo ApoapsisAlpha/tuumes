@@ -67,8 +67,22 @@ public class EventData implements Data {
         this.isVipOnlyEvent = isVipOnlyEvent;
     }
 
+    /**
+     * Set the speaker data using the given list
+     *
+     * @param speakerData a list of UserContactData containing speaker data
+     */
     public void setSpeakerData(List<UserContactData> speakerData) {
         this.speakerData = speakerData;
+    }
+
+    /**
+     * Get the event id.
+     *
+     * @return the event's id
+     */
+    public String getId() {
+        return id;
     }
 
     /**
@@ -159,5 +173,9 @@ public class EventData implements Data {
      */
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
+    }
+
+    public List<UserContactData> getSpeakerData() {
+        return speakerData;
     }
 }

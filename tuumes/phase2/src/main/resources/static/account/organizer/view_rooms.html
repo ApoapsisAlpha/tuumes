@@ -45,31 +45,12 @@
 <div class="container-fluid mt-5">
     <div class="container white text-center pt-4">
         <h3 class="pb-4">Rooms: </h3>
-
         <div class="white z-depth-1 px-3 pt-3 pb-0 room-list">
-            <ul class="list-unstyled">
+            <ul class="list-unstyled" id="rooms">
                 <li class="p-2">
                     <a class="d-flex justify-content-between" href="#">
-                        <strong class="ml-5">Room Name Zero</strong>
-                        <p class="text-muted mr-5">Room Capacity &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <strong class="ml-5">Room Name One</strong>
-                        <p class="text-muted mr-5">Room Capacity &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <strong class="ml-5">Room Name Two</strong>
-                        <p class="text-muted mr-5">Room Capacity &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
-                    </a>
-                </li>
-                <li class="p-2">
-                    <a class="d-flex justify-content-between" href="#">
-                        <strong class="ml-5">Room Name Three</strong>
-                        <p class="text-muted mr-5">Room Capacity &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
+                        <strong class="ml-5"> ... </strong>
+                        <p class="text-muted mr-5"> ... &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
                     </a>
                 </li>
             </ul>
@@ -84,8 +65,9 @@
             <input autocomplete="on" class="form-control z-depth-1" id="newRoomCapacity" min="1"
                    name="newRoomName" placeholder="Room Capacity" type="number">
         </div>
-        <button class="btn btn-default btn-sm"><i class="fa fa-door-open fa-lg"></i>&nbsp; Add</button>
-
+        <button class="btn btn-default btn-sm" onclick="addRoom();">
+            <i class="fa fa-door-open fa-lg"></i>&nbsp; Add
+        </button>
         <br><br>
     </div>
 </div>
@@ -95,5 +77,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
         type="text/javascript"></script>
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
-<script src="assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/global.js" type="text/javascript"></script>
+<script src="../../assets/js/account.js" type="text/javascript"></script>
+
+<script>
+    function getRooms() {
+        $.getJSON("/rooms/view", { }, function(result) {
+            console.log(result);
+            let to_print = ``;
+            result.data.forEach(room => {
+                to_print += `
+                <li class="p-2">
+                    <a class="d-flex justify-content-between">
+                        <strong class="ml-5">${room.name}</strong>
+                        <p class="text-muted mr-5">${room.capacity} &nbsp; <i class="fa fa-user-friends fa-lg"></i></p>
+                    </a>
+                </li>`;
+            });
+            $("#rooms").html(to_print);
+        });
+    }
+
+    function addRoom() {
+        $.postJSON("/rooms/create", {
+            name: $("#newRoomName").val(),
+            capacity: $("#newRoomCapacity").val()
+        }, function(result) {
+            getRooms();
+            toastr.success("Room added successfully");
+        });
+
+        return false;
+    }
+
+    getRooms();
+</script>
+
 </html>

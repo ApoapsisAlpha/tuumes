@@ -41,7 +41,7 @@ public class RoomController {
      * @param room a RoomResource instance that contains information about the new room
      * @return String id of the newly created room
      */
-    @PostMapping("")
+    @PostMapping("/create")
     ResponseEntity<Response> createRoom(@RequestBody RoomRequest room) {
         roomManager.createRoom(room.getName(), room.getCapacity());
         return new ResponseEntity<>(new Response(true), HttpStatus.OK);
