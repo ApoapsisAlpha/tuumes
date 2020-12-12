@@ -123,8 +123,9 @@ public class EventRegistrationManager {
      * Cancels an event - if it exists - on request
      *
      * @param eventId the String id of the event to be cancelled
+     * @throws EventNotFoundException no event corresponds with the provided id
      */
-    public void cancelEvent(String eventId){
+    public void cancelEvent(String eventId) throws EventNotFoundException{
         Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
         if (!eventPersistencePort.getAllEvents().contains(event)){
             throw new EventNotFoundException(eventId);
