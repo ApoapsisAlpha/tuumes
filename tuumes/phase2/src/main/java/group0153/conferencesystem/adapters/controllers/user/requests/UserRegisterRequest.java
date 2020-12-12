@@ -6,7 +6,7 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
  * A class facilitating the registration of a user by checking if they have inputted their information.
  */
 public class UserRegisterRequest {
-    private String name; // TODO: like in UserLoginResource, these are not assigned values anywhere. Why?
+    private String name;
     private String email;
     private String password;
     private String type = "ATTENDEE";
