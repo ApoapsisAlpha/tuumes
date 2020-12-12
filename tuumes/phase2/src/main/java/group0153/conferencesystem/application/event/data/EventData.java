@@ -20,6 +20,8 @@ public class EventData implements Data {
     private final int speakerLimit;
     private final int userLimit;
     private final boolean isVipOnlyEvent;
+
+    private String roomName;
     private List<String> userIds;
     private List<String> speakerIds;
     private List<UserContactData> speakerData;
@@ -74,6 +76,15 @@ public class EventData implements Data {
      */
     public void setSpeakerData(List<UserContactData> speakerData) {
         this.speakerData = speakerData;
+    }
+
+    /**
+     * Set the room name
+     *
+     * @param roomName the room's name
+     */
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
     }
 
     /**
@@ -175,7 +186,21 @@ public class EventData implements Data {
         return isVipOnlyEvent;
     }
 
+    /**
+     * Get speaker data
+     *
+     * @return list of speaker data
+     */
     public List<UserContactData> getSpeakerData() {
         return speakerData;
+    }
+
+    /**
+     * return the room name
+     *
+     * @return the room's name
+     */
+    public String getRoomName() {
+        return roomName;
     }
 }

@@ -67,6 +67,23 @@ public class EventController {
     }
 
     /**
+     * Unregisters a user from an event.
+     * @param registrationResource request data
+     * @return response indicating success/failure
+     */
+    @PostMapping("/unregister")
+    public ResponseEntity<Response> unregisterUserFromEvent(@RequestBody EventRegistrationRequest registrationResource) {
+        try {
+            eventManager.unregisterUserFromEvent(registrationResource.getEventId(), registrationResource.getUserId());
+            return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "Invalid user"), HttpStatus.FORBIDDEN);
+        } catch (EventNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "Invalid event"), HttpStatus.FORBIDDEN);
+        }
+    }
+
+    /**
      * Fetches a list of events the user is registered for or can manage depending on the user type.
      * @param userId user id
      * @return response indicating success/failure along with a list of events in the case of a success

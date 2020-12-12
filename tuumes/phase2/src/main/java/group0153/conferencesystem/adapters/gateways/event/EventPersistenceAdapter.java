@@ -106,5 +106,37 @@ public class EventPersistenceAdapter implements EventPersistencePort {
         }
     }
 
+    /**
+     * Unregister a user from an event.
+     *
+     * @param eventId The event id in which the user is added to.
+     * @param userId  The user id that is added to an event.
+     */
+    @Override
+    public void unregisterUserById(String eventId, String userId) {
+        Optional<EventModel> eventModel = eventRepository.findByResourceId(eventId);
+        Optional<UserModel> userModel = userRepository.findByResourceId(userId);
+        if (eventModel.isPresent() && userModel.isPresent()) {
+            eventModel.get().getUsers().remove(userModel.get());
+            eventRepository.flush();
+        }
+    }
+
+    /**
+     * Unregister a speaker from an event.
+     *
+     * @param eventId The event id in which the user is added to.
+     * @param userId  The user id that is added to an event.
+     */
+    @Override
+    public void unregisterSpeakerById(String eventId, String userId) {
+        Optional<EventModel> eventModel = eventRepository.findByResourceId(eventId);
+        Optional<UserModel> userModel = userRepository.findByResourceId(userId);
+        if (eventModel.isPresent() && userModel.isPresent()) {
+            eventModel.get().getSpeakers().remove(userModel.get());
+            eventRepository.flush();
+        }
+    }
+
 }
 
