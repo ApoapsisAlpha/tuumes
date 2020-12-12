@@ -4,13 +4,15 @@ import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.entities.user.UserType;
 
 /**
- * A class containing the id and type of the current user of the program
+ * A class containing the id and type of the current user of the program.
  */
 public class UserLoginData implements Data {
     private final String id;
     private final UserType userType;
 
     /**
+     * Construct an instance of UserLoginData with the provided information.
+     *
      * @param id       the id of the user logging in
      * @param userType the type of the user logging in
      */

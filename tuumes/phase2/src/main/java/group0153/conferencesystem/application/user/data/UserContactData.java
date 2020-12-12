@@ -3,7 +3,7 @@ package group0153.conferencesystem.application.user.data;
 import group0153.conferencesystem.application.Data;
 
 /**
- * A class containing the contact information of the current user of the program
+ * A class containing the contact information of the current user of the program.
  */
 
 public class UserContactData implements Data {

@@ -19,7 +19,8 @@ public class UserAuthManager {
     UserPersistencePort userPersistencePort;
 
     /**
-     * Instantiates an UserAuthManager
+     * Instantiates an UserAuthManager.
+     *
      * @param userPersistencePort How users are saved to the database
      */
     public UserAuthManager(UserPersistencePort userPersistencePort) {
@@ -29,7 +30,7 @@ public class UserAuthManager {
     /**
      * Handle user login, if either field is incorrect throw and error.
      *
-     * @param email User email
+     * @param email    User email
      * @param password User password
      * @return The logged in user
      * @throws IncorrectLoginException Upon incorrect email or password
@@ -49,8 +50,8 @@ public class UserAuthManager {
      * Create a user with the provided parameters and return its id.
      * Precondition: Email, password, and userType are valid and not empty.
      *
-     * @param name the name of the user
-     * @param email the email of the user
+     * @param name     the name of the user
+     * @param email    the email of the user
      * @param password the password of the user
      * @param userType the type of user
      * @throws UserExistsException if the user already exists

@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * An entity class for a user to be stored in the database
+ * An entity class for a user to be stored in the database.
  */
 @Entity
 public class UserModel {
@@ -31,14 +31,14 @@ public class UserModel {
     private Set<MessageModel> messages;
 
     /**
-     * Constructs an instance of UserModel
+     * Constructs an instance of UserModel.
      */
     public UserModel() {
 
     }
 
     /**
-     * Constructs an instance of UserModel using the provided information
+     * Constructs an instance of UserModel using the provided information.
      *
      * @param resourceId the id of the user
      * @param name       the name of the user
@@ -55,7 +55,7 @@ public class UserModel {
     }
 
     /**
-     * Get id of user
+     * Get id of user.
      *
      * @return string id of user
      */
@@ -64,7 +64,7 @@ public class UserModel {
     }
 
     /**
-     * Get name of user
+     * Get name of user.
      *
      * @return string value of name
      */
@@ -73,7 +73,7 @@ public class UserModel {
     }
 
     /**
-     * Get email of user
+     * Get email of user.
      *
      * @return string value of email
      */
@@ -82,7 +82,7 @@ public class UserModel {
     }
 
     /**
-     * Get password of user
+     * Get password of user.
      *
      * @return string value of password
      */
@@ -91,7 +91,7 @@ public class UserModel {
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return enum type of user
      */
@@ -100,7 +100,7 @@ public class UserModel {
     }
 
     /**
-     * Get user contacts
+     * Get user contacts.
      *
      * @return a set of UserModel objects
      */
@@ -109,7 +109,7 @@ public class UserModel {
     }
 
     /**
-     * Get received messages
+     * Get received messages.
      *
      * @return a set of MessageModel objects
      */

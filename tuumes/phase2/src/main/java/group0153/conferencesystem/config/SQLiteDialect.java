@@ -9,12 +9,12 @@ import org.hibernate.type.StringType;
 import java.sql.Types;
 
 /**
- * A class facilitating the interaction of the program with the database
+ * A class facilitating the interaction of the program with the database.
  */
 public class SQLiteDialect extends Dialect {
 
     /**
-     * Construct an instance of SQLiteDialect and set all of the column types and functions
+     * Construct an instance of SQLiteDialect and set all of the column types and functions.
      */
     public SQLiteDialect() {
         registerColumnType(Types.BIT, "integer");
@@ -47,7 +47,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get whether the database supports identity column key generation
+     * Get whether the database supports identity column key generation.
      *
      * @return boolean representing whether the database supports identity column key generation
      */
@@ -57,7 +57,7 @@ public class SQLiteDialect extends Dialect {
 
     /**
      * Get whether this SQLiteDialect instance has a separate identity data type  or an Identity clause added to
-     * the data type
+     * the data type.
      *
      * @return boolean representing whether this SQLiteDialect instance has a separate identity data type (false) or an
      * Identity clause added to the data type (true)
@@ -67,7 +67,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get a string representing the identity column
+     * Get a string representing the identity column.
      *
      * @return String representation of identity column
      */
@@ -76,7 +76,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get SELECT command applicable to retrieve last identity value generated
+     * Get SELECT command applicable to retrieve last identity value generated.
      *
      * @return String SELECT command that can be used to retrieve last generated identify value
      */
@@ -85,7 +85,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get whether this SQLiteDialect instance can handle putting a limit on query results with an SQL clause
+     * Get whether this SQLiteDialect instance can handle putting a limit on query results with an SQL clause.
      *
      * @return boolean representing if SQLiteDialect instance is able to handle having a limit on query results with
      * an SQL clause
@@ -95,7 +95,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Applies and returns a modified query that has a limiting clause applied
+     * Applies and returns a modified query that has a limiting clause applied.
      *
      * @param query     String SQL query that is to have the limit clause applied
      * @param hasOffset boolean whether the query requests an offset
@@ -107,7 +107,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get whether this SQLiteDialect instance supports temporary tables
+     * Get whether this SQLiteDialect instance supports temporary tables.
      *
      * @return boolean representing whether this SQLiteDialect instance supports temporary tables
      */
@@ -116,7 +116,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get command to create a new temporary table
+     * Get command to create a new temporary table.
      *
      * @return String command used to create a temporary table
      */
@@ -125,7 +125,7 @@ public class SQLiteDialect extends Dialect {
     }
 
     /**
-     * Get if temporary table must be dropped after use
+     * Get if temporary table must be dropped after use.
      *
      * @return boolean representing whether temporary table should be dropped after it is used
      */

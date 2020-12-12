@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 /**
- * An interface for database operations pertaining to users
+ * An interface for database operations pertaining to users.
  */
 public interface UserRepository extends JpaRepository<UserModel, Long> {
     /**

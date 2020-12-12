@@ -3,7 +3,7 @@ package group0153.conferencesystem.adapters.controllers.user.requests;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
 
 /**
- * A class facilitating the registration of a user by checking if they have inputted their information
+ * A class facilitating the registration of a user by checking if they have inputted their information.
  */
 public class UserRegisterRequest {
     private String name; // TODO: like in UserLoginResource, these are not assigned values anywhere. Why?
@@ -12,7 +12,7 @@ public class UserRegisterRequest {
     private String type = "ATTENDEE";
 
     /**
-     * Construct an instance of UserRegisterResource
+     * Construct an instance of UserRegisterResource.
      */
     public UserRegisterRequest() { }
 
@@ -53,7 +53,7 @@ public class UserRegisterRequest {
     }
 
     /**
-     * Return the type of the user that is currently registering for an account
+     * Return the type of the user that is currently registering for an account.
      *
      * @return type of user
      */
