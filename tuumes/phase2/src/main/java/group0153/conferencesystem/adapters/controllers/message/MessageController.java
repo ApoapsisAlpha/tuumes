@@ -56,8 +56,6 @@ public class MessageController {
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
         } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -76,8 +74,6 @@ public class MessageController {
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
         } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -96,8 +92,6 @@ public class MessageController {
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
         } catch (NoMessagesFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -115,8 +109,6 @@ public class MessageController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -134,8 +126,6 @@ public class MessageController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -153,8 +143,6 @@ public class MessageController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -172,8 +160,6 @@ public class MessageController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -191,8 +177,6 @@ public class MessageController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 }

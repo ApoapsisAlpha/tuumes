@@ -5,6 +5,7 @@ import group0153.conferencesystem.adapters.controllers.message.requests.MessageC
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeMultiEventRequest;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeRequest;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.message.MessageCreationManager;
 import group0153.conferencesystem.application.user.UserContactManager;
@@ -38,6 +39,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Recipient email not valid"), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -50,6 +53,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -62,6 +67,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 }
