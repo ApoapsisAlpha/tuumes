@@ -1,7 +1,7 @@
 package group0153.conferencesystem.entities.message;
 
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +13,7 @@ public class Message {
     private final String id; // id of the message
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
-    private final ArrayList<String> recipientIds;
+    private final List<String> recipientIds;
 
     private final Set<String> readSet;
     private final Set<String> archivedSet;
@@ -31,7 +31,7 @@ public class Message {
      * @param senderId       : id of sender
      * @param recipientIds   : an ArrayList of the recipient(s)'s id(s)
      */
-    public Message(String id, String messageContent, String senderId, ArrayList<String> recipientIds) {
+    public Message(String id, String messageContent, String senderId, List<String> recipientIds) {
         this.id = id;
         this.messageContent = messageContent;
         this.senderId = senderId;
@@ -168,7 +168,7 @@ public class Message {
      * Getter for recipient ids
      * @return Arraylist of recipient(s) id(s)
      */
-    public ArrayList<String> getRecipientIds() {
+    public List<String> getRecipientIds() {
         return recipientIds;
     }
 
