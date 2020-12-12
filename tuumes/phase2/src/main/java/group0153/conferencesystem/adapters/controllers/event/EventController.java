@@ -140,7 +140,7 @@ public class EventController {
      * @return response indicating sucess/failure
      */
     @PostMapping("/remove")
-    public ResponseEntity<Response> deleteEvent(@RequestHeader(value = "eventId") String eventId) {
+    public ResponseEntity<Response> deleteEvent(@RequestParam(value = "eventId") String eventId) {
         try {
             eventRegistrationManager.cancelEvent(eventId);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);

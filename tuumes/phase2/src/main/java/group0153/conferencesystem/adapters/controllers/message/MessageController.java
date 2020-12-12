@@ -47,7 +47,7 @@ public class MessageController {
      * @return ResponseEntity containing all the data pertaining to all unarchived messages in the program
      */
     @GetMapping("/view")
-    public ResponseEntity<Response> viewMessages(@RequestHeader(value = "userId") String userId) {
+    public ResponseEntity<Response> viewMessages(@RequestParam(value = "userId") String userId) {
         // this method gets all the unarchived messages for a user, returns a ResponseArray();
         try {
             ArrayList<String> msgIds = messageFinder.getUnarchivedMsgsByUser(userId);
@@ -65,7 +65,7 @@ public class MessageController {
      * @return ResponseEntity containing all the data pertaining to all archived messages in the program
      */
     @GetMapping("/view_archived")
-    public ResponseEntity<Response> viewMessagesArchived(@RequestHeader(value = "userId") String userId) {
+    public ResponseEntity<Response> viewMessagesArchived(@RequestParam(value = "userId") String userId) {
         // this method gets all the archived messages for a user, returns a ResponseArray();
         try {
             ArrayList<String> msgIds = messageFinder.getArchivedMsgsByUser(userId);
@@ -83,7 +83,7 @@ public class MessageController {
      * @return ResponseEntity containing all the data pertaining to all unread messages in the program
      */
     @GetMapping("/view_unread")
-    public ResponseEntity<Response> viewMessagesUnread(@RequestHeader(value = "userId") String userId) {
+    public ResponseEntity<Response> viewMessagesUnread(@RequestParam(value = "userId") String userId) {
         // this method gets all the unread messages for a user, returns a ResponseArray();
         try {
             ArrayList<String> msgIds = messageFinder.getUnreadMsgsByUser(userId);
@@ -101,7 +101,7 @@ public class MessageController {
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/read")
-    public ResponseEntity<Response> markMessageRead(@RequestHeader(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> markMessageRead(@RequestParam(value = "msgId") String msgId, String userId) {
         // marks a message as read, this returns a Response();
         try {
             messageManager.setMsgReadStatusById(msgId, userId, true);
@@ -118,7 +118,7 @@ public class MessageController {
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unread")
-    public ResponseEntity<Response> markMessageUnread(@RequestHeader(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> markMessageUnread(@RequestParam(value = "msgId") String msgId, String userId) {
         // marks a message as unread, this returns a Response();
         try {
             messageManager.setMsgReadStatusById(msgId, userId, false);
@@ -135,7 +135,7 @@ public class MessageController {
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/delete")
-    public ResponseEntity<Response> deleteMessage(@RequestHeader(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> deleteMessage(@RequestParam(value = "msgId") String msgId, String userId) {
         // deletes a message, this returns a Response();
         try {
             messageManager.setDeletedStatusById(msgId, userId, true);
@@ -152,7 +152,7 @@ public class MessageController {
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/archive")
-    public ResponseEntity<Response> archiveMessage(@RequestHeader(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> archiveMessage(@RequestParam(value = "msgId") String msgId, String userId) {
         // archives a message, this returns a Response();
         try {
             messageManager.setArchivedStatusById(msgId, userId, true);
@@ -169,7 +169,7 @@ public class MessageController {
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unarchive")
-    public ResponseEntity<Response> unarchiveMessage(@RequestHeader(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> unarchiveMessage(@RequestParam(value = "msgId") String msgId, String userId) {
         // unarchives a message, this returns a Response();
         try {
             messageManager.setArchivedStatusById(msgId, userId, false);
