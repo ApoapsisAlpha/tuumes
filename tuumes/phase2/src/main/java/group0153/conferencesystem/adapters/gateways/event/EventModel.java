@@ -30,7 +30,7 @@ public class EventModel {
     @ManyToMany
     private Set<UserModel> speakers;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<UserModel> users;
 
     /**
