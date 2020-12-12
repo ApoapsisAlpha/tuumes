@@ -40,9 +40,9 @@
 <div class="container-fluid mt-5" id="messages">
     <div class="container white text-center mt-4 pt-4">
         <img class="stamp-img" src="../../assets/img/stamp.png">
-        <h3>From: SenderName</h3>
-        <p>Sender email goes here.</p>
-        <p class="mb-3">Message content goes here. It contains the message content.</p>
+        <h3>From: ...</h3>
+        <p>...</p>
+        <p class="mb-3">...</p>
         <button class="btn btn-primary" id="read">
             <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
         </button>
@@ -156,6 +156,8 @@
 
             $("#messages").html(to_print);
         });
+
+        alert("A fatal error occurred");
     }
 
     function markRead(messageId) {
