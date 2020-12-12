@@ -72,6 +72,13 @@ public class UserEventsManager {
         return getUser(userId).getType();
     }
 
+    /**
+     * Gets the user for an event.
+     *
+     * @param userId User id
+     * @return The user object
+     * @throws UserNotFoundException When the user id is not valid
+     */
     private User getUser(String userId) throws UserNotFoundException {
         Optional<User> userPresent = userPersistencePort.findById(userId);
         if (!userPresent.isPresent())
