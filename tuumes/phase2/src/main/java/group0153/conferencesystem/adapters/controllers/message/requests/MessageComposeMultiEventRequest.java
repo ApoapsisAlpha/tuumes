@@ -1,7 +1,13 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
+
 import java.util.List;
 
+/**
+ * A class facilitating the user's creation of messages sent to attendees of MULTIPLE events by storing the information
+ * they input.
+ */
 public class MessageComposeMultiEventRequest {
     private final String content;
     private final List<String> eventIds;
@@ -25,7 +31,10 @@ public class MessageComposeMultiEventRequest {
      *
      * @return Value of eventIds.
      */
-    public List<String> getEventIds() {
+    public List<String> getEventIds() throws InvalidInputException {
+        if (eventIds.isEmpty()){
+            throw new InvalidInputException("event ids");
+        }
         return eventIds;
     }
 
@@ -34,7 +43,10 @@ public class MessageComposeMultiEventRequest {
      *
      * @return Value of content.
      */
-    public String getContent() {
+    public String getContent() throws InvalidInputException {
+        if (content.isEmpty()){
+            throw new InvalidInputException("message content");
+        }
         return content;
     }
 
@@ -43,7 +55,10 @@ public class MessageComposeMultiEventRequest {
      *
      * @return Value of userId.
      */
-    public String getUserId() {
+    public String getUserId() throws InvalidInputException {
+        if (userId.isEmpty()){
+            throw new InvalidInputException("user id");
+        }
         return userId;
     }
 }

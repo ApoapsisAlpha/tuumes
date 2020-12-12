@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.message.MessageCreationManager;
 import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
- * A controller class that facilitates the sending, viewing, and manipulating of messages as requested by the user
+ * A controller class that facilitates the viewing and manipulating of messages as requested by the user
  */
 @RestController
 @RequestMapping(value = "/messages")
