@@ -24,7 +24,7 @@ public class UserModel {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<UserModel> contacts;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     private Set<EventModel> events;
 
     @ManyToMany
@@ -115,5 +115,14 @@ public class UserModel {
      */
     public Set<MessageModel> getMessages() {
         return messages;
+    }
+
+    /**
+     * Get events
+     *
+     * @return a set of events
+     */
+    public Set<EventModel> getEvents() {
+        return events;
     }
 }

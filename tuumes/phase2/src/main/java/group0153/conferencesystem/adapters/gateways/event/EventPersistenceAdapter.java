@@ -86,6 +86,7 @@ public class EventPersistenceAdapter implements EventPersistencePort {
         Optional<UserModel> userModel = userRepository.findByResourceId(userId);
         if (eventModel.isPresent() && userModel.isPresent()) {
             eventModel.get().getUsers().add(userModel.get());
+            userModel.get().getEvents().add(eventModel.get());
             eventRepository.flush();
         }
     }
@@ -101,6 +102,7 @@ public class EventPersistenceAdapter implements EventPersistencePort {
         Optional<UserModel> userModel = userRepository.findByResourceId(userId);
         if (eventModel.isPresent() && userModel.isPresent()) {
             eventModel.get().getSpeakers().add(userModel.get());
+            userModel.get().getEvents().add(eventModel.get());
             eventRepository.flush();
         }
     }
@@ -117,6 +119,7 @@ public class EventPersistenceAdapter implements EventPersistencePort {
         Optional<UserModel> userModel = userRepository.findByResourceId(userId);
         if (eventModel.isPresent() && userModel.isPresent()) {
             eventModel.get().getUsers().remove(userModel.get());
+            userModel.get().getEvents().remove(eventModel.get());
             eventRepository.flush();
         }
     }
@@ -133,6 +136,7 @@ public class EventPersistenceAdapter implements EventPersistencePort {
         Optional<UserModel> userModel = userRepository.findByResourceId(userId);
         if (eventModel.isPresent() && userModel.isPresent()) {
             eventModel.get().getSpeakers().remove(userModel.get());
+            userModel.get().getEvents().remove(eventModel.get());
             eventRepository.flush();
         }
     }
@@ -147,15 +151,6 @@ public class EventPersistenceAdapter implements EventPersistencePort {
 
     }
 
-//    /**
-//     * Gets all event ids from the database.
-//     *
-//     * @return A list of all event ids at the conference.
-//     */
-//    @Override
-//    public List<String> getAllEventIds() {
-//        return null;
-//    }
 
 }
 
