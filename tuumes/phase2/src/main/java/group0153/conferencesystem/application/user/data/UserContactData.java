@@ -41,4 +41,13 @@ public class UserContactData implements Data {
     public String getName() {
         return name;
     }
+
+    /**
+     * Gets id.
+     *
+     * @return Value of id.
+     */
+    public String getId() {
+        return id;
+    }
 }

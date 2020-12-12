@@ -2,6 +2,7 @@ package group0153.conferencesystem.application.room;
 
 import group0153.conferencesystem.entities.room.Room;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,11 @@ public interface RoomPersistencePort {
      * @return The room with the id. (Empty if they don't exist)
      */
     Optional<Room> findById(String roomId);
+
+    /**
+     * Gets a list of every room.
+     *
+     * @return The rooms within the conference.
+     */
+    List<Room> getAllRooms();
 }
