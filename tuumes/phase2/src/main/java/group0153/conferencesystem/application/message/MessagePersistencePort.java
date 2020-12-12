@@ -19,27 +19,27 @@ public interface MessagePersistencePort {
 
     /**
      * Given a Message that already exists, update the database Model to the given Message's read status
-     * @param message The message to be updated
+     * @param messageId The message id of the message to be updated
      * @param userId The user to update
      * @param status The new status
      */
-    void updateMessageReadStatus(Message message, String userId, boolean status);
+    void updateMessageReadStatus(String messageId, String userId, boolean status);
 
     /**
      * Given a Message that already exists, update the database Model to the given Message's archived status
-     * @param message The message to be updated
+     * @param messageId The message id of the message to be updated
      * @param userId The user to update
      * @param status The new status
      */
-    void updateMessageArchivedStatus(Message message, String userId, boolean status);
+    void updateMessageArchivedStatus(String messageId, String userId, boolean status);
 
     /**
      * Given a Message that already exists, update the database Model to the given Message's archived status
-     * @param message The message to be updated
+     * @param messageId The message id of the message to be updated
      * @param userId The user to update
      * @param status The new status
      */
-    void updateMessageDeletedStatus(Message message, String userId, boolean status);
+    void updateMessageDeletedStatus(String messageId, String userId, boolean status);
 
     /**
      * Find an optional Message by id
