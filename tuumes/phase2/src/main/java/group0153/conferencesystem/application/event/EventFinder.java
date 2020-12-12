@@ -63,8 +63,9 @@ public class EventFinder {
      *
      * @param userId the user id
      * @return a list of events
+     * @throws UserNotFoundException no user corresponds to the provided id.
      */
-    public List<EventData> getEvents(String userId) {
+    public List<EventData> getEvents(String userId) throws UserNotFoundException {
         User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         List<Event> events;
         if (user.getType() == UserType.ORGANIZER) {
