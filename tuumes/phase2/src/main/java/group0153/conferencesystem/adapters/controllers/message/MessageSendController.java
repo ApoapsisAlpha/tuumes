@@ -22,17 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/messages")
 public class MessageSendController {
-    private final MessageSender messageCreationManager;
+    private final MessageSender messageSender;
     private final UserContactManager userContactManager;
 
     /**
      * Construct an instance of MessageSendController using the provided managers.
      *
-     * @param messageCreationManager instance of MessageCreationManager that can facilitate message creation
+     * @param messageSender instance of MessageCreationManager that can facilitate message creation
      * @param userContactManager     instance of UserContactManager that can facility manipulation of contacts of a user
      */
-    public MessageSendController(MessageSender messageCreationManager, UserContactManager userContactManager) {
-        this.messageCreationManager = messageCreationManager;
+    public MessageSendController(MessageSender messageSender, UserContactManager userContactManager) {
+        this.messageSender = messageSender;
         this.userContactManager = userContactManager;
     }
 
@@ -45,7 +45,7 @@ public class MessageSendController {
     @PostMapping("/send")
     public ResponseEntity<Response> sendMessage(@RequestBody MessageComposeRequest messageComposeRequest) {
         try {
-            messageCreationManager.create(messageComposeRequest.getContent(), messageComposeRequest.getUserId(),
+            messageSender.create(messageComposeRequest.getContent(), messageComposeRequest.getUserId(),
                     messageComposeRequest.getRecipientEmail());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e) {
@@ -65,7 +65,7 @@ public class MessageSendController {
     @PostMapping("/send_event")
     public ResponseEntity<Response> sendEventMessage(@RequestBody MessageComposeEventRequest messageComposeEventRequest) {
         try {
-            messageCreationManager.sendToEvent(messageComposeEventRequest.getContent(),
+            messageSender.sendToEvent(messageComposeEventRequest.getContent(),
                     messageComposeEventRequest.getUserId(),
                     messageComposeEventRequest.getEventId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
@@ -86,7 +86,7 @@ public class MessageSendController {
     @PostMapping("/send_multi_event")
     public ResponseEntity<Response> sendMultiEventMessage(@RequestBody MessageComposeMultiEventRequest messageComposeMultiEventRequest) {
         try {
-            messageCreationManager.sendToMultiEvent(messageComposeMultiEventRequest.getContent(),
+            messageSender.sendToMultiEvent(messageComposeMultiEventRequest.getContent(),
                     messageComposeMultiEventRequest.getUserId(),
                     messageComposeMultiEventRequest.getEventIds());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
