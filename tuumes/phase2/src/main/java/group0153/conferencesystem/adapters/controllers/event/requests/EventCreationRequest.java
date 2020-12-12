@@ -14,6 +14,8 @@ public class EventCreationRequest {
     private boolean isVipOnlyEvent;
 
     /**
+     * Construct an instance of EventCreationRequest with the specified information set.
+     *
      * @param name           Name of event
      * @param description    Description of event
      * @param startTime      Start time of event

@@ -24,6 +24,7 @@ public class UserRemoveContactRequest {
      * Get the id of the user.
      *
      * @return Value of userId.
+     * @throws InvalidInputException when the user id is not specified
      */
     public String getUserId() throws InvalidInputException {
         if (userId.isEmpty())
@@ -36,8 +37,9 @@ public class UserRemoveContactRequest {
      * Get the id of the contact.
      *
      * @return Value of contactId.
+     * @throws InvalidInputException when the contact id is not specified
      */
-    public String getContactId() throws InvalidInputException{
+    public String getContactId() throws InvalidInputException {
         if (contactId.isEmpty())
             throw new InvalidInputException("contactId");
 
