@@ -116,6 +116,7 @@ public class MessageManager {
      * Given a message's id, return the recipient(s)'s id(s).
      * @param msgId the message id of the message to return the recipient of.
      * @return A list of recipient id(s)
+     * @throws MessageIdNotFoundException Thrown if message doesn't exist
      */
 
     public ArrayList<String> getRecipientIdsByMsgId(String msgId){
