@@ -8,6 +8,7 @@ import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.room.Room;
 import group0153.conferencesystem.entities.user.User;
 import group0153.conferencesystem.entities.user.UserType;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +18,8 @@ import java.util.stream.Stream;
 /**
  * A manager for event registry, event creation, event cancellation.
  */
-public class EventRegistryManager {
+@Component
+public class EventRegistrationManager {
 
     UserPersistencePort userPersistencePort;
     EventPersistencePort eventPersistencePort;
@@ -30,8 +32,8 @@ public class EventRegistryManager {
      * @param eventPersistencePort instance of EventPersistencePort, giving access to Event data
      * @param roomPersistencePort  instance of RoomPersistencePort, giving access to Room data
      */
-    public EventRegistryManager(UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort,
-                        RoomPersistencePort roomPersistencePort) {
+    public EventRegistrationManager(UserPersistencePort userPersistencePort, EventPersistencePort eventPersistencePort,
+                                    RoomPersistencePort roomPersistencePort) {
         this.userPersistencePort = userPersistencePort;
         this.eventPersistencePort = eventPersistencePort;
         this.roomPersistencePort = roomPersistencePort;

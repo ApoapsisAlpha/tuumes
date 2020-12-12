@@ -23,17 +23,17 @@ import java.util.List;
 @RequestMapping(value="/events")
 public class EventController {
 
-    private EventRegistryManager eventRegistryManager;
-    private EventGetter eventGetter;
+    private EventRegistrationManager eventRegistrationManager;
+    private EventFinder eventFinder;
 
     /**
      * Creates an EventController instance.
-     * @param eventRegistryManager an instance of EventRegistryManager
-     * @param eventGetter an instance of EventGetter
+     * @param eventRegistrationManager an instance of EventRegistryManager
+     * @param eventFinder an instance of EventGetter
      */
-    public EventController(EventRegistryManager eventRegistryManager, EventGetter eventGetter) {
-        this.eventRegistryManager = eventRegistryManager;
-        this.eventGetter = eventGetter;
+    public EventController(EventRegistrationManager eventRegistrationManager, EventFinder eventFinder) {
+        this.eventRegistrationManager = eventRegistrationManager;
+        this.eventFinder = eventFinder;
     }
 
     /**
@@ -45,7 +45,7 @@ public class EventController {
     @GetMapping("/available")
     public ResponseEntity<Response> getAvailableEvents(@RequestParam(value = "userId") String userId) {
         try {
-            List<EventData> events = eventGetter.getAvailableEvents(userId);
+            List<EventData> events = eventFinder.getAvailableEvents(userId);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -60,7 +60,7 @@ public class EventController {
     @PostMapping("/register")
     public ResponseEntity<Response> registerUserForEvent(@RequestBody EventRegistrationRequest registrationResource) {
         try {
-            eventRegistryManager.registerUserForEvent(registrationResource.getEventId(), registrationResource.getUserId());
+            eventRegistrationManager.registerUserForEvent(registrationResource.getEventId(), registrationResource.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -77,7 +77,7 @@ public class EventController {
     @PostMapping("/unregister")
     public ResponseEntity<Response> unregisterUserFromEvent(@RequestBody EventRegistrationRequest registrationResource) {
         try {
-            eventRegistryManager.unregisterUserFromEvent(registrationResource.getEventId(), registrationResource.getUserId());
+            eventRegistrationManager.unregisterUserFromEvent(registrationResource.getEventId(), registrationResource.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -95,7 +95,7 @@ public class EventController {
     @GetMapping("")
     public ResponseEntity<Response> getEvents(@RequestParam(value = "userId") String userId) {
         try {
-            List<EventData> events = eventGetter.getEvents(userId);
+            List<EventData> events = eventFinder.getEvents(userId);
             return new ResponseEntity<>(new ResponseArray(true, events), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -119,7 +119,7 @@ public class EventController {
                         creationResource.getRoomId(), creationResource.getSpeakerLimit(),
                         creationResource.getUserLimit(), creationResource.isVipOnlyEvent());
 
-                eventRegistryManager.createEvent(eventData);
+                eventRegistrationManager.createEvent(eventData);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);
