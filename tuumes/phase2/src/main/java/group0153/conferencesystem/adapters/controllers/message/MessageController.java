@@ -21,7 +21,6 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping(value = "/messages")
 public class MessageController {
-    private final MessageCreationManager messageCreationManager;
     private final MessageFinder messageFinder;
     private final MessageManager messageManager;
     private final MessageDataPreparer messageDataPreparer;
@@ -36,18 +35,10 @@ public class MessageController {
      */
     public MessageController(MessageCreationManager messageCreationManager, MessageFinder messageFinder,
                              MessageManager messageManager, MessageDataPreparer messageDataPreparer) {
-        this.messageCreationManager = messageCreationManager;
         this.messageFinder = messageFinder;
         this.messageManager = messageManager;
         this.messageDataPreparer = messageDataPreparer;
     }
-
-//    @PostMapping("/compose")
-//    public ResponseEntity<Response> composeMessage(@RequestBody MessageComposeResource messageComposeResource) {
-//        // this method composes a message, this returns a Response();
-//        // make sure to follow the chart thing I sent on Discord as to what types of users can message what types
-//    }
-    // TODO: uncomment or remove?
 
     /**
      * Facilitate the display of all unarchived messages in the program
