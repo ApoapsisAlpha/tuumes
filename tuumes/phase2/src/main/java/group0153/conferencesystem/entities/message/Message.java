@@ -141,6 +141,30 @@ public class Message {
     }
 
     /**
+     * Getter for read statuses set for recipients
+     * @return a set of read statuses
+     */
+    public Set<String> getReadSet() {
+        return readSet;
+    }
+
+    /**
+     * Getter for archived statuses set for recipients
+     * @return a set of archived statuses
+     */
+    public Set<String> getArchivedSet() {
+        return archivedSet;
+    }
+
+    /**
+     * Getter for deleted statuses set for recipients
+     * @return a set of deleted statuses
+     */
+    public Set<String> getDeletedSet() {
+        return deletedSet;
+    }
+
+    /**
      * Getter for recipient ids
      * @return Arraylist of recipient(s) id(s)
      */
