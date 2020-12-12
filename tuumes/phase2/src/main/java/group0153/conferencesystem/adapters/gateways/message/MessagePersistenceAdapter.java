@@ -56,7 +56,7 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     @Override
     public void updateMessageReadStatus(String messageId, String userId, boolean status) {
         MessageModel messageModel = messageRepository.findByResourceId(messageId).get();
-        messageModel.
+        //messageModel.
     }
 
     /**
