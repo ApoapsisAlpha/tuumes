@@ -133,59 +133,141 @@ public class SQLiteDialect extends Dialect {
         return false;
     }
 
+    /**
+     * Get if the database's current timestamp can be retrieved by this SQLiteDialect instance.
+     *
+     * @return boolean representing whether this SQLiteDialect instance has functionality to retrieve the database's
+     * current time
+     */
     public boolean supportsCurrentTimestampSelection() {
         return true;
     }
 
+    /**
+     * Get if the value returned by method isCurrentTimestampSelectString() is to be treated as callable.
+     *
+     * @return whether the boolean returned by isCurrentTimestampSelectString() should be treated as callable
+     */
     public boolean isCurrentTimestampSelectStringCallable() {
         return false;
     }
 
+    /**
+     * Get the SQL command with the ability to retrieve the current timestamp of the database.
+     *
+     * @return String SQL command that can be used to retrieve the database's current timestamp
+     */
     public String getCurrentTimestampSelectString() {
         return "select current_timestamp";
     }
 
+    /**
+     * Get if UNION ALL command is supported.
+     *
+     * @return boolean whether this SQLiteDialect instance supports the SQL command UNION ALL
+     */
     public boolean supportsUnionAll() {
         return true;
     }
 
+    /**
+     * Get if ALTER TABLE command is supported.
+     *
+     * @return boolean whether this SQLiteDialect instance supports the SQL command ALTER TABLE
+     */
     public boolean hasAlterTable() {
         return false;
     }
 
+    /**
+     * Get if restraints much be dropped before tables can be dropped in this SQLDialect instance.
+     *
+     * @return boolean whether if restraints much be dropped before tables can be dropped
+     */
     public boolean dropConstraints() {
         return false;
     }
 
+    /**
+     * Get the SQL command that can add a column to the table.
+     *
+     * @return String SQL command used to add a column to the table
+     */
     public String getAddColumnString() {
         return "add column";
     }
 
+    /**
+     * Get the String that must be added to SELECT commands to retrieve locks for this SQLiteDialect.
+     *
+     * @return String that must be added to SELECT commands to get locks for this SQLiteDialect or an empty String
+     * if none are required
+     */
     public String getForUpdateString() {
         return "";
     }
 
+    /**
+     * Get whether SQL command FOR UPDATE can be used on outer joined rows in this SQLiteDialect instance.
+     *
+     * @return boolean representing if this SQLiteDialect instance supports the use of command FOR UPDATE on
+     * outer joined rows
+     */
     public boolean supportsOuterJoinForUpdate() {
         return false;
     }
 
+    /**
+     * Get syntax for dropping foreign key for this SQLiteDialect instance.
+     *
+     * @return String syntax to drop foreign key in this SQLiteDialect instance
+     * @throws UnsupportedOperationException this is not supported in this implementation
+     */
     public String getDropForeignKeyString() {
         throw new UnsupportedOperationException("No drop foreign key syntax supported by SQLiteDialect");
     }
 
+    /**
+     * Get syntax able to be used to add to a table a foreign key constraint in this SQLiteDialect instance.
+     *
+     * @param constraintName       foreign key constraint name
+     * @param foreignKey           names of columns making up the foreign key
+     * @param referencedTable      table reference by the foreign key
+     * @param primaryKey           columns in the table referenced by the foreign key
+     * @param referencesPrimaryKey boolean whether primary key is referenced
+     * @return String syntax able to be used to add to a table a foreign key constraint
+     * @throws UnsupportedOperationException this is not supported in this implementation
+     */
     public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable,
                                                    String[] primaryKey, boolean referencesPrimaryKey) {
         throw new UnsupportedOperationException("No add foreign key syntax supported by SQLiteDialect");
     }
 
+    /**
+     * Get the syntax that can be used in this SQLiteDialect instance to add a primary key constraint.
+     *
+     * @param constraintName name of the primary key constraint
+     * @return String syntax to add primary key constraint
+     * @throws UnsupportedOperationException this is not supported in this implementation
+     */
     public String getAddPrimaryKeyConstraintString(String constraintName) {
         throw new UnsupportedOperationException("No add primary key syntax supported by SQLiteDialect");
     }
 
+    /**
+     * Get whether there is support for using the command IF EXISTS in this SQLiteDialect instance.
+     *
+     * @return boolean whether command IF EXISTS is supported
+     */
     public boolean supportsIfExistsBeforeTableName() {
         return true;
     }
 
+    /**
+     * Get whether there is support for using the cascade delete command in this SQLiteDialect instance.
+     *
+     * @return boolean whether command cascade delete is supported
+     */
     public boolean supportsCascadeDelete() {
         return false;
     }
