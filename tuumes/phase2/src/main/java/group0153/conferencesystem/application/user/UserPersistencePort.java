@@ -1,7 +1,9 @@
 package group0153.conferencesystem.application.user;
 
+import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.user.User;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -48,4 +50,10 @@ public interface UserPersistencePort {
      * @param userId The id of the user to add the contact to.
      */
     void addContactById(String contactId, String userId);
+
+    /**
+     * Gets a list of all users at the conference.
+     * @return A list of all users at the conference.
+     */
+    List<User> getAllUsers();
 }

@@ -2,6 +2,7 @@ package group0153.conferencesystem.application.message;
 
 import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.event.Event;
@@ -115,5 +116,27 @@ public class MessageCreationManager {
         for(String id: eventIds){
             this.sendToEvent(messageContent, senderId, id);
         }
+    }
+
+    public void sendToEveryone(String messageContent, String senderId) throws UserNotFoundException, InvalidInputException{
+        Optional<User> userPresent = userPersistencePort.findById(senderId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(senderId);
+
+        if (userPresent.get().getType() != UserType.ORGANIZER){
+            throw new InvalidInputException("User not Organizer");
+        }
+
+        String newId = UUID.randomUUID().toString();
+        List<User> users = userPersistencePort.getAllUsers();
+        ArrayList<String> recipients = new ArrayList<>();
+
+        for(User user: users){
+            recipients.add(user.getId());
+        }
+
+        Message message = new Message(newId, messageContent, senderId, recipients);
+        messagePersistencePort.saveMessage(message);
+
     }
 }
