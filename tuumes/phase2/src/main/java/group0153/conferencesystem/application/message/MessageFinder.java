@@ -5,6 +5,7 @@ import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A message use case class to find different messages depending on archived state,
@@ -31,8 +32,8 @@ public class MessageFinder {
      * @return A list of message ids
      * @throws NoMessagesFoundException No messages have been sent by sender
      */
-    public ArrayList<String> findMsgIdsBySender(String sender){
-        ArrayList<String> msgIds = messagePersistencePort.getMsgIdsBySender(sender);
+    public List<String> findMsgIdsBySender(String sender){
+        List<String> msgIds = messagePersistencePort.getMsgIdsBySender(sender);
         if(!msgIds.isEmpty())
             throw new NoMessagesFoundException("sent");
 
@@ -46,8 +47,8 @@ public class MessageFinder {
      * @return A list of messages received by user
      * @throws NoMessagesFoundException No messages have been received by recipient
      */
-    private ArrayList<Message> findMsgsByRecipient(String user){
-        ArrayList<Message> messages = messagePersistencePort.getMsgsToUser(user);
+    private List<Message> findMsgsByRecipient(String user){
+        List<Message> messages = messagePersistencePort.getMsgsToUser(user);
         if(messages.isEmpty())
             throw new NoMessagesFoundException("received");
 
@@ -61,7 +62,7 @@ public class MessageFinder {
      * @throws NoMessagesFoundException No messages have been archived by recipient
      */
     public ArrayList<String> getArchivedMsgsByUser(String user){
-        ArrayList<Message> messages = this.findMsgsByRecipient(user);
+        List<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> archivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
@@ -83,7 +84,7 @@ public class MessageFinder {
      * @throws NoMessagesFoundException No unarchived messages have been sent to user
      */
     public ArrayList<String> getUnarchivedMsgsByUser(String user){
-        ArrayList<Message> messages = this.findMsgsByRecipient(user);
+        List<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> unarchivedMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
@@ -106,7 +107,7 @@ public class MessageFinder {
      * @throws NoMessagesFoundException A user has no unread messages.
      */
     public ArrayList<String> getReadMsgsByUser(String user){
-        ArrayList<Message> messages = this.findMsgsByRecipient(user);
+        List<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> readMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
@@ -129,7 +130,7 @@ public class MessageFinder {
      * @throws NoMessagesFoundException A user has no unread messages.
      */
     public ArrayList<String> getUnreadMsgsByUser(String user){
-        ArrayList<Message> messages = this.findMsgsByRecipient(user);
+        List<Message> messages = this.findMsgsByRecipient(user);
         ArrayList<String> unreadMsgIds = new ArrayList<>();
 
         if(messages.isEmpty())
