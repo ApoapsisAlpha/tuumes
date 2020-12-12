@@ -1,7 +1,6 @@
-const USER_ID = localStorage.getItem("userId");
-const USER_TYPE = localStorage.getItem("userType");
+const USER_ID = localStorage.getItem("TU-userId");
+const USER_TYPE = localStorage.getItem("TU-userType");
 
-// add back later
-// if (USER_ID === null) {
-//     location.href = "http://localhost:8080";
-// }
+if (USER_ID === null) {
+    location.href = "http://localhost:8080";
+}

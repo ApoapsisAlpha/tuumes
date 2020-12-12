@@ -62,13 +62,13 @@ public class UserContactManager {
     /**
      * Add a contact to a user based on the id of both the user and the contact.
      *
-     * @param contactId The contacts id.
+     * @param contactEmail The contacts email.
      * @param userId The user id to add the contact to.
      * @throws UserNotFoundException Thrown if userId or contactId are not found.
      */
-    public void addContactById(String contactId, String userId) throws UserNotFoundException {
+    public void addContactByEmail(String contactEmail, String userId) throws UserNotFoundException {
         userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-        userPersistencePort.findById(contactId).orElseThrow(() -> new UserNotFoundException(contactId));
-        userPersistencePort.addContactById(contactId, userId);
+        User contact = userPersistencePort.findUserByEmail(contactEmail).orElseThrow(() -> new UserNotFoundException(""));
+        userPersistencePort.addContactById(contact.getId(), userId);
     }
 }
