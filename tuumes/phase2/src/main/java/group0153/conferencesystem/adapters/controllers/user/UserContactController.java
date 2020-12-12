@@ -2,7 +2,8 @@ package group0153.conferencesystem.adapters.controllers.user;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
-import group0153.conferencesystem.adapters.controllers.user.requests.UserContactRequest;
+import group0153.conferencesystem.adapters.controllers.user.requests.UserAddContactRequest;
+import group0153.conferencesystem.adapters.controllers.user.requests.UserRemoveContactRequest;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.application.user.UserContactManager;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
@@ -53,7 +54,7 @@ public class UserContactController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/remove")
-    public ResponseEntity<Response> removeContact(@RequestBody UserContactRequest contactResource) {
+    public ResponseEntity<Response> removeContact(@RequestBody UserRemoveContactRequest contactResource) {
         try {
             userContactManager.removeContactById(contactResource.getContactId(), contactResource.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
@@ -69,15 +70,15 @@ public class UserContactController {
      * @return Response entity with the data to be displayed and a status
      */
     @PostMapping("/add")
-    public ResponseEntity<Response> addContact(@RequestBody UserContactRequest contactResource) {
+    public ResponseEntity<Response> addContact(@RequestBody UserAddContactRequest contactResource) {
         try {
-            userContactManager.addContactById(contactResource.getContactId(), contactResource.getUserId());
+            userContactManager.addContactByEmail(contactResource.getContactEmail(), contactResource.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            if (e.getUserId().equals(contactResource.getContactId()))
-                return new ResponseEntity<>(new Response(false, "USER_NOT_FOUND"), HttpStatus.OK);
-            else
+            if (e.getUserId().equals(contactResource.getUserId()))
                 return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
+            else
+                return new ResponseEntity<>(new Response(false, "USER_NOT_FOUND"), HttpStatus.OK);
         }
     }
 }

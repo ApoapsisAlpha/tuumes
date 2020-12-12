@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * A controller class facilitating user registration and login
  */
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/users")
 public class UserAuthController {
     private final UserAuthManager userAuthManager;
 

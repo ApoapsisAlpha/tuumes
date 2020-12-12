@@ -58,16 +58,17 @@
 
 <script>
     function getEvents() {
-        $.getJSON("/events/view_all", {
+        $.getJSON("/events/available", {
             userId: USER_ID,
         }, function(result) {
+            console.log(result);
             let to_print = ``;
             result.data.forEach(event => {
                 let print_speakers = ``;
                 let print_delete = ``;
                 event.speakers.forEach(speaker => {
                     print_speakers = `
-                        <a class="mt-2 mb-2" href="#">Contact: ${speaker.name}</a>
+                        <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
                     `;
                 });
                 if (USER_TYPE == userType.ORGANIZER) {

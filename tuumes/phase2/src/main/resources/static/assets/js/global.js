@@ -32,7 +32,7 @@ $.getJSON = function(url, data, callback) {
     },
     'type': 'GET',
     'url': PRIVATE_API + url,
-    'data': JSON.stringify(data),
+    'data': data,
     'dataType': 'json',
     'success': callback
     });

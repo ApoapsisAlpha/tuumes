@@ -87,6 +87,7 @@
         $.getJSON("/user/contacts/view", {
             userId: USER_ID,
         }, function(result) {
+            console.log(result);
             let to_print = ``;
             result.data.forEach(contact => {
                 to_print += `
@@ -99,7 +100,7 @@
                                     <p class="text-muted">${contact.email}</p>
                                 </div>
                                 <div class="float-right">
-                                    <button class="btn btn-danger float-right" type="button" onclick="removeContact(${contact.id})">
+                                    <button class="btn btn-danger float-right" type="button" onclick="removeContact('${contact.id}')">
                                         Remove
                                     </button>
                                 </div>
@@ -118,6 +119,7 @@
             contactId: contactId
         }, function(result) {
             getContacts();
+            toastr.success("Contact removed successfully");
         });
 
         return false;
@@ -128,9 +130,10 @@
             userId: USER_ID,
             contactEmail: $("#newContactEmail").val()
         }, function(result) {
-            if (result.valid)
+            if (result.valid) {
                 getContacts();
-            else {
+                toastr.success("Contact added successfully");
+            } else {
                 switch (result.message) {
                     case "USER_NOT_FOUND":
                         toastr.error("User with that email not found");
