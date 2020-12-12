@@ -1,6 +1,8 @@
 package group0153.conferencesystem.entities.message;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Message class for an object that contains the message id, content,
@@ -12,9 +14,10 @@ public class Message {
     private final String messageContent; // string containing the message content
     private final String senderId; // the sender's id
     private final ArrayList<String> recipientIds;
-    private boolean isRead;
-    private boolean archived;
-    private boolean deleted;
+
+    private Set<String> readSet;
+    private Set<String> archivedSet;
+    private Set<String> deletedSet;
 
     /**
      * Constructor that instantiates a Message instance.
@@ -33,9 +36,9 @@ public class Message {
         this.messageContent = messageContent;
         this.senderId = senderId;
         this.recipientIds = recipientIds;
-        isRead = false;
-        archived = false;
-        deleted = false;
+        Set<String> readSet = new HashSet<>();
+        Set<String> archivedSet = new HashSet<>();
+        Set<String> deletedSet = new HashSet<>();
     }
 
     /**
@@ -64,50 +67,98 @@ public class Message {
 
     /**
      * Getter for read status
+     * @param recipientId recipient id
      * @return true if message has been read
      */
-    public boolean isRead() {
-        return isRead;
+    public boolean isRead(String recipientId) {
+        if (readSet.contains(userId)){
+            return true;
+        }
+        return false;
     }
 
     /**
      * Getter for archived status
+     * @param recipientId recipient id
      * @return true if message has been archived
      */
-    public boolean isArchived() {
-        return archived;
+    public boolean isArchived(String recipientId) {
+        if (archivedSet.contains(recipientId)){
+            return true;
+        }
+        return false;
     }
 
     /**
      * Getter for deleted status
+     * @param recipientId recipient id
      * @return true if message has been deleted
      */
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isDeleted(String recipientId) {
+        if (deletedSet.contains(recipientId)){
+            return true;
+        }
+        return false;
     }
 
     /**
-     * Setter for read status
-     * @param read: if true, message is read by user
+     * Adds to readSet and user has read message
+     * @param recipientId recipient id
      */
-    public void setRead(boolean read) {
-        isRead = read;
+    public void addRead(String recipientId) {
+        if (!readSet.contains(recipientId)){
+            readSet.add(recipientId);
+        }
     }
 
     /**
-     * Setter for archived status
-     * @param archived: if true, message is archived by user
+     * Removes from readSet and user has unread message
+     * @param recipientId recipient id
      */
-    public void setArchived(boolean archived){
-        this.archived = archived;
+    public void removeRead(String recipientId) {
+        if (readSet.contains(recipientId)){
+            readSet.remove(recipientId);
+        }
     }
 
     /**
-     * Setter for deleted status
-     * @param deleted: if true, message is deleted by user
+     * Add the message to archived status for user
+     * @param recipientId recipient id
      */
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void addArchived(String recipientId){
+        if (!archivedSet.contains(recipientId)){
+            archivedSet.add(recipientId);
+        }
+    }
+
+    /**
+     * Removes the message from archived status for user
+     * @param recipientId recipient id
+     */
+    public void removeArchived(String recipientId){
+        if (archivedSet.contains(recipientId)){
+            archivedSet.remove(recipientId);
+        }
+    }
+
+    /**
+     * Adds deleted status of message for user
+     * @param recipientId recipient id
+     */
+    public void addDeleted(String recipientId) {
+        if (!deletedSet.contains(recipientId)){
+            deletedSet.add(recipientId);
+        }
+    }
+
+    /**
+     * Removes deleted status of message for user
+     * @param recipientId recipient id
+     */
+    public void removeDeleted(String recipientId) {
+        if (deletedSet.contains(recipientId)){
+            deletedSet.remove(recipientId);
+        }
     }
 
     /**
