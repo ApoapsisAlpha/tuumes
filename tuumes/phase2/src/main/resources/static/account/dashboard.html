@@ -63,7 +63,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-2" id="speaker">
                 <div class="card">
                     <a href="speaker/view_speaking_events.html">
                         <div class="card-content text-center">
@@ -73,7 +73,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-2" id="organizer">
                 <div class="card">
                     <a href="organizer/menu.html">
                         <div class="card-content text-center">
@@ -92,4 +92,15 @@
 <script type="text/javascript" src="https://cdn.mkn.cx/MDB/js/mdb.min.js"></script>
 <script type="text/javascript" src="../assets/js/global.js"></script>
 <script type="text/javascript" src="../assets/js/account.js"></script>
+
+<script>
+    $("#speaker").hide();
+    $("#organizer").hide();
+
+    if (USER_TYPE == userType.SPEAKER)
+        $("#speaker").show();
+    else if (USER_TYPE == userType.ORGANIZER)
+        $("#organizer").show();
+</script>
+
 </html>

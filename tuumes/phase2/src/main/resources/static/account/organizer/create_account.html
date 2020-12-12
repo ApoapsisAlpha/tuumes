@@ -48,10 +48,10 @@
                         <div class="md-form md-outline col-12 mt-3 mb-3">
                             <select class="browser-default custom-select" id="type">
                                 <option disabled selected>User Type</option>
-                                <option value="1">User</option>
-                                <option value="2">Organizer</option>
-                                <option value="3">Speaker</option>
-                                <option value="4">VIP</option>
+                                <option value="attendee">User</option>
+                                <option value="organizer">Organizer</option>
+                                <option value="speaker">Speaker</option>
+                                <option value="vip">VIP</option>
                             </select>
                         </div>
                     </div>
@@ -85,12 +85,13 @@
                 data[e.name] = e.value;
         });
 
-        $.postJSON("/user/register", data, function(result) {
+        data['type'] = $("#type").val();
+
+        $.postJSON("/users/register", data, function(result) {
             console.log(result);
 
             if (result.valid) {
-                toastr.success("Your account has been registered.");
-
+                toastr.success("That account has been registered.");
             } else {
                 switch (result.message) {
                     case "EMAIL_IN_USE":
@@ -105,8 +106,6 @@
 
         return false;
     });
-
-
 </script>
 
 </html>
