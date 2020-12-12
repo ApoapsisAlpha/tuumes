@@ -76,9 +76,16 @@
             </div>
 
             <div class="form-group">
-                <label for="capacity">Event Capacity:</label>
-                <input autocomplete="off" class="form-control" id="capacity" min="1" name="capacity"
-                       placeholder="Event Capacity"
+                <label for="userLimit">Event Capacity:</label>
+                <input autocomplete="off" class="form-control" id="userLimit" min="1" name="userLimit"
+                       placeholder="User Limit"
+                       required type="number">
+            </div>
+
+            <div class="form-group">
+                <label for="speakerLimit">Speaker Limit:</label>
+                <input autocomplete="off" class="form-control" id="speakerLimit" min="1" name="speakerLimit"
+                       placeholder="Speaker Limit"
                        required type="number">
             </div>
 
@@ -132,7 +139,8 @@
         data['startTime'] = Math.floor($("#startTime").prop("valueAsNumber") / 1000);
         data['endTime'] = Math.floor($("#endTime").prop("valueAsNumber") / 1000);
         data['isVipOnlyEvent'] = $("#isVipOnlyEvent").prop("checked");
-        data['capacity'] = parseInt(data['capacity']);
+        data['speakerLimit'] = parseInt(data['speakerLimit']);
+        data['userLimit'] = parseInt(data['userLimit']);
 
         console.log(data);
 
@@ -141,6 +149,7 @@
 
             if (result.valid) {
                 toastr.success("The event has been created.");
+                window.location.href = "view_events.html";
             } else {
                 switch (result.message) {
                     

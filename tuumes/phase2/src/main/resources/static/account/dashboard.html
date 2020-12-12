@@ -100,8 +100,10 @@
     if (USER_TYPE == userType.SPEAKER) {
         $("#speaker").show();
         $("#events").hide();
-    } else if (USER_TYPE == userType.ORGANIZER)
+    } else if (USER_TYPE == userType.ORGANIZER) {
         $("#organizer").show();
+        $("#events").hide();
+    }
 </script>
 
 </html>

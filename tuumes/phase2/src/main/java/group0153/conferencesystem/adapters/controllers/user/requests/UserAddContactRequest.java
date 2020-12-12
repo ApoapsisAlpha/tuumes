@@ -12,7 +12,7 @@ public class UserAddContactRequest {
     /**
      * Construct an instance of UserContactResource using the user's id and contact's id as provided.
      *
-     * @param userId    the String id of the current user
+     * @param userId       the String id of the current user
      * @param contactEmail the String email of the user's contact
      */
     public UserAddContactRequest(String userId, String contactEmail) {
@@ -24,9 +24,10 @@ public class UserAddContactRequest {
      * Get the id of the user.
      *
      * @return Value of userId.
+     * @throws InvalidInputException when there is no user id specified
      */
     public String getUserId() throws InvalidInputException {
-        if(userId.isEmpty())
+        if (userId.isEmpty())
             throw new InvalidInputException("userId");
 
         return userId;
@@ -36,9 +37,10 @@ public class UserAddContactRequest {
      * Get the id of the contact.
      *
      * @return Value of contactId.
+     * @throws InvalidInputException when there is no contact email specified
      */
-    public String getContactEmail() throws InvalidInputException{
-        if(contactEmail.isEmpty())
+    public String getContactEmail() throws InvalidInputException {
+        if (contactEmail.isEmpty())
             throw new InvalidInputException("contactEmail");
 
         return contactEmail;

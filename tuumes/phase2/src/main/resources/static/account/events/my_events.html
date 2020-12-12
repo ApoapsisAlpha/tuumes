@@ -72,8 +72,8 @@
                 });
                 if (USER_TYPE == userType.ORGANIZER) {
                     print_delete = `
-                    <a class="btn btn-danger" id="register" href="../organizer/modify_event.html#${event.id}">
-                        <i class="fa fa-calendar-minus fa-lg mr-2"></i> Delete
+                    <a class="btn btn-default" id="register" href="../organizer/modify_event.html#${event.id}">
+                        <i class="fas fa-edit"></i> Modify
                     </a>`;
                 }
                 let userCount = event.userIds.length;
@@ -89,7 +89,7 @@
                     <p class="mt-2 mb-2">Capacity: ${userCount}/${event.userLimit}</p>
                     ${print_speakers}
                     <br>
-                    <button class="btn btn-secondary" id="unregister" type="button" onclick="unregisterEvent("${event.id}");">
+                    <button class="btn btn-secondary" id="unregister" type="button" onclick="unregisterEvent('${event.id}');">
                         <i class="fa fa-calendar-minus fa-lg mr-2"></i> Unregister
                     </button>
                     ${print_delete}
@@ -105,11 +105,13 @@
     }
 
     function unregisterEvent(eventId) {
-        $.postJSON("/user/events/unregister", {
+        $.postJSON("/events/unregister", {
             userId: USER_ID,
             eventId: eventId
         }, function(result) {
+            console.log(result);
             getEvents();
+            toastr.success("You've unregistered from this event.");
         });
 
         return false;
