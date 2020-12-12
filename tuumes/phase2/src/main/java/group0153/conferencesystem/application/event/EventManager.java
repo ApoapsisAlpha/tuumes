@@ -43,6 +43,17 @@ public class EventManager {
     }
 
     /**
+     * Checks if the two events are overlapping.
+     * @param event1 first event
+     * @param event2 second event
+     * @return true if they are overlapping, false otherwise
+     */
+    private boolean areEventsOverlapping(Event event1, Event event2) {
+        return event1.getEndTime().isAfter(event2.getStartTime()) &&
+                event1.getStartTime().isBefore(event2.getEndTime());
+    }
+
+    /**
      * Checks if there is a collision with the given user and event. Specifically, it checks whether the user
      * has an event at the same time as the provided event.
      *
@@ -57,8 +68,7 @@ public class EventManager {
         }).collect(Collectors.toList());
 
         return events.stream().anyMatch(userEvent -> {
-            return userEvent.getEndTime().isAfter(event.getStartTime()) &&
-                    userEvent.getStartTime().isBefore(event.getEndTime());
+            return areEventsOverlapping(userEvent, event);
         });
     }
 
@@ -170,6 +180,10 @@ public class EventManager {
         List<Event> roomEvents = eventPersistencePort.getAllEvents().stream()
                 .filter(e -> e.getRoomId().equals(room.getId()))
                 .collect(Collectors.toList());
+
+        if (roomEvents.stream().anyMatch(roomEvent -> areEventsOverlapping(roomEvent, event)))
+            throw new ExistingOverlappingEventException();
+
         // sum of user limits for all events in the room
         int totalRoomEventLimit = roomEvents.stream().mapToInt(Event::getUserLimit).sum();
         if (totalRoomEventLimit + event.getUserLimit() >= room.getCapacity())

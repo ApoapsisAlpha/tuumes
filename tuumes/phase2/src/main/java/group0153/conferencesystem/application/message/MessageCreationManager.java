@@ -1,6 +1,5 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.adapters.gateways.user.UserPersistenceAdapter;
 import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
@@ -9,6 +8,7 @@ import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.message.Message;
 import group0153.conferencesystem.entities.user.User;
 import group0153.conferencesystem.entities.user.UserType;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * A message use case class which is in charge of creating new messages.
  */
-
+@Component
 public class MessageCreationManager {
     private MessagePersistencePort messagePersistencePort;
     private UserPersistencePort userPersistencePort;
@@ -88,7 +88,7 @@ public class MessageCreationManager {
         String newId = UUID.randomUUID().toString();
         List<String> attendees = eventPresent.get().getUserIds();
         ArrayList<String> recipients = new ArrayList<>();
-        for(String id: attendees){
+        for(String id : attendees){
             Optional<User> userPresent = userPersistencePort.findById(id);
             if (!userPresent.isPresent())
                 throw new UserNotFoundException(id);
