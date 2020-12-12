@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
+
 /**
  * A class facilitating the user's interaction with messages by providing the information about them
  */
@@ -23,7 +25,11 @@ public class MessageRequest {
      *
      * @return Value of messageId.
      */
-    public String getMessageId() {
+    public String getMessageId() throws InvalidInputException {
+        if (messageId.isEmpty()){
+            throw new InvalidInputException("message id");
+        }
+
         return messageId;
     }
 
@@ -32,7 +38,10 @@ public class MessageRequest {
      *
      * @return Value of userId.
      */
-    public String getUserId() {
+    public String getUserId() throws InvalidInputException {
+        if (userId.isEmpty()){
+            throw new InvalidInputException("user id");
+        }
         return userId;
     }
 }

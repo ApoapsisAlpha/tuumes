@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.message.requests;
 
+import group0153.conferencesystem.application.exceptions.InvalidInputException;
+
 /**
  * A class facilitating the user's creation of messages sent to attendees of an event by storing the information
  * they input.
@@ -27,7 +29,10 @@ public class MessageComposeEventRequest {
      *
      * @return Value of eventId.
      */
-    public String getEventId() {
+    public String getEventId() throws InvalidInputException {
+        if(eventId.isEmpty()){
+            throw new InvalidInputException("event id");
+        }
         return eventId;
     }
 
@@ -36,7 +41,10 @@ public class MessageComposeEventRequest {
      *
      * @return Value of content.
      */
-    public String getContent() {
+    public String getContent() throws InvalidInputException {
+        if(content.isEmpty()){
+            throw new InvalidInputException("message content");
+        }
         return content;
     }
 
@@ -45,7 +53,10 @@ public class MessageComposeEventRequest {
      *
      * @return Value of userId.
      */
-    public String getUserId() {
+    public String getUserId() throws InvalidInputException {
+        if(userId.isEmpty()){
+            throw new InvalidInputException("user id");
+        }
         return userId;
     }
 }
