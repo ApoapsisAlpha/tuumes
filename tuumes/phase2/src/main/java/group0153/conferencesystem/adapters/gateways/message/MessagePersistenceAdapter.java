@@ -81,36 +81,6 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     }
 
     /**
-     * Given a Message that already exists, update the database Model to the given Message's read status
-     *
-     * @param message The message to be updated
-     */
-    @Override
-    public void updateMessageReadStatus(Message message) {
-
-    }
-
-    /**
-     * Given a Message that already exists, update the database Model to the given Message's archived status
-     *
-     * @param message The message to be updated
-     */
-    @Override
-    public void updateMessageArchivedStatus(Message message) {
-
-    }
-
-    /**
-     * Given a Message that already exists, update the database Model to the given Message's archived status
-     *
-     * @param message The message to be updated
-     */
-    @Override
-    public void updateMessageDeletedStatus(Message message) {
-
-    }
-
-    /**
      * Find an optional Message by id
      *
      * @param msgId The id of the message being found

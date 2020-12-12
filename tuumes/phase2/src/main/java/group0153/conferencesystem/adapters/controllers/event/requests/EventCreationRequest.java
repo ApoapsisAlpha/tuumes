@@ -6,8 +6,8 @@ package group0153.conferencesystem.adapters.controllers.event.requests;
 public class EventCreationRequest {
     private String name;
     private String description;
-    private Long startTime;
-    private Long endTime;
+    private int startTime;
+    private int endTime;
     private String roomId;
     private int speakerLimit;
     private int userLimit;
@@ -23,7 +23,7 @@ public class EventCreationRequest {
      * @param userLimit      Maximum number of attending users
      * @param isVipOnlyEvent Boolean indicating whetehr the event is for VIP-only users.
      */
-    public EventCreationRequest(String name, String description, Long startTime, Long endTime, String roomId,
+    public EventCreationRequest(String name, String description, int startTime, int endTime, String roomId,
                                 int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.name = name;
         this.description = description;
@@ -58,7 +58,7 @@ public class EventCreationRequest {
      *
      * @return the start time of this event
      */
-    public Long getStartTime() {
+    public int getStartTime() {
         return startTime;
     }
 
@@ -67,7 +67,7 @@ public class EventCreationRequest {
      *
      * @return the end time of this event.
      */
-    public Long getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 
