@@ -30,4 +30,10 @@ public interface RoomPersistencePort {
      * @return The rooms within the conference.
      */
     List<Room> getAllRooms();
+
+    /**
+     * Remove a room given the id.
+     * @param roomId the room's id
+     */
+    void removeRoomById(String roomId);
 }
