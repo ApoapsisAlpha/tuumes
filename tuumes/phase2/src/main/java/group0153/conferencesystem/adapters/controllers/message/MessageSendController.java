@@ -96,24 +96,4 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
-
-    /**
-     * API command for users to send messages to attendees of multiple chosen events.
-     *
-     * @param messageComposeRequest instance of MessageComposeMultiEventRequest containing the details of the
-     *                                        message to be sent to the attendees of specified events
-     * @return ResponseEntity containing a Response with status and validity
-     */
-    @PostMapping("/send_multi_event")
-    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeRequest messageComposeRequest) {
-        try {
-            messageCreationManager.sendToEveryone(messageComposeRequest.getContent(),
-                    messageComposeRequest.getUserId());
-            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
-        } catch (EventNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-    }
 }
