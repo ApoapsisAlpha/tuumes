@@ -4,6 +4,10 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 
 import java.util.List;
 
+/**
+ * A class facilitating the user's creation of messages sent to attendees of MULTIPLE events by storing the information
+ * they input.
+ */
 public class MessageComposeMultiEventRequest {
     private final String content;
     private final List<String> eventIds;
