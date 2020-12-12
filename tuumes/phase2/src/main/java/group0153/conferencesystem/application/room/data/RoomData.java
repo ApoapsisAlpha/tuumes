@@ -6,6 +6,7 @@ import group0153.conferencesystem.application.Data;
  * A class for storing information of a room.
  */
 public class RoomData implements Data {
+    private final String id;
     private final String name;
     private final int capacity;
 
@@ -15,7 +16,8 @@ public class RoomData implements Data {
      * @param name     the String name of the room
      * @param capacity the int total capacity of the room
      */
-    public RoomData(String name, int capacity) {
+    public RoomData(String id, String name, int capacity) {
+        this.id = id;
         this.name = name;
         this.capacity = capacity;
     }
@@ -36,5 +38,14 @@ public class RoomData implements Data {
      */
     public int getCapacity() {
         return capacity;
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return Value of id.
+     */
+    public String getId() {
+        return id;
     }
 }

@@ -1,6 +1,7 @@
 package group0153.conferencesystem.application.event.data;
 
 import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.user.data.UserContactData;
 import group0153.conferencesystem.entities.event.Event;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ public class EventData implements Data {
     private final boolean isVipOnlyEvent;
     private List<String> userIds;
     private List<String> speakerIds;
+    private List<UserContactData> speakerData;
 
     /**
      * Construct a new instance of EventData using the specified event
@@ -53,8 +55,8 @@ public class EventData implements Data {
      * @param userLimit      the maximum number of users allowed to register for the event
      * @param isVipOnlyEvent boolean whether the event is for VIPs only
      */
-    public EventData(String name, String description, LocalDateTime startTime, LocalDateTime endTime,
-                     String roomId, int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
+    public EventData(String name, String description, LocalDateTime startTime, LocalDateTime endTime, String roomId,
+                     int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
         this.name = name;
         this.description = description;
         this.startTime = startTime;
@@ -63,6 +65,24 @@ public class EventData implements Data {
         this.speakerLimit = speakerLimit;
         this.userLimit = userLimit;
         this.isVipOnlyEvent = isVipOnlyEvent;
+    }
+
+    /**
+     * Set the speaker data using the given list
+     *
+     * @param speakerData a list of UserContactData containing speaker data
+     */
+    public void setSpeakerData(List<UserContactData> speakerData) {
+        this.speakerData = speakerData;
+    }
+
+    /**
+     * Get the event id.
+     *
+     * @return the event's id
+     */
+    public String getId() {
+        return id;
     }
 
     /**
@@ -153,5 +173,9 @@ public class EventData implements Data {
      */
     public boolean isVipOnlyEvent() {
         return isVipOnlyEvent;
+    }
+
+    public List<UserContactData> getSpeakerData() {
+        return speakerData;
     }
 }

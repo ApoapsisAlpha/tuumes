@@ -15,12 +15,20 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
+/**
+ * A controller class that facilitates the registering, viewing, and manipulating of events as requested by the user
+ */
+
 @RestController
 @RequestMapping(value="/events")
 public class EventController {
 
     private EventManager eventManager;
 
+    /**
+     * Creates an EventController instance.
+     * @param eventManager an instance of eventManager
+     */
     public EventController(EventManager eventManager) {
         this.eventManager = eventManager;
     }
@@ -73,6 +81,11 @@ public class EventController {
         }
     }
 
+    /**
+     * Allows an organizer to create an event based on their inputs.
+     * @param creationResource A resource containing the information needed to create an event.
+     * @return response indicating sucess/failure
+     */
     @PostMapping("")
     public ResponseEntity<Response> createEvent(@RequestBody EventCreationRequest creationResource) {
         try {

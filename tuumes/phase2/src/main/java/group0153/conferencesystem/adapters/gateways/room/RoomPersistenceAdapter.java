@@ -4,7 +4,9 @@ import group0153.conferencesystem.application.room.RoomPersistencePort;
 import group0153.conferencesystem.entities.room.Room;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Adapter class that adapts RoomRepository to work with database storage
@@ -45,5 +47,27 @@ public class RoomPersistenceAdapter implements RoomPersistencePort {
         return roomRepository.findByResourceId(roomId).flatMap(roomModel -> {
             return Optional.of(new Room(roomModel.getResourceId(), roomModel.getName(), roomModel.getCapacity()));
         });
+    }
+
+    /**
+     * Gets a list of every room.
+     *
+     * @return The rooms within the conference.
+     */
+    @Override
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll().stream()
+                .map(roomModel -> new Room(roomModel.getResourceId(), roomModel.getName(), roomModel.getCapacity()))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Remove a room given the id.
+     *
+     * @param roomId the room's id
+     */
+    @Override
+    public void removeRoomById(String roomId) {
+        roomRepository.findByResourceId(roomId).ifPresent(roomRepository::delete);
     }
 }
