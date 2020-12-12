@@ -108,17 +108,23 @@ public class EventController {
         try {
             LocalDateTime startTime = LocalDateTime.ofEpochSecond(creationResource.getStartTime(), 0, ZoneOffset.UTC);
             LocalDateTime endTime = LocalDateTime.ofEpochSecond(creationResource.getEndTime(), 0, ZoneOffset.UTC);
-            EventData eventData = new EventData(creationResource.getName(), creationResource.getDescription(),
-                                                startTime, endTime,
-                                                creationResource.getRoomId(), creationResource.getSpeakerLimit(),
-                                                creationResource.getUserLimit(), creationResource.isVipOnlyEvent());
+            if (startTime.isBefore(endTime)) {
+                EventData eventData = new EventData(creationResource.getName(), creationResource.getDescription(),
+                        startTime, endTime,
+                        creationResource.getRoomId(), creationResource.getSpeakerLimit(),
+                        creationResource.getUserLimit(), creationResource.isVipOnlyEvent());
 
-            eventManager.createEvent(eventData);
-            return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+                eventManager.createEvent(eventData);
+                return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(new Response(false, "Full room"), HttpStatus.FORBIDDEN);
+            }
         } catch (FullRoomException e) {
             return new ResponseEntity<>(new Response(false, "Full room"), HttpStatus.FORBIDDEN);
         } catch (RoomNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "Invalid room"), HttpStatus.FORBIDDEN);
+        } catch (ExistingOverlappingEventException e) {
+            return new ResponseEntity<>(new Response(false, "Existing overlapping event"), HttpStatus.FORBIDDEN);
         }
     }
 
