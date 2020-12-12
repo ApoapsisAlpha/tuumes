@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * A controller class facilitating user registration and login
+ * A controller class facilitating user registration and login.
  */
 @RestController
 @RequestMapping(value = "/users")
@@ -26,7 +26,7 @@ public class UserAuthController {
     private final UserAuthManager userAuthManager;
 
     /**
-     * Construct an instance of UserAuthController using the provided UserAuthManager instance
+     * Construct an instance of UserAuthController using the provided UserAuthManager instance.
      *
      * @param userAuthManager Instance of UserAuthManager that can handle user login and registration
      */
@@ -35,7 +35,7 @@ public class UserAuthController {
     }
 
     /**
-     * Attempt to register an account for the user and display the result via a presenter and UI
+     * Attempt to register an account for the user and display the result via a presenter and UI.
      *
      * @param user an instance of UserRegisterResource containing the user's information
      * @return Response entity with the data to be displayed and a status
@@ -63,7 +63,7 @@ public class UserAuthController {
     }
 
     /**
-     * Attempt to log the user in and display the result via a presenter and UI
+     * Attempt to log the user in and display the result via a presenter and UI.
      *
      * @param user an instance of UserRegisterResource containing the user's information
      * @return Response entity with the data to be displayed and a status

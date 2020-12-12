@@ -4,13 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * A class that launches the program with the arguments specified
+ * A class that launches the program with the arguments specified.
  */
 @SpringBootApplication
 public class ConferenceSystem {
 
     /**
-     * Run Spring with specified arguments
+     * Run Spring with specified arguments.
      *
      * @param args arguments specified when program is launched
      */

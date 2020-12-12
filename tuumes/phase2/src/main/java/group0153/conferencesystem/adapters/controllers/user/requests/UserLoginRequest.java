@@ -3,7 +3,7 @@ package group0153.conferencesystem.adapters.controllers.user.requests;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
 
 /**
- * A class facilitating the login of a user by checking if they have inputted their login information
+ * A class facilitating the login of a user by checking if they have inputted their login information.
  */
 public class UserLoginRequest {
     private String email; // TODO: are these two variables necessary? They aren't initialized anywhere

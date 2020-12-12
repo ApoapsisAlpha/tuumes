@@ -80,7 +80,7 @@ public class User {
         }
 
         /**
-         * Return a new User instance with specified information
+         * Return a new User instance with specified information.
          *
          * @return user with desired type, name, email, password.
          */
@@ -135,7 +135,7 @@ public class User {
     }
 
     /**
-     * Returns the name of the User
+     * Returns the name of the User.
      *
      * @return the name of the User
      */
@@ -144,7 +144,7 @@ public class User {
     }
 
     /**
-     * Returns the email of the User
+     * Returns the email of the User.
      *
      * @return the email of the User
      */
@@ -153,7 +153,7 @@ public class User {
     }
 
     /**
-     * Changes the email stored in this User instance to email
+     * Changes the email stored in this User instance to email.
      *
      * Precondition: email is a valid email belonging to a user.
      *
@@ -164,7 +164,7 @@ public class User {
     }
 
     /**
-     * Returns the id of the User
+     * Returns the id of the User.
      *
      * @return the id of the User
      */
@@ -189,7 +189,7 @@ public class User {
     }
 
     /**
-     * Get password of this user
+     * Get password of this user.
      *
      * @return string value of password
      */
@@ -226,7 +226,7 @@ public class User {
     }
 
     /**
-     * Return the Hashset of the ids of this User's contacts
+     * Return the Hashset of the ids of this User's contacts.
      *
      * @return a HashSet containing the ids of this User's contacts.
      */
@@ -235,7 +235,7 @@ public class User {
     }
 
     /**
-     * Return a Hashset of ids of events this User is signed up for
+     * Return a Hashset of ids of events this User is signed up for.
      *
      * @return the Hashset of ids of events the User is signed up for
      */
@@ -244,7 +244,7 @@ public class User {
     }
 
     /**
-     * Remove the eventId from the list of events signed up for
+     * Remove the eventId from the list of events signed up for.
      *
      * Precondition: evenId is a valid id belonging to an event.
      *
@@ -256,7 +256,7 @@ public class User {
     }
 
     /**
-     * Add the eventId to the list of events signed up for
+     * Add the eventId to the list of events signed up for.
      *
      * Precondition: evenId is a valid id belonging to an event.
      *
@@ -268,7 +268,7 @@ public class User {
     }
 
     /**
-     * Add a message id to the set of ids corresponding to messages sent to this User
+     * Add a message id to the set of ids corresponding to messages sent to this User.
      *
      * Precondition: messageId is a valid id belonging to a message.
      *

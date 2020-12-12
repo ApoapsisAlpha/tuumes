@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * A controller class facilitating the user's interactions with their contacts
+ * A controller class facilitating the user's interactions with their contacts.
  */
 @RestController
 @RequestMapping(value = "/user/contacts")
@@ -22,7 +22,7 @@ public class UserContactController {
     private final UserContactManager userContactManager;
 
     /**
-     * Construct a new instance of UserContactController with the specified userContactManager
+     * Construct a new instance of UserContactController with the specified userContactManager.
      *
      * @param userContactManager an instance of UserContactManager to be used to manage contacts
      */
@@ -31,7 +31,7 @@ public class UserContactController {
     }
 
     /**
-     * Get and display the user's contacts via a presenter and UI
+     * Get and display the user's contacts via a presenter and UI.
      *
      * @param userId the String id of the current user
      * @return Response entity with the data to be displayed and a status
@@ -48,7 +48,8 @@ public class UserContactController {
     }
 
     /**
-     * Attempt to remove a contact specified by the user from their contacts and display the result via a presenter and UI
+     * Attempt to remove a contact specified by the user from their contacts and display the result via a presenter
+     * and UI.
      *
      * @param contactResource Instance of UserContactResource that contains the required contact data
      * @return Response entity with the data to be displayed and a status
@@ -64,7 +65,7 @@ public class UserContactController {
     }
 
     /**
-     * Attempt to add a contact specified by the user to their contacts and display the result via a presenter and UI
+     * Attempt to add a contact specified by the user to their contacts and display the result via a presenter and UI.
      *
      * @param contactResource Instance of UserContactResource that contains the required contact data
      * @return Response entity with the data to be displayed and a status
