@@ -4,6 +4,7 @@ import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.exceptions.*;
 import group0153.conferencesystem.application.room.RoomPersistencePort;
 import group0153.conferencesystem.application.user.UserPersistencePort;
+import group0153.conferencesystem.application.user.data.UserContactData;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.room.Room;
 import group0153.conferencesystem.entities.user.User;
@@ -76,7 +77,7 @@ public class EventManager {
                 .filter(e -> e.getStartTime().isAfter(currentTime))
                 .filter(e -> !user.getEvents().contains(e.getId()))
                 .filter(e -> user.getType() != UserType.ATTENDEE || !hasEventCollision(user, e))
-                .map(EventData::new)
+                .map(this::mapEntityToData)
                 .collect(Collectors.toList());
     }
 
@@ -98,7 +99,13 @@ public class EventManager {
             }).collect(Collectors.toList());
         }
 
-        return events.stream().map(EventData::new).collect(Collectors.toList());
+        return events.stream().map(e -> {
+            List<UserContactData> speakerData = e.getSpeakerIds().stream().map(speakerId -> {
+                User speaker = userPersistencePort.findById(speakerId).get();
+                return new UserContactData(speakerId, speaker.getName(), speaker.getEmail());
+            }).collect(Collectors.toList());
+            return new EventData(e);
+        }).collect(Collectors.toList());
     }
 
     /**
@@ -154,5 +161,19 @@ public class EventManager {
         eventPersistencePort.saveEvent(event);
     }
 
+    /**
+     * Maps the given entity to a data object
+     * @param e the event
+     * @return and EventData object
+     */
+    private EventData mapEntityToData(Event e) {
+        List<UserContactData> speakerData = e.getSpeakerIds().stream().map(speakerId -> {
+            User speaker = userPersistencePort.findById(speakerId).get();
+            return new UserContactData(speakerId, speaker.getName(), speaker.getEmail());
+        }).collect(Collectors.toList());
 
+        EventData data = new EventData(e);
+        data.setSpeakerData(speakerData);
+        return data;
+    }
 }
