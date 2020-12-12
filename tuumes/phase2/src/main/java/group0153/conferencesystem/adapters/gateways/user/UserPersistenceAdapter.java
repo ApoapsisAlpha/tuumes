@@ -14,7 +14,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     private final UserRepository userRepository;
 
     /**
-     * Constructs an instance of UserPersistenceAdapter using the provided UserRepository instance
+     * Constructs an instance of UserPersistenceAdapter using the provided UserRepository instance.
      *
      * @param userRepository a repository storing Users
      */
@@ -23,7 +23,7 @@ public class UserPersistenceAdapter implements UserPersistencePort {
     }
 
     /**
-     * Save the provided User instance
+     * Save the provided User instance.
      *
      * @param user a User instance that is to be saved
      */

@@ -16,7 +16,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 
 /**
- * A controller class that facilitates the registering, viewing, and manipulating of events as requested by the user
+ * A controller class that facilitates the registering, viewing, and manipulating of events as requested by the user.
  */
 
 @RestController

@@ -1,14 +1,14 @@
 package group0153.conferencesystem.adapters.controllers.user.requests;
 
 /**
- * A class facilitating the user's interaction with their contacts by storing information about them
+ * A class facilitating the user's interaction with their contacts by storing information about them.
  */
 public class UserRemoveContactRequest {
     private final String userId;
     private final String contactId;
 
     /**
-     * Construct an instance of UserContactResource using the user's id and contact's id as provided
+     * Construct an instance of UserContactResource using the user's id and contact's id as provided.
      *
      * @param userId    the String id of the current user
      * @param contactId the String id of the user's contact
