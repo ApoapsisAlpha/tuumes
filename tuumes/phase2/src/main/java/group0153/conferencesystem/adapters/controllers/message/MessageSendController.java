@@ -71,6 +71,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (MissingPermissionException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         }
     }
 
@@ -92,6 +94,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (MissingPermissionException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         }
     }
 
@@ -109,6 +113,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
+        } catch (InvalidInputException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 }

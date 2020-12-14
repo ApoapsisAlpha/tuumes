@@ -89,15 +89,23 @@ public class MessageSender {
         if (!eventPresent.isPresent())
             throw new EventNotFoundException(eventId);
 
+        Optional<User> userPresent = userPersistencePort.findById(senderId);
+        if (!userPresent.isPresent())
+            throw new UserNotFoundException(senderId);
+
+        if (userPresent.get().getType() != UserType.ORGANIZER || userPresent.get().getType() != UserType.SPEAKER){
+            throw new MissingPermissionException(UserType.ORGANIZER);
+        }
+
         String newId = UUID.randomUUID().toString();
         List<String> attendees = eventPresent.get().getUserIds();
         ArrayList<String> recipients = new ArrayList<>();
         for (String id : attendees) {
-            Optional<User> userPresent = userPersistencePort.findById(id);
-            if (!userPresent.isPresent())
+            Optional<User> userPresent1 = userPersistencePort.findById(id);
+            if (!userPresent1.isPresent())
                 throw new UserNotFoundException(id);
 
-            if (userPresent.get().getType() != UserType.SPEAKER) {
+            if (userPresent1.get().getType() != UserType.SPEAKER) {
                 recipients.add(id);
             }
         }
