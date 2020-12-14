@@ -6,9 +6,9 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
  * A class facilitating the user's creation of messages by storing the information they input.
  */
 public class MessageComposeRequest {
-    private final String content;
-    private final String recipientEmail;
-    private final String userId;
+    private String content;
+    private String recipientEmail;
+    private String userId;
 
     /**
      * Construct an instance of MessageComposeResource using the provided information about a message.
@@ -20,18 +20,6 @@ public class MessageComposeRequest {
     public MessageComposeRequest(String content, String recipientEmail, String userId) {
         this.content = content;
         this.recipientEmail = recipientEmail;
-        this.userId = userId;
-    }
-
-    /**
-     * Construct an instance of MessageComposeResource using the provided information about a message.
-     *
-     * @param content        String content of the message
-     * @param userId         String id of the user that sent this message
-     */
-    public MessageComposeRequest(String content, String userId) {
-        this.content = content;
-        this.recipientEmail = "";
         this.userId = userId;
     }
 

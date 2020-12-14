@@ -3,8 +3,6 @@ package group0153.conferencesystem.application.message.data;
 import group0153.conferencesystem.application.Data;
 import group0153.conferencesystem.entities.message.Message;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

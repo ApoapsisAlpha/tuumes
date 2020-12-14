@@ -23,17 +23,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/messages")
 public class MessageSendController {
     private final MessageSender messageSender;
-    private final UserContactManager userContactManager;
 
     /**
      * Construct an instance of MessageSendController using the provided managers.
      *
      * @param messageSender instance of MessageCreationManager that can facilitate message creation
-     * @param userContactManager     instance of UserContactManager that can facility manipulation of contacts of a user
      */
-    public MessageSendController(MessageSender messageSender, UserContactManager userContactManager) {
+    public MessageSendController(MessageSender messageSender) {
         this.messageSender = messageSender;
-        this.userContactManager = userContactManager;
     }
 
     /**
