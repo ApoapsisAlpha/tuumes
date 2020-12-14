@@ -6,6 +6,7 @@ import group0153.conferencesystem.adapters.controllers.message.requests.MessageC
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeRequest;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
+import group0153.conferencesystem.application.exceptions.MissingPermissionException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.message.MessageSender;
 import group0153.conferencesystem.application.user.UserContactManager;
@@ -91,6 +92,23 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
+     * API cammand for Organizer users to send messages to everyone at the conference
+     *
+     * @param messageComposeRequest instance of MessageComposeRequest containing details of the message to send to all.
+     * @return ResponseEntity containing a Response with status and validity
+     */
+    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeRequest messageComposeRequest){
+        try {
+            messageSender.sendToEveryone(messageComposeRequest.getContent(), messageComposeRequest.getUserId());
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (MissingPermissionException e){
+            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+        } catch (EventNotFoundException e){
+            return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
         }
     }
 }

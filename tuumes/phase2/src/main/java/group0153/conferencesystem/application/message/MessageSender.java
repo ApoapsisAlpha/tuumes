@@ -3,6 +3,7 @@ package group0153.conferencesystem.application.message;
 import group0153.conferencesystem.application.event.EventPersistencePort;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
 import group0153.conferencesystem.application.exceptions.InvalidInputException;
+import group0153.conferencesystem.application.exceptions.MissingPermissionException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.event.Event;
@@ -126,13 +127,14 @@ public class MessageSender {
      * @throws UserNotFoundException if sender id is not found
      * @throws InvalidInputException if user is not an organizer
      */
-    public void sendToEveryone(String messageContent, String senderId) throws UserNotFoundException, InvalidInputException{
+    public void sendToEveryone(String messageContent, String senderId) throws UserNotFoundException,
+            MissingPermissionException{
         Optional<User> userPresent = userPersistencePort.findById(senderId);
         if (!userPresent.isPresent())
             throw new UserNotFoundException(senderId);
 
         if (userPresent.get().getType() != UserType.ORGANIZER){
-            throw new InvalidInputException("User not Organizer");
+            throw new MissingPermissionException(UserType.ORGANIZER);
         }
 
         String newId = UUID.randomUUID().toString();
