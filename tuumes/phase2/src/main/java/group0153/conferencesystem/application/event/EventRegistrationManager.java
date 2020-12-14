@@ -111,9 +111,7 @@ public class EventRegistrationManager {
         if (roomEvents.stream().anyMatch(roomEvent -> areEventsOverlapping(roomEvent, event)))
             throw new ExistingOverlappingEventException();
 
-        // sum of user limits for all events in the room
-        int totalRoomEventLimit = roomEvents.stream().mapToInt(Event::getUserLimit).sum();
-        if (totalRoomEventLimit + event.getUserLimit() >= room.getCapacity())
+        if (event.getUserLimit() > room.getCapacity())
             throw new FullRoomException(room.getId());
 
         eventPersistencePort.saveEvent(event);
