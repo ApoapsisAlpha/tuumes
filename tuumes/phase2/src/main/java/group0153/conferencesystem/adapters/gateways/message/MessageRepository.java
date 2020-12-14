@@ -20,15 +20,6 @@ public interface MessageRepository extends JpaRepository<MessageModel, Long> {
     Optional<MessageModel> findByResourceId(String msgId);
 
     /**
-     * Get all messages from recipient.
-     *
-     * @param recipientId recipient id
-     * @return list of message models
-     */
-    @Query(value = "select * from message_model where resource_id in (select message_model_id in message_model_recipients where recipients_id=?1)", nativeQuery = true)
-    List<MessageModel> findAllByRecipientId(String recipientId);
-
-    /**
      * Get the messages from sender.
      *
      * @param sender the UserModel of the user that sent the messages

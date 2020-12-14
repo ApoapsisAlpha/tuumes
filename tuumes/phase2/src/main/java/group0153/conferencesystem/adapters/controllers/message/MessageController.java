@@ -28,13 +28,12 @@ public class MessageController {
     /**
      * Construct a new instance of MessageController using the provided data.
      *
-     * @param messageCreationManager Instance of MessageCreationManager that handles the creation of new messages
      * @param messageFinder          Instance of MessageFinder that handles the retrieval of messages
      * @param messageManager         Instance of MessageManager that can manipulate stored messages
      * @param messageDataPreparer    Instance of MessageDataPreparer that can prepare messages' data to be utilized
      */
-    public MessageController(MessageSender messageCreationManager, MessageFinder messageFinder,
-                             MessageManager messageManager, MessageDataPreparer messageDataPreparer) {
+    public MessageController(MessageFinder messageFinder, MessageManager messageManager,
+                             MessageDataPreparer messageDataPreparer) {
         this.messageFinder = messageFinder;
         this.messageManager = messageManager;
         this.messageDataPreparer = messageDataPreparer;

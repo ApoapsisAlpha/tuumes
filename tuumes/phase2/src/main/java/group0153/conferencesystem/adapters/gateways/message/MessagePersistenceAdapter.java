@@ -126,7 +126,8 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public List<Message> getMsgsToUser(String user) {
-        List<MessageModel> messageModels = messageRepository.findAllByRecipientId(user);
+        UserModel userModel = userRepository.findByResourceId(user).get();
+        Set<MessageModel> messageModels = userModel.getMessages();
         MessageMapper mapper = new MessageMapper();
         return messageModels.stream().map(m -> mapper.mapModelToEntity(Optional.of(m)).get()).collect(Collectors.toList());
     }
