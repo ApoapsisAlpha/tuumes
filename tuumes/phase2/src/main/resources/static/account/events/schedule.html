@@ -46,7 +46,6 @@
 <script src="../../assets/js/account.js" type="text/javascript"></script>
 
 <script>
-    print();
     function getEvents() {
         $.getJSON("/events", {
             userId: USER_ID,
@@ -78,6 +77,7 @@
             
             $("#events").html(to_print);
             console.log(to_print);
+            print();
         });
     }
 

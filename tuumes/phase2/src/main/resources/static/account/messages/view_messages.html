@@ -96,39 +96,44 @@
         $.getJSON("/messages/view", {
             userId: USER_ID,
         }, function(result) {
+            console.log(result);
             let to_print = ``;
-            result.data.forEach(msg => {
-                let mark_button = `
-                <button class="btn btn-primary" onclick="markRead(${msg.id})">
-                    <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
-                </button>`;
-                let new_print = `<img class="stamp-img" src="../../assets/img/stamp.png">`;
-                if (msg.seen) {
-                    mark_button = `
-                    <button class="btn btn-info" onclick="markUnread(${msg.id})">
-                        <i class="fa fa-envelope-close fa-lg"></i> &thinsp; Mark As Unread 
+            if (result.message == "NO_MESSAGES")
+                toastr.error("You have no messages");
+            else {
+                result.data.forEach(msg => {
+                    let mark_button = `
+                    <button class="btn btn-primary" onclick="markRead('${msg.id}')">
+                        <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
                     </button>`;
-                    new_print = ``;
-                }
-                to_print += `
-                <div class="container white text-center mt-4 pt-4">
-                    ${new_print}
-                    <h3>From: ${msg.sender}</h3>
-                    <p>${msg.recipient}</p>
-                    <p class="mb-3">${msg.content}</p>
-                    ${mark_button}
-                    <button class="btn btn-warning" onclick="markArchive('${msg.id}')">
-                        <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
-                    </button>
-                    <a class="btn btn-secondary" href="send_message.html#${msg.email}">
-                        <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
-                    </a>
-                    <button class="btn btn-danger" onclick="deleteMsg('${msg.id}')">
-                        <i class="far fa-trash-alt"></i> &thinsp; Delete
-                    </button>
-                    <br><br>
-                </div>`;
-            });
+                    let new_print = `<img class="stamp-img" src="../../assets/img/stamp.png">`;
+                    if (msg.seen) {
+                        mark_button = `
+                        <button class="btn btn-info" onclick="markUnread('${msg.id})'">
+                            <i class="fa fa-envelope-close fa-lg"></i> &thinsp; Mark As Unread 
+                        </button>`;
+                        new_print = ``;
+                    }
+                    to_print += `
+                    <div class="container white text-center mt-4 pt-4">
+                        ${new_print}
+                        <h3>From: ${msg.sender}</h3>
+                        <p>${msg.recipient}</p>
+                        <p class="mb-3">${msg.messageContent}</p>
+                        ${mark_button}
+                        <button class="btn btn-warning" onclick="markArchive('${msg.id}')">
+                            <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
+                        </button>
+                        <a class="btn btn-secondary" href="send_message.html#${msg.email}">
+                            <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
+                        </a>
+                        <button class="btn btn-danger" onclick="deleteMsg('${msg.id}')">
+                            <i class="far fa-trash-alt"></i> &thinsp; Delete
+                        </button>
+                        <br><br>
+                    </div>`;
+                });
+            }
             $("#messages").html(to_print);
         });
     }
@@ -138,26 +143,26 @@
             userId: USER_ID,
         }, function(result) {
             let to_print = ``;
-            result.data.forEach(msg => {
-                to_print += `
-                <div class="container white text-center mt-4 pt-4">
-                    <h3>From: ${msg.sender}</h3>
-                    <p>${msg.recipient}</p>
-                    <p class="mb-3">${msg.content}</p>
-                    <button class="btn btn-default" onclick="markUnarchive(${msg.id})">
-                        <i class="fa fa-archive fa-lg"></i> &thinsp; Unarchive 
-                    </button>
-                    <button class="btn btn-danger" onclick="deleteMsg(${msg.id})">
-                        <i class="far fa-trash-alt"></i> &thinsp; Delete
-                    </button>
-                    <br><br>
-                </div>`;
-            });
+            if (result.message != "NO_MESSAGES") {
+                result.data.forEach(msg => {
+                    to_print += `
+                    <div class="container white text-center mt-4 pt-4">
+                        <h3>From: ${msg.sender}</h3>
+                        <p>${msg.recipient}</p>
+                        <p class="mb-3">${msg.messageContent}</p>
+                        <button class="btn btn-default" onclick="markUnarchive('${msg.id}')">
+                            <i class="fa fa-archive fa-lg"></i> &thinsp; Unarchive 
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteMsg('${msg.id}')">
+                            <i class="far fa-trash-alt"></i> &thinsp; Delete
+                        </button>
+                        <br><br>
+                    </div>`;
+                });
+            }
 
-            $("#messages").html(to_print);
+            $("#archived").html(to_print);
         });
-
-        alert("A fatal error occurred");
     }
 
     function markRead(messageId) {
@@ -165,6 +170,7 @@
             userId: USER_ID,
             messageId: messageId
         }, function(result) {
+            console.log(result);
             getMessages();
         });
 

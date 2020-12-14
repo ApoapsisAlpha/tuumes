@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
+import group0153.conferencesystem.adapters.controllers.message.requests.MessageRequest;
 import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
 import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
 import group0153.conferencesystem.application.message.MessageDataPreparer;
@@ -53,7 +54,7 @@ public class MessageController {
             ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
         } catch (NoMessagesFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(true, "NO_MESSAGES"), HttpStatus.OK);
         }
     }
 
@@ -71,115 +72,95 @@ public class MessageController {
             ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
         } catch (NoMessagesFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
-        }
-    }
-
-    /**
-     * Facilitate the display of all unread messages in the program.
-     *
-     * @param userId the id of the current user
-     * @return ResponseEntity containing all the data pertaining to all unread messages in the program
-     */
-    @GetMapping("/view_unread")
-    public ResponseEntity<Response> viewMessagesUnread(@RequestParam(value = "userId") String userId) {
-        // this method gets all the unread messages for a user, returns a ResponseArray();
-        try {
-            ArrayList<String> msgIds = messageFinder.getUnreadMsgsByUser(userId);
-            ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
-            return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoMessagesFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(true, "NO_MESSAGES"), HttpStatus.OK);
         }
     }
 
     /**
      * Set the message specified by msgId as read.
      *
-     * @param msgId  the id of a message specified by the user
-     * @param userId the id of the user
+     * @param messageRequest instance of MessageRequest containing the details of the message and user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/read")
-    public ResponseEntity<Response> markMessageRead(@RequestParam(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> markMessageRead(@RequestBody MessageRequest messageRequest) {
         // marks a message as read, this returns a Response();
         try {
-            messageManager.setMsgReadStatusById(msgId, userId, true);
+            messageManager.setMsgReadStatusById(messageRequest.getMessageId(), messageRequest.getUserId(), true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_MESSAGE"), HttpStatus.OK);
         }
     }
 
     /**
      * Set the message specified by msgId as unread.
      *
-     * @param msgId  the id of a message specified by the user
-     * @param userId the id of the user
+     * @param messageRequest instance of MessageRequest containing the details of the message and user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unread")
-    public ResponseEntity<Response> markMessageUnread(@RequestParam(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> markMessageUnread(@RequestBody MessageRequest messageRequest) {
         // marks a message as unread, this returns a Response();
         try {
-            messageManager.setMsgReadStatusById(msgId, userId, false);
+            messageManager.setMsgReadStatusById(messageRequest.getMessageId(), messageRequest.getUserId(), false);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_MESSAGE"), HttpStatus.OK);
         }
     }
 
     /**
      * Set message specifies by msgId as deleted.
      *
-     * @param msgId  the id of a message specified by the user
-     * @param userId the id of the user
+     * @param messageRequest instance of MessageRequest containing the details of the message and user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/delete")
-    public ResponseEntity<Response> deleteMessage(@RequestParam(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> deleteMessage(@RequestBody MessageRequest messageRequest) {
         // deletes a message, this returns a Response();
         try {
-            messageManager.setDeletedStatusById(msgId, userId, true);
+            messageManager.setDeletedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+                    true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_MESSAGE"), HttpStatus.OK);
         }
     }
 
     /**
      * Set the message specified by msgId as archived.
      *
-     * @param msgId  the id of a message specified by the user
-     * @param userId the id of the user
+     * @param messageRequest instance of MessageRequest containing the details of the message and user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/archive")
-    public ResponseEntity<Response> archiveMessage(@RequestParam(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> archiveMessage(@RequestBody MessageRequest messageRequest) {
         // archives a message, this returns a Response();
         try {
-            messageManager.setArchivedStatusById(msgId, userId, true);
+            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+                    true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_MESSAGE"), HttpStatus.OK);
         }
     }
 
     /**
      * Set the message specified by msgId as unarchived.
      *
-     * @param msgId  the id of a message specified by the user
-     * @param userId the id of the user
+     * @param messageRequest instance of MessageRequest containing the details of the message and user
      * @return ResponseEntity containing whether this operation was a success, possibly along with an explanation
      */
     @PostMapping("/unarchive")
-    public ResponseEntity<Response> unarchiveMessage(@RequestParam(value = "msgId") String msgId, String userId) {
+    public ResponseEntity<Response> unarchiveMessage(@RequestBody MessageRequest messageRequest) {
         // unarchives a message, this returns a Response();
         try {
-            messageManager.setArchivedStatusById(msgId, userId, false);
+            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+                    false);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_MESSAGE"), HttpStatus.OK);
         }
     }
 }

@@ -10,6 +10,6 @@ public class NoMessagesFoundException extends RuntimeException{
      * @param field The type of message not found
      */
     public NoMessagesFoundException(String field){
-        super("User has no "+ field +"messages");
+        super("User has no " + field + "messages");
     }
 }
