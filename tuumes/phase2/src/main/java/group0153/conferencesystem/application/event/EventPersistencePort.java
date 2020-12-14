@@ -64,4 +64,10 @@ public interface EventPersistencePort {
      */
     void deleteEvent(String eventId);
 
+    /**
+     * Update the event capacity
+     * @param eventId event id
+     * @param newCapacity new capcity
+     */
+    void updateEventCapacity(String eventId, int newCapacity);
 }

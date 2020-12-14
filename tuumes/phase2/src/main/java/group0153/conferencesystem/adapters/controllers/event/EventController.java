@@ -4,6 +4,7 @@ import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.event.requests.EventCreationRequest;
 import group0153.conferencesystem.adapters.controllers.event.requests.EventRegistrationRequest;
+import group0153.conferencesystem.adapters.controllers.event.requests.EventUpdateCapacityRequest;
 import group0153.conferencesystem.application.event.*;
 import group0153.conferencesystem.application.event.data.EventData;
 import group0153.conferencesystem.application.exceptions.*;
@@ -25,15 +26,18 @@ public class EventController {
 
     private EventRegistrationManager eventRegistrationManager;
     private EventFinder eventFinder;
+    private EventUpdateManager eventUpdateManager;
 
     /**
      * Creates an EventController instance.
      * @param eventRegistrationManager an instance of EventRegistryManager
      * @param eventFinder an instance of EventGetter
      */
-    public EventController(EventRegistrationManager eventRegistrationManager, EventFinder eventFinder) {
+    public EventController(EventRegistrationManager eventRegistrationManager, EventFinder eventFinder,
+                           EventUpdateManager eventUpdateManager) {
         this.eventRegistrationManager = eventRegistrationManager;
         this.eventFinder = eventFinder;
+        this.eventUpdateManager = eventUpdateManager;
     }
 
     /**
@@ -54,13 +58,13 @@ public class EventController {
 
     /**
      * Registers a user to an event.
-     * @param registrationResource request data
+     * @param request request data
      * @return response indicating success/failure
      */
     @PostMapping("/register")
-    public ResponseEntity<Response> registerUserForEvent(@RequestBody EventRegistrationRequest registrationResource) {
+    public ResponseEntity<Response> registerUserForEvent(@RequestBody EventRegistrationRequest request) {
         try {
-            eventRegistrationManager.registerUserForEvent(registrationResource.getEventId(), registrationResource.getUserId());
+            eventRegistrationManager.registerUserForEvent(request.getEventId(), request.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -71,13 +75,13 @@ public class EventController {
 
     /**
      * Unregisters a user from an event.
-     * @param registrationResource request data
+     * @param request request data
      * @return response indicating success/failure
      */
     @PostMapping("/unregister")
-    public ResponseEntity<Response> unregisterUserFromEvent(@RequestBody EventRegistrationRequest registrationResource) {
+    public ResponseEntity<Response> unregisterUserFromEvent(@RequestBody EventRegistrationRequest request) {
         try {
-            eventRegistrationManager.unregisterUserFromEvent(registrationResource.getEventId(), registrationResource.getUserId());
+            eventRegistrationManager.unregisterUserFromEvent(request.getEventId(), request.getUserId());
             return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
@@ -105,19 +109,19 @@ public class EventController {
     /**
      * Allows an organizer to create an event based on their inputs.
      *
-     * @param creationResource A resource containing the information needed to create an event.
-     * @return response indicating sucess/failure
+     * @param request A resource containing the information needed to create an event.
+     * @return response indicating success/failure
      */
     @PostMapping("")
-    public ResponseEntity<Response> createEvent(@RequestBody EventCreationRequest creationResource) {
+    public ResponseEntity<Response> createEvent(@RequestBody EventCreationRequest request) {
         try {
-            LocalDateTime startTime = LocalDateTime.ofEpochSecond(creationResource.getStartTime(), 0, ZoneOffset.UTC);
-            LocalDateTime endTime = LocalDateTime.ofEpochSecond(creationResource.getEndTime(), 0, ZoneOffset.UTC);
+            LocalDateTime startTime = LocalDateTime.ofEpochSecond(request.getStartTime(), 0, ZoneOffset.UTC);
+            LocalDateTime endTime = LocalDateTime.ofEpochSecond(request.getEndTime(), 0, ZoneOffset.UTC);
             if (startTime.isBefore(endTime)) {
-                EventData eventData = new EventData(creationResource.getName(), creationResource.getDescription(),
+                EventData eventData = new EventData(request.getName(), request.getDescription(),
                         startTime, endTime,
-                        creationResource.getRoomId(), creationResource.getSpeakerLimit(),
-                        creationResource.getUserLimit(), creationResource.isVipOnlyEvent());
+                        request.getRoomId(), request.getSpeakerLimit(),
+                        request.getUserLimit(), request.isVipOnlyEvent());
 
                 eventRegistrationManager.createEvent(eventData);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
@@ -137,13 +141,25 @@ public class EventController {
      * Allows an organizer to delete an event based on their inputs.
      *
      * @param eventId id of the event to be deleted.
-     * @return response indicating sucess/failure
+     * @return response indicating success/failure
      */
     @PostMapping("/remove")
     public ResponseEntity<Response> deleteEvent(@RequestParam(value = "eventId") String eventId) {
         try {
             eventRegistrationManager.cancelEvent(eventId);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (EventNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.OK);
+        }
+    }
+
+    @PostMapping("/update_capacity")
+    public ResponseEntity<Response> updateEventCapacity(@RequestBody EventUpdateCapacityRequest request) {
+        try {
+            eventUpdateManager.updateCapacity(request.getEventId(), request.getUserLimit());
+            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
+        } catch (FullRoomException e) {
+            return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);
         } catch (EventNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.OK);
         }

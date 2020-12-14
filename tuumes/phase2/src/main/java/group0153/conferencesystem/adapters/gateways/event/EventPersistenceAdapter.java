@@ -148,7 +148,21 @@ public class EventPersistenceAdapter implements EventPersistencePort {
      */
     @Override
     public void deleteEvent(String eventId) {
+        EventModel eventModel = eventRepository.findByResourceId(eventId).get();
+        eventRepository.delete(eventModel);
+    }
 
+    /**
+     * Update the event capacity
+     *
+     * @param eventId     event id
+     * @param newCapacity new capcity
+     */
+    @Override
+    public void updateEventCapacity(String eventId, int newCapacity) {
+        EventModel eventModel = eventRepository.findByResourceId(eventId).get();
+        eventModel.setUserLimit(newCapacity);
+        eventRepository.flush();
     }
 
 

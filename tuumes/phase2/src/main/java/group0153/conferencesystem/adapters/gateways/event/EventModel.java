@@ -174,4 +174,13 @@ public class EventModel {
     public Set<UserModel> getUsers() {
         return users;
     }
+
+    /**
+     * Set the user limit.
+     *
+     * @param userLimit new user limit
+     */
+    public void setUserLimit(int userLimit) {
+        this.userLimit = userLimit;
+    }
 }
