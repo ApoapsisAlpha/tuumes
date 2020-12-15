@@ -17,7 +17,6 @@
             margin-left: auto;
             margin-right: 5;
         }
-
     </style>
 </head>
 
@@ -98,7 +97,7 @@
         }, function(result) {
             console.log(result);
             let to_print = ``;
-            if (result.message == "NO_MESSAGES")
+            if (result.data.length == 0)
                 toastr.error("You have no messages");
             else {
                 result.data.forEach(msg => {
@@ -107,7 +106,7 @@
                         <i class="fa fa-envelope-open fa-lg"></i> &thinsp; Mark As Read 
                     </button>`;
                     let new_print = `<img class="stamp-img" src="../../assets/img/stamp.png">`;
-                    if (msg.seen) {
+                    if (msg.read) {
                         mark_button = `
                         <button class="btn btn-info" onclick="markUnread('${msg.id})'">
                             <i class="fa fa-envelope-close fa-lg"></i> &thinsp; Mark As Unread 
@@ -117,14 +116,13 @@
                     to_print += `
                     <div class="container white text-center mt-4 pt-4">
                         ${new_print}
-                        <h3>From: ${msg.sender}</h3>
-                        <p>${msg.recipient}</p>
-                        <p class="mb-3">${msg.messageContent}</p>
+                        <h3>From: ${msg.sender.name}</h3>
+                        <p class="mb-3">${msg.content2}</p>
                         ${mark_button}
                         <button class="btn btn-warning" onclick="markArchive('${msg.id}')">
                             <i class="fa fa-archive fa-lg"></i> &thinsp; Archive 
                         </button>
-                        <a class="btn btn-secondary" href="send_message.html#${msg.email}">
+                        <a class="btn btn-secondary" href="send_message.html#${msg.sender.email}">
                             <i class="fa fa-reply fa-lg"></i> &thinsp; Reply
                         </a>
                         <button class="btn btn-danger" onclick="deleteMsg('${msg.id}')">

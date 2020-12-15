@@ -66,14 +66,20 @@
             result.data.forEach(event => {
                 let print_speakers = ``;
                 let print_delete = ``;
+                let pre_text = ``;
                 event.speakerData.forEach(speaker => {
                     print_speakers = `
                         <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
                     `;
                 });
+                if (event.vipOnlyEvent) {
+                    pre_text = `<h5 class="text-left blue-text pl-2"><i class="fas fa-star"></i> VIP only</h5>`;
+                }
+
                 let userCount = event.userIds.length;
                 to_print += `
                 <div class="container white text-center mt-4 pt-4">
+                    ${pre_text}
                     <h3>${event.name}</h3>
                     <p class="mt-2 mb-2">${event.description}</p>
                     <p class="mt-2 mb-2">
@@ -84,12 +90,9 @@
                     <p class="mt-2 mb-2">Capacity: ${userCount}/${event.userLimit}</p>
                     ${print_speakers}
                     <br>
-                    <!--- <a class="btn btn-default" id="register" href="../organizer/modify_event.html#${event.id}">
+                    <a class="btn btn-default" href="../organizer/modify_event.html#${event.id}">
                         <i class="fas fa-edit"></i> Modify
-                    </a> --->
-                    <button class="btn btn-default" id="delete" onclick="deleteEvent('${event.id}')">
-                        <i class="fas fa-edit"></i> Delete
-                    </button> 
+                    </a>
                     <br><br>
                 </div>
                 `;
