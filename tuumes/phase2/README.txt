@@ -1,5 +1,19 @@
 # Welcome to TUUMES!
 
+Setup Instructions:
+    We've included a demo version of our SQL database here:
+        https://u.mkn.cx/phase2/database.sqlite
+    You should download this database to get the best experience with pre-made users and events. To install, download
+        the database, and drag it into the root of the phase2 folder. (This is where the pom.xml file is)
+    We've included a few pre-made users with the information below: (Email - Password - UserType)
+        tom@gmail.com - tom123 - attendee
+        joe@gmail.com - joe123 - attendee
+        bill@gmail.com - bill123 - attendee
+        john@gmail.com - john123 - org
+        jim@gmail.com - jim123 - speaker
+        tim@gmail.com - tim123 - speaker
+        art@gmail.com - art123 - vip
+
 Running the Program:
     1. Close the project vie File -> Close Project
     2. Open project, then go to the phase 2 folder and open pom.xml (Make sure to double click on the pom.xml file)
