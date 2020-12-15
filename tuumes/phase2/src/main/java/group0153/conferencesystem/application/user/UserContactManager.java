@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * A user use case class that handles a user's contacts. This includes getting, adding to, and removing from a user's contacts.
  */
-
 @Component
 public class UserContactManager {
     final UserPersistencePort userPersistencePort;

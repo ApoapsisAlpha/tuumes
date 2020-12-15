@@ -1,5 +1,6 @@
 package group0153.conferencesystem.application.user;
 
+import group0153.conferencesystem.application.user.data.UserContactData;
 import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.user.User;
 
