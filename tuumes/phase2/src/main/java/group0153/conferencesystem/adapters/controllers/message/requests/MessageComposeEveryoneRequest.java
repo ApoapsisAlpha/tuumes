@@ -18,7 +18,7 @@ public class MessageComposeEveryoneRequest {
     }
 
     /**
-     * Gets userId.
+     ll     * Gets userId.
      *
      * @return Value of userId.
      */
