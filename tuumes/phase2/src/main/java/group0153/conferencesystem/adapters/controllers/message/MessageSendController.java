@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * A controller class that facilitates the sending of messages as requested by the user.
  */
 @RestController
-@RequestMapping(value = "/messages")
+@RequestMapping(value = "/api/messages")
 public class MessageSendController {
     private final MessageSender messageSender;
 

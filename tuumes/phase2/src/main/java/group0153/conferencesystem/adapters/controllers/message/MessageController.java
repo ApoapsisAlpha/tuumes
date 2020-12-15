@@ -18,7 +18,7 @@ import java.util.List;
  * A controller class that facilitates the viewing and manipulating of messages as requested by the user.
  */
 @RestController
-@RequestMapping(value = "/messages")
+@RequestMapping(value = "/api/messages")
 public class MessageController {
     private final MessageFinder messageFinder;
     private final MessageManager messageManager;

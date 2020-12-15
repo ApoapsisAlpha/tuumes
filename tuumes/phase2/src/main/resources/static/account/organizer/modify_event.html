@@ -47,7 +47,7 @@
                 <input class="form-control" id="capacity" min="1" name="capacity" placeholder="Capacity" type="number">
             </div>
 
-            <button class="btn btn-secondary" type="button" onclick="updateEvent()"><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Modify
+            <button class="btn btn-secondary" type="button" onclick="updateCapacity()"><i class="fa fa-calendar-plus fa-lg"></i> &thinsp; Modify
             </button>
             <br> OR <br>
             <div class="form-group">
@@ -85,12 +85,27 @@
         location.href = "view_events.html";
     }
 
-    function deleteEvent(eventId) {
+    function deleteEvent() {
         $.postJSON("/events/remove", {
             eventId: eventId
         }, function(result) {
             console.log(result);
-            // location.href = "view_events.html";
+            location.href = "view_events.html";
+        });
+
+        return false;
+    }
+
+    function updateCapacity() {
+        $.postJSON("/events/update_capacity", {
+            eventId: eventId,
+            userLimit: parseInt($("#capacity").val())
+        }, function(result) {
+            console.log(result);
+            if (result.message == "ROOM_FULL")
+                toastr.error("The user limit you entered has exceeded the room limit");
+            else 
+                toastr.success("Event capacity has been updated successfully.");
         });
 
         return false;

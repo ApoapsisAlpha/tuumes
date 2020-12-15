@@ -97,6 +97,9 @@
                 </div>
                 `;
             });
+
+            if (result.data.length == 0)
+                toastr.error("There are no events");
             $("#events").html(to_print);
         });
     }
