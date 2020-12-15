@@ -47,7 +47,7 @@
         <h3 class="pb-3">Compose a new message:</h3>
         <form class="container needs-validation" id="message_form">
             <div class="form-group" id="recipient_selector">
-                <select class="browser-default custom-select" id="recipient" name="recipient">
+                <select class="browser-default custom-select" id="type" name="type">
                     <option disabled hidden selected>Group</option>
                     <option value="speakers">All Speakers</option>
                     <option value="attendees">All Attendees</option>
@@ -55,11 +55,7 @@
             </div>
 
             <div class="form-group">
-                <input class="form-control" id="recipientEmail" name="recipientEmail" placeholder="Email" required></input>
-            </div>
-
-            <div class="form-group">
-                <textarea autocomplete="off" class="form-control" id="message" name="message"
+                <textarea autocomplete="off" class="form-control" id="content" name="content"
                           placeholder="Message Content" required rows="6"></textarea>
             </div>
 
@@ -93,12 +89,11 @@
                 data[e.name] = e.value;
         });
 
-        data['content'] = $("#message").val();
-        
+        data['userId'] = USER_ID;
 
         console.log(data);
 
-        $.postJSON("/messages/send", data, function(result) {
+        $.postJSON("/messages/send_everyone", data, function(result) {
             console.log(result);
 
             if (result.valid) {

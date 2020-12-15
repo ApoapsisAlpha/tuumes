@@ -9,7 +9,6 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.MissingPermissionException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.message.MessageSender;
-import group0153.conferencesystem.application.user.UserContactManager;
 import group0153.conferencesystem.entities.user.UserType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
