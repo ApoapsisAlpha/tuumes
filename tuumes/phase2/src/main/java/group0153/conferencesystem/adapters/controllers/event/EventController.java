@@ -71,6 +71,12 @@ public class EventController {
             return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         } catch (EventNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.FORBIDDEN);
+        } catch (FullEventException e) {
+            return new ResponseEntity<>(new Response(false, "FULL_EVENT"), HttpStatus.OK);
+        } catch (VipOnlyEventException e) {
+            return new ResponseEntity<>(new Response(false, "VIP_ONLY"), HttpStatus.OK);
+        } catch (SpeakerConflictException e) {
+            return new ResponseEntity<>(new Response(false, "SPEAKER_CONFLICT"), HttpStatus.OK);
         }
     }
 
