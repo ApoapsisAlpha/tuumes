@@ -4,7 +4,7 @@ import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageRequest;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
-import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
+import group0153.conferencesystem.application.exceptions.MessageIdNotFoundException;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
 import group0153.conferencesystem.application.message.data.MessageData;

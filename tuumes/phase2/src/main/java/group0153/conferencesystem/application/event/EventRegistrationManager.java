@@ -48,9 +48,10 @@ public class EventRegistrationManager {
      * @throws EventNotFoundException no event corresponds with the provided id
      * @throws FullEventException event specified is full
      * @throws VipOnlyEventException event specified is only open for registration by VIPs
+     * @throws SpeakerConflictException occurs when the speaker is already speaking at an event at the same time
      */
     public void registerUserForEvent(String eventId, String userId) throws UserNotFoundException,
-            EventNotFoundException, FullEventException {
+            EventNotFoundException, FullEventException, VipOnlyEventException, SpeakerConflictException {
         User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
 
@@ -65,8 +66,10 @@ public class EventRegistrationManager {
         if (user.getType() == UserType.SPEAKER) {
             if (event.getSpeakerCount() >= event.getSpeakerLimit())
                 throw new FullEventException(eventId);
-            if (!hasEventCollision(user, event))
-                eventPersistencePort.registerSpeakerById(eventId, userId);
+            if (hasEventCollision(user, event))
+                throw new SpeakerConflictException();
+
+            eventPersistencePort.registerSpeakerById(eventId, userId);
         }
     }
 
