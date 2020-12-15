@@ -30,6 +30,10 @@ public class UserController {
         this.userManager = userManager;
     }
 
+    /**
+     * Gets all speakers
+     * @return a response containing all speakers
+     */
     @GetMapping("/speakers")
     public ResponseEntity<Response> getAllSpeakers() {
         List<UserContactData> speakers = userManager.getSpeakers();
