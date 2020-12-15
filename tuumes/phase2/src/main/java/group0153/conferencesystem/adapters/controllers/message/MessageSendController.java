@@ -2,6 +2,7 @@ package group0153.conferencesystem.adapters.controllers.message;
 
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeEventRequest;
+import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeEveryoneRequest;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeMultiEventRequest;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageComposeRequest;
 import group0153.conferencesystem.application.exceptions.EventNotFoundException;
@@ -9,6 +10,8 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.MissingPermissionException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.message.MessageSender;
+import group0153.conferencesystem.application.user.UserContactManager;
+import group0153.conferencesystem.entities.user.UserType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,37 +79,24 @@ public class MessageSendController {
     }
 
     /**
-     * API command for users to send messages to attendees of multiple chosen events.
-     *
-     * @param messageComposeMultiEventRequest instance of MessageComposeMultiEventRequest containing the details of the
-     *                                        message to be sent to the attendees of specified events
-     * @return ResponseEntity containing a Response with status and validity
-     */
-    @PostMapping("/send_multi_event")
-    public ResponseEntity<Response> sendMultiEventMessage(@RequestBody MessageComposeMultiEventRequest messageComposeMultiEventRequest) {
-        try {
-            messageSender.sendToMultiEvent(messageComposeMultiEventRequest.getContent(),
-                    messageComposeMultiEventRequest.getUserId(),
-                    messageComposeMultiEventRequest.getEventIds());
-            return new ResponseEntity<>(new Response(true), HttpStatus.OK);
-        } catch (EventNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
-        } catch (InvalidInputException e) {
-            return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
-        } catch (MissingPermissionException e){
-            return new ResponseEntity<>(new Response(false, "NOT_ORGANIZER"), HttpStatus.OK);
-        }
-    }
-
-    /**
-     * API command for Organizer users to send messages to everyone at the conference
+     * API cammand for Organizer users to send messages to everyone at the conference
      *
      * @param messageComposeRequest instance of MessageComposeRequest containing details of the message to send to all.
      * @return ResponseEntity containing a Response with status and validity
      */
-    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeRequest messageComposeRequest) {
+    @PostMapping("/send_everyone")
+    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeEveryoneRequest request) {
         try {
-            messageSender.sendToEveryone(messageComposeRequest.getContent(), messageComposeRequest.getUserId());
+            UserType userType = UserType.ATTENDEE;
+            if (request.getType().equalsIgnoreCase("Organizer")) {
+                userType = UserType.ORGANIZER;
+            } else if (request.getType().equalsIgnoreCase("Speaker")) {
+                userType = UserType.SPEAKER;
+            } else if (request.getType().equalsIgnoreCase("VIP")) {
+                userType = UserType.VIP;
+            }
+
+            messageSender.sendToEveryone(request.getContent(), request.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MissingPermissionException e){
             return new ResponseEntity<>(new Response(false, "NOT_ORGANIZER"), HttpStatus.OK);
