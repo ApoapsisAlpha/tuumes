@@ -39,27 +39,10 @@ public class Room {
     }
 
     /**
-     * set the name of the room
-     *
-     * @param name name to set for the room
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the capacity of the room
      */
     public int getCapacity() {
         return capacity;
     }
 
-    /**
-     * set the capacity of the room
-     *
-     * @param capacity capacity to set for the room
-     */
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
 }

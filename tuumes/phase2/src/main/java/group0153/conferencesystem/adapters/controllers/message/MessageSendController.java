@@ -9,7 +9,6 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
 import group0153.conferencesystem.application.exceptions.MissingPermissionException;
 import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.message.MessageSender;
-import group0153.conferencesystem.application.user.UserContactManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,7 +99,7 @@ public class MessageSendController {
     }
 
     /**
-     * API cammand for Organizer users to send messages to everyone at the conference
+     * API command for Organizer users to send messages to everyone at the conference
      *
      * @param messageComposeRequest instance of MessageComposeRequest containing details of the message to send to all.
      * @return ResponseEntity containing a Response with status and validity

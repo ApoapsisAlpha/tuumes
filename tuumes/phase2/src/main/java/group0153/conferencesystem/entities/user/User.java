@@ -153,17 +153,6 @@ public class User {
     }
 
     /**
-     * Changes the email stored in this User instance to email.
-     *
-     * Precondition: email is a valid email belonging to a user.
-     *
-     * @param email the email that this User should change to
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
      * Returns the id of the User.
      *
      * @return the id of the User
@@ -199,23 +188,6 @@ public class User {
 
 
     /**
-     * Removes the id of the User from the HashMap representing this User's contact list.
-     *
-     * Precondition: userId is a valid id belonging to a user.
-     *
-     * @param userId the id of the User to remove from the list
-     * @return a boolean whether the userId has been successfully removed
-     */
-    public boolean removeContact(String userId) {
-        if (contacts.contains(userId)) {
-            contacts.remove(userId);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Returns whether or not the password matches the user's set password.
      *
      * @param password Password to check
@@ -241,18 +213,6 @@ public class User {
      */
     public Set<String> getEvents() {
         return this.events;
-    }
-
-    /**
-     * Remove the eventId from the list of events signed up for.
-     *
-     * Precondition: evenId is a valid id belonging to an event.
-     *
-     * @param eventId the id of the event this User wishes to unregister from
-     * @return a boolean whether the event was signed up for prior
-     */
-    public boolean removeEvent(String eventId) {
-        return this.events.remove(eventId);
     }
 
     /**

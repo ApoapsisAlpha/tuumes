@@ -44,9 +44,7 @@ public class RoomPersistenceAdapter implements RoomPersistencePort {
      */
     @Override
     public Optional<Room> findById(String roomId) {
-        return roomRepository.findByResourceId(roomId).flatMap(roomModel -> {
-            return Optional.of(new Room(roomModel.getResourceId(), roomModel.getName(), roomModel.getCapacity()));
-        });
+        return roomRepository.findByResourceId(roomId).flatMap(roomModel -> Optional.of(new Room(roomModel.getResourceId(), roomModel.getName(), roomModel.getCapacity())));
     }
 
     /**

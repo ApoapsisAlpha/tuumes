@@ -28,9 +28,7 @@ public class UserManager {
      * @return a list of speaker data
      */
     public List<UserContactData> getSpeakers() {
-        return userPersistencePort.getAllUsers().stream().filter(u -> u.getType() == UserType.SPEAKER).map(speaker -> {
-            return new UserContactData(speaker.getId(), speaker.getName(), speaker.getEmail());
-        }).collect(Collectors.toList());
+        return userPersistencePort.getAllUsers().stream().filter(u -> u.getType() == UserType.SPEAKER).map(speaker -> new UserContactData(speaker.getId(), speaker.getName(), speaker.getEmail())).collect(Collectors.toList());
     }
 
 }

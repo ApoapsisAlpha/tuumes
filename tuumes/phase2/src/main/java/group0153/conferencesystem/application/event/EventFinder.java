@@ -21,9 +21,9 @@ import java.util.stream.Stream;
  */
 @Component
 public class EventFinder {
-    UserPersistencePort userPersistencePort;
-    EventPersistencePort eventPersistencePort;
-    RoomPersistencePort roomPersistencePort;
+    final UserPersistencePort userPersistencePort;
+    final EventPersistencePort eventPersistencePort;
+    final RoomPersistencePort roomPersistencePort;
 
     /**
      * Constructs a new instance of EventManager using the provided ports to provide access to data
@@ -109,13 +109,9 @@ public class EventFinder {
      */
     private boolean hasEventCollision(User user, Event event) {
         // Gets a list of the user's events
-        List<Event> events = user.getEvents().stream().flatMap(eventId -> {
-            return eventPersistencePort.findById(eventId).map(Stream::of).orElseGet(Stream::empty);
-        }).collect(Collectors.toList());
+        List<Event> events = user.getEvents().stream().flatMap(eventId -> eventPersistencePort.findById(eventId).map(Stream::of).orElseGet(Stream::empty)).collect(Collectors.toList());
 
-        return events.stream().anyMatch(userEvent -> {
-            return areEventsOverlapping(userEvent, event);
-        });
+        return events.stream().anyMatch(userEvent -> areEventsOverlapping(userEvent, event));
     }
 
     /**

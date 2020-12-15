@@ -1,8 +1,6 @@
 package group0153.conferencesystem.adapters.gateways.user;
 
-import group0153.conferencesystem.adapters.gateways.event.EventMapper;
 import group0153.conferencesystem.application.user.UserPersistencePort;
-import group0153.conferencesystem.entities.event.Event;
 import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 

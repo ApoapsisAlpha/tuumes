@@ -2,7 +2,6 @@ package group0153.conferencesystem.adapters.gateways.message;
 
 import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;

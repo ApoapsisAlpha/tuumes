@@ -16,7 +16,7 @@ import java.util.UUID;
 
 @Component
 public class UserAuthManager {
-    UserPersistencePort userPersistencePort;
+    final UserPersistencePort userPersistencePort;
 
     /**
      * Instantiates an UserAuthManager.

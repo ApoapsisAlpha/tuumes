@@ -1,13 +1,11 @@
 package group0153.conferencesystem.application.room;
 
-import group0153.conferencesystem.application.exceptions.RoomNotFoundException;
 import group0153.conferencesystem.application.room.data.RoomData;
 import group0153.conferencesystem.entities.room.Room;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -15,7 +13,7 @@ import java.util.UUID;
  */
 @Component
 public class RoomManager {
-    RoomPersistencePort roomPersistencePort;
+    final RoomPersistencePort roomPersistencePort;
 
     /**
      * Construct an instance of RoomManager.

@@ -1,7 +1,5 @@
 package group0153.conferencesystem.entities.event;
 
-import group0153.conferencesystem.application.exceptions.UnsuccessfulCommandException;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,49 +54,6 @@ public class Event {
     }
 
     /**
-     * Set the name of the event.
-     * @param name the new name of this Event.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Set the description of the event.
-     * @param description the new String description of this Event.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Set the start time of the Event.
-     * @param startTime the Date start time of the Event.
-     */
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    /**
-     * Set the end time of the Event.
-     * @param endTime the Date end time of the Event.
-     */
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    /**
-     * Set the id of the room the Event takes place in.
-     *
-     * Precondition: roomId is a valid id belonging to a room.
-     *
-     * @param roomId the String id of the room the Event takes place in.
-     */
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-
-    /**
      * Add a speaker id to the list of speaker ids of the event.
      *
      * Precondition: speakerId is a valid id belonging to a speaker.
@@ -118,34 +73,6 @@ public class Event {
      */
     public void addUserId(String userId) {
         userIds.add(userId);
-    }
-
-    /**
-     * Set the user limit of the event.
-     * @param userLimit the new integer total number of users allowed to attend this event.
-     */
-    public void setUserLimit(int userLimit) {
-        this.userLimit = userLimit;
-    }
-
-    /**
-     * Unregister the specified user from this Event.
-     *
-     * Precondition: userId is a valid id belonging to a user.
-     *
-     * @param userId Remove userId from this event. Nothing happens if the user was not
-     *               in this event to begin with.
-     */
-    public void removeUserId(String userId) {
-        this.userIds.remove(userId);
-    }
-
-    /**
-     * Set whether the event is VIP-only.
-     * @param isVipOnlyEvent whether this event is to be for VIPs only.
-     */
-    public void setIsVipOnlyEvent(boolean isVipOnlyEvent) {
-        this.isVipOnlyEvent = isVipOnlyEvent;
     }
 
     // getters

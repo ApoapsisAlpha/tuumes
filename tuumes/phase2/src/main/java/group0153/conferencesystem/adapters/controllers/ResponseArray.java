@@ -8,7 +8,7 @@ import java.util.List;
  * A class representing multiple responses from the program to the front end
  */
 public class ResponseArray extends Response {
-    public List<? extends Data> data;
+    public final List<? extends Data> data;
 
     /**
      * Construct an instance of ResponseArray with a status, message, and information

@@ -6,7 +6,6 @@ import group0153.conferencesystem.application.message.MessagePersistencePort;
 import group0153.conferencesystem.entities.message.Message;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -40,9 +39,7 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
      */
     @Override
     public void saveMessage(Message message) {
-        Set<UserModel> recipients = message.getRecipientIds().stream().map(recipientId -> {
-            return userRepository.findByResourceId(recipientId).get();
-        }).collect(Collectors.toSet());
+        Set<UserModel> recipients = message.getRecipientIds().stream().map(recipientId -> userRepository.findByResourceId(recipientId).get()).collect(Collectors.toSet());
         UserModel sender = userRepository.findByResourceId(message.getSenderId()).get();
         MessageModel messageModel = new MessageModel(message.getId(), message.getMessageContent(), sender, recipients);
         for (UserModel recipient : recipients) {

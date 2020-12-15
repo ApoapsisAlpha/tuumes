@@ -1,5 +1,6 @@
 package group0153.conferencesystem.adapters.gateways.message;
 
+import group0153.conferencesystem.adapters.gateways.user.UserModel;
 import group0153.conferencesystem.entities.message.Message;
 
 import java.util.Optional;
@@ -19,7 +20,7 @@ public class MessageMapper {
     Optional<Message> mapModelToEntity(Optional<MessageModel> messageModel) {
         return messageModel.flatMap(m -> {
             Message message = new Message(m.getResourceId(), m.getMessageContent(), m.getSender().getResourceId(),
-                    m.getRecipients().stream().map(r -> r.getResourceId()).collect(Collectors.toList()));
+                    m.getRecipients().stream().map(UserModel::getResourceId).collect(Collectors.toList()));
 
             m.getReadSet().forEach(user -> message.addRead(user.getResourceId()));
             m.getArchivedSet().forEach(user -> message.addArchived(user.getResourceId()));

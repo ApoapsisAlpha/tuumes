@@ -7,7 +7,7 @@ import group0153.conferencesystem.application.Data;
  * containing data to be displayed
  */
 public class ResponseData extends Response {
-    public Data data;
+    public final Data data;
 
     /**
      * Construct an instance of Response with the provided validity, message, and information

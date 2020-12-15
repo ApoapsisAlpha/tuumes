@@ -25,34 +25,4 @@ public class Speaker extends User {
         this.speakingEventIds = new ArrayList<>();
     }
 
-    /**
-     * Return the list of ids of Events that this speaker is speaking at.
-     *
-     * @return get list of event ids this speaker is speaking.
-     */
-    public ArrayList<String> getSpeakingEventIds() {
-        return this.speakingEventIds;
-    }
-
-    /**
-     * add an event id to the list of event ids this speaker is speaking.
-     *
-     * Precondition: id is a valid id belonging to an event.
-     *
-     * @param id the event id to add.
-     */
-    public void addSpeakingEventById(String id) {
-        this.speakingEventIds.add(id);
-    }
-
-    /**
-     * remove an event id from the list of event ids this speaker is speaking.
-     *
-     * Precondition: id is a valid id belonging to an event.
-     *
-     * @param id the event id to remove.
-     */
-    public void removeSpeakingEventById(String id) {
-        this.speakingEventIds.remove(id);
-    }
 }
