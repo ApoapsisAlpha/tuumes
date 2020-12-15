@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * A controller class that facilitates room creation and management as requested by the user
  */
 @RestController
-@RequestMapping(value = "/rooms")
+@RequestMapping(value = "/api/rooms")
 public class RoomController {
     private final RoomManager roomManager;
 
