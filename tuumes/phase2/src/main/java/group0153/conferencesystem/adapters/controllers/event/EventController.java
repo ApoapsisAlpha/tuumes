@@ -4,6 +4,7 @@ import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.event.requests.EventCreationRequest;
 import group0153.conferencesystem.adapters.controllers.event.requests.EventRegistrationRequest;
+import group0153.conferencesystem.adapters.controllers.event.requests.EventRemoveRequest;
 import group0153.conferencesystem.adapters.controllers.event.requests.EventUpdateCapacityRequest;
 import group0153.conferencesystem.application.event.*;
 import group0153.conferencesystem.application.event.data.EventData;
@@ -140,13 +141,13 @@ public class EventController {
     /**
      * Allows an organizer to delete an event based on their inputs.
      *
-     * @param eventId id of the event to be deleted.
+     * @param request the removal request
      * @return response indicating success/failure
      */
     @PostMapping("/remove")
-    public ResponseEntity<Response> deleteEvent(@RequestParam(value = "eventId") String eventId) {
+    public ResponseEntity<Response> deleteEvent(@RequestBody EventRemoveRequest request) {
         try {
-            eventRegistrationManager.cancelEvent(eventId);
+            eventRegistrationManager.cancelEvent(request.getEventId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "BAD_EVENT"), HttpStatus.OK);

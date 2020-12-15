@@ -32,26 +32,56 @@ public class MessageData implements Data {
         this.isDeleted = message.isDeleted(recipientId);
     }
 
+    /**
+     * Get the message id.
+     *
+     * @return message id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Get the content
+     *
+     * @return the content
+     */
     public String getContent() {
         return content;
     }
 
+    /**
+     * Get the data for the sender.
+     *
+     * @return sender data
+     */
     public UserContactData getSender() {
         return sender;
     }
 
+    /**
+     * Get read status.
+     *
+     * @return true/false depending on whether the message is read
+     */
     public boolean isRead() {
         return isRead;
     }
 
+    /**
+     * Get archived status.
+     *
+     * @return true/false depending on whether the message is archived
+     */
     public boolean isArchived() {
         return isArchived;
     }
 
+    /**
+     * Get deleted status.
+     *
+     * @return true/false depending on whether the message is deleted
+     */
     public boolean isDeleted() {
         return isDeleted;
     }

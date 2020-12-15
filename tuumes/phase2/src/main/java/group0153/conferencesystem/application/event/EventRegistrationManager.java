@@ -81,7 +81,7 @@ public class EventRegistrationManager {
     public void unregisterUserFromEvent(String eventId, String userId) throws UserNotFoundException,
             EventNotFoundException{
         User user = userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-        Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
+        eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
 
         eventPersistencePort.unregisterUserById(eventId, userId);
         if (user.getType() == UserType.SPEAKER) {
@@ -124,18 +124,9 @@ public class EventRegistrationManager {
      * @throws EventNotFoundException no event corresponds with the provided id
      */
     public void cancelEvent(String eventId) throws EventNotFoundException{
-        Event event = eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
-        if (!eventPersistencePort.getAllEvents().contains(event)){
-            throw new EventNotFoundException(eventId);
-        }
-        for (String userid : event.getUserIds()){
-            unregisterUserFromEvent(eventId, userid);
-        }
+        eventPersistencePort.findById(eventId).orElseThrow(() -> new EventNotFoundException(eventId));
         eventPersistencePort.deleteEvent(eventId);
     }
-
-
-    // private methods
 
     /**
      * Checks if the two events are overlapping.
