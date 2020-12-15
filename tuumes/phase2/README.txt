@@ -32,6 +32,7 @@ Strange quirks of SpringBoot
         of some of our files, SpringBoot automatically handles the initialization and hooks to attach to our API for our
         website. This is a problem because IntelliJ Community Edition doesn't support SpringBoot, so it marks all the events
         as not used while IntelliJ Ultimate knows they are used by Spring.
+    * This includes classes AND methods, both show up as NOT USED.
 
 Request classes missing constructors
     Within our controllers sub-folders, there are folders and files that end with Request. These are the classes we use

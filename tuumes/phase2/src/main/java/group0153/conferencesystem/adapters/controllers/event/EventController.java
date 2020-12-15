@@ -160,6 +160,12 @@ public class EventController {
         }
     }
 
+    /**
+     * Allows an organizer to update the capacity of an event based on their inputs.
+     *
+     * @param request The update request
+     * @return response indicating success/failure
+     */
     @PostMapping("/update_capacity")
     public ResponseEntity<Response> updateEventCapacity(@RequestBody EventUpdateCapacityRequest request) {
         try {
