@@ -1,3 +1,5 @@
+# Welcome to TUUMES!
+
 Running the Program:
     1. Close the project vie File -> Close Project
     2. Open project, then go to the phase 2 folder and open pom.xml (Make sure to double click on the pom.xml file)
@@ -22,9 +24,19 @@ Major Extension:
     1) We implemented a website as our GUI with MVP which allows multiple people to be logged in at the same time,
         compared to our phase 1 that only allowed one user to be logged in at once.
 
-Strange quirks of SpringBoot
-    We used SpringBoot, which helped us get our website and API running. SpringBoot has a feature with annotations which
+# Few Notes to keep in mind
 
+Strange quirks of SpringBoot
+    We used SpringBoot, which helped us get our website and API running. There is a feature that SpringBoot has that helped
+        us use the MVP design pattern with our app. By adding annotations like @RestController, @Component, etc at the top
+        of some of our files, SpringBoot automatically handles the initialization and hooks to attach to our API for our
+        website. This is a problem because IntelliJ Community Edition doesn't support SpringBoot, so it marks all the events
+        as not used while IntelliJ Ultimate knows they are used by Spring.
+
+Request classes missing constructors
+    Within our controllers sub-folders, there are folders and files that end with Request. These are the classes we use
+        for forms within our website. They do not have constructors and this was intentional since SpringBoot automatically
+        hooks onto them. We've tried to add constructors ourselves but it errors out with some NullPointerException errors.
 
 Questions?
     If you have any questions about our design choices, feel free to reach out to us!
