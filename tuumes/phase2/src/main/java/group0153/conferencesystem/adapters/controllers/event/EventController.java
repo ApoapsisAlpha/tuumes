@@ -133,7 +133,7 @@ public class EventController {
         } catch (RoomNotFoundException e) {
             return new ResponseEntity<>(new Response(false, "INVALID_ROOM"), HttpStatus.OK);
         } catch (ExistingOverlappingEventException e) {
-            return new ResponseEntity<>(new Response(false, "TIME_CONFLICT"), HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(new Response(false, "TIME_CONFLICT"), HttpStatus.OK);
         }
     }
 

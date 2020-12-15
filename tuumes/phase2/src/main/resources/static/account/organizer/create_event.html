@@ -157,7 +157,12 @@
                 window.location.href = "view_events.html";
             } else {
                 switch (result.message) {
-                    
+                    case "TIME_CONFLICT":
+                        toastr.error("The time you have selected conflicts with another event in this room.");
+                        break;
+                    case "ROOM_FULL":
+                        toastr.error("Your user limit is greater than what the room can support.");
+                        break;
                     default:
                         toastr.error("Unexpected error: " + result.message);
                         break;

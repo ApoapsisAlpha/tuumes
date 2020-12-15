@@ -66,11 +66,15 @@
             result.data.forEach(event => {
                 let print_speakers = ``;
                 let print_delete = ``;
+                let pre_text = ``;
                 event.speakerData.forEach(speaker => {
                     print_speakers = `
                         <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
                     `;
                 });
+                if (event.vipOnlyEvent) {
+                    pre_text = `<h5 class="text-left blue-text pl-2"><i class="fas fa-star"></i> VIP only</h5>`;
+                }
                 let userCount = event.userIds.length;
                 to_print += `
                 <div class="container white text-center mt-4 pt-4">
