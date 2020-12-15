@@ -46,6 +46,23 @@
     <div class="container white text-center mt-5 pt-4">
         <h3 class="pb-3">Compose a new message:</h3>
         <form class="container needs-validation" id="message_form">
+            <div class="form-group" id="recipient_selector">
+                <select class="browser-default custom-select" id="recipient" name="recipient">
+                    <option disabled hidden selected>Group</option>
+                    <option value="speakers">All Speakers</option>
+                    <option value="attendees">All Attendees</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input class="form-control" id="recipientEmail" name="recipientEmail" placeholder="Email" required></input>
+            </div>
+
+            <div class="form-group">
+                <textarea autocomplete="off" class="form-control" id="message" name="message"
+                          placeholder="Message Content" required rows="6"></textarea>
+            </div>
+
             <button class="btn btn-secondary" id="message_submit" type="submit"><i class="fa fa-paper-plane fa-lg"></i>
                 &thinsp; Send
             </button>
@@ -63,16 +80,6 @@
 <script src="../../assets/js/account.js" type="text/javascript"></script>
 
 <script>
-    if (window.location.hash) {
-        let hash = window.location.hash.substring(1);
-        $("#recipientEmail").val(hash);
-        $("#recipient_selector").hide();
-    }
-
-    function switchContact() {
-        $("#recipientEmail").val($("#recipient").val());
-    }
-
     $("#message_form").submit(function(e) {
         if (!validate(this))
             return false;
@@ -87,7 +94,7 @@
         });
 
         data['content'] = $("#message").val();
-        data['userId'] = USER_ID;
+        
 
         console.log(data);
 
@@ -98,15 +105,6 @@
                 toastr.success("Your message has been sent.");
             } else {
                 switch (result.message) {
-                    case "USER_NOT_FOUND":
-                        toastr.error("This user does not exist.");
-                        break;
-                    case "INVALID_CONTACT":
-                        toastr.error("This user is not in your contacts.");
-                        break;
-                    case "INVALID_EMAIL":
-                        toastr.error("That email is not valid");
-                        break;
                     default:
                         toastr.error("Unexpected error: " + result.message);
                         break;
@@ -116,22 +114,5 @@
 
         return false;
     });
-
-    function getContacts() {
-        $.getJSON("/users/contacts/view", {
-            userId: USER_ID,
-        }, function(result) {
-            let to_print = `<option disabled hidden selected>Recipient</option>`;
-            result.data.forEach(contact => {
-                to_print += `
-                    <option value="${contact.email}">${contact.name}</option>
-                `;
-            });
-
-            $("#recipient").html(to_print);
-        });
-    }
-
-    getContacts();
 </script>
 </html>
