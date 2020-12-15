@@ -56,11 +56,11 @@
                 let print_speakers = ``;
                 let print_delete = ``;
                 event.speakerData.forEach(speaker => {
-                    print_speakers = `
+                    print_speakers += `
                         ${speaker.name},
                     `;
                 });
-                print_speakers = print_speakers.substring(0, print_speakers.length - 1);
+                print_speakers += print_speakers.substring(0, print_speakers.length - 1);
                 let userCount = event.userIds.length;
                 to_print += `
                 <tr>

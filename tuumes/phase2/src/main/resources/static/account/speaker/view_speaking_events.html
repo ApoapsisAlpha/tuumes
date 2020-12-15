@@ -87,7 +87,7 @@
                       placeholder="Message" rows="6"></textarea>
 
         </div>
-        <button class="btn btn-default btn-sm"><i class="fa fa-paper-plane fa-lg"></i>&nbsp; Send</button>
+        <button class="btn btn-default btn-sm" onclick="sendMessage()"><i class="fa fa-paper-plane fa-lg"></i>&nbsp; Send</button>
 
         <br><br>
     </div>
@@ -97,6 +97,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
         type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://cdn.mkn.cx/MDB/js/mdb.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../../assets/js/global.js"></script>
 <script type="text/javascript" src="../../assets/js/account.js"></script>
@@ -114,9 +115,9 @@
                 <li class="p-2">
                     <div class="form-check">
                         <input class="form-check-input" id="${event.id}" type="checkbox">
-                        <label class="form-check-label" for="event1">
-                            <strong>Event Name</strong>
-                            <a class="text-muted">Location: ${userCount}/${event.userLimit} &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
+                        <label class="form-check-label" for="${event.id}">
+                            <strong>${event.name}</strong>
+                            <a class="text-muted">${event.roomName} | ${userCount}/${event.userLimit} &nbsp;<i class="fa fa-user-friends fa-lg"></i> |</a>
                             <a class="text-muted">` + moment(event.startTime).format('MMMM Do YYYY, h:mm:ss a') + ` - ` + 
                             moment(event.endTime).format('MMMM Do YYYY, h:mm:ss a') + `</a>
                             <br>
@@ -130,6 +131,23 @@
             if (result.data.length == 0)
                 toastr.error("You are in no events!");
         });
+    }
+
+    function sendMessage() {
+        $(':checkbox:checked').each(function() {
+            $.postJSON("/messages/send_event", {
+                eventId: $(this).attr('id'),
+                userId: USER_ID,
+                content: $("#message").val()
+            }, function(result) {
+                console.log(result);
+            });
+        });
+
+        if ($("#message").val() == "")
+            toastr.error("Message is empty!");
+        else
+            toastr.success("Message sent successfully!");
     }
 
     getEvents();

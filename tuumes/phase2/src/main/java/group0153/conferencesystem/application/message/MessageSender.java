@@ -93,8 +93,8 @@ public class MessageSender {
         if (!userPresent.isPresent())
             throw new UserNotFoundException(senderId);
 
-        if (userPresent.get().getType() != UserType.ORGANIZER || userPresent.get().getType() != UserType.SPEAKER){
-            throw new MissingPermissionException(UserType.ORGANIZER);
+        if (userPresent.get().getType() != UserType.SPEAKER){
+            throw new MissingPermissionException(UserType.SPEAKER);
         }
 
         String newId = UUID.randomUUID().toString();

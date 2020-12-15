@@ -46,21 +46,6 @@
     <div class="container white text-center mt-5 pt-4">
         <h3 class="pb-3">Compose a new message:</h3>
         <form class="container needs-validation" id="message_form">
-            <div class="form-group" id="recipient_selector">
-                <select class="browser-default custom-select" id="recipient" name="recipient" onchange="switchContact();">
-                    <option disabled hidden selected>Recipient</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <input class="form-control" id="recipientEmail" name="recipientEmail" placeholder="Email" required></input>
-            </div>
-
-            <div class="form-group">
-                <textarea autocomplete="off" class="form-control" id="message" name="message"
-                          placeholder="Message Content" required rows="6"></textarea>
-            </div>
-
             <button class="btn btn-secondary" id="message_submit" type="submit"><i class="fa fa-paper-plane fa-lg"></i>
                 &thinsp; Send
             </button>

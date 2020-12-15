@@ -47,7 +47,7 @@ public class MessageSendController {
                     messageComposeRequest.getRecipientEmail());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Recipient email not valid"), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "INVALID_EMAIL"), HttpStatus.OK);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         }
@@ -68,11 +68,11 @@ public class MessageSendController {
                     messageComposeEventRequest.getEventId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (EventNotFoundException e) {
-            return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "BAD_ID"), HttpStatus.FORBIDDEN);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         } catch (MissingPermissionException e){
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "NOT_SPEAKER"), HttpStatus.OK);
         }
     }
 
@@ -95,7 +95,7 @@ public class MessageSendController {
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
         } catch (MissingPermissionException e){
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "NOT_ORGANIZER"), HttpStatus.OK);
         }
     }
 
@@ -105,12 +105,12 @@ public class MessageSendController {
      * @param messageComposeRequest instance of MessageComposeRequest containing details of the message to send to all.
      * @return ResponseEntity containing a Response with status and validity
      */
-    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeRequest messageComposeRequest){
+    public ResponseEntity<Response> sendEveryoneMessage(@RequestBody MessageComposeRequest messageComposeRequest) {
         try {
             messageSender.sendToEveryone(messageComposeRequest.getContent(), messageComposeRequest.getUserId());
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MissingPermissionException e){
-            return new ResponseEntity<>(new Response(false, e.getMessage()), HttpStatus.OK);
+            return new ResponseEntity<>(new Response(false, "NOT_ORGANIZER"), HttpStatus.OK);
         } catch (EventNotFoundException e){
             return new ResponseEntity<>(new Response(false, "Event id not valid"), HttpStatus.OK);
         } catch (InvalidInputException e) {

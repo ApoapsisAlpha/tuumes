@@ -66,8 +66,8 @@
                 let print_speakers = ``;
                 let print_delete = ``;
                 event.speakerData.forEach(speaker => {
-                    print_speakers = `
-                        <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a>
+                    print_speakers += `
+                        <a class="mt-2 mb-2" href="../messages/send_message.html#${speaker.email}">Contact: ${speaker.name}</a><br />
                     `;
                 });
                 if (USER_TYPE == userType.ORGANIZER) {
