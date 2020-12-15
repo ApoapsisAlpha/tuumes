@@ -4,7 +4,7 @@ package group0153.conferencesystem.application.exceptions;
  * An subclass of RuntimeException, thrown when a user is not found.
  */
 public class UserNotFoundException extends RuntimeException {
-    private String userId;
+    private final String userId;
 
     /**
      * Construct an instance of UserNotFoundException using the specified String parameter.

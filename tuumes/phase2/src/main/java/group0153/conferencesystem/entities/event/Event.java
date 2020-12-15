@@ -18,11 +18,11 @@ public class Event {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String roomId;
-    private int speakerLimit;
+    private final int speakerLimit;
     private int userLimit;
     private boolean isVipOnlyEvent;
-    private List<String> userIds;
-    private List<String> speakerIds;
+    private final List<String> userIds;
+    private final List<String> speakerIds;
 
     /**
      * Creates an Event instance.

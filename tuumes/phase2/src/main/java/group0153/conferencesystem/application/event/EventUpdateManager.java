@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventUpdateManager {
 
-    private EventPersistencePort eventPersistencePort;
-    private RoomPersistencePort roomPersistencePort;
+    private final EventPersistencePort eventPersistencePort;
+    private final RoomPersistencePort roomPersistencePort;
 
     /**
      * Creates an instance of the manager.

@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @Component
 public class MessagePersistenceAdapter implements MessagePersistencePort {
 
-    private MessageRepository messageRepository;
-    private UserRepository userRepository;
+    private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
     /**
      * Construct an instance of MessagePersistenceAdapter using the provided MessageRepository and UserRepository

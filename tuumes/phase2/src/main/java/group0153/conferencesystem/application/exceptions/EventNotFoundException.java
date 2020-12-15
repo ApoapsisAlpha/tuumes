@@ -4,7 +4,7 @@ package group0153.conferencesystem.application.exceptions;
  * Thrown when an event is not found.
  */
 public class EventNotFoundException extends RuntimeException {
-    private String eventId;
+    private final String eventId;
 
     /**
      * Construct an instance of EventNotFound using the specified String parameter.

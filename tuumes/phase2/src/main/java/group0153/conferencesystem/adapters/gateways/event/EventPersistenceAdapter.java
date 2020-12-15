@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class EventPersistenceAdapter implements EventPersistencePort {
-    private EventRepository eventRepository;
-    private UserRepository userRepository;
-    private RoomRepository roomRepository;
+    private final EventRepository eventRepository;
+    private final UserRepository userRepository;
+    private final RoomRepository roomRepository;
 
     /**
      * Instantiates a EventPersistenceAdapter.

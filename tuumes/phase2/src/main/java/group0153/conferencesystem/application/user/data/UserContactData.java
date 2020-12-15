@@ -7,9 +7,9 @@ import group0153.conferencesystem.application.Data;
  */
 
 public class UserContactData implements Data {
-    private String id;
-    private String name;
-    private String email;
+    private final String id;
+    private final String name;
+    private final String email;
 
     /**
      * Constructs a instance of UserContactData with the provided information.

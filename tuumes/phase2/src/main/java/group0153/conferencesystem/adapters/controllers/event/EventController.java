@@ -25,9 +25,9 @@ import java.util.List;
 @RequestMapping(value="/api/events")
 public class EventController {
 
-    private EventRegistrationManager eventRegistrationManager;
-    private EventFinder eventFinder;
-    private EventUpdateManager eventUpdateManager;
+    private final EventRegistrationManager eventRegistrationManager;
+    private final EventFinder eventFinder;
+    private final EventUpdateManager eventUpdateManager;
 
     /**
      * Creates an EventController instance.

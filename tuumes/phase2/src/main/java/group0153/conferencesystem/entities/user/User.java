@@ -109,9 +109,9 @@ public class User {
     private final Set<String> events;     // the set of ids of events this User is registered for
     private final Set<String> messages;   // the set of ids of messages received by this User
     protected UserType type;              // the type of this User
-    private String name;                  // the name of this User
+    private final String name;                  // the name of this User
     private String email;                 // the email of this User
-    private String password;              // the password of this User
+    private final String password;              // the password of this User
 
     /**
      * Constructor that instantiates a User instance.

@@ -9,7 +9,7 @@ public class UserRegisterRequest {
     private String name;
     private String email;
     private String password;
-    private String type = "ATTENDEE";
+    private final String type = "ATTENDEE";
 
     /**
      * Gets email.
