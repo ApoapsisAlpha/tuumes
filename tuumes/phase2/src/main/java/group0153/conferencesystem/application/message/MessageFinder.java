@@ -1,11 +1,14 @@
 package group0153.conferencesystem.application.message;
 
-import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
+import group0153.conferencesystem.application.exceptions.UserNotFoundException;
+import group0153.conferencesystem.application.message.data.MessageData;
+import group0153.conferencesystem.application.user.UserPersistencePort;
 import group0153.conferencesystem.entities.message.Message;
+import group0153.conferencesystem.entities.user.User;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A message use case class to find different messages depending on archived state,
@@ -14,135 +17,56 @@ import java.util.List;
 
 @Component
 public class MessageFinder {
-    final MessagePersistencePort messagePersistencePort;
+    private final MessagePersistencePort messagePersistencePort;
+    private final UserPersistencePort userPersistencePort;
 
     /**
      * Instantiates a MessageManager.
      *
-     * @param messagePersistencePort How the messages are saved to the database.
+     * @param messagePersistencePort a message persistence port.
+     * @param userPersistencePort a user persistence port.
      */
-    public MessageFinder(MessagePersistencePort messagePersistencePort) {
+    public MessageFinder(MessagePersistencePort messagePersistencePort, UserPersistencePort userPersistencePort) {
         this.messagePersistencePort = messagePersistencePort;
+        this.userPersistencePort = userPersistencePort;
     }
 
     /**
-     * Given a sender's id, find the id(s)'s of all the messages sent by that user.
+     * Gets all unarchived messages for the given user
      *
-     * @param sender Sender of the message(s)
-     * @return A list of message ids
-     * @throws NoMessagesFoundException No messages have been sent by sender
+     * @param userId user id
+     * @return list of message data.
+     * @throws UserNotFoundException thrown if the user does not exists
      */
-    public List<String> findMsgIdsBySender(String sender){
-        List<String> msgIds = messagePersistencePort.getMsgIdsBySender(sender);
-        if(!msgIds.isEmpty())
-            throw new NoMessagesFoundException("sent");
+    public List<MessageData> getMessages(String userId) throws UserNotFoundException {
+        userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        List<Message> messages = messagePersistencePort.getMessages(userId);
+        List<Message> filteredMessages = messages.stream().filter(m -> !m.isArchived(userId))
+                                                          .filter(m -> !m.isDeleted(userId))
+                                                          .collect(Collectors.toList());
 
-        return msgIds;
+        return filteredMessages.stream().map(message -> {
+            User sender = userPersistencePort.findById(message.getSenderId()).get();
+            return new MessageData(message, sender, userId);
+        }).collect(Collectors.toList());
     }
 
     /**
-     * Given a user's id, find the id(s)'s of all the messages sent to that user including archived ones.
+     * Gets all archived messages for the given user
      *
-     * @param user recipient id of the message(s)
-     * @return A list of messages received by user
-     * @throws NoMessagesFoundException No messages have been received by recipient
+     * @param userId user id
+     * @return list of message data.
+     * @throws UserNotFoundException thrown if the user does not exists
      */
-    private List<Message> findMsgsByRecipient(String user){
-        List<Message> messages = messagePersistencePort.getMsgsToUser(user);
-        if(messages.isEmpty())
-            throw new NoMessagesFoundException("received");
+    public List<MessageData> getArchivedMessages(String userId) {
+        userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        List<Message> messages = messagePersistencePort.getMessages(userId);
+        List<Message> filteredMessages = messages.stream().filter(m -> !m.isDeleted(userId))
+                                                          .collect(Collectors.toList());
 
-        return messages;
-    }
-
-    /**
-     * Given user's id, get all their archived messages
-     * @param user: id of the user whose archived messages are being returned
-     * @return List of all archived message ids
-     * @throws NoMessagesFoundException No messages have been archived by recipient
-     */
-    public ArrayList<String> getArchivedMsgsByUser(String user){
-        List<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> archivedMsgIds = new ArrayList<>();
-
-        if(messages.isEmpty())
-            throw new NoMessagesFoundException("archived");
-        else{
-            for (Message message: messages){
-                if(message.isArchived(user) && !message.isDeleted(user)){
-                    archivedMsgIds.add(message.getId());
-                }
-            }
-        }
-        return archivedMsgIds;
-    }
-
-    /**
-     * Given user's id, get all their unarchived messages
-     * @param user: id of the user whose unarchived messages are being returned
-     * @return List of all unarchived message ids
-     * @throws NoMessagesFoundException No unarchived messages have been sent to user
-     */
-    public ArrayList<String> getUnarchivedMsgsByUser(String user){
-        List<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> unarchivedMsgIds = new ArrayList<>();
-
-        if(messages.isEmpty())
-            throw new NoMessagesFoundException("unarchived");
-        else{
-            for (Message message: messages){
-                if(!message.isArchived(user) && !message.isDeleted(user)){
-                    unarchivedMsgIds.add(message.getId());
-                }
-            }
-        }
-
-        return unarchivedMsgIds;
-    }
-
-    /**
-     * Given user's id, get all their read messages
-     * @param user: id of the user whose read messages are being returned
-     * @return List of all read message ids
-     * @throws NoMessagesFoundException A user has no unread messages.
-     */
-    public ArrayList<String> getReadMsgsByUser(String user){
-        List<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> readMsgIds = new ArrayList<>();
-
-        if(messages.isEmpty())
-            throw new NoMessagesFoundException("read");
-        else{
-            for (Message message: messages){
-                if(!message.isArchived(user) && message.isRead(user) && !message.isDeleted(user)){
-                    readMsgIds.add(message.getId());
-                }
-            }
-        }
-
-        return readMsgIds;
-    }
-
-    /**
-     * Given user's id, get all their unread messages
-     * @param user: id of the user whose unread messages are being returned
-     * @return List of all unread message ids
-     * @throws NoMessagesFoundException A user has no unread messages.
-     */
-    public ArrayList<String> getUnreadMsgsByUser(String user){
-        List<Message> messages = this.findMsgsByRecipient(user);
-        ArrayList<String> unreadMsgIds = new ArrayList<>();
-
-        if(messages.isEmpty())
-            throw new NoMessagesFoundException("unread");
-        else{
-            for (Message message: messages){
-                if(!message.isArchived(user) && !message.isRead(user) && !message.isDeleted(user)){
-                    unreadMsgIds.add(message.getId());
-                }
-            }
-        }
-
-        return unreadMsgIds;
+        return filteredMessages.stream().map(message -> {
+            User sender = userPersistencePort.findById(message.getSenderId()).get();
+            return new MessageData(message, sender, userId);
+        }).collect(Collectors.toList());
     }
 }

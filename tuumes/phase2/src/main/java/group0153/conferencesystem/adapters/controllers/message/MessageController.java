@@ -3,18 +3,16 @@ package group0153.conferencesystem.adapters.controllers.message;
 import group0153.conferencesystem.adapters.controllers.Response;
 import group0153.conferencesystem.adapters.controllers.ResponseArray;
 import group0153.conferencesystem.adapters.controllers.message.requests.MessageRequest;
+import group0153.conferencesystem.application.exceptions.UserNotFoundException;
 import group0153.conferencesystem.application.exceptions.message.MessageIdNotFoundException;
-import group0153.conferencesystem.application.exceptions.message.NoMessagesFoundException;
-import group0153.conferencesystem.application.message.MessageDataPreparer;
 import group0153.conferencesystem.application.message.MessageFinder;
 import group0153.conferencesystem.application.message.MessageManager;
-import group0153.conferencesystem.application.message.MessageSender;
 import group0153.conferencesystem.application.message.data.MessageData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A controller class that facilitates the viewing and manipulating of messages as requested by the user.
@@ -24,37 +22,31 @@ import java.util.ArrayList;
 public class MessageController {
     private final MessageFinder messageFinder;
     private final MessageManager messageManager;
-    private final MessageDataPreparer messageDataPreparer;
 
     /**
      * Construct a new instance of MessageController using the provided data.
      *
      * @param messageFinder          Instance of MessageFinder that handles the retrieval of messages
      * @param messageManager         Instance of MessageManager that can manipulate stored messages
-     * @param messageDataPreparer    Instance of MessageDataPreparer that can prepare messages' data to be utilized
      */
-    public MessageController(MessageFinder messageFinder, MessageManager messageManager,
-                             MessageDataPreparer messageDataPreparer) {
+    public MessageController(MessageFinder messageFinder, MessageManager messageManager) {
         this.messageFinder = messageFinder;
         this.messageManager = messageManager;
-        this.messageDataPreparer = messageDataPreparer;
     }
 
     /**
-     * Facilitate the display of all unarchived messages in the program.
+     * Fetches all messages for a specific user.
      *
-     * @param userId the id of the current user
-     * @return ResponseEntity containing all the data pertaining to all unarchived messages in the program
+     * @param userId the id of the user
+     * @return ResponseEntity containing message data.
      */
     @GetMapping("/view")
     public ResponseEntity<Response> viewMessages(@RequestParam(value = "userId") String userId) {
-        // this method gets all the unarchived messages for a user, returns a ResponseArray();
         try {
-            ArrayList<String> msgIds = messageFinder.getUnarchivedMsgsByUser(userId);
-            ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
+            List<MessageData> messages = messageFinder.getMessages(userId);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoMessagesFoundException e) {
-            return new ResponseEntity<>(new Response(true, "NO_MESSAGES"), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -66,13 +58,11 @@ public class MessageController {
      */
     @GetMapping("/view_archived")
     public ResponseEntity<Response> viewMessagesArchived(@RequestParam(value = "userId") String userId) {
-        // this method gets all the archived messages for a user, returns a ResponseArray();
         try {
-            ArrayList<String> msgIds = messageFinder.getArchivedMsgsByUser(userId);
-            ArrayList<MessageData> messages = messageDataPreparer.createMessageDataArray(msgIds);
+            List<MessageData> messages = messageFinder.getArchivedMessages(userId);
             return new ResponseEntity<>(new ResponseArray(true, messages), HttpStatus.OK);
-        } catch (NoMessagesFoundException e) {
-            return new ResponseEntity<>(new Response(true, "NO_MESSAGES"), HttpStatus.OK);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "BAD_USER"), HttpStatus.FORBIDDEN);
         }
     }
 
@@ -84,7 +74,6 @@ public class MessageController {
      */
     @PostMapping("/read")
     public ResponseEntity<Response> markMessageRead(@RequestBody MessageRequest messageRequest) {
-        // marks a message as read, this returns a Response();
         try {
             messageManager.setMsgReadStatusById(messageRequest.getMessageId(), messageRequest.getUserId(), true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
@@ -101,7 +90,6 @@ public class MessageController {
      */
     @PostMapping("/unread")
     public ResponseEntity<Response> markMessageUnread(@RequestBody MessageRequest messageRequest) {
-        // marks a message as unread, this returns a Response();
         try {
             messageManager.setMsgReadStatusById(messageRequest.getMessageId(), messageRequest.getUserId(), false);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
@@ -118,7 +106,6 @@ public class MessageController {
      */
     @PostMapping("/delete")
     public ResponseEntity<Response> deleteMessage(@RequestBody MessageRequest messageRequest) {
-        // deletes a message, this returns a Response();
         try {
             messageManager.setDeletedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
                     true);
@@ -136,7 +123,6 @@ public class MessageController {
      */
     @PostMapping("/archive")
     public ResponseEntity<Response> archiveMessage(@RequestBody MessageRequest messageRequest) {
-        // archives a message, this returns a Response();
         try {
             messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
                     true);
@@ -154,7 +140,6 @@ public class MessageController {
      */
     @PostMapping("/unarchive")
     public ResponseEntity<Response> unarchiveMessage(@RequestBody MessageRequest messageRequest) {
-        // unarchives a message, this returns a Response();
         try {
             messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
                     false);

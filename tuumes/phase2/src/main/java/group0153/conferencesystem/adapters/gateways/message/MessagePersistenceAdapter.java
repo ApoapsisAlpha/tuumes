@@ -68,6 +68,8 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
         } else {
             messageModel.getReadSet().remove(userModel);
         }
+
+        messageRepository.flush();
     }
 
     /**
@@ -86,6 +88,8 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
         } else {
             messageModel.getArchivedSet().remove(userModel);
         }
+
+        messageRepository.flush();
     }
 
     /**
@@ -104,6 +108,8 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
         } else {
             messageModel.getDeleteSet().remove(userModel);
         }
+
+        messageRepository.flush();
     }
 
     /**
@@ -121,28 +127,14 @@ public class MessagePersistenceAdapter implements MessagePersistencePort {
     /**
      * Given a user, returns a list of all Messages (archived and unarchived) that were sent to a user
      *
-     * @param user The id of the user whose Messages are being given
+     * @param userId The id of the user whose Messages are being given
      * @return A List of all Messages of the given user
      */
     @Override
-    public List<Message> getMsgsToUser(String user) {
-        UserModel userModel = userRepository.findByResourceId(user).get();
+    public List<Message> getMessages(String userId) {
+        UserModel userModel = userRepository.findByResourceId(userId).get();
         Set<MessageModel> messageModels = userModel.getMessages();
         MessageMapper mapper = new MessageMapper();
         return messageModels.stream().map(m -> mapper.mapModelToEntity(Optional.of(m)).get()).collect(Collectors.toList());
-    }
-
-    /**
-     * Given a senderid, returns a list of all Message ids sent by that sender
-     *
-     * @param sender The id of the sender whose messages are being found
-     * @return A List of all messages sent by the given sender
-     */
-    @Override
-    public List<String> getMsgIdsBySender(String sender) {
-        UserModel userModel = userRepository.findByResourceId(sender).get();
-        List<MessageModel> messageModels = messageRepository.findAllBySender(userModel);
-        MessageMapper mapper = new MessageMapper();
-        return messageModels.stream().map(m -> mapper.mapModelToEntity(Optional.of(m)).get().getId()).collect(Collectors.toList());
     }
 }

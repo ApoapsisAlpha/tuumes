@@ -50,16 +50,9 @@ public interface MessagePersistencePort {
 
     /**
      * Given a user, returns a list of all Messages (archived and unarchived) that were sent to a user
-     * @param user The id of the user whose Messages are being given
+     * @param userId The id of the user whose Messages are being given
      * @return A List of all Messages of the given user
      */
-    List<Message> getMsgsToUser(String user);
-
-    /**
-     * Given a senderid, returns a list of all Message ids sent by that sender
-     * @param sender The id of the sender whose messages are being found
-     * @return A List of all messages sent by the given sender
-     */
-    List<String> getMsgIdsBySender(String sender);
+    List<Message> getMessages(String userId);
 
 }

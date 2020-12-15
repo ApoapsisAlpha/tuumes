@@ -1,102 +1,58 @@
 package group0153.conferencesystem.application.message.data;
 
 import group0153.conferencesystem.application.Data;
+import group0153.conferencesystem.application.user.data.UserContactData;
 import group0153.conferencesystem.entities.message.Message;
-
-import java.util.List;
-import java.util.Set;
+import group0153.conferencesystem.entities.user.User;
 
 /**
  * A class for storing information of a message.
  */
 public class MessageData implements Data {
-    private final String id; // id of the message
-    private final String messageContent; // string containing the message content
-    private final String senderId; // the sender's id
-    private final List<String> recipientIds;
-
-    private Set<String> readSet;
-    private Set<String> archivedSet;
-    private Set<String> deletedSet;
+    private final String id;
+    private final String content;
+    private final UserContactData sender;
+    private final boolean isRead;
+    private final boolean isArchived;
+    private final boolean isDeleted;
 
     /**
-     * Construct a new instance of MessageData using the provided Message
+     * Constructs a message data object for a specific recipient.
      *
-     * @param message Message instance whose attributes are to be preserved
+     * @param message the message
+     * @param sender the sender
+     * @param recipientId the recipient's id
      */
-    public MessageData(Message message) {
+    public MessageData(Message message, User sender, String recipientId) {
         this.id = message.getId();
-        this.messageContent = message.getMessageContent();
-        this.senderId = message.getSenderId();
-        this.recipientIds = message.getRecipientIds();
-        this.readSet = message.getReadSet();
-        this.archivedSet = message.getArchivedSet();
-        this.deletedSet = message.getDeletedSet();
+        this.content = message.getMessageContent();
+        this.sender = new UserContactData(sender.getId(), sender.getName(), sender.getEmail());
+        this.isRead = message.isRead(recipientId);
+        this.isArchived = message.isArchived(recipientId);
+        this.isDeleted = message.isDeleted(recipientId);
     }
 
-    /**
-     * Get the message id
-     *
-     * @return value of String message id
-     */
     public String getId() {
         return id;
     }
 
-    /**
-     * Get the message content
-     *
-     * @return value of String message content
-     */
-    public String getMessageContent() {
-        return messageContent;
+    public String getContent() {
+        return content;
     }
 
-    /**
-     * Get the sender id
-     *
-     * @return value of String sender id
-     */
-    public String getSenderId() {
-        return senderId;
+    public UserContactData getSender() {
+        return sender;
     }
 
-    /**
-     * Get the ArrayList of recipient ids
-     *
-     * @return ArrayList of String recipient ids
-     */
-    public List<String> getRecipientIds() {
-        return recipientIds;
+    public boolean isRead() {
+        return isRead;
     }
 
-    /**
-     * Get whether the message represented by this MessageData instance has been read
-     *
-     * @param recipientId recipient id
-     * @return boolean whether message has been read
-     */
-    public boolean isRead(String recipientId) {
-        return readSet.contains(recipientId);
+    public boolean isArchived() {
+        return isArchived;
     }
 
-    /**
-     * Get whether the message represented by this MessageData instance is archived
-     *
-     * @param recipientId recipient id
-     * @return boolean whether message is archived
-     */
-    public boolean isArchived(String recipientId) {
-        return archivedSet.contains(recipientId);
-    }
-
-    /**
-     * Get whether the message represented by this MessageData instance is deleted
-     *
-     * @param recipientId recipient id
-     * @return boolean whether message is deleted
-     */
-    public boolean isDeleted(String recipientId) {
-        return deletedSet.contains(recipientId);
+    public boolean isDeleted() {
+        return isDeleted;
     }
 }
