@@ -133,7 +133,7 @@ public class EventController {
                 eventRegistrationManager.createEvent(eventData);
                 return new ResponseEntity<>(new Response(true, "SUCCESS"), HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);
+                return new ResponseEntity<>(new Response(false, "TIME_ERROR"), HttpStatus.OK);
             }
         } catch (FullRoomException e) {
             return new ResponseEntity<>(new Response(false, "ROOM_FULL"), HttpStatus.OK);

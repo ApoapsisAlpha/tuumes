@@ -1,5 +1,7 @@
 package group0153.conferencesystem.adapters.controllers.event.requests;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A class that facilitates the creation of an event as requested.
  */
@@ -11,6 +13,7 @@ public class EventCreationRequest {
     private String roomId;
     private int speakerLimit;
     private int userLimit;
+    @JsonProperty("isVipOnlyEvent")
     private boolean isVipOnlyEvent;
 
     /**
