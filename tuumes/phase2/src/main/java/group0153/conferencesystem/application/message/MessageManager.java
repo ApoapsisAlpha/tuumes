@@ -55,7 +55,7 @@ public class MessageManager {
         if(!message.isPresent())
             throw new MessageIdNotFoundException();
 
-        if(archived){
+        if (archived){
             message.get().addArchived(userId);
         } else {
             message.get().removeArchived(userId);

@@ -107,7 +107,7 @@ public class MessageController {
     @PostMapping("/delete")
     public ResponseEntity<Response> deleteMessage(@RequestBody MessageRequest messageRequest) {
         try {
-            messageManager.setDeletedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+            messageManager.setDeletedStatusById(messageRequest.getMessageId(), messageRequest.getUserId(),
                     true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
@@ -124,7 +124,7 @@ public class MessageController {
     @PostMapping("/archive")
     public ResponseEntity<Response> archiveMessage(@RequestBody MessageRequest messageRequest) {
         try {
-            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getUserId(),
                     true);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {
@@ -141,7 +141,7 @@ public class MessageController {
     @PostMapping("/unarchive")
     public ResponseEntity<Response> unarchiveMessage(@RequestBody MessageRequest messageRequest) {
         try {
-            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getMessageId(),
+            messageManager.setArchivedStatusById(messageRequest.getMessageId(), messageRequest.getUserId(),
                     false);
             return new ResponseEntity<>(new Response(true), HttpStatus.OK);
         } catch (MessageIdNotFoundException e) {

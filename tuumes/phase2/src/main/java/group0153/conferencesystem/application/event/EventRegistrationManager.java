@@ -58,7 +58,7 @@ public class EventRegistrationManager {
         if (event.getUserCount() >= event.getUserLimit())
             throw new FullEventException(eventId);
 
-        if (event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP))
+        if (user.getType() != UserType.SPEAKER && event.isVipOnlyEvent() && !user.getType().equals(UserType.VIP))
             throw new VipOnlyEventException(eventId);
 
         eventPersistencePort.registerUserById(eventId, userId);
