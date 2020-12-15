@@ -106,7 +106,21 @@
         }, function(result) {
             console.log(result);
             getEvents();
-            toastr.success("You've registered to this event.");
+            if (result.valid) {
+                toastr.success("You've registered to this event.");
+            } else {
+                switch (result.message) {
+                    case "FULL_EVENT":
+                        toastr.error("This event is full!");
+                        break;
+                    case "SPEAKER_CONFLICT":
+                        toastr.error("The selected speaker is already speaking at an event during this time, try a different speaker.");
+                        break;
+                    default:
+                        toastr.error("Unexpected error: " + result.message);
+                        break;
+                }
+            }
         });
 
         return false;

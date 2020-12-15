@@ -53,11 +53,11 @@
             <div class="form-group">
                 <label for="speakers">Add a Speaker</label>
                 <select class="browser-default custom-select" id="speakers" name="speakers" required>
-                    <option disabled selected>Speaker</option>
+                    <option disabled selected> ... </option>
                 </select>
 
             </div>
-            <button class="btn btn-secondary" type="button"><i class="fa fa-user-check fa-lg"></i> &thinsp; Add Speaker
+            <button class="btn btn-secondary" type="button" onclick="addSpeaker()"><i class="fa fa-user-check fa-lg"></i> &thinsp; Add Speaker
             </button>
             <br> OR <br>
             <button class="btn btn-danger" type="button" onclick="deleteEvent()"><i class="fa fa-calendar-minus fa-lg"></i> &thinsp; Remove
@@ -85,6 +85,45 @@
         location.href = "view_events.html";
     }
 
+    function getSpeakers() {
+        $.getJSON("/users/speakers", { }, function(result) {
+            let to_print = `<option disabled selected>Select a Speaker</option>`;
+            result.data.forEach(speaker => {
+                to_print += `
+                    <option value="${speaker.id}">${speaker.name}</option>
+                `;
+            });
+
+            $("#speakers").html(to_print);
+        });
+    }
+
+    function addSpeaker() {
+        $.postJSON("/events/register", {
+            userId: $("#speakers").val(),
+            eventId: eventId
+        }, function(result) {
+            if (result.valid) {
+                toastr.success("You've registered to this event.");
+            } else {
+                switch (result.message) {
+                    case "FULL_EVENT":
+                        toastr.error("This event is full!");
+                        break;
+                    case "SPEAKER_CONFLICT":
+                        toastr.error("The selected speaker is already speaking at an event during this time, try a different speaker.");
+                        break;
+                    default:
+                        toastr.error("Unexpected error: " + result.message);
+                        break;
+                }
+            }
+                
+        });
+
+        return false;
+    }
+
     function deleteEvent() {
         $.postJSON("/events/remove", {
             eventId: eventId
@@ -110,5 +149,7 @@
 
         return false;
     }
+
+    getSpeakers();
 </script>
 </html>
