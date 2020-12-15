@@ -83,17 +83,19 @@ public class MessageSender {
      * @param senderId:       id of sender
      * @param eventId:        an event id
      * @throws EventNotFoundException if given event is not found
+     * @throws MissingPermissionException if user is not a speaker
      */
-    public void sendToEvent(String messageContent, String senderId, String eventId) throws EventNotFoundException {
+    public void sendToEvent(String messageContent, String senderId, String eventId) throws EventNotFoundException,
+            MissingPermissionException {
         Optional<Event> eventPresent = eventPersistencePort.findById(eventId);
         if (!eventPresent.isPresent())
             throw new EventNotFoundException(eventId);
 
-        Optional<User> userPresent = userPersistencePort.findById(senderId);
-        if (!userPresent.isPresent())
+        Optional<User> senderPresent = userPersistencePort.findById(senderId);
+        if (!senderPresent.isPresent())
             throw new UserNotFoundException(senderId);
 
-        if (userPresent.get().getType() != UserType.SPEAKER){
+        if (senderPresent.get().getType() != UserType.SPEAKER){
             throw new MissingPermissionException(UserType.SPEAKER);
         }
 
@@ -101,11 +103,11 @@ public class MessageSender {
         List<String> attendees = eventPresent.get().getUserIds();
         ArrayList<String> recipients = new ArrayList<>();
         for (String id : attendees) {
-            Optional<User> userPresent1 = userPersistencePort.findById(id);
-            if (!userPresent1.isPresent())
+            Optional<User> userPresent = userPersistencePort.findById(id);
+            if (!userPresent.isPresent())
                 throw new UserNotFoundException(id);
 
-            if (userPresent1.get().getType() != UserType.SPEAKER) {
+            if (userPresent.get().getType() != UserType.SPEAKER) {
                 recipients.add(id);
             }
         }
@@ -114,28 +116,15 @@ public class MessageSender {
     }
 
     /**
-     * Create a message with the provided parameters
-     *
-     * @param messageContent: String with the message's content
-     * @param senderId:       id of sender
-     * @param eventIds:       a list of event ids
-     * @throws EventNotFoundException if given event is not found
-     */
-    public void sendToMultiEvent(String messageContent, String senderId, List<String> eventIds) throws EventNotFoundException {
-        for(String id: eventIds){
-            this.sendToEvent(messageContent, senderId, id);
-        }
-    }
-
-    /**
-     * Create a message sent to every user
+     * Create a message sent to every user except the sender
      *
      * @param messageContent: String with message's content
      * @param senderId:       id of sender
+     * @param userType:       UserType of people to send to
      * @throws UserNotFoundException if sender id is not found
-     * @throws InvalidInputException if user is not an organizer
+     * @throws MissingPermissionException if user is not an organizer
      */
-    public void sendToEveryone(String messageContent, String senderId) throws UserNotFoundException,
+    public void sendToEveryone(String messageContent, String senderId, UserType userType) throws UserNotFoundException,
             MissingPermissionException{
         Optional<User> userPresent = userPersistencePort.findById(senderId);
         if (!userPresent.isPresent())
@@ -150,11 +139,13 @@ public class MessageSender {
         ArrayList<String> recipients = new ArrayList<>();
 
         for(User user: users){
-            recipients.add(user.getId());
+            if(user.getType() == userType) {
+                recipients.add(user.getId());
+            }
         }
+        recipients.remove(senderId);
 
         Message message = new Message(newId, messageContent, senderId, recipients);
         messagePersistencePort.saveMessage(message);
-
     }
 }
