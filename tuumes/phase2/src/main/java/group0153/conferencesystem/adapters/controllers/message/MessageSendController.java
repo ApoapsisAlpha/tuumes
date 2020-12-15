@@ -101,6 +101,8 @@ public class MessageSendController {
             return new ResponseEntity<>(new Response(false, "NOT_ORGANIZER"), HttpStatus.OK);
         } catch (InvalidInputException e) {
             return new ResponseEntity<>(new Response(false, "BAD_INPUT"), HttpStatus.UNPROCESSABLE_ENTITY);
+        } catch (UserNotFoundException e) {
+            return new ResponseEntity<>(new Response(false, "ID_NOT_FOUND"), HttpStatus.OK);
         }
     }
 }
