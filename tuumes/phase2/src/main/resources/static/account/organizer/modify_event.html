@@ -77,6 +77,14 @@
 <script type="text/javascript" src="../../assets/js/account.js"></script>
 
 <script>
+    let eventId;
+    if (window.location.hash) {
+        let hash = window.location.hash.substring(1);
+        eventId = hash;
+    } else {
+        location.href = "view_events.html";
+    }
+
     function deleteEvent(eventId) {
         $.postJSON("/users/contacts/remove", {
             userId: USER_ID,
