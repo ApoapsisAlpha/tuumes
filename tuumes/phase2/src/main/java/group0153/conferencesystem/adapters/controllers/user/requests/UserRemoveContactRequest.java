@@ -6,19 +6,8 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
  * A class facilitating the user's interaction with their contacts by storing information about them.
  */
 public class UserRemoveContactRequest {
-    private final String userId;
-    private final String contactId;
-
-    /**
-     * Construct an instance of UserContactResource using the user's id and contact's id as provided.
-     *
-     * @param userId    the String id of the current user
-     * @param contactId the String id of the user's contact
-     */
-    public UserRemoveContactRequest(String userId, String contactId) {
-        this.userId = userId;
-        this.contactId = contactId;
-    }
+    private String userId;
+    private String contactId;
 
     /**
      * Get the id of the user.

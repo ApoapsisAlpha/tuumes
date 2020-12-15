@@ -12,11 +12,6 @@ public class UserRegisterRequest {
     private String type = "ATTENDEE";
 
     /**
-     * Construct an instance of UserRegisterResource.
-     */
-    public UserRegisterRequest() { }
-
-    /**
      * Gets email.
      *
      * @return Value of email.

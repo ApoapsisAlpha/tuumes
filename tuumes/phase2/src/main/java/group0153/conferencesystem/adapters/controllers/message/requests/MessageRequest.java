@@ -6,19 +6,8 @@ import group0153.conferencesystem.application.exceptions.InvalidInputException;
  * A class facilitating the user's interaction with messages by providing the information about them.
  */
 public class MessageRequest {
-    private final String userId;
-    private final String messageId;
-
-    /**
-     * Construct an instance of MessageResource using the provided userId and messageId.
-     *
-     * @param userId    the id of the user
-     * @param messageId the id of the message
-     */
-    public MessageRequest(String userId, String messageId) {
-        this.userId = userId;
-        this.messageId = messageId;
-    }
+    private String userId;
+    private String messageId;
 
     /**
      * Get id of message.

@@ -10,16 +10,6 @@ public class UserLoginRequest {
     private String password;
 
     /**
-     * Creates a UserLoginRequest instance
-     * @param email The email of the request
-     * @param password The password of the login
-     */
-    public UserLoginRequest(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    /**
      * Gets email.
      *
      * @return Value of email.

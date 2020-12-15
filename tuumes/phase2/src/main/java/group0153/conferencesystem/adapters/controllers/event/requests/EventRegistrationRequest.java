@@ -6,18 +6,6 @@ package group0153.conferencesystem.adapters.controllers.event.requests;
 public class EventRegistrationRequest {
     private String userId;
     private String eventId;
-
-    /**
-     * Construct an instance of EventRegistrationRequest
-     *
-     * @param userId  the id of the user attempting to register
-     * @param eventId the id of the event attempting to be registered to
-     */
-    public EventRegistrationRequest(String userId, String eventId) {
-        this.userId = userId;
-        this.eventId = eventId;
-    }
-
     /**
      * Gets eventId.
      *

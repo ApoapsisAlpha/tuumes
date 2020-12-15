@@ -14,30 +14,6 @@ public class EventCreationRequest {
     private boolean isVipOnlyEvent;
 
     /**
-     * Construct an instance of EventCreationRequest with the specified information set.
-     *
-     * @param name           Name of event
-     * @param description    Description of event
-     * @param startTime      Start time of event
-     * @param endTime        End time of event
-     * @param roomId         Room id for the room where the event takes place
-     * @param speakerLimit   Maximum number of speakers
-     * @param userLimit      Maximum number of attending users
-     * @param isVipOnlyEvent Boolean indicating whetehr the event is for VIP-only users.
-     */
-    public EventCreationRequest(String name, String description, int startTime, int endTime, String roomId,
-                                int speakerLimit, int userLimit, boolean isVipOnlyEvent) {
-        this.name = name;
-        this.description = description;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.roomId = roomId;
-        this.speakerLimit = speakerLimit;
-        this.userLimit = userLimit;
-        this.isVipOnlyEvent = isVipOnlyEvent;
-    }
-
-    /**
      * Get the name of the event.
      *
      * @return the name of the event.
