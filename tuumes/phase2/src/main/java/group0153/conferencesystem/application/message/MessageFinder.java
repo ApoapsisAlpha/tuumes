@@ -62,6 +62,7 @@ public class MessageFinder {
         userPersistencePort.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         List<Message> messages = messagePersistencePort.getMessages(userId);
         List<Message> filteredMessages = messages.stream().filter(m -> !m.isDeleted(userId))
+                                                          .filter(m -> m.isArchived(userId))
                                                           .collect(Collectors.toList());
 
         return filteredMessages.stream().map(message -> {

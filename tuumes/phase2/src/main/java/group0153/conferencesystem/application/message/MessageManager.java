@@ -82,34 +82,4 @@ public class MessageManager {
         messagePersistencePort.updateMessageDeletedStatus(message.get().getId(), userId, deleted);
     }
 
-    /**
-     * Given a message's id, return the message's content.
-     *
-     * @param msgId The message id of the message to return the content of
-     * @return message content
-     * @throws MessageIdNotFoundException Thrown if message doesn't exist
-     */
-    public String getMsgContentById(String msgId){
-        Optional<Message> message = messagePersistencePort.findById(msgId);
-        if(!message.isPresent())
-            throw new MessageIdNotFoundException();
-
-        return message.get().getMessageContent();
-    }
-
-    /**
-     * Given a message's id, return the sender's id.
-     *
-     * @param msgId The message id of the message to return the sender of.
-     * @return sender id
-     * @throws MessageIdNotFoundException Thrown if message doesn't exist
-     */
-    public String getSenderIdByMsgId(String msgId){
-        Optional<Message> message = messagePersistencePort.findById(msgId);
-        if(!message.isPresent())
-            throw new MessageIdNotFoundException();
-
-        return message.get().getSenderId();
-    }
-
 }
