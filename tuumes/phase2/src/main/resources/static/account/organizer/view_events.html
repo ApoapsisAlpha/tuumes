@@ -101,17 +101,6 @@
         });
     }
 
-    function deleteEvent(eventId) {
-        $.postJSON("/users/contacts/remove", {
-            eventId: eventId
-        }, function(result) {
-            
-            getEvents();
-        });
-
-        return false;
-    }
-
     getEvents();
 </script>
 

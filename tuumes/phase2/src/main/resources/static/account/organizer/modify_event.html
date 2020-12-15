@@ -86,11 +86,11 @@
     }
 
     function deleteEvent(eventId) {
-        $.postJSON("/users/contacts/remove", {
-            userId: USER_ID,
+        $.postJSON("/events/remove", {
             eventId: eventId
         }, function(result) {
-            getEvents();
+            console.log(result);
+            // location.href = "view_events.html";
         });
 
         return false;

@@ -10,16 +10,6 @@ public class RoomRequest {
     private int capacity;
 
     /**
-     * Constructs the RoomRequest.
-     * @param name Name of the room
-     * @param capacity Capacity of the room
-     */
-    public RoomRequest(String name, int capacity) {
-        this.name = name;
-        this.capacity = capacity;
-    }
-
-    /**
      * Get name of room.
      *
      * @return String value of name
